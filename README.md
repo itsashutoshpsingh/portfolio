@@ -1,2 +1,0 @@
-# itsashutoshpsingh.github.io
-Portfolio
