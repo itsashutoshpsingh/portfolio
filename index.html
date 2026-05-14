@@ -9,20 +9,28 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&family=Cascadia+Code:wght@500;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet" />
 <style>
   :root {
-    --bg: #04060a;
-    --bg-2: #080b11;
-    --panel: #0b0f15;
-    --panel-2: #10151c;
-    --line: #1a2230;
-    --line-2: #28344a;
-    --ink: #e6edf3;
-    --muted: #7a8794;
-    --dim: #4a5662;
-    --accent: oklch(0.88 0.20 145);
-    --accent-2: oklch(0.55 0.16 145);
-    --cyan: oklch(0.82 0.13 210);
-    --amber: oklch(0.82 0.16 70);
-    --magenta: oklch(0.72 0.20 340);
+    --bg: #08081a;
+    --bg-2: #0d0d24;
+    --panel: #121231;
+    --panel-2: #1a1640;
+    --line: #211c4a;
+    --line-2: #2f2766;
+    --ink: #f5f7fb;
+    --muted: #8b8cb5;
+    --dim: #4d4d80;
+    /* Quad-tone accent system */
+    --blue: oklch(0.72 0.22 258);
+    --blue-bright: oklch(0.86 0.16 258);
+    --purple: oklch(0.65 0.22 295);
+    --purple-bright: oklch(0.80 0.18 295);
+    --green: oklch(0.80 0.16 150);
+    --green-bright: oklch(0.90 0.14 150);
+    --accent: oklch(0.72 0.22 258);
+    --accent-2: oklch(0.55 0.22 258);
+    --accent-bright: oklch(0.86 0.16 258);
+    --cyan: oklch(0.85 0.15 220);
+    --amber: oklch(0.78 0.18 80);
+    --magenta: oklch(0.72 0.20 320);
     --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
     --grotesk: "IBM Plex Sans", system-ui, sans-serif;
     --display: "Cascadia Code", "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
@@ -46,7 +54,7 @@
   /* ================ ATMOSPHERE ================ */
   .bg-canvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.45; }
   .bg-vignette { position: fixed; inset: 0; z-index: 2; pointer-events: none;
-    background: radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(4,6,10,0.85) 95%);
+    background: radial-gradient(ellipse at 50% 40%, transparent 30%, rgba(6,7,14,0.85) 95%);
   }
   .scanlines {
     position: fixed; inset:0;
@@ -59,9 +67,9 @@
     filter: blur(100px); opacity: 0.16;
     animation: drift 32s ease-in-out infinite alternate;
   }
-  .ambient i:nth-child(1) { background: oklch(0.7 0.18 145); top: -200px; left: -200px; }
-  .ambient i:nth-child(2) { background: oklch(0.65 0.13 210); bottom: -250px; right: -150px; animation-duration: 38s; animation-delay: -8s; }
-  .ambient i:nth-child(3) { background: oklch(0.6 0.15 320); top: 40%; left: 30%; width: 900px; height: 900px; opacity: 0.07; animation-duration: 46s; }
+  .ambient i:nth-child(1) { background: oklch(0.7 0.22 258); top: -200px; left: -200px; }
+  .ambient i:nth-child(2) { background: oklch(0.65 0.22 258); bottom: -250px; right: -150px; animation-duration: 38s; animation-delay: -8s; }
+  .ambient i:nth-child(3) { background: oklch(0.6 0.22 258); top: 40%; left: 30%; width: 900px; height: 900px; opacity: 0.07; animation-duration: 46s; }
   @keyframes drift {
     0%   { transform: translate(0,0) scale(1); }
     50%  { transform: translate(100px, -80px) scale(1.1); }
@@ -78,8 +86,8 @@
     font-family: var(--mono);
     pointer-events: none;
   }
-  .rail.left { left: 0; border-right: 1px solid var(--line); background: linear-gradient(90deg, rgba(4,6,10,0.7), transparent); }
-  .rail.right { right: 0; border-left: 1px solid var(--line); background: linear-gradient(-90deg, rgba(4,6,10,0.7), transparent); align-items: center; }
+  .rail.left { left: 0; border-right: 1px solid var(--line); background: linear-gradient(90deg, rgba(6,7,14,0.7), transparent); }
+  .rail.right { right: 0; border-left: 1px solid var(--line); background: linear-gradient(-90deg, rgba(6,7,14,0.7), transparent); align-items: center; }
 
   .rail .brand {
     writing-mode: vertical-rl;
@@ -125,7 +133,7 @@
   .chapter:hover::after, .chapter:hover::before { opacity: 1; }
   .chapter.active {
     background: var(--accent);
-    box-shadow: 0 0 0 4px oklch(0.86 0.20 145 / 0.15);
+    box-shadow: 0 0 0 4px oklch(0.86 0.14 258 / 0.15);
     transform: scale(1.3);
   }
   .chapter.active::after, .chapter.active::before { opacity: 1; }
@@ -155,7 +163,7 @@
     position: absolute;
     width: 60px; height: 60px;
     border: 1px solid var(--accent-2);
-    background: oklch(0.86 0.20 145 / 0.04);
+    background: oklch(0.86 0.14 258 / 0.04);
     display: grid; place-items: center;
     font-family: var(--mono);
     font-size: 9px;
@@ -166,7 +174,7 @@
     content: "";
     position: absolute;
     inset: 6px;
-    border: 1px dashed oklch(0.86 0.20 145 / 0.3);
+    border: 1px dashed oklch(0.86 0.14 258 / 0.3);
   }
   .cube .f1 { transform: translateZ(30px); }
   .cube .f2 { transform: rotateY(180deg) translateZ(30px); }
@@ -227,8 +235,8 @@
   .topbar .status { display: flex; align-items: center; gap: 8px; color: var(--muted); }
   .pulse { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse {
-    0%,100% { box-shadow: 0 0 0 0 oklch(0.86 0.20 145 / 0.6); }
-    50%     { box-shadow: 0 0 0 8px oklch(0.86 0.20 145 / 0); }
+    0%,100% { box-shadow: 0 0 0 0 oklch(0.86 0.14 258 / 0.6); }
+    50%     { box-shadow: 0 0 0 8px oklch(0.86 0.14 258 / 0); }
   }
 
   /* ================ HERO ================ */
@@ -387,8 +395,8 @@
     animation: pulseFig 4s ease-in-out infinite;
   }
   @keyframes pulseFig {
-    0%,100% { filter: drop-shadow(0 0 14px oklch(0.86 0.20 145 / 0.4)); }
-    50%     { filter: drop-shadow(0 0 28px oklch(0.86 0.20 145 / 0.75)); }
+    0%,100% { filter: drop-shadow(0 0 14px oklch(0.86 0.14 258 / 0.4)); }
+    50%     { filter: drop-shadow(0 0 28px oklch(0.86 0.14 258 / 0.75)); }
   }
 
   .seal-label-top {
@@ -521,7 +529,7 @@
 
   /* === FEATURED EXPERIENCE === */
   .exp.featured {
-    background: linear-gradient(135deg, oklch(0.86 0.20 145 / 0.05), transparent 60%);
+    background: linear-gradient(135deg, oklch(0.86 0.14 258 / 0.05), transparent 60%);
     border-top: 1px solid var(--accent) !important;
     padding: 64px 0 64px;
     position: relative;
@@ -539,7 +547,7 @@
     padding-right: 14px;
   }
   .exp.featured .exp-body h3 { font-size: 36px; }
-  .exp.featured .exp-tags span.hi { background: oklch(0.86 0.20 145 / 0.10); }
+  .exp.featured .exp-tags span.hi { background: oklch(0.86 0.14 258 / 0.10); }
 
   /* === PERSPECTIVE GRID FLOOR === */
   .grid-floor {
@@ -552,8 +560,8 @@
     pointer-events: none;
     opacity: 0.40;
     background-image:
-      linear-gradient(to right, oklch(0.55 0.16 145 / 0.55) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(0.55 0.16 145 / 0.55) 1px, transparent 1px);
+      linear-gradient(to right, oklch(0.55 0.22 258 / 0.55) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.55 0.22 258 / 0.55) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 65%, transparent 100%);
     animation: gridScroll 5s linear infinite;
@@ -582,15 +590,15 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 1px solid oklch(0.86 0.20 145 / 0.75);
+    border: 1px solid oklch(0.86 0.14 258 / 0.75);
     transform-style: preserve-3d;
   }
   .gyro .ring.r1 { transform: rotateY(0deg); }
-  .gyro .ring.r2 { transform: rotateY(60deg); border-color: oklch(0.82 0.13 210 / 0.65); }
-  .gyro .ring.r3 { transform: rotateY(120deg); border-color: oklch(0.86 0.20 145 / 0.55); }
-  .gyro .ring.r4 { transform: rotateX(90deg); border-color: oklch(0.82 0.13 210 / 0.55); border-style: dashed; }
-  .gyro .ring.r5 { inset: 14%; transform: rotateX(45deg) rotateY(45deg); border-color: oklch(0.86 0.20 145 / 0.45); }
-  .gyro .ring.r6 { inset: 28%; transform: rotateX(70deg) rotateY(20deg); border-color: oklch(0.72 0.20 340 / 0.45); border-style: dashed; }
+  .gyro .ring.r2 { transform: rotateY(60deg); border-color: oklch(0.82 0.20 258 / 0.65); }
+  .gyro .ring.r3 { transform: rotateY(120deg); border-color: oklch(0.86 0.14 258 / 0.55); }
+  .gyro .ring.r4 { transform: rotateX(90deg); border-color: oklch(0.82 0.20 258 / 0.55); border-style: dashed; }
+  .gyro .ring.r5 { inset: 14%; transform: rotateX(45deg) rotateY(45deg); border-color: oklch(0.86 0.14 258 / 0.45); }
+  .gyro .ring.r6 { inset: 28%; transform: rotateX(70deg) rotateY(20deg); border-color: oklch(0.72 0.20 258 / 0.45); border-style: dashed; }
   .gyro .core {
     position: absolute;
     top: 50%; left: 50%;
@@ -712,7 +720,7 @@
   .exp-body ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   .exp-body li { color: #b8c4d0; font-size: 15px; line-height: 1.55; padding-left: 24px; position: relative; }
   .exp-body li::before { content: ">"; position: absolute; left: 0; top: 1px; font-family: var(--mono); color: var(--accent); font-size: 13px; }
-  .exp-body li b { color: var(--ink); font-weight: 500; background: linear-gradient(transparent 70%, oklch(0.86 0.20 145 / 0.22) 70%); padding: 0 2px; }
+  .exp-body li b { color: var(--ink); font-weight: 500; background: linear-gradient(transparent 70%, oklch(0.86 0.14 258 / 0.22) 70%); padding: 0 2px; }
 
   .exp-tags { display: flex; flex-direction: column; gap: 8px; }
   .exp-tags span {
@@ -757,9 +765,9 @@
   }
   .skill-cat .tag:hover {
     border-color: var(--accent); color: var(--accent);
-    background: oklch(0.86 0.20 145 / 0.08);
+    background: oklch(0.86 0.14 258 / 0.08);
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px -10px oklch(0.86 0.20 145 / 0.6);
+    box-shadow: 0 6px 18px -10px oklch(0.86 0.14 258 / 0.6);
   }
 
   /* ================ EDUCATION ================ */
@@ -837,11 +845,11 @@
     padding: 18px 22px; color: var(--ink); text-decoration: none;
     border: 1px solid var(--line); background: var(--panel); transition: all .25s;
   }
-  .contact .ch a:hover { border-color: var(--accent); background: oklch(0.86 0.20 145 / 0.06); transform: translateX(6px); }
+  .contact .ch a:hover { border-color: var(--accent); background: oklch(0.86 0.14 258 / 0.06); transform: translateX(6px); }
   .contact .ch a .k { color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.12em; }
   .contact .ch a .arrow { color: var(--accent); }
 
-  .colophon { margin-top: 100px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.1em; text-transform: uppercase; }
+  .colophon { margin-top: 100px; padding-top: 0; border-top: none; display: flex; justify-content: center; font-family: var(--mono); font-size: 11px; color: var(--dim); letter-spacing: 0.18em; text-transform: uppercase; }
 
   /* ================ JOURNEY MARKER (between sections) ================ */
   .journey-mark {
@@ -877,9 +885,495 @@
     .pub { grid-template-columns: 1fr; gap: 24px; }
     .meta-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
   }
+  /* ===== Dim tag (less-familiar / supporting) ===== */
+  .skill-cat .tag.dim {
+    color: var(--dim);
+    border-style: dashed;
+  }
+  .skill-cat .tag.dim:hover { color: var(--muted); }
+
+  /* ===== Magnetic hover ===== */
+  .magnet { transition: transform .25s cubic-bezier(.2,.7,.2,1); }
+
+  /* ===== Cursor halo ===== */
+  .cursor-halo {
+    position: fixed;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+    transform: translate(-50%,-50%);
+    background: radial-gradient(circle, oklch(0.86 0.14 258 / 0.10) 0%, transparent 70%);
+    mix-blend-mode: screen;
+    transition: opacity .4s;
+    will-change: left, top;
+  }
+
+  /* =================================================================
+     BOOT OVERLAY — page opens as a terminal, then morphs into the site
+     ================================================================= */
+  .boot {
+    position: fixed; inset: 0;
+    z-index: 100;
+    background: var(--bg);
+    display: grid;
+    place-items: center;
+    transition: opacity .8s cubic-bezier(.6,0,.2,1), filter .8s, transform .8s cubic-bezier(.6,0,.2,1);
+    overflow: hidden;
+  }
+  .boot::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(to right, oklch(0.55 0.22 258 / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(0.55 0.22 258 / 0.08) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 70%);
+  }
+  .boot::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(to bottom, transparent 0, transparent 2px, rgba(255,255,255,0.018) 2px, rgba(255,255,255,0.018) 3px);
+    pointer-events: none;
+    animation: bootScan 8s linear infinite;
+  }
+  @keyframes bootScan { from { background-position: 0 0; } to { background-position: 0 100px; } }
+
+  .boot.away {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(1.1);
+    pointer-events: none;
+  }
+  .boot.hidden { display: none; }
+
+  .boot-panel {
+    position: relative;
+    width: min(820px, 92vw);
+    border: 1px solid var(--line-2);
+    background: linear-gradient(180deg, rgba(14,17,36,0.97), rgba(10,12,24,0.94));
+    box-shadow: 0 0 80px oklch(0.55 0.22 258 / 0.20), inset 0 0 0 1px rgba(255,255,255,0.025);
+    font-family: var(--mono);
+    overflow: hidden;
+  }
+  .boot-grid {
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 0;
+  }
+  .boot-body {
+    padding: 24px 26px 24px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: #c7d1dc;
+    min-height: 340px;
+    max-height: 340px;
+    overflow: hidden;
+  }
+  .boot-side {
+    border-left: 1px solid var(--line);
+    padding: 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: linear-gradient(180deg, transparent, oklch(0.55 0.22 258 / 0.04));
+  }
+  .boot-side .title {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .boot-side .title b { color: var(--accent); font-weight: 500; }
+
+  /* RADAR SWEEP */
+  .radar {
+    position: relative;
+    width: 100%; aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid oklch(0.55 0.22 258 / 0.45);
+    background:
+      radial-gradient(circle, transparent 60%, oklch(0.55 0.22 258 / 0.04) 100%),
+      conic-gradient(from 0deg, transparent 80%, oklch(0.72 0.22 258 / 0.5) 95%, transparent 100%);
+    overflow: hidden;
+  }
+  .radar::before, .radar::after {
+    content: "";
+    position: absolute; inset: 0;
+    border-radius: 50%;
+  }
+  .radar::before {
+    border: 1px dashed oklch(0.55 0.22 258 / 0.35);
+    margin: 18%;
+  }
+  .radar::after {
+    border-top: 1px solid oklch(0.55 0.22 258 / 0.5);
+    border-left: 1px solid oklch(0.55 0.22 258 / 0.5);
+    transform: rotate(45deg);
+  }
+  .radar .sweep {
+    position: absolute; inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent 0%, transparent 70%, oklch(0.86 0.16 258 / 0.45) 90%, oklch(0.86 0.16 258 / 0.85) 99%, transparent 100%);
+    animation: radarSweep 2.2s linear infinite;
+  }
+  @keyframes radarSweep { to { transform: rotate(360deg); } }
+  .radar .blip {
+    position: absolute;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent-bright);
+    box-shadow: 0 0 10px var(--accent-bright);
+    animation: blipPulse 1.4s ease-out infinite;
+  }
+  .radar .blip.b1 { top: 26%; left: 70%; }
+  .radar .blip.b2 { top: 65%; left: 35%; animation-delay: 0.5s; }
+  .radar .blip.b3 { top: 50%; left: 50%; animation-delay: 1s; }
+  @keyframes blipPulse {
+    0%   { transform: scale(0.6); opacity: 0; }
+    25%  { transform: scale(1); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+  /* FINGERPRINT (ASCII rings) */
+  .fp {
+    position: relative;
+    width: 100%; aspect-ratio: 1;
+    display: grid; place-items: center;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg-2), var(--bg));
+  }
+  .fp svg { width: 80%; height: 80%; }
+  .fp .fp-ring {
+    fill: none;
+    stroke: oklch(0.55 0.22 258 / 0.65);
+    stroke-width: 1;
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: fpDraw 2.4s ease-out forwards;
+  }
+  .fp .fp-ring:nth-child(2) { animation-delay: 0.1s; stroke: oklch(0.72 0.22 258 / 0.7); }
+  .fp .fp-ring:nth-child(3) { animation-delay: 0.2s; }
+  .fp .fp-ring:nth-child(4) { animation-delay: 0.3s; stroke: oklch(0.86 0.16 258 / 0.85); }
+  .fp .fp-ring:nth-child(5) { animation-delay: 0.4s; }
+  .fp .fp-ring:nth-child(6) { animation-delay: 0.5s; stroke: oklch(0.72 0.22 258 / 0.7); }
+  .fp .fp-ring:nth-child(7) { animation-delay: 0.6s; }
+  .fp .fp-line {
+    position: absolute;
+    left: 8%; right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-bright), transparent);
+    box-shadow: 0 0 16px var(--accent-bright);
+    top: 0;
+    animation: fpScan 1.6s ease-in-out infinite;
+  }
+  @keyframes fpDraw { to { stroke-dashoffset: 0; } }
+  @keyframes fpScan {
+    0%   { top: 0%; opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  /* HEX STREAM */
+  .hexstream {
+    border-top: 1px solid var(--line);
+    padding: 10px 26px 12px;
+    font-size: 10px;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 30px;
+    position: relative;
+  }
+  .hexstream .row {
+    animation: hexRoll 6s linear infinite;
+    display: inline-block;
+  }
+  .hexstream .row b { color: var(--accent); font-weight: 400; }
+  @keyframes hexRoll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* WELCOME PUNCH */
+  .boot-punch {
+    position: fixed;
+    inset: 0;
+    z-index: 102;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .boot-punch.fire { animation: punchSeq 1.3s cubic-bezier(.2,.7,.2,1) forwards; }
+  .boot-punch .word {
+    font-family: var(--name);
+    font-weight: 800;
+    font-size: clamp(80px, 14vw, 220px);
+    letter-spacing: -0.06em;
+    color: var(--ink);
+    text-shadow:
+      0 0 60px oklch(0.72 0.22 258 / 0.8),
+      0 0 120px oklch(0.55 0.22 258 / 0.5);
+  }
+  .boot-punch .word::after {
+    content: "_";
+    color: var(--accent);
+    animation: blink 0.6s steps(2) infinite;
+  }
+  @keyframes punchSeq {
+    0%   { opacity: 0; transform: scale(0.92); filter: blur(20px); }
+    25%  { opacity: 1; transform: scale(1); filter: blur(0); }
+    75%  { opacity: 1; transform: scale(1.04); filter: blur(0); }
+    100% { opacity: 0; transform: scale(1.15); filter: blur(30px); }
+  }
+
+  /* SHOCKWAVE */
+  .boot-shockwave {
+    position: fixed;
+    left: 50%; top: 50%;
+    width: 0; height: 0;
+    border-radius: 50%;
+    border: 2px solid var(--accent);
+    transform: translate(-50%, -50%);
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .boot-shockwave.fire { animation: shockwave 1s cubic-bezier(.1,.7,.3,1) forwards; }
+  @keyframes shockwave {
+    0%   { width: 0; height: 0; opacity: 1; border-width: 3px; }
+    80%  { opacity: 0.6; }
+    100% { width: 220vmax; height: 220vmax; opacity: 0; border-width: 1px; }
+  }
+
+  @media (max-width: 700px) {
+    .boot-grid { grid-template-columns: 1fr; }
+    .boot-side { display: none; }
+  }
+  .boot-panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .boot-panel-head .dots { display: flex; gap: 6px; }
+  .boot-panel-head .dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--line-2); }
+  .boot-panel-head .dots span:last-child { background: var(--accent-2); }
+  .boot-body .ok    { color: var(--accent); }
+  .boot-body .warn  { color: var(--amber); }
+  .boot-body .info  { color: var(--cyan); }
+  .boot-body .dim   { color: var(--dim); }
+  .boot-body .head  { color: var(--ink); font-weight: 600; letter-spacing: 0.05em; }
+  .boot-body .bar {
+    display: inline-block;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+  .boot-cursor {
+    display: inline-block;
+    width: 9px; height: 14px;
+    background: var(--accent);
+    vertical-align: -2px;
+    margin-left: 4px;
+    animation: blink 1s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .boot-foot {
+    position: absolute;
+    bottom: -36px; left: 0; right: 0;
+    display: flex; justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--dim);
+    text-transform: uppercase;
+  }
+  .boot-foot b { color: var(--accent); font-weight: 500; }
+
+  .boot-skip {
+    position: fixed;
+    right: 28px; bottom: 28px;
+    z-index: 101;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--line-2);
+    padding: 10px 14px;
+    cursor: pointer;
+    transition: all .2s;
+  }
+  .boot-skip:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Hero "decrypts" in once boot finishes */
+  body.booting .wrap, body.booting .rail, body.booting .gyro-stage { opacity: 0; }
+  body.boot-done .wrap, body.boot-done .rail, body.boot-done .gyro-stage {
+    opacity: 1;
+    transition: opacity 1s ease;
+  }
+  body.booting { overflow: hidden; }
+
+  /* Hero name "explode in" once boot completes */
+  body.boot-done h1.bignme .row {
+    animation: nameDecrypt 1.2s cubic-bezier(.2,.7,.2,1) both;
+  }
+  body.boot-done h1.bignme .row:nth-child(2) { animation-delay: .25s; }
+  @keyframes nameDecrypt {
+    0%   { letter-spacing: 0.4em; opacity: 0; filter: blur(8px); }
+    60%  { letter-spacing: -0.02em; opacity: 1; filter: blur(0); }
+    100% { letter-spacing: -0.035em; }
+  }
+
+  /* Section title underlines that draw in on reveal */
+  .sec-title { position: relative; }
+
+  /* Tilt cards */
+  .tilt { transition: transform .35s cubic-bezier(.2,.7,.2,1); transform-style: preserve-3d; }
+  .tilt:hover { transform: translateY(-4px); }
+
+  /* Edu / cert / exp cards subtle scroll-driven parallax handled via JS */
+  /* =================================================================
+     ICON SYSTEM — line icons that draw themselves in on reveal
+     ================================================================= */
+  .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px; height: 48px;
+    border: 1px solid currentColor;
+    color: var(--blue);
+    background: oklch(0.72 0.22 258 / 0.04);
+    margin-bottom: 18px;
+    flex-shrink: 0;
+    position: relative;
+    transition: transform .5s cubic-bezier(.2,.7,.2,1), background .3s;
+  }
+  .icon svg { width: 26px; height: 26px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .icon.purple { color: var(--purple-bright); background: oklch(0.65 0.22 295 / 0.05); }
+  .icon.green  { color: var(--green); background: oklch(0.80 0.16 150 / 0.05); }
+  .icon.blue   { color: var(--blue-bright); }
+
+  /* draw-in: use stroke-dasharray on every shape; animate to 0 when reveal lands */
+  .icon svg * {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    transition: stroke-dashoffset 1.2s cubic-bezier(.2,.7,.2,1);
+  }
+  .card3d.in .icon svg *,
+  .reveal.in .icon svg *,
+  .in > .icon svg *,
+  .in .icon svg * { stroke-dashoffset: 0; }
+  .icon svg *:nth-child(2) { transition-delay: .05s; }
+  .icon svg *:nth-child(3) { transition-delay: .1s; }
+  .icon svg *:nth-child(4) { transition-delay: .15s; }
+  .icon svg *:nth-child(5) { transition-delay: .2s; }
+  .icon svg *:nth-child(6) { transition-delay: .25s; }
+
+  /* gentle hover lift */
+  .exp:hover .icon, .edu-card:hover .icon, .cert:hover .icon, .pub:hover .icon, .skill-cat:hover .icon {
+    transform: rotate(-4deg) scale(1.04);
+    background: color-mix(in oklab, currentColor 10%, transparent);
+  }
+
+  /* slot styling for inline icons inside skill labels */
+  .skill-cat .lbl .icon {
+    width: 28px; height: 28px; margin-bottom: 0;
+    border-color: currentColor;
+  }
+  .skill-cat .lbl .icon svg { width: 16px; height: 16px; }
+  .skill-cat .lbl { gap: 14px; }
+
+  /* education + experience headers with icon */
+  .exp-body .head-row, .edu-card .head-row {
+    display: flex; align-items: flex-start; gap: 18px;
+  }
+  .exp-body .head-row .icon { margin-bottom: 0; }
+
+  /* publication icon */
+  .pub-icon {
+    width: 64px; height: 64px;
+    color: var(--purple-bright);
+    border: 1px solid currentColor;
+    display: grid; place-items: center;
+    margin-bottom: 22px;
+    background: oklch(0.65 0.22 295 / 0.05);
+  }
+  .pub-icon svg { width: 36px; height: 36px; stroke: currentColor; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .pub-icon svg * {
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
+    transition: stroke-dashoffset 1.4s cubic-bezier(.2,.7,.2,1);
+  }
+  .card3d.in .pub-icon svg * { stroke-dashoffset: 0; }
+  .pub-icon svg *:nth-child(2) { transition-delay: .08s; }
+  .pub-icon svg *:nth-child(3) { transition-delay: .16s; }
+  .pub-icon svg *:nth-child(4) { transition-delay: .24s; }
 </style>
 </head>
-<body>
+<body class="booting">
+
+<!-- BOOT / DECRYPTION OVERLAY -->
+<div class="boot" id="boot">
+  <div class="boot-panel">
+    <div class="boot-panel-head">
+      <span>secure_boot::aps.sec — handshake v3.7.2</span>
+      <span class="dots"><span></span><span></span><span></span></span>
+    </div>
+    <div class="boot-grid">
+      <div class="boot-body" id="bootLog"></div>
+      <div class="boot-side">
+        <div>
+          <div class="title">// RADAR <b>· UK NODE</b></div>
+          <div class="radar">
+            <div class="sweep"></div>
+            <div class="blip b1"></div>
+            <div class="blip b2"></div>
+            <div class="blip b3"></div>
+          </div>
+        </div>
+        <div>
+          <div class="title">// BIOMETRIC <b>· 0xA53</b></div>
+          <div class="fp">
+            <svg viewBox="0 0 100 100">
+              <path class="fp-ring" d="M50 10 a40 40 0 0 1 0 80 a40 40 0 0 1 0 -80"/>
+              <path class="fp-ring" d="M50 18 a32 32 0 0 1 0 64 a32 32 0 0 1 0 -64"/>
+              <path class="fp-ring" d="M50 26 a24 24 0 0 1 0 48 a24 24 0 0 1 0 -48"/>
+              <path class="fp-ring" d="M50 34 a16 16 0 0 1 0 32 a16 16 0 0 1 0 -32"/>
+              <path class="fp-ring" d="M50 40 a10 10 0 0 1 0 20 a10 10 0 0 1 0 -20"/>
+              <path class="fp-ring" d="M50 46 a4 4 0 0 1 0 8 a4 4 0 0 1 0 -8"/>
+              <path class="fp-ring" d="M30 50 L70 50 M50 30 L50 70" stroke-dasharray="80" stroke-dashoffset="80"/>
+            </svg>
+            <div class="fp-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hexstream">
+      <span class="row" id="hexRow"></span>
+    </div>
+    <div class="boot-foot">
+      <span>NODE&nbsp;<b>0xA53</b></span>
+      <span>CHANNEL&nbsp;<b>SECURE</b></span>
+      <span id="bootTime">--:--:--</span>
+    </div>
+  </div>
+</div>
+<button class="boot-skip" id="bootSkip" type="button">skip ▸</button>
+
+<!-- WELCOME PUNCH + SHOCKWAVE -->
+<div class="boot-punch" id="bootPunch"><div class="word">WELCOME</div></div>
+<div class="boot-shockwave" id="bootShockwave"></div>
+
+<!-- CURSOR HALO -->
+<div class="cursor-halo" id="cursorHalo"></div>
 
 <canvas class="bg-canvas" id="bgCanvas"></canvas>
 <div class="grid-floor"></div>
@@ -983,7 +1477,7 @@
         </div>
         <div>
           <span class="k">// social</span>
-          <span class="v"><a href="#">LinkedIn ↗</a></span>
+          <span class="v"><a href="https://www.linkedin.com/in/ashutosh-pal-singh/" target="_blank" rel="noopener">LinkedIn ↗</a></span>
         </div>
       </div>
     </div>
@@ -1010,18 +1504,18 @@
             <path id="ringMidPath"   d="M 260,260 m -180,0 a 180,180 0 1,1 360,0 a 180,180 0 1,1 -360,0" />
             <path id="ringInnerPath" d="M 260,260 m -130,0 a 130,130 0 1,1 260,0 a 130,130 0 1,1 -260,0" />
             <radialGradient id="coreGrad" cx="0.5" cy="0.5" r="0.6">
-              <stop offset="0" stop-color="oklch(0.88 0.20 145)" stop-opacity="0.4"/>
-              <stop offset="1" stop-color="oklch(0.88 0.20 145)" stop-opacity="0"/>
+              <stop offset="0" stop-color="oklch(0.88 0.14 258)" stop-opacity="0.4"/>
+              <stop offset="1" stop-color="oklch(0.88 0.14 258)" stop-opacity="0"/>
             </radialGradient>
             <filter id="blur1"><feGaussianBlur stdDeviation="1"/></filter>
           </defs>
 
           <!-- outer circle frame -->
-          <circle cx="260" cy="260" r="248" fill="none" stroke="oklch(0.25 0.04 145)" stroke-width="1" stroke-dasharray="2 4"/>
-          <circle cx="260" cy="260" r="232" fill="none" stroke="oklch(0.55 0.16 145)" stroke-width="0.6" opacity="0.5"/>
+          <circle cx="260" cy="260" r="248" fill="none" stroke="oklch(0.25 0.18 258)" stroke-width="1" stroke-dasharray="2 4"/>
+          <circle cx="260" cy="260" r="232" fill="none" stroke="oklch(0.55 0.22 258)" stroke-width="0.6" opacity="0.5"/>
 
           <!-- tick marks around outer ring -->
-          <g stroke="oklch(0.55 0.16 145)" stroke-width="0.8" opacity="0.7">
+          <g stroke="oklch(0.55 0.22 258)" stroke-width="0.8" opacity="0.7">
             <line x1="260" y1="20"  x2="260" y2="32"/>
             <line x1="260" y1="488" x2="260" y2="500"/>
             <line x1="20"  y1="260" x2="32"  y2="260"/>
@@ -1034,7 +1528,7 @@
 
           <!-- outer ring: hex of the name -->
           <g class="ring-outer">
-            <text fill="oklch(0.86 0.20 145)" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2.5">
+            <text fill="oklch(0.86 0.14 258)" font-family="JetBrains Mono, monospace" font-size="11" letter-spacing="2.5">
               <textPath href="#ringOuterPath" startOffset="0">
                 41·53·48·55·54·4F·53·48·20·50·41·4C·20·53·49·4E·47·48 — ASHUTOSH·PAL·SINGH — 41·53·48·55·54·4F·53·48·20·50·41·4C·20·53·49·4E·47·48 — ASHUTOSH·PAL·SINGH —
               </textPath>
@@ -1043,7 +1537,7 @@
 
           <!-- mid ring: binary -->
           <g class="ring-mid">
-            <text fill="oklch(0.55 0.16 145)" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" opacity="0.85">
+            <text fill="oklch(0.55 0.22 258)" font-family="JetBrains Mono, monospace" font-size="9" letter-spacing="1.5" opacity="0.85">
               <textPath href="#ringMidPath" startOffset="0">
                 01000001·01010011·01001000·01010101·01010100·01001111·01010011·01001000·01010000·01000001·01001100·01010011·01001001·01001110·01000111·01001000 ··
               </textPath>
@@ -1051,12 +1545,12 @@
           </g>
 
           <!-- separator rings -->
-          <circle cx="260" cy="260" r="155" fill="none" stroke="oklch(0.25 0.04 145)" stroke-width="0.8"/>
-          <circle cx="260" cy="260" r="115" fill="none" stroke="oklch(0.55 0.16 145)" stroke-width="0.5" opacity="0.5"/>
+          <circle cx="260" cy="260" r="155" fill="none" stroke="oklch(0.25 0.18 258)" stroke-width="0.8"/>
+          <circle cx="260" cy="260" r="115" fill="none" stroke="oklch(0.55 0.22 258)" stroke-width="0.5" opacity="0.5"/>
 
           <!-- inner ring: ROT13/base64 -->
           <g class="ring-inner">
-            <text fill="oklch(0.82 0.13 210)" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="3" opacity="0.9">
+            <text fill="oklch(0.82 0.20 258)" font-family="JetBrains Mono, monospace" font-size="10" letter-spacing="3" opacity="0.9">
               <textPath href="#ringInnerPath" startOffset="0">
                 NFUHGBFU·CNY·FVATU — QVNIVVRPU·UEFM·FVATU — NFUHGBFU·CNY·FVATU — QVNIVVRPU·UEFM·FVATU —
               </textPath>
@@ -1070,25 +1564,25 @@
           <g transform="translate(260,260)">
             <!-- hood/shoulders silhouette -->
             <path d="M -65,40 C -62,-15 -42,-50 0,-58 C 42,-50 62,-15 65,40 L 60,55 L -60,55 Z"
-                  fill="#04060a" stroke="oklch(0.88 0.20 145)" stroke-width="1.2"/>
+                  fill="#04060a" stroke="oklch(0.88 0.14 258)" stroke-width="1.2"/>
             <!-- inner hood shadow -->
             <path d="M -52,30 C -50,-8 -34,-40 0,-46 C 34,-40 50,-8 52,30"
-                  fill="none" stroke="oklch(0.55 0.16 145)" stroke-width="0.6" stroke-dasharray="2 3"/>
+                  fill="none" stroke="oklch(0.55 0.22 258)" stroke-width="0.6" stroke-dasharray="2 3"/>
             <!-- face void -->
             <ellipse cx="0" cy="-8" rx="22" ry="30" fill="#04060a"/>
             <!-- glowing scan-eyes -->
-            <line x1="-14" y1="-12" x2="-4" y2="-12" stroke="oklch(0.88 0.20 145)" stroke-width="2" stroke-linecap="round"/>
-            <line x1="4"   y1="-12" x2="14" y2="-12" stroke="oklch(0.88 0.20 145)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="-14" y1="-12" x2="-4" y2="-12" stroke="oklch(0.88 0.14 258)" stroke-width="2" stroke-linecap="round"/>
+            <line x1="4"   y1="-12" x2="14" y2="-12" stroke="oklch(0.88 0.14 258)" stroke-width="2" stroke-linecap="round"/>
             <!-- vertical cipher stripe across face -->
             <text x="0" y="2" text-anchor="middle"
-                  fill="oklch(0.86 0.20 145)" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.5" opacity="0.7">A·P·S</text>
+                  fill="oklch(0.86 0.14 258)" font-family="JetBrains Mono, monospace" font-size="6" letter-spacing="0.5" opacity="0.7">A·P·S</text>
             <!-- chest ID -->
-            <rect x="-12" y="40" width="24" height="6" fill="none" stroke="oklch(0.55 0.16 145)" stroke-width="0.6"/>
-            <text x="0" y="44.5" text-anchor="middle" fill="oklch(0.86 0.20 145)" font-family="JetBrains Mono, monospace" font-size="4" letter-spacing="0.5">0xA53</text>
+            <rect x="-12" y="40" width="24" height="6" fill="none" stroke="oklch(0.55 0.22 258)" stroke-width="0.6"/>
+            <text x="0" y="44.5" text-anchor="middle" fill="oklch(0.86 0.14 258)" font-family="JetBrains Mono, monospace" font-size="4" letter-spacing="0.5">0xA53</text>
           </g>
 
           <!-- floating data nodes -->
-          <g fill="oklch(0.88 0.20 145)">
+          <g fill="oklch(0.88 0.14 258)">
             <circle cx="260" cy="28"  r="2.5"/>
             <circle cx="492" cy="260" r="2.5"/>
             <circle cx="260" cy="492" r="2.5"/>
@@ -1184,6 +1678,7 @@
         <div class="loc">Rajkot, Gujarat</div>
       </div>
       <div class="exp-body">
+        <div class="icon blue"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="1"/><rect x="9" y="9" width="6" height="6"/><path d="M2 9 L5 9 M2 12 L5 12 M2 15 L5 15 M19 9 L22 9 M19 12 L22 12 M19 15 L22 15 M9 2 L9 5 M12 2 L12 5 M15 2 L15 5 M9 19 L9 22 M12 19 L12 22 M15 19 L15 22"/></svg></div>
         <h3>Cybersecurity Analyst — Intern</h3>
         <div class="org">Kyoka Embedded Systems Pvt. Ltd.</div>
         <ul>
@@ -1206,6 +1701,7 @@
         <div class="loc">Noida, UP</div>
       </div>
       <div class="exp-body">
+        <div class="icon purple"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M15.5 15.5 L20 20"/><path d="M8 11 L14 11"/><path d="M11 8 L11 14"/></svg></div>
         <h3>Cybersecurity Research Analyst</h3>
         <div class="org">Nasscom</div>
         <ul>
@@ -1226,6 +1722,7 @@
         <div class="loc">Chennai</div>
       </div>
       <div class="exp-body">
+        <div class="icon green"><svg viewBox="0 0 24 24"><path d="M12 3 L20 6 L20 12 C20 16.5 16.5 20 12 21 C7.5 20 4 16.5 4 12 L4 6 Z"/><path d="M8.5 12 L11 14.5 L15.5 9"/></svg></div>
         <h3>Security Analyst — Intern</h3>
         <div class="org">Tutelr InfoSec Pvt. Ltd.</div>
         <ul>
@@ -1246,6 +1743,7 @@
         <div class="loc">Networking</div>
       </div>
       <div class="exp-body">
+        <div class="icon blue"><svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6.5 6.5 L10 10 M13.5 10 L17.5 6.5 M6.5 17.5 L10 14 M13.5 14 L17.5 17.5"/></svg></div>
         <h3>Networking Intern</h3>
         <div class="org">Cisco</div>
         <ul>
@@ -1266,6 +1764,7 @@
         <div class="loc">Offensive Sec</div>
       </div>
       <div class="exp-body">
+        <div class="icon purple"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M6 9 L9 12 L6 15"/><path d="M12 15 L17 15"/></svg></div>
         <h3>Cyber Security Intern</h3>
         <div class="org">Verzeo</div>
         <ul>
@@ -1294,39 +1793,39 @@
 
     <div class="skills card3d">
       <div class="skill-cat">
-        <div class="lbl" data-idx="01.">Programming</div>
+        <div class="lbl" data-idx="01."><span class="icon blue"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><path d="M12 3 L12 21"/><path d="M3 12 L21 12"/><circle cx="12" cy="12" r="1"/></svg></span>SIEM &amp; Detection</div>
         <div class="tags">
-          <span class="tag">Python</span><span class="tag">C / C++</span><span class="tag">SQL</span><span class="tag">R</span><span class="tag">Rust</span>
+          <span class="tag">Splunk</span><span class="tag">Elastic (ELK) Stack</span><span class="tag">Sysmon</span><span class="tag">Sigma rules</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">Alert Triage</span><span class="tag">Threat Hunting</span>
         </div>
       </div>
       <div class="skill-cat">
-        <div class="lbl" data-idx="02.">Security Tools</div>
+        <div class="lbl" data-idx="02."><span class="icon purple"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 4 L12 8 M12 16 L12 20 M4 12 L8 12 M16 12 L20 12"/><circle cx="12" cy="12" r="2"/></svg></span>Offensive Security</div>
         <div class="tags">
-          <span class="tag">Metasploit</span><span class="tag">Nmap</span><span class="tag">Burp Suite</span><span class="tag">Wireshark</span><span class="tag">Autopsy</span><span class="tag">Splunk (SIEM)</span><span class="tag">DFIR</span>
+          <span class="tag">Nmap</span><span class="tag">Burp Suite</span><span class="tag">Metasploit</span><span class="tag">BloodHound</span><span class="tag">Mimikatz</span><span class="tag">Impacket</span><span class="tag">Hashcat</span><span class="tag">sqlmap</span><span class="tag">Active Directory Attacks</span><span class="tag">OWASP Top 10</span>
         </div>
       </div>
       <div class="skill-cat">
-        <div class="lbl" data-idx="03.">IoT &amp; Embedded</div>
+        <div class="lbl" data-idx="03."><span class="icon green"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5 L20 20"/><path d="M8 10 L12 10 M10 8 L10 12"/></svg></span>Forensics &amp; IR</div>
         <div class="tags">
-          <span class="tag">Bootloader Analysis</span><span class="tag">Firmware Analysis</span><span class="tag">Hardware Security</span><span class="tag">Mutual TLS</span><span class="tag">Key Storage</span>
+          <span class="tag">Wireshark</span><span class="tag">Volatility</span><span class="tag">Autopsy</span><span class="tag">FTK Imager</span><span class="tag">YARA</span><span class="tag">Memory Forensics</span><span class="tag">Disk Forensics</span><span class="tag">PCAP Analysis</span><span class="tag">ACPO Chain of Custody</span>
         </div>
       </div>
       <div class="skill-cat">
-        <div class="lbl" data-idx="04.">Specialisations</div>
+        <div class="lbl" data-idx="04."><span class="icon blue"><svg viewBox="0 0 24 24"><path d="M8 7 L3 12 L8 17"/><path d="M16 7 L21 12 L16 17"/><path d="M14 5 L10 19"/></svg></span>Scripting</div>
         <div class="tags">
-          <span class="tag">Penetration Testing</span><span class="tag">Vulnerability Assessment</span><span class="tag">Threat Intel</span><span class="tag">Digital Forensics</span><span class="tag">Cloud Security</span><span class="tag">Network Security</span><span class="tag">IoT Security</span>
+          <span class="tag">Python</span><span class="tag">Bash</span><span class="tag">PowerShell</span><span class="tag">SQL</span><span class="tag">C</span><span class="tag dim">JavaScript</span><span class="tag dim">Rust</span><span class="tag dim">Java</span>
         </div>
       </div>
       <div class="skill-cat">
-        <div class="lbl" data-idx="05.">Platforms</div>
+        <div class="lbl" data-idx="05."><span class="icon purple"><svg viewBox="0 0 24 24"><path d="M7 18 C4 18 2 15.5 2 13 C2 10.5 4 8.5 6.5 8.5 C7 5.5 9.5 3 13 3 C16 3 18.5 5 19 8 C20.5 8.5 22 10 22 12 C22 14.5 20 16 17.5 16 L7 16 Z"/></svg></span>Cloud &amp; OS</div>
         <div class="tags">
-          <span class="tag">Linux / Unix</span><span class="tag">Windows Server</span><span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Cisco Packet Tracer</span>
+          <span class="tag">AWS</span><span class="tag">Azure Sentinel</span><span class="tag">Azure Defender</span><span class="tag">Azure AD</span><span class="tag">Kali</span><span class="tag">Parrot</span><span class="tag">Hardened Debian</span><span class="tag">Windows Server / AD</span>
         </div>
       </div>
       <div class="skill-cat">
-        <div class="lbl" data-idx="06.">Frameworks &amp; Research</div>
+        <div class="lbl" data-idx="06."><span class="icon green"><svg viewBox="0 0 24 24"><path d="M12 3 L12 21"/><path d="M6 7 L18 7"/><path d="M8 7 L4 14 C4 16 6 17 8 17 C10 17 12 16 12 14 Z"/><path d="M16 7 L12 14 C12 16 14 17 16 17 C18 17 20 16 20 14 Z"/></svg></span>Standards &amp; Regulation</div>
         <div class="tags">
-          <span class="tag">OWASP Top 10</span><span class="tag">MITRE ATT&amp;CK</span><span class="tag">NIST CSF</span><span class="tag">ISO 27001</span><span class="tag">C2PA</span><span class="tag">Stable Signature</span><span class="tag">SynthID</span><span class="tag">Deepfake Detection</span><span class="tag">ML-based Auth</span>
+          <span class="tag">NIST CSF</span><span class="tag">ISO/IEC 27001</span><span class="tag">ISO/IEC 27002</span><span class="tag">Cyber Kill Chain</span><span class="tag">OWASP ASVS</span><span class="tag">PCI DSS</span><span class="tag">UK GDPR</span><span class="tag">DPA 2018</span><span class="tag">NIS2</span><span class="tag">Cyber Essentials</span><span class="tag">NCSC CAF</span><span class="tag">Computer Misuse Act 1990</span><span class="tag">EU AI Act</span><span class="tag">DORA</span>
         </div>
       </div>
     </div>
@@ -1346,12 +1845,14 @@
 
     <div class="edu">
       <div class="edu-card card3d">
+        <div class="icon green"><svg viewBox="0 0 24 24"><path d="M2 9 L12 4 L22 9 L12 14 Z"/><path d="M6 11 L6 17 C6 17 9 19 12 19 C15 19 18 17 18 17 L18 11"/><path d="M22 9 L22 15"/></svg></div>
         <div class="school">University of Warwick · WMG</div>
         <h3>MSc Cybersecurity Engineering</h3>
         <div class="place">Full Time · United Kingdom</div>
         <div class="when"><span>STATUS</span> ONGOING · SEP 2025 →</div>
       </div>
       <div class="edu-card card3d" data-delay="1">
+        <div class="icon blue"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7 L16 7 M8 11 L16 11 M8 15 L13 15"/><path d="M4 21 L20 21"/></svg></div>
         <div class="school">Symbiosis Institute of Technology</div>
         <h3>B.Tech, Computer Science<br/><span style="color:var(--muted); font-size:16px;">— Specialisation in Computing</span></h3>
         <div class="place">Pune, India</div>
@@ -1379,6 +1880,7 @@
         <span class="stat">// PUBLISHED</span>
       </div>
       <div class="pub-body">
+        <div class="pub-icon"><svg viewBox="0 0 24 24"><path d="M5 3 L15 3 L19 7 L19 21 L5 21 Z"/><path d="M15 3 L15 7 L19 7"/><path d="M8 12 L16 12 M8 15 L16 15 M8 18 L13 18"/></svg></div>
         <h3 class="pub-title">"Safeguarding Authenticity in the Digital Realm: A Holistic Approach Integrating <em>Content Provenance, Secure Watermarking,</em> and Transparent Labeling to Combat Deepfakes"</h3>
         <div class="journal">
           <span><b>International Journal for Multidisciplinary Research</b> · Vol. 6 · Issue 3</span>
@@ -1407,7 +1909,7 @@
           <span><span class="k">email&nbsp;&nbsp;//</span> itsashutoshpsingh@gmail.com</span>
           <span class="arrow">↗</span>
         </a>
-        <a href="#">
+        <a href="https://www.linkedin.com/in/ashutosh-pal-singh/" target="_blank" rel="noopener">
           <span><span class="k">linkedin&nbsp;&nbsp;//</span> /in/ashutosh-pal-singh</span>
           <span class="arrow">↗</span>
         </a>
@@ -1419,9 +1921,7 @@
     </div>
 
     <div class="colophon">
-      <span>© 2026 — Ashutosh Pal Singh</span>
-      <span>Built dark · Built quiet · Built secure</span>
-      <span id="clock">--:--:-- UTC</span>
+      <span>made by <b style="color:var(--ink); font-weight: 500;">Ashutosh Pal Singh</b></span>
     </div>
   </section>
 
@@ -1435,19 +1935,175 @@
     const m = String(d.getUTCMinutes()).padStart(2,'0');
     const s = String(d.getUTCSeconds()).padStart(2,'0');
     const el = document.getElementById('clock');
-    if (el) el.textContent = h+":"+m+":"+s+" UTC";
+    const bt = document.getElementById('bootTime');
+    const v = h+":"+m+":"+s+" UTC";
+    if (el) el.textContent = v;
+    if (bt) bt.textContent = v;
   }
   tick(); setInterval(tick, 1000);
 
-  /* ===== Scroll reveals ===== */
+  /* ===== BOOT SEQUENCE — terminal that morphs into the portfolio ===== */
+  (function(){
+    const log = document.getElementById('bootLog');
+    const boot = document.getElementById('boot');
+    const skip = document.getElementById('bootSkip');
+    const punch = document.getElementById('bootPunch');
+    const shock = document.getElementById('bootShockwave');
+    const hexRow = document.getElementById('hexRow');
+    if (!log || !boot) return;
+
+    // Live hex stream (looping ticker)
+    (function(){
+      const chars = '0123456789ABCDEF';
+      function makeChunk(){
+        let s = '';
+        for (let i = 0; i < 220; i++){
+          if (i % 17 === 0) s += `<b>0x${Math.floor(Math.random()*0xFFFF).toString(16).toUpperCase().padStart(4,'0')}</b>:`;
+          else if (i % 3 === 0) s += ' ';
+          else s += chars[Math.floor(Math.random()*16)] + chars[Math.floor(Math.random()*16)] + ' ';
+        }
+        return s;
+      }
+      // duplicate for seamless loop
+      hexRow.innerHTML = makeChunk() + ' ' + makeChunk();
+      setInterval(() => { hexRow.innerHTML = makeChunk() + ' ' + makeChunk(); }, 4000);
+    })();
+
+    const lines = [
+      { t: '<span class="dim">$</span> <span class="info">secure_handshake</span> <span class="dim">--node 0xA53 --channel uk</span>', delay: 180 },
+      { t: '<span class="dim">→</span> opening port <span class="info">4523</span> over tls 1.3 ........... <span class="ok">OPEN</span>', delay: 220 },
+      { t: '<span class="dim">→</span> negotiating cipher suite <span class="info">TLS_AES_256_GCM_SHA384</span> .. <span class="ok">OK</span>', delay: 260 },
+      { t: '<span class="dim">→</span> verifying subject cert <span class="info">CN=ashutosh.pal.singh</span> ... <span class="ok">OK</span>', delay: 280 },
+      { t: '<span class="dim">→</span> biometric scan ............................ <span class="warn">SCANNING</span>', delay: 240, biometric: true },
+      { t: '<span class="dim">→</span> biometric match <span class="info">SUBJECT_0xA53</span> ............. <span class="ok">AUTH</span>', delay: 260 },
+      { t: '<span class="dim">$</span> <span class="info">mount</span> <span class="dim">payload/portfolio.aps</span>', delay: 200 },
+      { t: '<span class="dim">→</span> decrypting payload <span class="bar">[░░░░░░░░░░░░░░░░] 00%</span>', delay: 260, bar: true },
+      { t: '<span class="dim">→</span> integrity check (sha-256) ................. <span class="ok">PASS</span>', delay: 260 },
+      { t: '<span class="dim">→</span> loading <span class="info">cipher_seal</span> · <span class="info">ops_log</span> · <span class="info">stack.json</span>', delay: 240 },
+      { t: '<span class="dim">→</span> establishing perimeter ..................... <span class="ok">CLEAR</span>', delay: 220 },
+      { t: '<span class="dim">$</span> <span class="head">handshake confirmed — initialising portfolio</span>', delay: 260 },
+      { t: '<span class="ok">▌</span> <span class="head">CHANNEL SECURE</span> — <span class="dim">welcome,</span> <span class="info">ashutosh.</span>', delay: 360, final: true },
+    ];
+
+    let done = false;
+    function finish(){
+      if (done) return; done = true;
+
+      // Fire the WELCOME splash + shockwave
+      punch.classList.add('fire');
+      shock.classList.add('fire');
+
+      // After splash, fade out the boot itself
+      setTimeout(() => {
+        document.body.classList.remove('booting');
+        document.body.classList.add('boot-done');
+        boot.classList.add('away');
+      }, 600);
+
+      skip.style.opacity = '0'; skip.style.pointerEvents = 'none';
+      setTimeout(() => { boot.classList.add('hidden'); punch.classList.remove('fire'); shock.classList.remove('fire'); }, 2000);
+    }
+
+    skip.addEventListener('click', finish);
+    window.addEventListener('keydown', (e) => {
+      if (!done && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) finish();
+    });
+
+    let i = 0;
+    function step(){
+      if (i >= lines.length){
+        setTimeout(finish, 350);
+        return;
+      }
+      const ln = lines[i++];
+      const div = document.createElement('div');
+      div.innerHTML = ln.t;
+      // Small enter animation per line
+      div.style.opacity = '0';
+      div.style.transform = 'translateX(-6px)';
+      div.style.transition = 'opacity .3s, transform .3s';
+      log.appendChild(div);
+      requestAnimationFrame(() => { div.style.opacity = '1'; div.style.transform = 'translateX(0)'; });
+
+      // If body overflows, scroll the latest line into view (inside the bootLog div only)
+      log.scrollTop = log.scrollHeight;
+
+      if (ln.bar){
+        const barEl = div.querySelector('.bar');
+        let p = 0; const total = 16;
+        const tick2 = setInterval(() => {
+          p += 1;
+          if (p > total){ clearInterval(tick2); return; }
+          const filled = '█'.repeat(p);
+          const empty  = '░'.repeat(total - p);
+          const pct    = String(Math.round(p / total * 100)).padStart(2, '0');
+          barEl.innerHTML = `[${filled}${empty}] ${pct}%`;
+        }, 55);
+      }
+      if (ln.biometric){
+        // brief flash on the fingerprint side panel
+        const fp = document.querySelector('.fp');
+        if (fp){
+          fp.style.boxShadow = '0 0 24px oklch(0.72 0.22 258 / 0.6)';
+          setTimeout(() => fp.style.boxShadow = '', 1200);
+        }
+      }
+
+      setTimeout(step, ln.delay);
+    }
+    log.innerHTML = '<div><span class="head">▶ ASHUTOSH PAL SINGH</span> <span class="dim">— secure portfolio handshake</span></div><div style="height:8px"></div>';
+    setTimeout(step, 300);
+    setTimeout(finish, 6500);
+  })();
+
+  /* ===== Cursor halo ===== */
+  (function(){
+    const halo = document.getElementById('cursorHalo');
+    if (!halo) return;
+    let tx = window.innerWidth/2, ty = window.innerHeight/2;
+    let cx = tx, cy = ty;
+    window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+    function frame(){
+      cx += (tx - cx) * 0.18;
+      cy += (ty - cy) * 0.18;
+      halo.style.left = cx + 'px';
+      halo.style.top  = cy + 'px';
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+    // hide on touch devices
+    if (matchMedia('(pointer: coarse)').matches) halo.style.display = 'none';
+  })();
+
+  /* ===== Magnetic hover for nav + chapter dots + cert cards ===== */
+  (function(){
+    const mag = document.querySelectorAll('.topbar .nav a, .chapter, .cert, .ch a, .skill-cat .tag');
+    mag.forEach(el => {
+      el.classList.add('magnet');
+      el.addEventListener('pointermove', (e) => {
+        const r = el.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width/2)) / (r.width/2);
+        const dy = (e.clientY - (r.top + r.height/2)) / (r.height/2);
+        el.style.transform = `translate(${dx*4}px, ${dy*4}px)`;
+      });
+      el.addEventListener('pointerleave', () => { el.style.transform = ''; });
+    });
+  })();
+
+  /* ===== Scroll reveals (bidirectional — fires on enter AND on leave so scroll-up animates too) ===== */
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
         e.target.classList.add('in');
-        io.unobserve(e.target);
+      } else {
+        // Only un-reveal if element is significantly out of view (above the viewport)
+        const r = e.boundingClientRect;
+        if (r.top > window.innerHeight * 0.6 || r.bottom < -40) {
+          e.target.classList.remove('in');
+        }
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
+  }, { threshold: [0, 0.1, 0.2], rootMargin: '0px 0px -60px 0px' });
   document.querySelectorAll('.reveal, .card3d, .splittext').forEach(el => io.observe(el));
 
   /* ===== Scroll progress + cube + chapters ===== */
@@ -1554,7 +2210,7 @@
     let frame = 0;
     function draw(){
       frame++;
-      ctx.fillStyle = 'rgba(4,6,10,0.18)';
+      ctx.fillStyle = 'rgba(6,7,14,0.18)';
       ctx.fillRect(0, 0, W, H);
       ctx.font = '13px "JetBrains Mono", monospace';
       ctx.textAlign = 'center';
@@ -1570,9 +2226,9 @@
           const yy = c.y - i * 16;
           if (yy < -16 || yy > H + 16) continue;
           const ch = c.chars[(i + frame/6 | 0) % c.chars.length];
-          if (i === 0) ctx.fillStyle = 'oklch(0.95 0.10 145 / 0.92)';
-          else if (i < 3) ctx.fillStyle = `oklch(0.86 0.20 145 / ${0.55 - i*0.12})`;
-          else ctx.fillStyle = `oklch(0.55 0.16 145 / ${Math.max(0, 0.32 - i*0.018)})`;
+          if (i === 0) ctx.fillStyle = 'oklch(0.95 0.14 258 / 0.78)';
+          else if (i < 3) ctx.fillStyle = `oklch(0.86 0.14 258 / ${0.42 - i*0.12})`;
+          else ctx.fillStyle = `oklch(0.62 0.22 258 / ${Math.max(0, 0.22 - i*0.014)})`;
           ctx.fillText(ch, c.x, yy);
         }
       }
@@ -1588,7 +2244,7 @@
           const d2 = dx*dx + dy*dy;
           if (d2 < 26000){
             const al = (1 - d2/26000) * 0.20;
-            ctx.strokeStyle = `oklch(0.75 0.13 210 / ${al})`;
+            ctx.strokeStyle = `oklch(0.75 0.20 258 / ${al})`;
             ctx.lineWidth = 0.6;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
@@ -1597,7 +2253,7 @@
         }
       }
       for (const n of nodes){
-        ctx.fillStyle = 'oklch(0.88 0.20 145 / 0.7)';
+        ctx.fillStyle = 'oklch(0.85 0.20 258 / 0.55)';
         ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fill();
       }
       if (!reduce) requestAnimationFrame(draw);
