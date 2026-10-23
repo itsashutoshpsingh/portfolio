@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ashutosh Pal Singh · Cyber Security Analyst</title>
 <meta name="description" content="Ashutosh Pal Singh: cyber security analyst with an MSc in Cyber Security Engineering from the University of Warwick. Vulnerability management, detection engineering and SOC. Based in Coventry, UK. No visa sponsorship needed.">
-<meta name="theme-color" content="#F5F6F8" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#0B1626" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F5F5F7">
+<meta name="color-scheme" content="light">
 <link rel="canonical" href="https://itsashutoshpsingh.github.io/portfolio/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="profile">
@@ -21,10 +21,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
 <script>
-  // Runs before first paint: restore theme choice, decide whether the opening plays.
+  // Runs before first paint: decide whether the opening plays.
   (function () {
     var d = document.documentElement, seen = false;
-    try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t); } catch (e) {}
     try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
     var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     d.classList.add('js');
@@ -51,22 +50,30 @@
 }
 </script>
 <style>
-  /* Layout: one calm column of evidence; the journey is the single bold scene, drawn as a chain-of-custody line. */
+  /* Layout: one calm column of evidence on cool Mac greys; the journey is the single bold scene, a midnight-blue chain-of-custody line. */
   :root {
-    --paper: #F5F6F8;      /* page */
+    --paper: #F5F5F7;      /* cool Mac grey page */
     --surface: #FFFFFF;    /* raised panels */
-    --ink: #0B1626;        /* text */
-    --slate: #5B6675;      /* secondary text */
-    --line: #DCE0E6;       /* hairlines */
-    --seal: #0A7C6E;       /* verified / proof */
-    --seal-soft: #E2F1EE;
-    --flare: #E4572E;      /* the opening stamp and the custody line's live tip only */
-    --glass: rgba(245, 246, 248, 0.72);
+    --ink: #1D1D1F;        /* graphite text */
+    --slate: #6E6E73;      /* secondary text */
+    --line: #E2E3E8;       /* hairlines */
+    --seal: #1F3A68;       /* midnight blue: accent, proof, buttons */
+    --seal-soft: #E9EEF6;
+    --flare: #3D7BFD;      /* cool signal blue: the live tip of the custody line only */
+    --night: #0E1A2E;      /* midnight band */
+    --night-ink: #F5F5F7;
+    --night-slate: #A9B4C8;
+    --night-accent: #9DBBFF;
+    --night-edge: rgba(255, 255, 255, 0.14);
+    --live: #28C840;       /* "available" status dot */
+    --mac-red: #FF5F57; --mac-amber: #FEBC2E; --mac-green: #28C840;
+    --glass: rgba(245, 245, 247, 0.72);
     --glass-edge: rgba(255, 255, 255, 0.7);
-    --shadow: 11, 22, 38;
+    --bar: linear-gradient(#FBFBFD, #F2F3F6);
+    --shadow: 15, 23, 42;
 
-    --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Instrument Sans", "Helvetica Neue", "Segoe UI", sans-serif;
+    --mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
 
     --fs-label: 0.9375rem;                                  /* 15px: smallest text on the site */
     --fs-small: 1rem;
@@ -84,20 +91,6 @@
     --spring: cubic-bezier(0.34, 1.36, 0.64, 1);
     color-scheme: light;
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #0B1626; --surface: #111F33; --ink: #EEF1F5; --slate: #9AA6B5; --line: #22324A;
-      --seal: #3CC4AE; --seal-soft: #0F2E33; --flare: #FF7A50;
-      --glass: rgba(11, 22, 38, 0.7); --glass-edge: rgba(255, 255, 255, 0.08); --shadow: 0, 0, 0;
-      color-scheme: dark;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #0B1626; --surface: #111F33; --ink: #EEF1F5; --slate: #9AA6B5; --line: #22324A;
-    --seal: #3CC4AE; --seal-soft: #0F2E33; --flare: #FF7A50;
-    --glass: rgba(11, 22, 38, 0.7); --glass-edge: rgba(255, 255, 255, 0.08); --shadow: 0, 0, 0;
-    color-scheme: dark;
-  }
 
   *, *::before, *::after { box-sizing: border-box; }
   html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5.5rem; }
@@ -113,7 +106,7 @@
   }
   img, svg { max-width: 100%; }
   a { color: inherit; }
-  ::selection { background: var(--seal); color: var(--paper); }
+  ::selection { background: var(--seal); color: var(--surface); }
   :focus-visible { outline: 3px solid var(--seal); outline-offset: 3px; border-radius: 6px; }
   .wrap { max-width: var(--max); margin-inline: auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
   .skip-link {
@@ -123,7 +116,7 @@
   .skip-link:focus { top: calc(env(safe-area-inset-top, 0px) + 1rem); }
   .mono { font-family: var(--mono); font-size: var(--fs-label); letter-spacing: 0; }
   h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
-  h2 { font-size: var(--fs-h2); line-height: 1.02; letter-spacing: -0.035em; }
+  h2 { font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.03em; }
   h3 { font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.015em; }
   p { margin: 0; text-wrap: pretty; }
   .section { padding-block: clamp(5rem, 3rem + 7vw, 9rem); }
@@ -140,8 +133,8 @@
   }
   .btn:active { transform: scale(0.96); transition-duration: 80ms; }
   .btn svg { width: 1.2rem; height: 1.2rem; flex: none; }
-  .btn-primary { background: var(--ink); color: var(--paper); }
-  .btn-primary:hover { background: color-mix(in srgb, var(--ink) 86%, var(--seal)); }
+  .btn-primary { background: var(--seal); color: var(--surface); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 6px 16px -8px rgba(var(--shadow), 0.5); }
+  .btn-primary:hover { background: color-mix(in srgb, var(--seal) 86%, var(--night)); }
   .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
   .btn-ghost:hover { border-color: var(--slate); }
 
@@ -165,7 +158,7 @@
     transition: color 180ms ease, background-color 180ms ease;
   }
   .nav-links a:hover { color: var(--ink); }
-  .nav-links a[aria-current="true"] { color: var(--ink); background: color-mix(in srgb, var(--ink) 7%, transparent); }
+  .nav-links a[aria-current="true"] { color: var(--seal); background: var(--seal-soft); }
   .icon-btn {
     display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px;
     border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
@@ -174,12 +167,6 @@
   .icon-btn:active { transform: scale(0.92); }
   .icon-btn:hover { border-color: var(--slate); }
   .icon-btn svg { width: 1.2rem; height: 1.2rem; }
-  .theme-btn .moon, :root[data-theme="dark"] .theme-btn .sun { display: none; }
-  :root[data-theme="dark"] .theme-btn .moon { display: block; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .theme-btn .sun { display: none; }
-    :root:not([data-theme="light"]) .theme-btn .moon { display: block; }
-  }
   .menu-btn { display: none; }
   .menu-sheet {
     position: fixed; z-index: 55; top: calc(env(safe-area-inset-top, 0px) + 4.75rem); right: max(0.75rem, env(safe-area-inset-right, 0px));
@@ -236,9 +223,9 @@
     display: inline-flex; align-items: center; gap: 0.65rem; min-height: 2.5rem; padding: 0.45rem 1.1rem 0.45rem 0.9rem; border-radius: 1.5rem; line-height: 1.35;
     background: var(--seal-soft); color: var(--seal); font-size: var(--fs-small); font-weight: 600;
   }
-  .status .dot { flex: none; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 0 currentColor; animation: ping 2.8s ease-out infinite; }
-  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--seal) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.6rem transparent; } }
-  .hero h1 { font-size: var(--fs-display); line-height: 0.98; letter-spacing: -0.045em; margin-top: 1.75rem; font-weight: 600; }
+  .status .dot { flex: none; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--live); animation: ping 2.8s ease-out infinite; }
+  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.6rem transparent; } }
+  .hero h1 { font-size: var(--fs-display); line-height: 1; letter-spacing: -0.04em; margin-top: 1.75rem; font-weight: 600; }
   .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(2.5rem, 2rem + 3vw, 5rem); margin-top: clamp(2rem, 1.5rem + 2vw, 3.25rem); align-items: start; }
   .hero-lead { font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2rem); line-height: 1.35; letter-spacing: -0.015em; font-weight: 500; max-width: 34ch; }
   .hero-lead span { color: var(--slate); }
@@ -247,9 +234,16 @@
   .hero-social .btn { padding: 0 1.2rem; }
 
   .file {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 1.75rem; padding: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
-    box-shadow: 0 1px 0 rgba(var(--shadow), 0.03), 0 40px 80px -48px rgba(var(--shadow), 0.4);
+    --fp: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem; padding: var(--fp); overflow: hidden;
+    box-shadow: 0 0 0 0.5px rgba(var(--shadow), 0.06), 0 2px 6px rgba(var(--shadow), 0.04), 0 40px 80px -36px rgba(var(--shadow), 0.35);
   }
+  .file-bar { display: flex; align-items: center; margin: calc(-1 * var(--fp)) calc(-1 * var(--fp)) var(--fp); padding: 0.85rem 1.1rem; background: var(--bar); border-bottom: 1px solid var(--line); }
+  .lights { display: flex; gap: 0.5rem; flex: none; }
+  .lights i { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--mac-red); box-shadow: inset 0 0 0 0.5px rgba(var(--shadow), 0.18); }
+  .lights i:nth-child(2) { background: var(--mac-amber); }
+  .lights i:nth-child(3) { background: var(--mac-green); }
+  .file-bar .mono { flex: 1; text-align: center; color: var(--slate); margin-right: 3.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .file-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
   .file-head h2 { font-size: var(--fs-lead); letter-spacing: -0.01em; line-height: 1.2; }
   .file-head .mono { color: var(--slate); display: block; margin-top: 0.2rem; }
@@ -357,23 +351,32 @@
   .cred { display: grid; gap: 0.3rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
   .cred-title { font-weight: 600; font-size: var(--fs-body); line-height: 1.4; }
   .cred-meta { color: var(--slate); font-size: var(--fs-small); }
-  .paper { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: end; padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); border-radius: 1.75rem; background: var(--ink); color: var(--paper); }
-  .paper .mono { color: color-mix(in srgb, var(--paper) 70%, transparent); }
+  .paper { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: end; padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); border-radius: 1.75rem; background: var(--night); color: var(--night-ink); }
+  .paper .mono { color: var(--night-slate); }
   .paper blockquote { margin: 0.75rem 0 0; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2rem); line-height: 1.3; letter-spacing: -0.02em; font-weight: 500; }
-  .paper p { margin-top: 1rem; color: color-mix(in srgb, var(--paper) 78%, transparent); }
-  .paper .btn { background: var(--paper); color: var(--ink); }
+  .paper p { margin-top: 1rem; color: var(--night-slate); }
+  .paper .btn { background: var(--surface); color: var(--seal); }
+  .paper :focus-visible { outline-color: var(--night-accent); }
 
   /* ---------- Contact ---------- */
-  .contact h2 { font-size: clamp(3rem, 1.5rem + 6.5vw, 7rem); letter-spacing: -0.045em; line-height: 0.98; }
+  .contact h2 { font-size: clamp(3rem, 1.5rem + 6.5vw, 7rem); letter-spacing: -0.04em; line-height: 1; }
   .contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(2rem, 1.5rem + 3vw, 5rem); margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); align-items: end; }
-  .contact-grid > p { font-size: var(--fs-lead); color: var(--slate); line-height: 1.5; max-width: 36rem; }
-  .email-card { display: grid; gap: 1rem; padding: 1.5rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); }
+  .contact { background: var(--night); color: var(--night-ink); }
+  .contact-grid > p { font-size: var(--fs-lead); color: var(--night-slate); line-height: 1.5; max-width: 36rem; }
+  .email-card { display: grid; gap: 1rem; padding: 1.5rem; border-radius: var(--radius); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--night-edge); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+  .contact .icon-btn { background: transparent; border-color: var(--night-edge); color: var(--night-ink); }
+  .contact .btn-primary { background: var(--surface); color: var(--seal); }
+  .contact .btn-primary:hover { background: var(--seal-soft); }
+  .contact .btn-ghost { background: transparent; color: var(--night-ink); border-color: var(--night-edge); }
+  .contact .btn-ghost:hover { border-color: var(--night-slate); }
+  .contact :focus-visible { outline-color: var(--night-accent); }
   .email-line { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
   .email-line a { font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; min-width: 0; }
   .email-line a:hover { text-decoration: underline; text-underline-offset: 4px; }
-  .copied { color: var(--seal); font-weight: 600; font-size: var(--fs-small); min-height: 1.5em; }
+  .copied { color: var(--night-accent); font-weight: 600; font-size: var(--fs-small); min-height: 1.5em; }
   .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  footer { padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--line); color: var(--slate); font-size: var(--fs-small); }
+  footer { padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px)); background: var(--night); border-top: 1px solid var(--night-edge); color: var(--night-slate); font-size: var(--fs-small); }
+  footer :focus-visible { outline-color: var(--night-accent); }
   footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
   footer a { min-height: 2.75rem; display: inline-flex; align-items: center; }
 
@@ -417,10 +420,10 @@
     :root { --line: #8C96A3; --slate: #3E4856; }
   }
   @media print {
-    .nav, .menu-sheet, .intro-screen, .theme-btn, .hero-actions, .hero-social, .contact-links .btn-ghost, footer a { display: none !important; }
+    .nav, .menu-sheet, .intro-screen, .hero-actions, .hero-social, .contact-links .btn-ghost, footer a { display: none !important; }
     body { background: #fff; color: #000; font-size: 11pt; }
     .section, .hero { padding-block: 1.25rem; }
-    .journey, .toolkit, .file, .flow, .paper { background: #fff !important; color: #000 !important; border-color: #bbb !important; box-shadow: none !important; }
+    .journey, .toolkit, .file, .flow, .paper, .contact, footer, .email-card { background: #fff !important; color: #000 !important; border-color: #bbb !important; box-shadow: none !important; }
     .custody-fill { transform: scaleY(1) !important; }
     a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
   }
@@ -459,10 +462,6 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-tools">
-      <button class="icon-btn theme-btn" type="button" id="themeBtn" aria-label="Switch colour theme">
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6l1.4 1.4M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></svg>
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/></svg>
-      </button>
       <a class="btn btn-primary cta-email" href="mailto:itsashutoshpsingh@gmail.com" style="min-height:2.75rem;padding:0 1.2rem">Email me</a>
       <button class="icon-btn menu-btn" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menuSheet">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
@@ -510,10 +509,11 @@
         </div>
 
         <aside class="file reveal" style="--i:3" aria-labelledby="fileTitle">
+          <div class="file-bar" aria-hidden="true"><span class="lights"><i></i><i></i><i></i></span><span class="mono">candidate-file</span></div>
           <div class="file-head">
             <div>
               <h2 id="fileTitle">At a glance</h2>
-              <span class="mono">Candidate file · updated Oct 2026</span>
+              <span class="mono">Updated Oct 2026</span>
             </div>
             <svg class="file-seal" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="28" cy="28" r="21" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="1.5 3.5"/><path d="M19 28.5l6 6 12-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -977,15 +977,6 @@
     document.getElementById('fileHash').textContent = h.slice(0, 12) + '…' + h.slice(-12);
     document.getElementById('fileFoot').hidden = false;
   }, function () {});
-
-  /* ---------- Theme ---------- */
-  document.getElementById('themeBtn').addEventListener('click', function () {
-    var explicit = root.getAttribute('data-theme');
-    var dark = explicit ? explicit === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-    var next = dark ? 'light' : 'dark';
-    root.setAttribute('data-theme', next);
-    try { localStorage.setItem('theme', next); } catch (e) {}
-  });
 
   /* ---------- Nav material + menu sheet anchored to its button ---------- */
   var nav = document.getElementById('nav');
