@@ -12,10 +12,10 @@ Live at **https://itsashutoshpsingh.github.io/portfolio/**
 
 ## Design notes
 
-- **Direction:** a signed evidence file. The palette is calm, the type is large, and claims link to proof wherever public proof exists.
+- **Direction:** a signed evidence file in a cool, light Mac style: soft greys, graphite text, midnight-blue accents and the system San Francisco font on Apple devices. Claims link to proof wherever public proof exists.
 - **Opening:** a short integrity check. It plays once per browser session, can be skipped, and is turned off when the visitor asks for reduced motion.
 - **Journey:** a chain-of-custody line that follows the scroll through a critically damped spring and seals each milestone as it passes.
-- **Themes and accessibility:** light and dark themes follow the system setting and can be switched by hand. The smallest text is 15px and tap targets are at least 44px. Reduced motion, reduced transparency and high contrast settings are respected.
+- **Accessibility:** light theme only. The smallest text is 15px and tap targets are at least 44px. Reduced motion, reduced transparency and high contrast settings are respected.
 
 ## Editing
 
