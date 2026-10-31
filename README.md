@@ -4,21 +4,24 @@ Personal site for Ashutosh Pal Singh, cyber security analyst (MSc Cyber Security
 
 Live at **https://itsashutoshpsingh.github.io/portfolio/**
 
-## What's here
+## Files
 
-- `index.html` – the whole site: HTML, CSS and JavaScript in one file, with no build step and no dependencies apart from Google Fonts.
-- `favicon.svg`, `og.png` – the tab icon and the link-preview image used on LinkedIn, Slack and email.
-- `.nojekyll` – tells GitHub Pages to serve the files as they are.
+- `index.html` – the page content
+- `styles.css` – the page styles, opened by the Hallmark stamp
+- `tokens.css`, `base.css` – the Hallmark Cobalt theme tokens and base rules
+- `app.js` – the hero's ASCII field, the CVSS v3.1 calculator, the event-to-rule connectors and the copy button
+- `favicon.svg`, `og.png` – the tab icon and the link-preview image
+- `.claude/skills/` – Emil Kowalski's design-engineering skills and Hallmark, loaded by Claude Code in this repo
+- `.hallmark/log.json` – Hallmark's build log, used to vary future builds
 
-## Design notes
+No build step and no dependencies apart from Google Fonts.
 
-- **Direction:** a signed evidence file in a cool, light Mac style: soft greys, graphite text, midnight-blue accents and the system San Francisco font on Apple devices. Claims link to proof wherever public proof exists.
-- **Opening:** a short integrity check. It plays once per browser session, can be skipped, and is turned off when the visitor asks for reduced motion.
-- **Journey:** a chain-of-custody line that follows the scroll through a critically damped spring and seals each milestone as it passes.
-- **Accessibility:** light theme only. The smallest text is 15px and tap targets are at least 44px. Reduced motion, reduced transparency and high contrast settings are respected.
+## Design
 
-## Editing
+Built with the Hallmark skill, Cobalt theme: cool near-white paper, graphite code panels and one electric cobalt accent. The fonts are Familjen Grotesk, IBM Plex Sans and JetBrains Mono.
 
-All content is plain HTML in `index.html`. Search for the section `id` (`journey`, `work`, `toolkit`, `credentials`, `contact`) and edit the text directly. Colour and type tokens live at the top of the `<style>` block.
+- **Opening:** the hero's ASCII field sweeps from noise into ranked lanes, like raw scan output becoming prioritised findings, while the "7 months" figure counts up.
+- **Signature:** a working CVSS v3.1 base-score calculator using the FIRST formula.
+- **Accessibility:** reduced motion is respected and everything works without JavaScript. The smallest text is 15px and controls are at least 44px tall.
 
-The previous version of the site is preserved at the git tag `v1-archive`.
+The previous version of the site is in git history at commit `0943d6e`.

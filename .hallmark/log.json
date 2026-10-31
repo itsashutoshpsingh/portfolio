@@ -1,0 +1,28 @@
+[
+ {
+  "shape": "Stat-Led",
+  "theme": "cobalt",
+  "axes": "light/grotesk-sans/cool",
+  "hero": "Banner",
+  "nav": "masthead",
+  "footer": "letter close",
+  "imagery": "product built: ASCII field, CVSS calculator, Sysmon-to-Sigma mapping",
+  "photos": [],
+  "entry": "index.html",
+  "fingerprint": "stat-led/banner/masthead/letter/rows-split-index-mapping-table",
+  "sections": [
+   "hero",
+   "rows",
+   "split",
+   "index",
+   "mapping",
+   "table",
+   "letter close"
+  ],
+  "signature": "working CVSS v3.1 calculator",
+  "waived": [],
+  "prompt": "Personal portfolio for a cyber security analyst; Cobalt by request; job hire; no photos",
+  "date": "2026-10-31",
+  "mode": "build"
+ }
+]

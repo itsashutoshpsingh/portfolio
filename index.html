@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ashutosh Pal Singh · Cyber Security Analyst</title>
-<meta name="description" content="Ashutosh Pal Singh: cyber security analyst with an MSc in Cyber Security Engineering from the University of Warwick. Vulnerability management, detection engineering and SOC. Based in Coventry, UK. No visa sponsorship needed.">
-<meta name="theme-color" content="#F5F5F7">
+<title>Ashutosh Pal Singh, cyber security analyst</title>
+<meta name="description" content="Ashutosh Pal Singh is a cyber security analyst with an MSc from the University of Warwick, looking for SOC and vulnerability management roles in the UK.">
+<meta name="theme-color" content="#F7F9FC">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://itsashutoshpsingh.github.io/portfolio/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="profile">
-<meta property="og:title" content="Ashutosh Pal Singh · Cyber Security Analyst">
-<meta property="og:description" content="MSc Cyber Security Engineering, University of Warwick. Vulnerability management, detection engineering and SOC. Coventry, UK. No visa sponsorship needed.">
+<meta property="og:title" content="Ashutosh Pal Singh, cyber security analyst">
+<meta property="og:description" content="Seven months of vulnerability management on shipped IoT devices. MSc Cyber Security Engineering, University of Warwick. Open to SOC and vulnerability management roles in the UK.">
 <meta property="og:url" content="https://itsashutoshpsingh.github.io/portfolio/">
 <meta property="og:image" content="https://itsashutoshpsingh.github.io/portfolio/og.png">
 <meta property="og:image:width" content="1200">
@@ -19,17 +19,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=JetBrains+Mono:wght@400;500;600&display=swap">
-<script>
-  // Runs before first paint: decide whether the opening plays.
-  (function () {
-    var d = document.documentElement, seen = false;
-    try { seen = sessionStorage.getItem('introSeen') === '1'; } catch (e) {}
-    var still = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-    d.classList.add('js');
-    if (!still && !seen) d.classList.add('intro');
-  })();
-</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js');</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -43,1033 +35,324 @@
     { "@type": "CollegeOrUniversity", "name": "University of Warwick" },
     { "@type": "CollegeOrUniversity", "name": "Symbiosis Institute of Technology" }
   ],
-  "sameAs": [
-    "https://www.linkedin.com/in/ashutosh-pal-singh/",
-    "https://github.com/itsashutoshpsingh"
-  ]
+  "sameAs": ["https://www.linkedin.com/in/ashutosh-pal-singh/", "https://github.com/itsashutoshpsingh"]
 }
 </script>
-<style>
-  /* Layout: one calm column of evidence on cool Mac greys; the journey is the single bold scene, a midnight-blue chain-of-custody line. */
-  :root {
-    --paper: #F5F5F7;      /* cool Mac grey page */
-    --surface: #FFFFFF;    /* raised panels */
-    --ink: #1D1D1F;        /* graphite text */
-    --slate: #6E6E73;      /* secondary text */
-    --line: #E2E3E8;       /* hairlines */
-    --seal: #1F3A68;       /* midnight blue: accent, proof, buttons */
-    --seal-soft: #E9EEF6;
-    --flare: #3D7BFD;      /* cool signal blue: the live tip of the custody line only */
-    --night: #0E1A2E;      /* midnight band */
-    --night-ink: #F5F5F7;
-    --night-slate: #A9B4C8;
-    --night-accent: #9DBBFF;
-    --night-edge: rgba(255, 255, 255, 0.14);
-    --live: #28C840;       /* "available" status dot */
-    --mac-red: #FF5F57; --mac-amber: #FEBC2E; --mac-green: #28C840;
-    --glass: rgba(245, 245, 247, 0.72);
-    --glass-edge: rgba(255, 255, 255, 0.7);
-    --bar: linear-gradient(#FBFBFD, #F2F3F6);
-    --shadow: 15, 23, 42;
-
-    --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Instrument Sans", "Helvetica Neue", "Segoe UI", sans-serif;
-    --mono: "SF Mono", ui-monospace, "JetBrains Mono", Menlo, Consolas, monospace;
-
-    --fs-label: 0.9375rem;                                  /* 15px: smallest text on the site */
-    --fs-small: 1rem;
-    --fs-body: 1.125rem;                                    /* 18px body */
-    --fs-lead: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem);
-    --fs-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
-    --fs-h2: clamp(2.5rem, 1.6rem + 3.6vw, 4.5rem);
-    --fs-display: clamp(3rem, 0.9rem + 8.4vw, 7.5rem);
-
-    --gutter: max(1.25rem, env(safe-area-inset-left, 0px));
-    --gutter-r: max(1.25rem, env(safe-area-inset-right, 0px));
-    --max: 74rem;
-    --radius: 1.25rem;
-    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-    --spring: cubic-bezier(0.34, 1.36, 0.64, 1);
-    color-scheme: light;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5.5rem; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font: 400 var(--fs-body)/1.6 var(--sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    transition: background-color 300ms ease, color 300ms ease;
-  }
-  img, svg { max-width: 100%; }
-  a { color: inherit; }
-  ::selection { background: var(--seal); color: var(--surface); }
-  :focus-visible { outline: 3px solid var(--seal); outline-offset: 3px; border-radius: 6px; }
-  .wrap { max-width: var(--max); margin-inline: auto; padding-left: var(--gutter); padding-right: var(--gutter-r); }
-  .skip-link {
-    position: absolute; left: 1rem; top: -4rem; z-index: 200;
-    background: var(--ink); color: var(--paper); padding: 0.75rem 1.1rem; border-radius: 999px; text-decoration: none; font-weight: 600;
-  }
-  .skip-link:focus { top: calc(env(safe-area-inset-top, 0px) + 1rem); }
-  .mono { font-family: var(--mono); font-size: var(--fs-label); letter-spacing: 0; }
-  h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; }
-  h2 { font-size: var(--fs-h2); line-height: 1.04; letter-spacing: -0.03em; }
-  h3 { font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.015em; }
-  p { margin: 0; text-wrap: pretty; }
-  .section { padding-block: clamp(5rem, 3rem + 7vw, 9rem); }
-  .section-head { display: grid; gap: 1.25rem; margin-bottom: clamp(2.5rem, 2rem + 3vw, 4.5rem); max-width: 50rem; }
-  .section-head p { font-size: var(--fs-lead); color: var(--slate); line-height: 1.5; max-width: 40rem; }
-
-  /* ---------- Buttons: feedback on press, not on release ---------- */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-    min-height: 3.25rem; padding: 0 1.5rem; border-radius: 999px;
-    font: 600 var(--fs-small)/1 var(--sans); text-decoration: none; cursor: pointer;
-    border: 1px solid transparent; -webkit-tap-highlight-color: transparent;
-    transition: transform 120ms ease-out, background-color 200ms ease, border-color 200ms ease, color 200ms ease;
-  }
-  .btn:active { transform: scale(0.96); transition-duration: 80ms; }
-  .btn svg { width: 1.2rem; height: 1.2rem; flex: none; }
-  .btn-primary { background: var(--seal); color: var(--surface); box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 6px 16px -8px rgba(var(--shadow), 0.5); }
-  .btn-primary:hover { background: color-mix(in srgb, var(--seal) 86%, var(--night)); }
-  .btn-ghost { border-color: var(--line); color: var(--ink); background: var(--surface); }
-  .btn-ghost:hover { border-color: var(--slate); }
-
-  /* ---------- Navigation: a translucent material that content scrolls under ---------- */
-  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--paper); }
-  .nav {
-    position: fixed; top: env(safe-area-inset-top, 0px); left: 0; right: 0; z-index: 50;
-    background: var(--glass);
-    -webkit-backdrop-filter: blur(20px) saturate(180%); backdrop-filter: blur(20px) saturate(180%);
-    border-bottom: 1px solid transparent;
-    transition: border-color 250ms ease, box-shadow 250ms ease;
-  }
-  .nav.scrolled { border-bottom-color: var(--line); box-shadow: 0 8px 30px -18px rgba(var(--shadow), 0.35); }
-  .nav-inner { display: flex; align-items: center; gap: 1rem; height: 4.25rem; }
-  .brand { display: inline-flex; align-items: center; gap: 0.7rem; text-decoration: none; font-weight: 600; font-size: var(--fs-small); letter-spacing: -0.01em; min-height: 2.75rem; }
-  .brand svg { width: 2.25rem; height: 2.25rem; flex: none; }
-  .nav-links { display: flex; gap: 0.25rem; margin: 0 0 0 auto; padding: 0; list-style: none; }
-  .nav-links a {
-    display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.95rem; border-radius: 999px;
-    text-decoration: none; font-size: var(--fs-small); font-weight: 500; color: var(--slate);
-    transition: color 180ms ease, background-color 180ms ease;
-  }
-  .nav-links a:hover { color: var(--ink); }
-  .nav-links a[aria-current="true"] { color: var(--seal); background: var(--seal-soft); }
-  .icon-btn {
-    display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; border-radius: 999px;
-    border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer;
-    transition: transform 120ms ease-out, border-color 200ms ease; -webkit-tap-highlight-color: transparent;
-  }
-  .icon-btn:active { transform: scale(0.92); }
-  .icon-btn:hover { border-color: var(--slate); }
-  .icon-btn svg { width: 1.2rem; height: 1.2rem; }
-  .menu-btn { display: none; }
-  .menu-sheet {
-    position: fixed; z-index: 55; top: calc(env(safe-area-inset-top, 0px) + 4.75rem); right: max(0.75rem, env(safe-area-inset-right, 0px));
-    width: min(20rem, calc(100vw - 1.5rem)); padding: 0.5rem; border-radius: 1.4rem;
-    background: var(--glass); -webkit-backdrop-filter: blur(28px) saturate(180%); backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid var(--glass-edge); box-shadow: 0 30px 60px -20px rgba(var(--shadow), 0.45);
-    transform-origin: calc(100% - 1.4rem) -0.5rem;
-    transform: scale(0.6); opacity: 0; filter: blur(8px); visibility: hidden;
-    transition: transform 380ms var(--spring), opacity 200ms ease, filter 260ms ease, visibility 0s linear 380ms;
-  }
-  .menu-sheet.open { transform: scale(1); opacity: 1; filter: blur(0); visibility: visible; transition: transform 420ms var(--spring), opacity 180ms ease, filter 220ms ease, visibility 0s; }
-  .menu-sheet a { display: flex; align-items: center; min-height: 3.25rem; padding: 0 1.1rem; border-radius: 0.9rem; text-decoration: none; font-size: var(--fs-body); font-weight: 500; }
-  .menu-sheet a:active { background: color-mix(in srgb, var(--ink) 8%, transparent); }
-
-  /* ---------- Opening: an integrity check. The name is readable from frame one. ---------- */
-  .intro-screen { display: none; }
-  .intro .intro-screen {
-    display: grid; place-items: center; position: fixed; inset: 0; z-index: 100;
-    background: var(--paper); padding: 2rem var(--gutter-r) 2rem var(--gutter);
-    animation: intro-failsafe 0.01s linear 3.6s forwards; /* never trap anyone if a script fails */
-  }
-  .intro-stack { display: grid; justify-items: center; gap: 1.5rem; text-align: center; }
-  .intro-seal { width: clamp(6.5rem, 5rem + 6vw, 9rem); height: auto; overflow: visible; }
-  .intro-seal .ring { fill: none; stroke: var(--line); stroke-width: 2; }
-  .intro-seal .draw { fill: none; stroke: var(--seal); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 340; stroke-dashoffset: 340; transform: rotate(-90deg); transform-origin: 60px 60px; animation: draw-ring 700ms var(--ease-out) 120ms forwards; }
-  .intro-seal .ticks { fill: none; stroke: var(--seal); stroke-width: 1.5; stroke-dasharray: 2 6; opacity: 0; animation: fade-in 300ms ease 500ms forwards; }
-  .intro-seal .check { fill: none; stroke: var(--flare); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 60; stroke-dashoffset: 60; animation: draw-check 320ms var(--ease-out) 760ms forwards; }
-  .intro-seal .stamp { transform-origin: 60px 60px; animation: stamp 520ms var(--spring) 740ms both; }
-  .intro-name { font-size: clamp(2.25rem, 1.2rem + 4.5vw, 4.25rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; }
-  .intro-hash { font-family: var(--mono); font-size: clamp(0.9375rem, 0.85rem + 0.4vw, 1.125rem); color: var(--slate); min-height: 1.6em; font-variant-numeric: tabular-nums; }
-  .intro-hash b { color: var(--ink); font-weight: 500; }
-  .intro-verdict { font-size: var(--fs-lead); font-weight: 500; color: var(--seal); opacity: 0; transform: translateY(8px); animation: rise 420ms var(--ease-out) 900ms forwards; }
-  .intro-skip {
-    position: absolute; right: max(1.25rem, env(safe-area-inset-right, 0px)); bottom: max(1.25rem, env(safe-area-inset-bottom, 0px));
-    min-height: 2.75rem; padding: 0 1.2rem; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
-    font: 500 var(--fs-small)/1 var(--sans); cursor: pointer;
-  }
-  .intro-leaving .intro-screen { animation: intro-exit 520ms var(--ease-out) forwards; pointer-events: none; }
-  .intro-leaving .intro-stack { animation: intro-recede 520ms var(--ease-out) forwards; }
-  .intro .hero .reveal { opacity: 0; transform: translateY(24px); }
-  .intro-leaving .hero .reveal { animation: rise 760ms var(--ease-out) forwards; animation-delay: calc(var(--i, 0) * 70ms + 120ms); }
-  @keyframes draw-ring { to { stroke-dashoffset: 0; } }
-  @keyframes draw-check { to { stroke-dashoffset: 0; } }
-  @keyframes stamp { from { transform: scale(1.35); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  @keyframes fade-in { to { opacity: 1; } }
-  @keyframes rise { to { opacity: 1; transform: none; } }
-  @keyframes intro-exit { to { opacity: 0; visibility: hidden; } }
-  @keyframes intro-recede { to { transform: scale(0.94); filter: blur(10px); } }
-  @keyframes intro-failsafe { to { opacity: 0; visibility: hidden; pointer-events: none; } }
-
-  /* ---------- Hero ---------- */
-  .hero { padding-top: calc(env(safe-area-inset-top, 0px) + clamp(7.5rem, 5rem + 6vw, 10rem)); padding-bottom: clamp(4rem, 3rem + 4vw, 7rem); }
-  .status {
-    display: inline-flex; align-items: center; gap: 0.65rem; min-height: 2.5rem; padding: 0.45rem 1.1rem 0.45rem 0.9rem; border-radius: 1.5rem; line-height: 1.35;
-    background: var(--seal-soft); color: var(--seal); font-size: var(--fs-small); font-weight: 600;
-  }
-  .status .dot { flex: none; width: 0.6rem; height: 0.6rem; border-radius: 50%; background: var(--live); animation: ping 2.8s ease-out infinite; }
-  @keyframes ping { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--live) 55%, transparent); } 70%, 100% { box-shadow: 0 0 0 0.6rem transparent; } }
-  .hero h1 { font-size: var(--fs-display); line-height: 1; letter-spacing: -0.04em; margin-top: 1.75rem; font-weight: 600; }
-  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: clamp(2.5rem, 2rem + 3vw, 5rem); margin-top: clamp(2rem, 1.5rem + 2vw, 3.25rem); align-items: start; }
-  .hero-lead { font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2rem); line-height: 1.35; letter-spacing: -0.015em; font-weight: 500; max-width: 34ch; }
-  .hero-lead span { color: var(--slate); }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2.25rem; }
-  .hero-social { display: flex; gap: 0.75rem; margin-top: 1.25rem; }
-  .hero-social .btn { padding: 0 1.2rem; }
-
-  .file {
-    --fp: clamp(1.5rem, 1.2rem + 1vw, 2.25rem);
-    background: var(--surface); border: 1px solid var(--line); border-radius: 1.1rem; padding: var(--fp); overflow: hidden;
-    box-shadow: 0 0 0 0.5px rgba(var(--shadow), 0.06), 0 2px 6px rgba(var(--shadow), 0.04), 0 40px 80px -36px rgba(var(--shadow), 0.35);
-  }
-  .file-bar { display: flex; align-items: center; margin: calc(-1 * var(--fp)) calc(-1 * var(--fp)) var(--fp); padding: 0.85rem 1.1rem; background: var(--bar); border-bottom: 1px solid var(--line); }
-  .lights { display: flex; gap: 0.5rem; flex: none; }
-  .lights i { width: 0.8rem; height: 0.8rem; border-radius: 50%; background: var(--mac-red); box-shadow: inset 0 0 0 0.5px rgba(var(--shadow), 0.18); }
-  .lights i:nth-child(2) { background: var(--mac-amber); }
-  .lights i:nth-child(3) { background: var(--mac-green); }
-  .file-bar .mono { flex: 1; text-align: center; color: var(--slate); margin-right: 3.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .file-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
-  .file-head h2 { font-size: var(--fs-lead); letter-spacing: -0.01em; line-height: 1.2; }
-  .file-head .mono { color: var(--slate); display: block; margin-top: 0.2rem; }
-  .file-seal { width: 3.5rem; height: 3.5rem; flex: none; color: var(--seal); }
-  .file dl { margin: 0; display: grid; }
-  .file .row { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--line); }
-  .file dt { color: var(--slate); font-size: var(--fs-small); }
-  .file dd { margin: 0; font-size: var(--fs-small); font-weight: 500; line-height: 1.45; }
-  .proof {
-    display: inline-flex; align-items: center; gap: 0.35rem; margin-top: 0.4rem; padding: 0.3rem 0.7rem 0.3rem 0.5rem; border-radius: 999px;
-    background: var(--seal-soft); color: var(--seal); font: 600 var(--fs-label)/1.2 var(--sans); text-decoration: none;
-    transition: transform 120ms ease-out;
-  }
-  .proof:active { transform: scale(0.95); }
-  .proof:hover { text-decoration: underline; text-underline-offset: 3px; }
-  .proof svg { width: 1rem; height: 1rem; flex: none; }
-  .file-foot { padding-top: 1rem; color: var(--slate); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; overflow-wrap: anywhere; }
-  .file-foot b { color: var(--ink); font-weight: 500; }
-
-  /* ---------- What I do ---------- */
-  .abilities { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--line); }
-  .ability { padding: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem) clamp(0rem, 2vw, 2.5rem) clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem) 0; border-bottom: 1px solid var(--line); display: grid; gap: 0.85rem; align-content: start; }
-  .ability:nth-child(2n) { padding-left: clamp(1.5rem, 3vw, 2.5rem); border-left: 1px solid var(--line); padding-right: 0; }
-  .ability p { color: var(--slate); max-width: 36rem; }
-  .ability .evidence { color: var(--ink); }
-  .ability .evidence .mono { color: var(--slate); }
-
-  /* ---------- Journey: the chain of custody ---------- */
-  .journey { background: var(--surface); border-block: 1px solid var(--line); }
-  .custody { position: relative; list-style: none; margin: 0; padding: 0; --node-x: 1.25rem; }
-  .custody-track, .custody-fill { position: absolute; left: calc(var(--node-x) - 1px); width: 2px; top: 1rem; bottom: 1rem; border-radius: 2px; }
-  .custody-track { background: var(--line); }
-  .custody-fill { background: var(--seal); transform-origin: top; transform: scaleY(1); }
-  .js .custody-fill { transform: scaleY(0); }
-  .custody-tip {
-    position: absolute; left: calc(var(--node-x) - 0.45rem); top: 0; width: 0.9rem; height: 0.9rem; border-radius: 50%;
-    background: var(--flare); box-shadow: 0 0 0 0.35rem color-mix(in srgb, var(--flare) 22%, transparent); opacity: 0; transition: opacity 250ms ease;
-  }
-  .custody.drawing .custody-tip { opacity: 1; }
-  .stop { position: relative; display: grid; grid-template-columns: 2.5rem minmax(0, 1fr); column-gap: 1.25rem; padding-bottom: clamp(3rem, 2rem + 3vw, 4.5rem); }
-  .stop:last-child { padding-bottom: 0; }
-  .stop-node { grid-column: 1; grid-row: 1 / span 2; position: relative; z-index: 1; width: 2.5rem; height: 2.5rem; margin-top: -0.2rem; }
-  .stop-node svg { width: 100%; height: 100%; display: block; }
-  .stop-node .bg { fill: var(--surface); }
-  .stop-node .ring { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: stroke 300ms ease, fill 300ms ease; }
-  .stop-node .tick { fill: none; stroke: var(--surface); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset 320ms var(--ease-out) 120ms; }
-  .stop.sealed .ring { fill: var(--seal); stroke: var(--seal); }
-  .stop.sealed .tick { stroke-dashoffset: 0; }
-  html:not(.js) .stop .ring { fill: var(--seal); stroke: var(--seal); }
-  html:not(.js) .stop .tick { stroke-dashoffset: 0; }
-  .stop.sealed .stop-node svg { animation: seal-pop 480ms var(--spring); }
-  @keyframes seal-pop { 0% { transform: scale(0.82); } 100% { transform: scale(1); } }
-  .stop-when { grid-column: 2; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.25rem 0.9rem; margin-bottom: 0.6rem; }
-  .when-date { font-family: var(--mono); font-size: var(--fs-small); font-weight: 600; color: var(--seal); font-variant-numeric: tabular-nums; }
-  .when-place { color: var(--slate); font-size: var(--fs-small); }
-  .stop-body { grid-column: 2; display: grid; gap: 0.9rem; max-width: 46rem; }
-  .stop-body .org { color: var(--slate); font-size: var(--fs-small); margin-top: -0.4rem; }
-  .stop-body .outcome { font-size: var(--fs-lead); line-height: 1.45; letter-spacing: -0.01em; }
-  .stop-body ul.points { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.6rem; }
-  .stop-body ul.points li { position: relative; padding-left: 1.5rem; color: var(--slate); }
-  .stop-body ul.points li::before { content: ""; position: absolute; left: 0.2rem; top: 0.72em; width: 0.55rem; height: 2px; background: var(--seal); border-radius: 2px; }
-  .chips { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
-  .chips li {
-    font-family: var(--mono); font-size: var(--fs-label); line-height: 1; padding: 0.55rem 0.8rem; border-radius: 0.6rem;
-    background: color-mix(in srgb, var(--ink) 5%, transparent); color: var(--ink);
-  }
-  .stop.next .ring { stroke: var(--flare); stroke-dasharray: 4 4; fill: var(--surface); }
-  .stop.next.sealed .ring { fill: var(--surface); stroke: var(--flare); }
-  .stop.next .tick { display: none; }
-  .stop.next .outcome { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -0.02em; }
-  .sub-note { border-left: 2px solid var(--line); padding-left: 1rem; color: var(--slate); font-size: var(--fs-small); }
-  .sub-note strong { color: var(--ink); font-weight: 600; }
-
-  /* ---------- Lab work ---------- */
-  .feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(2rem, 1.5rem + 3vw, 4.5rem); align-items: start; padding-block: clamp(2.5rem, 2rem + 2vw, 3.5rem); border-top: 1px solid var(--line); }
-  .feature-text { display: grid; gap: 1rem; }
-  .feature-text .when-date { margin-bottom: -0.25rem; }
-  .feature-text p { color: var(--slate); }
-  .feature-text .outcome { color: var(--ink); font-size: var(--fs-lead); line-height: 1.45; }
-  .flow { margin: 0; padding: clamp(1.25rem, 1rem + 1vw, 1.75rem); list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 0; counter-reset: none; }
-  .flow-title { font-family: var(--mono); font-size: var(--fs-label); color: var(--slate); margin-bottom: 1rem; }
-  .flow li { display: grid; grid-template-columns: 2.25rem minmax(0, 1fr); gap: 0.9rem; align-items: start; position: relative; padding-bottom: 1.15rem; }
-  .flow li:last-child { padding-bottom: 0; }
-  .flow li::before { content: ""; position: absolute; left: calc(1.125rem - 1px); top: 2.25rem; bottom: 0; width: 2px; background: var(--line); }
-  .flow li:last-child::before { display: none; }
-  .flow .glyph { width: 2.25rem; height: 2.25rem; border-radius: 0.7rem; display: grid; place-items: center; background: var(--seal-soft); color: var(--seal); }
-  .flow .glyph svg { width: 1.15rem; height: 1.15rem; }
-  .flow strong { display: block; font-weight: 600; font-size: var(--fs-small); line-height: 1.35; padding-top: 0.15rem; }
-  .flow span { display: block; color: var(--slate); font-size: var(--fs-small); line-height: 1.45; }
-  .minor { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1.5rem, 1rem + 2vw, 3rem); padding-top: clamp(2.5rem, 2rem + 2vw, 3.5rem); border-top: 1px solid var(--line); }
-  .minor article { display: grid; gap: 0.75rem; align-content: start; }
-  .minor p { color: var(--slate); }
-
-  /* ---------- Toolkit ---------- */
-  .toolkit { background: var(--surface); border-block: 1px solid var(--line); }
-  .tool-groups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(2rem, 1.5rem + 2vw, 3.25rem) clamp(1.5rem, 1rem + 2vw, 3rem); }
-  .tool-group { display: grid; gap: 1rem; align-content: start; }
-  .tool-group h3 { font-size: clamp(1.25rem, 1.15rem + 0.4vw, 1.5rem); }
-  .tool-group p { color: var(--slate); font-size: var(--fs-small); margin-top: -0.4rem; }
-
-  /* ---------- Credentials ---------- */
-  .creds { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(2.5rem, 2rem + 2vw, 4rem); }
-  .cred-block { display: grid; gap: 0; align-content: start; }
-  .cred-block > h3 { padding-bottom: 1rem; border-bottom: 1px solid var(--ink); }
-  .cred { display: grid; gap: 0.3rem; padding: 1.25rem 0; border-bottom: 1px solid var(--line); }
-  .cred-title { font-weight: 600; font-size: var(--fs-body); line-height: 1.4; }
-  .cred-meta { color: var(--slate); font-size: var(--fs-small); }
-  .paper { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.5rem 3rem; align-items: end; padding: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem); border-radius: 1.75rem; background: var(--night); color: var(--night-ink); }
-  .paper .mono { color: var(--night-slate); }
-  .paper blockquote { margin: 0.75rem 0 0; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 2rem); line-height: 1.3; letter-spacing: -0.02em; font-weight: 500; }
-  .paper p { margin-top: 1rem; color: var(--night-slate); }
-  .paper .btn { background: var(--surface); color: var(--seal); }
-  .paper :focus-visible { outline-color: var(--night-accent); }
-
-  /* ---------- Contact ---------- */
-  .contact h2 { font-size: clamp(3rem, 1.5rem + 6.5vw, 7rem); letter-spacing: -0.04em; line-height: 1; }
-  .contact-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(2rem, 1.5rem + 3vw, 5rem); margin-top: clamp(2rem, 1.5rem + 2vw, 3rem); align-items: end; }
-  .contact { background: var(--night); color: var(--night-ink); }
-  .contact-grid > p { font-size: var(--fs-lead); color: var(--night-slate); line-height: 1.5; max-width: 36rem; }
-  .email-card { display: grid; gap: 1rem; padding: 1.5rem; border-radius: var(--radius); background: rgba(255, 255, 255, 0.06); border: 1px solid var(--night-edge); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
-  .contact .icon-btn { background: transparent; border-color: var(--night-edge); color: var(--night-ink); }
-  .contact .btn-primary { background: var(--surface); color: var(--seal); }
-  .contact .btn-primary:hover { background: var(--seal-soft); }
-  .contact .btn-ghost { background: transparent; color: var(--night-ink); border-color: var(--night-edge); }
-  .contact .btn-ghost:hover { border-color: var(--night-slate); }
-  .contact :focus-visible { outline-color: var(--night-accent); }
-  .email-line { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
-  .email-line a { font-size: clamp(1.125rem, 1rem + 0.6vw, 1.375rem); font-weight: 600; text-decoration: none; overflow-wrap: anywhere; min-width: 0; }
-  .email-line a:hover { text-decoration: underline; text-underline-offset: 4px; }
-  .copied { color: var(--night-accent); font-weight: 600; font-size: var(--fs-small); min-height: 1.5em; }
-  .contact-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  footer { padding-block: 2.5rem calc(2.5rem + env(safe-area-inset-bottom, 0px)); background: var(--night); border-top: 1px solid var(--night-edge); color: var(--night-slate); font-size: var(--fs-small); }
-  footer :focus-visible { outline-color: var(--night-accent); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; align-items: center; }
-  footer a { min-height: 2.75rem; display: inline-flex; align-items: center; }
-
-  /* ---------- Responsive ---------- */
-  @media (min-width: 60rem) {
-    .custody { --node-x: 13.75rem; }
-    .stop { grid-template-columns: 11rem 2.5rem minmax(0, 1fr); column-gap: 1.5rem; }
-    .stop-when { grid-column: 1; grid-row: 1 / span 2; display: grid; align-content: start; gap: 0.35rem; text-align: right; margin: 0; padding-top: 0.15rem; }
-    .stop-node { grid-column: 2; }
-    .stop-body { grid-column: 3; }
-  }
-  @media (max-width: 59.99rem) {
-    .hero-grid, .feature, .contact-grid { grid-template-columns: minmax(0, 1fr); }
-    .tool-groups, .minor { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .paper { grid-template-columns: minmax(0, 1fr); align-items: start; }
-  }
-  @media (max-width: 52rem) {
-    .nav-links, .nav .cta-email { display: none; }
-    .menu-btn { display: inline-grid; }
-    .nav-tools { margin-left: auto; }
-  }
-  @media (max-width: 40rem) {
-    .abilities, .tool-groups, .minor, .creds { grid-template-columns: minmax(0, 1fr); }
-    .ability, .ability:nth-child(2n) { padding-left: 0; padding-right: 0; border-left: 0; }
-    .file .row { grid-template-columns: minmax(0, 1fr); gap: 0.25rem; }
-    .hero-actions .btn { flex: 1 1 auto; }
-    .brand-name { display: none; }
-  }
-  .nav-tools { display: flex; gap: 0.5rem; align-items: center; }
-
-  /* ---------- Accessibility preferences ---------- */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-    .js .custody-fill { transform: scaleY(1); }
-    .menu-sheet { transform: none; filter: none; }
-  }
-  @media (prefers-reduced-transparency: reduce) {
-    .nav, .menu-sheet { background: var(--paper); -webkit-backdrop-filter: none; backdrop-filter: none; }
-  }
-  @media (prefers-contrast: more) {
-    :root { --line: #8C96A3; --slate: #3E4856; }
-  }
-  @media print {
-    .nav, .menu-sheet, .intro-screen, .hero-actions, .hero-social, .contact-links .btn-ghost, footer a { display: none !important; }
-    body { background: #fff; color: #000; font-size: 11pt; }
-    .section, .hero { padding-block: 1.25rem; }
-    .journey, .toolkit, .file, .flow, .paper, .contact, footer, .email-card { background: #fff !important; color: #000 !important; border-color: #bbb !important; box-shadow: none !important; }
-    .custody-fill { transform: scaleY(1) !important; }
-    a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 9pt; }
-  }
-</style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
-<!-- Opening: plays once per visit, skipped for reduced motion, and the page underneath is already complete. -->
-<div class="intro-screen" id="intro" aria-hidden="true">
-  <div class="intro-stack">
-    <svg class="intro-seal" viewBox="0 0 120 120" role="presentation">
-      <circle class="ring" cx="60" cy="60" r="54"/>
-      <circle class="ticks" cx="60" cy="60" r="46"/>
-      <circle class="draw" cx="60" cy="60" r="54"/>
-      <g class="stamp"><path class="check" d="M40 62 l13 13 l27 -29"/></g>
-    </svg>
-    <div class="intro-name">Ashutosh Pal Singh</div>
-    <div class="intro-hash" id="introHash">sha256 <b>0000000000000000</b></div>
-    <div class="intro-verdict">Signed · Cyber Security Analyst · UK</div>
-  </div>
-  <button class="intro-skip" type="button" id="introSkip">Skip intro</button>
-</div>
-
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a class="brand" href="#top" aria-label="Ashutosh Pal Singh, back to top">
-      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="20" cy="20" r="14.5" fill="none" stroke="var(--seal)" stroke-width="1.5" stroke-dasharray="1.6 3.2"/><text x="20" y="24.6" text-anchor="middle" font-family="Instrument Sans, system-ui, sans-serif" font-weight="700" font-size="13" fill="currentColor" letter-spacing="-0.5">AP</text></svg>
-      <span class="brand-name">Ashutosh Pal Singh</span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="#journey">Journey</a></li>
-      <li><a href="#work">Lab work</a></li>
-      <li><a href="#toolkit">Toolkit</a></li>
-      <li><a href="#credentials">Credentials</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <div class="nav-tools">
-      <a class="btn btn-primary cta-email" href="mailto:itsashutoshpsingh@gmail.com" style="min-height:2.75rem;padding:0 1.2rem">Email me</a>
-      <button class="icon-btn menu-btn" type="button" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="menuSheet">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
-      </button>
+<header class="mast">
+  <div class="container mast__bar">
+    <nav class="mast__links" aria-label="Sections">
+      <a href="#case">Case</a>
+      <a href="#work">Work</a>
+      <a href="#lab">Lab</a>
+      <a href="#credentials">Credentials</a>
+    </nav>
+    <a class="mast__mark" href="#top" aria-label="Ashutosh Pal Singh, back to top">Ashutosh Pal Singh</a>
+    <div class="mast__end">
+      <a class="key key--small" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
     </div>
   </div>
 </header>
-<nav class="menu-sheet" id="menuSheet" aria-label="Sections">
-  <a href="#journey">Journey</a>
-  <a href="#work">Lab work</a>
-  <a href="#toolkit">Toolkit</a>
-  <a href="#credentials">Credentials</a>
-  <a href="#contact">Contact</a>
-</nav>
 
 <main id="main">
-  <!-- ================= HERO ================= -->
-  <section class="hero" id="top">
-    <div class="wrap">
-      <span class="status reveal" style="--i:0"><span class="dot" aria-hidden="true"></span>Open to SOC, security analyst &amp; vulnerability management roles</span>
-      <h1 class="reveal" style="--i:1">Ashutosh Pal Singh</h1>
-      <div class="hero-grid">
-        <div>
-          <p class="hero-lead reveal" style="--i:2">I find security weaknesses, rank them by real risk and help get them fixed. <span>Then I write the detections that catch what gets through.</span></p>
-          <div class="hero-actions reveal" style="--i:3">
-            <a class="btn btn-primary" href="#journey">
-              Follow my journey
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-            </a>
-            <a class="btn btn-ghost" href="mailto:itsashutoshpsingh@gmail.com">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
-              itsashutoshpsingh@gmail.com
-            </a>
-          </div>
-          <div class="hero-social reveal" style="--i:4">
-            <a class="btn btn-ghost" href="https://www.linkedin.com/in/ashutosh-pal-singh/" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.83v1.5h.06c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.13v5.43h-4v-4.82c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.9h-4z"/></svg>
-              LinkedIn
-            </a>
-            <a class="btn btn-ghost" href="https://github.com/itsashutoshpsingh" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.56 9.56 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-              GitHub
-            </a>
-          </div>
+  <!-- Hero: Banner posture. The figure is real: June to December 2024 at Kyoka Embedded Systems. -->
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <canvas class="field" id="field" aria-hidden="true"></canvas>
+    <div class="container hero__inner">
+      <div class="hero__text">
+        <h1 id="heroTitle" class="hero__head">
+          <span class="stat settle" style="--i:0"><span class="stat__fig num" data-tick="7">7</span> <span class="stat__unit">months</span></span>
+          <span class="hero__line settle" style="--i:1">Ranking flaws in shipped devices.</span>
+        </h1>
+        <p class="lead settle" style="--i:2">Cyber security analyst, Warwick MSc, looking for UK SOC and vulnerability roles.</p>
+        <div class="hero__actions settle" style="--i:3">
+          <a class="key key--primary" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
+          <a class="key" href="#work">See the work</a>
         </div>
-
-        <aside class="file reveal" style="--i:3" aria-labelledby="fileTitle">
-          <div class="file-bar" aria-hidden="true"><span class="lights"><i></i><i></i><i></i></span><span class="mono">candidate-file</span></div>
-          <div class="file-head">
-            <div>
-              <h2 id="fileTitle">At a glance</h2>
-              <span class="mono">Updated Oct 2026</span>
-            </div>
-            <svg class="file-seal" viewBox="0 0 56 56" aria-hidden="true"><circle cx="28" cy="28" r="26" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="28" cy="28" r="21" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="1.5 3.5"/><path d="M19 28.5l6 6 12-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <dl id="fileBody">
-            <div class="row"><dt>Looking for</dt><dd>SOC analyst, security analyst and vulnerability management roles</dd></div>
-            <div class="row"><dt>Based in</dt><dd>Coventry, UK. Open to London, Manchester and Glasgow</dd></div>
-            <div class="row"><dt>Right to work</dt><dd>Eligible for the UK Graduate visa. No sponsorship needed</dd></div>
-            <div class="row"><dt>Education</dt><dd>MSc Cyber Security Engineering, University of Warwick (2026)<br>
-              <a class="proof" href="https://warwick.ac.uk/fac/sci/wmg/study/masters-degrees/cyber-security-engineering" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>NCSC-certified degree</a></dd></div>
-            <div class="row"><dt>Hands-on</dt><dd>7 months of vulnerability management on production IoT devices</dd></div>
-            <div class="row"><dt>Published</dt><dd>Deepfake provenance research, IJFMR, 2024<br>
-              <a class="proof" href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>DOI verified</a></dd></div>
-          </dl>
-          <p class="file-foot mono" id="fileFoot" hidden>SHA-256 of this card <b id="fileHash"></b></p>
-        </aside>
       </div>
     </div>
   </section>
 
-  <!-- ================= WHAT I DO ================= -->
-  <section class="section" id="what" aria-labelledby="whatTitle">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="whatTitle">What I bring to a security team</h2>
-        <p>Four things I have done for real, at work, in my degree and in my own lab. Each one comes with what it was done on.</p>
-      </div>
-      <div class="abilities">
-        <article class="ability">
-          <h3>Find and fix vulnerabilities</h3>
-          <p>Scan systems, score each finding with CVSS and work with engineers until the riskiest issues are fixed first.</p>
-          <p class="evidence">Production smart-home devices at Kyoka<br><span class="mono">Nessus · Qualys · CVSS · Python</span></p>
-        </article>
-        <article class="ability">
-          <h3>Detect and triage threats</h3>
-          <p>Collect endpoint logs, write detection rules mapped to MITRE ATT&amp;CK, test them against real telemetry and triage the alerts.</p>
-          <p class="evidence">My home SOC and detection lab<br><span class="mono">Elastic · Splunk · Sysmon · Sigma · Wireshark</span></p>
-        </article>
-        <article class="ability">
-          <h3>Think like an attacker</h3>
-          <p>Scope and run penetration tests, walk Active Directory attack paths and write findings reports that engineers can act on.</p>
-          <p class="evidence">Warwick ethical hacking module, Hack The Box, TryHackMe<br><span class="mono">Nmap · Metasploit · Burp Suite · BloodHound</span></p>
-        </article>
-        <article class="ability">
-          <h3>Translate risk for decision makers</h3>
-          <p>Turn technical findings into clear reports, policy and regulatory mapping for managers, government and industry.</p>
-          <p class="evidence">NASSCOM policy research and a published paper<br><span class="mono">EU AI Act · Online Safety Act · MiCA · DORA</span></p>
-        </article>
-      </div>
+  <!-- Where it is -->
+  <section class="where" aria-labelledby="whereTitle">
+    <div class="container where__grid">
+      <h2 id="whereTitle">Coventry now, ready to move</h2>
+      <dl class="rows">
+        <div class="rows__item"><dt>Based in</dt><dd>Coventry, United Kingdom</dd></div>
+        <div class="rows__item"><dt>Will relocate to</dt><dd>London, Manchester or Glasgow</dd></div>
+        <div class="rows__item"><dt>Right to work</dt><dd>Eligible for the UK Graduate visa, so no sponsorship is needed</dd></div>
+        <div class="rows__item"><dt>Looking for</dt><dd>SOC analyst, security analyst and vulnerability management roles</dd></div>
+      </dl>
     </div>
   </section>
 
-  <!-- ================= JOURNEY ================= -->
-  <section class="section journey" id="journey" aria-labelledby="journeyTitle">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="journeyTitle">The journey</h2>
-        <p>From a computer science classroom in Pune to a Warwick MSc in Coventry. Every step is sealed as you scroll, like evidence in a chain of custody.</p>
+  <!-- One project opened as a case, with the signature control -->
+  <section class="case" id="case" aria-labelledby="caseTitle">
+    <div class="container case__grid">
+      <div class="case__text">
+        <h2 id="caseTitle">How a finding gets ranked</h2>
+        <p class="lead">At Kyoka I scanned smart-home devices with Nessus and Qualys, and scored every finding so the riskiest were fixed first.</p>
+        <dl class="facts">
+          <div><dt>Where</dt><dd>Kyoka Embedded Systems, Rajkot</dd></div>
+          <div><dt>When</dt><dd>June to December 2024</dd></div>
+        </dl>
       </div>
 
-      <ol class="custody" id="custody">
-        <li class="custody-track" aria-hidden="true"></li>
-        <li class="custody-fill" id="custodyFill" aria-hidden="true"></li>
-        <li class="custody-tip" id="custodyTip" aria-hidden="true"></li>
+      <form class="calc cut" id="calc" aria-labelledby="calcTitle">
+        <div class="calc__result">
+          <h3 id="calcTitle" class="calc__title">CVSS v3.1 base score</h3>
+          <p class="calc__score" role="status" aria-live="polite"><span class="calc__num num" id="score">9.8</span><span class="calc__sev" id="sev">Critical</span></p>
+          <p class="calc__meter" id="meter" aria-hidden="true"></p>
+          <p class="calc__vector"><code id="vector">CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H</code></p>
+        </div>
+        <div class="calc__groups">
+          <fieldset class="tray"><legend>Attack vector</legend>
+            <input type="radio" name="AV" id="av-n" value="N" checked><label for="av-n">Network</label>
+            <input type="radio" name="AV" id="av-a" value="A"><label for="av-a">Adjacent</label>
+            <input type="radio" name="AV" id="av-l" value="L"><label for="av-l">Local</label>
+            <input type="radio" name="AV" id="av-p" value="P"><label for="av-p">Physical</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Attack complexity</legend>
+            <input type="radio" name="AC" id="ac-l" value="L" checked><label for="ac-l">Low</label>
+            <input type="radio" name="AC" id="ac-h" value="H"><label for="ac-h">High</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Privileges required</legend>
+            <input type="radio" name="PR" id="pr-n" value="N" checked><label for="pr-n">None</label>
+            <input type="radio" name="PR" id="pr-l" value="L"><label for="pr-l">Low</label>
+            <input type="radio" name="PR" id="pr-h" value="H"><label for="pr-h">High</label>
+          </fieldset>
+          <fieldset class="tray"><legend>User interaction</legend>
+            <input type="radio" name="UI" id="ui-n" value="N" checked><label for="ui-n">None</label>
+            <input type="radio" name="UI" id="ui-r" value="R"><label for="ui-r">Required</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Scope</legend>
+            <input type="radio" name="S" id="s-u" value="U" checked><label for="s-u">Unchanged</label>
+            <input type="radio" name="S" id="s-c" value="C"><label for="s-c">Changed</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Confidentiality</legend>
+            <input type="radio" name="C" id="c-n" value="N"><label for="c-n">None</label>
+            <input type="radio" name="C" id="c-l" value="L"><label for="c-l">Low</label>
+            <input type="radio" name="C" id="c-h" value="H" checked><label for="c-h">High</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Integrity</legend>
+            <input type="radio" name="I" id="i-n" value="N"><label for="i-n">None</label>
+            <input type="radio" name="I" id="i-l" value="L"><label for="i-l">Low</label>
+            <input type="radio" name="I" id="i-h" value="H" checked><label for="i-h">High</label>
+          </fieldset>
+          <fieldset class="tray"><legend>Availability</legend>
+            <input type="radio" name="A" id="a-n" value="N"><label for="a-n">None</label>
+            <input type="radio" name="A" id="a-l" value="L"><label for="a-l">Low</label>
+            <input type="radio" name="A" id="a-h" value="H" checked><label for="a-h">High</label>
+          </fieldset>
+        </div>
+        <p class="calc__note">Pick any metric to rescore it.</p>
+      </form>
+    </div>
+  </section>
 
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Aug 2020</span><span class="when-place">Pune, India</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>BTech Computer Science Engineering</h3>
-            <p class="org">Symbiosis Institute of Technology · Aug 2020 to Jun 2024</p>
-            <p class="outcome">Where it started: the computing fundamentals that later turned into a focus on security.</p>
-          </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Jul to Aug 2022</span><span class="when-place">Remote</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Cyber Security Trainee Intern</h3>
-            <p class="org">Verzeo · training internship</p>
-            <p class="outcome">Hands-on penetration testing in a lab, written up as findings reports.</p>
-            <ul class="points">
-              <li>Penetration tested 10+ Windows lab targets with Nmap and Metasploit on Kali Linux.</li>
-              <li>Wrote OWASP-aligned findings reports with remediation advice.</li>
-              <li>Ran controlled phishing simulations with the Social-Engineer Toolkit (SET).</li>
+  <!-- The work as an Index, newest first -->
+  <section class="work" id="work" aria-labelledby="workTitle">
+    <div class="container">
+      <div class="head">
+        <h2 id="workTitle">Nine pieces of work, newest first</h2>
+        <p class="lead">Pune to Coventry. Open a row for the detail.</p>
+      </div>
+      <div class="index">
+        <details class="index__row index__row--lead">
+          <summary><span class="index__year num">2025 to now</span><span class="index__title" role="heading" aria-level="3">Home SOC lab</span><span class="index__where">Own lab</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Detection engineering, My own lab</p>
+            <ul>
+              <li>Built an Elastic and Sysmon log pipeline on a hardened Debian host to collect Windows endpoint telemetry.</li>
+              <li>Wrote Sigma rules and Splunk correlation searches mapped to MITRE ATT&amp;CK, and tested each against lab telemetry.</li>
+              <li>Triaged the alerts they raised and analysed the packet captures in Wireshark.</li>
             </ul>
-            <ul class="chips" aria-label="Tools"><li>Kali Linux</li><li>Nmap</li><li>Metasploit</li><li>SET</li><li>OWASP Top 10</li></ul>
+            <p class="index__tools">Elastic, Splunk, Sysmon, Sigma, MITRE ATT&amp;CK, Wireshark, Debian</p>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Apr to Jul 2023</span><span class="when-place">Remote</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Networking Intern</h3>
-            <p class="org">Cisco AICTE Virtual Internship Programme</p>
-            <p class="outcome">Designed a 50+ node multi-site network, then audited it and found 15+ security weaknesses.</p>
-            <ul class="points">
-              <li>Configured routing, VLAN segmentation, firewall rules and ACLs in Cisco Packet Tracer.</li>
-              <li>Ranked every mitigation by risk.</li>
-              <li>Built a Packet Flow Visualiser to show how traffic moved through the network.</li>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2026</span><span class="index__title" role="heading" aria-level="3">PrivDeFi dissertation</span><span class="index__where">Warwick</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">MSc dissertation, University of Warwick</p>
+            <ul>
+              <li>Flags suspicious Ethereum and BNB Smart Chain transactions with federated graph neural network anomaly detection in Python.</li>
+              <li>Uses differential privacy so the shared model leaks as little transaction data as possible.</li>
+              <li>Mapped the design against the EU’s MiCA and DORA rules, and studied rug pulls, flash-loan exploits and wash trading using on-chain data from Etherscan.</li>
             </ul>
-            <ul class="chips" aria-label="Tools"><li>Cisco Packet Tracer</li><li>TCP/IP</li><li>VLANs</li><li>ACLs</li><li>Firewalls</li></ul>
+            <p class="index__tools">Python, graph neural networks, differential privacy, Etherscan</p>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Jan to May 2024</span><span class="when-place">Noida, India</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Cyber Security Policy Research Intern</h3>
-            <p class="org">NASSCOM, India's national IT industry body · Policy Outreach &amp; Government Relations</p>
-            <p class="outcome">Co-authored a policy document on deepfake and synthetic-media governance for senior government and industry stakeholders.</p>
-            <ul class="points">
-              <li>Surveyed 250+ detection and provenance tools and standards. Evaluated C2PA, Google SynthID and Meta Stable Signature hands-on.</li>
-              <li>Contributed research to briefings on cyber incident-reporting obligations.</li>
-              <li>Mapped findings to UK and EU regulation: the Online Safety Act and the EU AI Act.</li>
-              <li>Engaged with 100+ professionals from government, Adobe, Meta and Google at closed-door policy events.</li>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2026</span><span class="index__title" role="heading" aria-level="3">ML intrusion detection</span><span class="index__where">Warwick</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">MSc module, University of Warwick</p>
+            <ul>
+              <li>Trained and compared Random Forest and XGBoost on the CIC-IDS-2017 network traffic dataset.</li>
+              <li>Chose XGBoost because it had the lower false-negative rate, so fewer real attacks were missed.</li>
             </ul>
-            <ul class="chips" aria-label="Tools"><li>C2PA</li><li>Google SynthID</li><li>Meta Stable Signature</li><li>Regulatory mapping</li></ul>
-            <p class="sub-note"><strong>At the same time:</strong> the Tutelr Infosec industry training programme (part-time, remote). 20+ labs in cloud security, DFIR, penetration testing and blue-team operations, delivered with Palo Alto Networks, Google Cloud, Microsoft and Mandiant.</p>
+            <p class="index__tools">Python, scikit-learn, XGBoost, pandas</p>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Apr to Jun 2024</span><span class="when-place">Milestones</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Certified, published, graduated</h3>
-            <p class="outcome">The NASSCOM research became a peer-reviewed paper, and the BTech was done.</p>
-            <ul class="points">
-              <li>Google Cybersecurity Professional Certificate, April 2024.</li>
-              <li>Published "Safeguarding Authenticity in the Digital Realm" in the International Journal for Multidisciplinary Research, June 2024.</li>
-              <li>Completed my BTech in Computer Science Engineering, June 2024.</li>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2025 to 2026</span><span class="index__title" role="heading" aria-level="3">Network penetration test</span><span class="index__where">Warwick</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">MSc module, University of Warwick</p>
+            <ul>
+              <li>Scoped and ran a penetration test of a simulated corporate environment.</li>
+              <li>Delivered a professional findings and remediation report.</li>
             </ul>
-            <div><a class="proof" href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>Read the paper · DOI 10.36948/ijfmr.2024.v06i03.21580</a></div>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Jun to Dec 2024</span><span class="when-place">Rajkot, India · Hybrid</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Cyber Security Analyst Intern</h3>
-            <p class="org">Kyoka Embedded Systems · smart-home IoT device maker</p>
-            <p class="outcome">Seven months of real vulnerability management: finding weaknesses in connected switches and fan controllers, then ranking them so the riskiest got fixed first.</p>
-            <ul class="points">
-              <li>Ran vulnerability assessments with Nessus and Qualys on production devices and prioritised findings by CVSS.</li>
-              <li>Worked with firmware engineers on hardware and firmware analysis. Fixed issues down to bootloader level through firmware hardening.</li>
-              <li>Automated routine vulnerability scanning with Python scripts.</li>
-              <li>Supported the rollout of mutual TLS (mTLS) with hardware-backed key storage for device authentication.</li>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">Ongoing</span><span class="index__title" role="heading" aria-level="3">Hack The Box, TryHackMe</span><span class="index__where">Online</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Practice, Online labs</p>
+            <ul>
+              <li>Active Directory attack paths with Kerberoasting, BloodHound, Impacket and Evil-WinRM.</li>
+              <li>Web exploitation on OWASP Juice Shop and DVWA with Burp Suite and sqlmap.</li>
+            </ul>
+          </div>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2024</span><span class="index__title" role="heading" aria-level="3">IoT vulnerability management</span><span class="index__where">Kyoka</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Analyst internship, Kyoka Embedded Systems</p>
+            <ul>
+              <li>Ran Nessus and Qualys assessments on production smart-home devices and prioritised findings by CVSS.</li>
+              <li>Fixed issues down to bootloader level through firmware hardening, with the firmware engineers.</li>
+              <li>Supported the rollout of mutual TLS with hardware-backed key storage for device authentication.</li>
               <li>Wrote security reports and remediation guidance for engineering and management.</li>
             </ul>
-            <ul class="chips" aria-label="Tools"><li>Nessus</li><li>Qualys</li><li>CVSS</li><li>Python</li><li>Firmware analysis</li><li>mTLS / PKI</li></ul>
+            <p class="index__tools">Nessus, Qualys, CVSS, Python, firmware analysis, mTLS and PKI</p>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">Sep 2025</span><span class="when-place">Coventry, UK</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>MSc Cyber Security Engineering</h3>
-            <p class="org">University of Warwick, WMG · Elective: AI for Cyber Security</p>
-            <p class="outcome">Moved to the UK for an NCSC-certified master's, completed in 2026.</p>
-            <ul class="points">
-              <li>Ethical Hacking: scoped and ran a penetration test of a simulated corporate network, then delivered a professional findings and remediation report.</li>
-              <li>AI for Cyber Security: trained Random Forest and XGBoost intrusion detection models on CIC-IDS-2017.</li>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2024</span><span class="index__title" role="heading" aria-level="3">Deepfake provenance research</span><span class="index__where">NASSCOM</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Policy research internship, NASSCOM, Noida</p>
+            <ul>
+              <li>Co-authored a policy document on deepfake and synthetic-media governance for senior government and industry stakeholders.</li>
+              <li>Surveyed 250+ detection and provenance tools and standards, with hands-on evaluation of C2PA, Google SynthID and Meta Stable Signature.</li>
+              <li>Mapped the findings to the Online Safety Act and the EU AI Act, and engaged with 100+ professionals from government, Adobe, Meta and Google.</li>
+              <li>The research became my paper in IJFMR, June 2024.</li>
             </ul>
-            <div><a class="proof" href="https://warwick.ac.uk/fac/sci/wmg/study/masters-degrees/cyber-security-engineering" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>Course page · NCSC-certified</a></div>
+            <p class="index__tools"><a href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580" target="_blank" rel="noopener">Read the paper on doi.org</a></p>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">2025 to now</span><span class="when-place">Home lab</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>Home SOC and detection lab</h3>
-            <p class="outcome">Built my own SOC pipeline to practise detection engineering end to end.</p>
-            <ul class="chips" aria-label="Tools"><li>Elastic (ELK)</li><li>Splunk</li><li>Sysmon</li><li>Sigma</li><li>MITRE ATT&amp;CK</li><li>Wireshark</li></ul>
-            <div><a class="proof" href="#work" style="background:transparent;padding-left:0">See how the lab works →</a></div>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2023</span><span class="index__title" role="heading" aria-level="3">Network design and audit</span><span class="index__where">Cisco AICTE</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Networking internship, Cisco AICTE programme</p>
+            <ul>
+              <li>Designed a 50+ node simulated network in Cisco Packet Tracer with routing, VLAN segmentation, firewall rules and ACLs.</li>
+              <li>Audited it, found 15+ security weaknesses and ranked the mitigations by risk.</li>
+              <li>Built a Packet Flow Visualiser to show how traffic moved through the network.</li>
+            </ul>
           </div>
-        </li>
-
-        <li class="stop">
-          <div class="stop-when"><span class="when-date">2026</span><span class="when-place">Dissertation</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <h3>PrivDeFi</h3>
-            <p class="org">MSc dissertation · privacy-aware fraud detection for crypto (DeFi) transactions</p>
-            <p class="outcome">A fraud detection framework that flags suspicious Ethereum and BNB Smart Chain transactions without exposing transaction data.</p>
-            <ul class="chips" aria-label="Tools"><li>Python</li><li>Graph neural networks</li><li>Federated learning</li><li>Differential privacy</li><li>Etherscan</li></ul>
+        </details>
+        <details class="index__row">
+          <summary><span class="index__year num">2022</span><span class="index__title" role="heading" aria-level="3">Windows penetration tests</span><span class="index__where">Verzeo</span><span class="index__icon" aria-hidden="true"></span></summary>
+          <div class="index__body">
+            <p class="index__role">Trainee internship, Verzeo, remote</p>
+            <ul>
+              <li>Penetration tested 10+ Windows lab targets with Nmap and Metasploit on Kali Linux.</li>
+              <li>Wrote OWASP-aligned findings reports and ran controlled phishing simulations with the Social-Engineer Toolkit.</li>
+            </ul>
           </div>
-        </li>
-
-        <li class="stop next">
-          <div class="stop-when"><span class="when-date">Next</span><span class="when-place">UK</span></div>
-          <div class="stop-node" aria-hidden="true"><svg viewBox="0 0 40 40"><circle class="ring" cx="20" cy="20" r="11"/><path class="tick" d="M15.2 20.4l3.2 3.2 6.4-7"/></svg></div>
-          <div class="stop-body">
-            <p class="outcome">Your SOC or vulnerability management team.</p>
-            <p class="org" style="margin-top:0">Coventry now. Happy to relocate to London, Manchester or Glasgow. No visa sponsorship needed.</p>
-            <div><a class="btn btn-primary" href="#contact">Start a conversation</a></div>
-          </div>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <!-- ================= LAB WORK ================= -->
-  <section class="section" id="work" aria-labelledby="workTitle">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="workTitle">Lab work</h2>
-        <p>Projects from my lab and my MSc, and what each one taught me about defending real systems.</p>
-      </div>
-
-      <article class="feature">
-        <div class="feature-text">
-          <span class="when-date">2025 to now</span>
-          <h3>Home SOC and detection lab</h3>
-          <p class="outcome">An end-to-end detection pipeline I built and run myself, from Windows telemetry to triaged alerts.</p>
-          <p>I write Sigma rules and Splunk correlation searches mapped to MITRE ATT&amp;CK, and test each one against telemetry from the lab. Then I triage the alerts they raise and analyse the packet captures in Wireshark.</p>
-          <ul class="chips" aria-label="Tools"><li>Elastic (ELK)</li><li>Splunk</li><li>Sysmon</li><li>Sigma</li><li>MITRE ATT&amp;CK</li><li>Wireshark</li><li>Debian</li></ul>
-        </div>
-        <div class="flow" role="group" aria-label="How the lab pipeline works">
-          <div class="flow-title">Pipeline</div>
-          <ol style="margin:0;padding:0;list-style:none;display:grid">
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span><div><strong>Windows endpoint</strong><span>Sysmon records process, network and file activity</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><div><strong>Elastic (ELK) on a hardened Debian host</strong><span>Collects and indexes endpoint telemetry</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="18" cy="16" r="3"/><path d="M20.2 18.2L22 20"/></svg></span><div><strong>Sigma rules and Splunk correlation searches</strong><span>Each one mapped to a MITRE ATT&amp;CK technique</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V7z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><div><strong>Tested against lab telemetry</strong><span>Every rule is checked against what the lab actually records</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 9 9"/><path d="M12 7v5l3 2"/><path d="M17 3h4v4"/></svg></span><div><strong>Alert triage</strong><span>Investigated with Wireshark packet captures</span></div></li>
-          </ol>
-        </div>
-      </article>
-
-      <article class="feature">
-        <div class="feature-text">
-          <span class="when-date">2026 · MSc dissertation</span>
-          <h3>PrivDeFi: privacy-aware fraud detection for DeFi</h3>
-          <p class="outcome">Flags suspicious Ethereum and BNB Smart Chain transactions with federated graph neural network (GNN) anomaly detection.</p>
-          <p>Differential privacy keeps the shared model from leaking transaction data. I mapped the design against the EU's MiCA and DORA requirements, and studied rug pulls, flash-loan exploits and wash trading using on-chain data from Etherscan.</p>
-          <ul class="chips" aria-label="Tools"><li>Python</li><li>Graph neural networks</li><li>Differential privacy</li><li>Etherscan</li><li>MiCA</li><li>DORA</li></ul>
-        </div>
-        <div class="flow" role="group" aria-label="How PrivDeFi works">
-          <div class="flow-title">Framework</div>
-          <ol style="margin:0;padding:0;list-style:none;display:grid">
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v12l-7 4-7-4V6z"/><path d="M12 22V12M19 6l-7 6-7-6"/></svg></span><div><strong>On-chain transactions</strong><span>Ethereum and BNB Smart Chain, via Etherscan</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="2.5"/><circle cx="19" cy="5" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M7.3 11l9.4-5M7.3 13l9.4 5"/></svg></span><div><strong>Federated GNN clients</strong><span>Each learns transaction-graph patterns locally</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span><div><strong>Differential privacy</strong><span>Limits what the shared model reveals about any transaction</span></div></li>
-            <li><span class="glyph" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9L2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg></span><div><strong>Suspicious transactions flagged</strong><span>Informed by research into rug pulls, flash-loan exploits and wash trading</span></div></li>
-          </ol>
-        </div>
-      </article>
-
-      <div class="minor">
-        <article>
-          <span class="when-date">2026 · MSc module</span>
-          <h3>Machine learning intrusion detection</h3>
-          <p>Trained and compared Random Forest and XGBoost on the CIC-IDS-2017 network traffic dataset. I chose XGBoost because it missed fewer real attacks (a lower false-negative rate).</p>
-          <ul class="chips" aria-label="Tools"><li>scikit-learn</li><li>XGBoost</li><li>pandas</li></ul>
-        </article>
-        <article>
-          <span class="when-date">2025 to 2026 · MSc module</span>
-          <h3>Corporate network penetration test</h3>
-          <p>Scoped and ran a penetration test of a simulated corporate environment, then delivered a professional findings and remediation report.</p>
-          <ul class="chips" aria-label="Skills"><li>Scoping</li><li>Exploitation</li><li>Reporting</li></ul>
-        </article>
-        <article>
-          <span class="when-date">Ongoing</span>
-          <h3>Hack The Box and TryHackMe</h3>
-          <p>Practising Active Directory attack paths and web exploitation on OWASP Juice Shop and DVWA.</p>
-          <ul class="chips" aria-label="Tools"><li>BloodHound</li><li>Impacket</li><li>Evil-WinRM</li><li>Burp Suite</li><li>sqlmap</li></ul>
-        </article>
+        </details>
       </div>
     </div>
   </section>
 
-  <!-- ================= TOOLKIT ================= -->
-  <section class="section toolkit" id="toolkit" aria-labelledby="toolkitTitle">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="toolkitTitle">Toolkit</h2>
-        <p>Grouped by the job they do, and limited to tools I have used in the work above.</p>
+  <!-- A mapping: raw event to detection -->
+  <section class="lab" id="lab" aria-labelledby="labTitle">
+    <div class="container">
+      <div class="head head--split">
+        <h2 id="labTitle">From raw event to alert</h2>
+        <p class="lead">Shown with a common technique, ATT&amp;CK T1059.001.</p>
       </div>
-      <div class="tool-groups">
-        <div class="tool-group">
-          <h3>Vulnerability management</h3>
-          <p>Find it, score it, get it fixed.</p>
-          <ul class="chips"><li>Nessus</li><li>Qualys</li><li>CVSS</li><li>Remediation</li><li>Firmware analysis</li><li>IoT security</li><li>mTLS / PKI</li></ul>
-        </div>
-        <div class="tool-group">
-          <h3>Detection and response</h3>
-          <p>See it, then decide what matters.</p>
-          <ul class="chips"><li>Elastic (ELK)</li><li>Splunk</li><li>Sysmon</li><li>Sigma</li><li>MITRE ATT&amp;CK</li><li>Alert triage</li><li>Wireshark</li></ul>
-        </div>
-        <div class="tool-group">
-          <h3>Offensive testing</h3>
-          <p>Break it before someone else does.</p>
-          <ul class="chips"><li>Kali Linux</li><li>Nmap</li><li>Metasploit</li><li>Burp Suite</li><li>sqlmap</li><li>BloodHound</li><li>Impacket</li><li>Evil-WinRM</li><li>SET</li><li>OWASP Top 10</li></ul>
-        </div>
-        <div class="tool-group">
-          <h3>Automation and machine learning</h3>
-          <p>Fewer manual scans, better detections.</p>
-          <ul class="chips"><li>Python</li><li>scikit-learn</li><li>XGBoost</li><li>pandas</li><li>Graph neural networks</li><li>Differential privacy</li></ul>
-        </div>
-        <div class="tool-group">
-          <h3>Networks</h3>
-          <p>Segment it, filter it, audit it.</p>
-          <ul class="chips"><li>TCP/IP</li><li>VLANs</li><li>ACLs</li><li>Firewall configuration</li><li>Cisco Packet Tracer</li></ul>
-        </div>
-        <div class="tool-group">
-          <h3>Policy and regulation</h3>
-          <p>Know the rules the controls answer to.</p>
-          <ul class="chips"><li>EU AI Act</li><li>Online Safety Act</li><li>MiCA</li><li>DORA</li><li>C2PA</li><li>Google SynthID</li><li>Meta Stable Signature</li></ul>
-        </div>
+      <div class="map" id="map">
+        <figure class="pane">
+          <figcaption class="pane__name">sysmon-process-create.log</figcaption>
+<pre><code><span class="ln">EventID: 1</span>
+<span class="ln">UtcTime: 2026-03-14 09:42:16.118</span>
+<span class="ln" data-link="a">Image: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</span>
+<span class="ln" data-link="b">CommandLine: powershell.exe -nop -enc SQBFAFgA</span>
+<span class="ln">ParentImage: C:\Windows\explorer.exe</span>
+<span class="ln">User: LAB\analyst</span>
+<span class="ln">Computer: ws01.lab.example.com</span></code></pre>
+        </figure>
+        <svg class="map__links" id="mapLinks" aria-hidden="true"></svg>
+        <figure class="pane">
+          <figcaption class="pane__name">encoded-powershell.yml</figcaption>
+<pre><code><span class="ln">title: Encoded PowerShell command line</span>
+<span class="ln">logsource:</span>
+<span class="ln">  product: windows</span>
+<span class="ln">  category: process_creation</span>
+<span class="ln">detection:</span>
+<span class="ln">  selection:</span>
+<span class="ln" data-link="a">    Image|endswith: '\powershell.exe'</span>
+<span class="ln" data-link="b">    CommandLine|contains: ' -enc '</span>
+<span class="ln">  condition: selection</span>
+<span class="ln">level: high</span>
+<span class="ln">tags:</span>
+<span class="ln">  - attack.t1059.001</span></code></pre>
+        </figure>
       </div>
+      <p class="map__caption">A sample lab event, and a Sigma rule in the format I write and test.</p>
     </div>
   </section>
 
-  <!-- ================= CREDENTIALS ================= -->
-  <section class="section" id="credentials" aria-labelledby="credTitle">
-    <div class="wrap">
-      <div class="section-head">
-        <h2 id="credTitle">Credentials</h2>
+  <!-- Credentials as a table -->
+  <section class="creds" id="credentials" aria-labelledby="credTitle">
+    <div class="container">
+      <div class="head">
+        <h2 id="credTitle">Degrees, certificates and a paper</h2>
       </div>
-      <div class="creds">
-        <div class="cred-block">
-          <h3>Education</h3>
-          <div class="cred">
-            <span class="cred-title">MSc Cyber Security Engineering</span>
-            <span class="cred-meta">University of Warwick, WMG · Sep 2025 to Sep 2026</span>
-            <span class="cred-meta">NCSC-certified degree · Elective: AI for Cyber Security</span>
-          </div>
-          <div class="cred">
-            <span class="cred-title">BTech Computer Science Engineering</span>
-            <span class="cred-meta">Symbiosis Institute of Technology, Pune · Aug 2020 to Jun 2024</span>
-          </div>
-        </div>
-        <div class="cred-block">
-          <h3>Certifications and training</h3>
-          <div class="cred">
-            <span class="cred-title">Google Cybersecurity Professional Certificate</span>
-            <span class="cred-meta">April 2024</span>
-          </div>
-          <div class="cred">
-            <span class="cred-title">EC-Council Digital Forensics Essentials (DFE)</span>
-          </div>
-          <div class="cred">
-            <span class="cred-title">Microsoft SC-200 Security Operations Analyst</span>
-            <span class="cred-meta">Exam booked</span>
-          </div>
-          <div class="cred">
-            <span class="cred-title">Tutelr Infosec industry training programme</span>
-            <span class="cred-meta">Jan to May 2024 · 20+ labs in cloud security, DFIR, penetration testing and blue-team operations</span>
-          </div>
-        </div>
-
-        <article class="paper">
-          <div>
-            <span class="mono">Publication · IJFMR Vol. 6, Issue 3 · May to June 2024</span>
-            <blockquote>Safeguarding Authenticity in the Digital Realm: A Holistic Approach Integrating Content Provenance, Secure Watermarking, and Transparent Labeling to Combat Deepfakes</blockquote>
-            <p>Proposes Veritas, a framework that combines content provenance, robust watermarking and standardised labelling so that synthetic or altered media can be traced and flagged.</p>
-          </div>
-          <a class="btn" href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580" target="_blank" rel="noopener">Read the paper</a>
-        </article>
-
-        <div class="cred-block">
-          <h3>Languages</h3>
-          <div class="cred"><span class="cred-title">English</span><span class="cred-meta">IELTS 7.5</span></div>
-          <div class="cred"><span class="cred-title">Hindi</span></div>
-          <div class="cred"><span class="cred-title">Punjabi</span></div>
-          <div class="cred"><span class="cred-title">French</span><span class="cred-meta">Beginner</span></div>
-        </div>
-        <div class="cred-block">
-          <h3>Leadership</h3>
-          <div class="cred">
-            <span class="cred-title">Model United Nations</span>
-            <span class="cred-meta">10+ conferences · 5× Best Delegate · 3× Special Mention</span>
-          </div>
-        </div>
+      <div class="table-wrap">
+        <table class="table">
+          <thead><tr><th scope="col">Credential</th><th scope="col">Issued by</th><th scope="col">Year</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">MSc Cyber Security Engineering, NCSC-certified</th><td><a href="https://warwick.ac.uk/fac/sci/wmg/study/masters-degrees/cyber-security-engineering" target="_blank" rel="noopener">University of Warwick, WMG</a></td><td class="num">2026</td></tr>
+            <tr><th scope="row">BTech Computer Science Engineering</th><td>Symbiosis Institute of Technology, Pune</td><td class="num">2024</td></tr>
+            <tr><th scope="row">Cybersecurity Professional Certificate</th><td>Google</td><td class="num">2024</td></tr>
+            <tr><th scope="row">Digital Forensics Essentials</th><td>EC-Council</td><td>Completed</td></tr>
+            <tr><th scope="row">SC-200 Security Operations Analyst</th><td>Microsoft</td><td>Exam booked</td></tr>
+            <tr><th scope="row">Paper: Safeguarding Authenticity in the Digital Realm</th><td><a href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580" target="_blank" rel="noopener">IJFMR, volume 6, issue 3</a></td><td class="num">2024</td></tr>
+          </tbody>
+        </table>
       </div>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section class="section contact" id="contact" aria-labelledby="contactTitle">
-    <div class="wrap">
-      <h2 id="contactTitle">Let's talk.</h2>
-      <div class="contact-grid">
-        <p>I'm looking for SOC analyst, security analyst and vulnerability management roles in the UK. I'm based in Coventry, happy to relocate to London, Manchester or Glasgow, and I don't need visa sponsorship.</p>
-        <div class="email-card">
-          <div class="email-line">
-            <a href="mailto:itsashutoshpsingh@gmail.com" id="emailLink">itsashutoshpsingh@gmail.com</a>
-            <button class="icon-btn" type="button" id="copyBtn" aria-label="Copy email address">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2.5"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>
-            </button>
-          </div>
-          <span class="copied" id="copied" role="status" aria-live="polite"></span>
-          <div class="contact-links">
-            <a class="btn btn-primary" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
-            <a class="btn btn-ghost" href="https://www.linkedin.com/in/ashutosh-pal-singh/" target="_blank" rel="noopener">LinkedIn</a>
-            <a class="btn btn-ghost" href="https://github.com/itsashutoshpsingh" target="_blank" rel="noopener">GitHub</a>
-          </div>
-        </div>
-      </div>
+      <p class="creds__extra">English (IELTS 7.5), Hindi, Punjabi and beginner French. Model United Nations at 10+ conferences, with five Best Delegate awards.</p>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <span>© 2026 Ashutosh Pal Singh · No cookies, no trackers.</span>
-    <a href="#top">Back to top ↑</a>
+<!-- Footer: a letter close -->
+<footer class="close" aria-labelledby="closeTitle">
+  <div class="container close__grid">
+    <div class="close__letter">
+      <h2 id="closeTitle">Hiring for a SOC or vulnerability team?</h2>
+      <p class="lead">I would like to hear about it. Email is the fastest way to reach me.</p>
+      <p class="close__sign">Ashutosh Pal Singh<br><time datetime="2026-10">Coventry, October 2026</time></p>
+    </div>
+    <div class="close__contact">
+      <p class="close__email"><a href="mailto:itsashutoshpsingh@gmail.com" id="emailLink">itsashutoshpsingh@gmail.com</a></p>
+      <div class="close__actions">
+        <button class="key key--small" type="button" id="copyBtn">Copy email</button>
+        <a class="key key--small" href="https://www.linkedin.com/in/ashutosh-pal-singh/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="key key--small" href="https://github.com/itsashutoshpsingh" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <p class="close__status" id="copied" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+  <div class="container close__colophon">
+    <p>© 2026 Ashutosh Pal Singh. No cookies or trackers.</p>
   </div>
 </footer>
 
-<script>
-(function () {
-  'use strict';
-  var root = document.documentElement;
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-  /* ---------- SHA-256 helper (real digests, shown as the "signature") ---------- */
-  function sha256(text) {
-    if (!(window.crypto && crypto.subtle && window.TextEncoder)) return Promise.reject();
-    return crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)).then(function (buf) {
-      return Array.prototype.map.call(new Uint8Array(buf), function (b) { return b.toString(16).padStart(2, '0'); }).join('');
-    });
-  }
-
-  /* ---------- Opening sequence ---------- */
-  var intro = document.getElementById('intro');
-  function endIntro() {
-    if (!root.classList.contains('intro') || root.classList.contains('intro-leaving')) return;
-    try { sessionStorage.setItem('introSeen', '1'); } catch (e) {}
-    root.classList.add('intro-leaving');
-    setTimeout(function () { root.classList.remove('intro', 'intro-leaving'); }, 1300);
-  }
-  if (root.classList.contains('intro')) {
-    var hashEl = document.querySelector('#introHash b');
-    var hex = '0123456789abcdef';
-    var target = null, start = performance.now(), DURATION = 760;
-    sha256(document.getElementById('main').textContent.replace(/\s+/g, ' ').trim())
-      .then(function (h) { target = h.slice(0, 16); }, function () { target = '7a3fc91e04b2d8f6'; });
-    (function scramble(now) {
-      var p = Math.min((now - start) / DURATION, 1), settled = Math.floor(p * 16), out = '';
-      for (var i = 0; i < 16; i++) out += (target && i < settled) ? target[i] : hex[(Math.random() * 16) | 0];
-      hashEl.textContent = out;
-      if (p < 1 || !target) requestAnimationFrame(scramble);
-    })(start);
-    var timer = setTimeout(endIntro, 1550);
-    function skip() { clearTimeout(timer); endIntro(); }
-    document.getElementById('introSkip').addEventListener('click', skip);
-    intro.addEventListener('pointerdown', skip);
-    window.addEventListener('keydown', skip, { once: true });
-    window.addEventListener('wheel', skip, { once: true, passive: true });
-  }
-
-  /* ---------- Hero card signature ---------- */
-  sha256(document.getElementById('fileBody').textContent.replace(/\s+/g, ' ').trim()).then(function (h) {
-    document.getElementById('fileHash').textContent = h.slice(0, 12) + '…' + h.slice(-12);
-    document.getElementById('fileFoot').hidden = false;
-  }, function () {});
-
-  /* ---------- Nav material + menu sheet anchored to its button ---------- */
-  var nav = document.getElementById('nav');
-  var menuBtn = document.getElementById('menuBtn');
-  var sheet = document.getElementById('menuSheet');
-  function setMenu(open) {
-    sheet.classList.toggle('open', open);
-    menuBtn.setAttribute('aria-expanded', String(open));
-    menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  }
-  menuBtn.addEventListener('click', function (e) { e.stopPropagation(); setMenu(!sheet.classList.contains('open')); });
-  sheet.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
-  document.addEventListener('pointerdown', function (e) { if (sheet.classList.contains('open') && !sheet.contains(e.target) && !menuBtn.contains(e.target)) setMenu(false); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && sheet.classList.contains('open')) { setMenu(false); menuBtn.focus(); } });
-
-  // Active section in the nav.
-  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        links.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + en.target.id ? 'true' : 'false'); });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    ['journey', 'work', 'toolkit', 'credentials', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-  }
-
-  /* ---------- Chain of custody: the line follows scroll through a critically damped spring ---------- */
-  var custody = document.getElementById('custody');
-  var fill = document.getElementById('custodyFill');
-  var tip = document.getElementById('custodyTip');
-  var track = custody.querySelector('.custody-track');
-  var stops = Array.prototype.slice.call(custody.querySelectorAll('.stop'));
-  var lineTop = 0, lineHeight = 1, nodeY = [];
-  var pos = 0, vel = 0, targetP = 0, last = 0, running = false;
-  var RESPONSE = 0.4, omega = 2 * Math.PI / RESPONSE;   // Apple-style "response" in seconds, damping ratio 1
-
-  function measure() {
-    var base = custody.getBoundingClientRect().top + window.scrollY;
-    nodeY = stops.map(function (s) {
-      var n = s.querySelector('.stop-node').getBoundingClientRect();
-      return n.top + window.scrollY + n.height / 2 - base;
-    });
-    lineTop = nodeY[0];
-    lineHeight = Math.max(1, nodeY[nodeY.length - 1] - nodeY[0]);
-    [track, fill].forEach(function (el) { el.style.top = lineTop + 'px'; el.style.bottom = 'auto'; el.style.height = lineHeight + 'px'; });
-  }
-  function readTarget() {
-    var r = custody.getBoundingClientRect();
-    var probe = window.innerHeight * 0.62;
-    return Math.min(1, Math.max(0, (probe - (r.top + lineTop)) / lineHeight));
-  }
-  function render(p) {
-    fill.style.transform = 'scaleY(' + p.toFixed(4) + ')';
-    tip.style.transform = 'translateY(' + (lineTop + p * lineHeight - 7) + 'px)';
-    custody.classList.toggle('drawing', p > 0.002 && p < 0.998);
-    var reach = lineTop + p * lineHeight + 2;
-    stops.forEach(function (s, i) { if (nodeY[i] <= reach) s.classList.add('sealed'); else s.classList.remove('sealed'); });
-  }
-  function step(now) {
-    var dt = Math.min(0.032, (now - last) / 1000 || 0.016); last = now;
-    targetP = readTarget();
-    var acc = -omega * omega * (pos - targetP) - 2 * omega * vel;   // critically damped
-    vel += acc * dt; pos += vel * dt;
-    if (Math.abs(pos - targetP) < 0.0005 && Math.abs(vel) < 0.0005) { pos = targetP; vel = 0; running = false; render(pos); return; }
-    render(pos);
-    requestAnimationFrame(step);
-  }
-  function kick() {
-    if (reduceMotion.matches) { render(1); return; }
-    if (!running) { running = true; last = performance.now(); requestAnimationFrame(step); }
-  }
-  function init() { measure(); if (reduceMotion.matches) { render(1); } else { pos = readTarget(); render(pos); } }
-  init();
-  window.addEventListener('scroll', function () {
-    kick();
-    nav.classList.toggle('scrolled', window.scrollY > 8);
-  }, { passive: true });
-  window.addEventListener('resize', function () { measure(); kick(); });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { measure(); kick(); });
-  nav.classList.toggle('scrolled', window.scrollY > 8);
-
-  /* ---------- Copy email ---------- */
-  var copied = document.getElementById('copied');
-  document.getElementById('copyBtn').addEventListener('click', function () {
-    var email = 'itsashutoshpsingh@gmail.com';
-    function done(msg) { copied.textContent = msg; clearTimeout(done.t); done.t = setTimeout(function () { copied.textContent = ''; }, 2600); }
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(email).then(function () { done('Email address copied'); }, function () { selectEmail(); done('Press Ctrl+C or ⌘C to copy'); });
-    } else { selectEmail(); done('Press Ctrl+C or ⌘C to copy'); }
-    function selectEmail() { var r = document.createRange(); r.selectNodeContents(document.getElementById('emailLink')); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
-  });
-})();
-</script>
+<script src="app.js" defer></script>
 </body>
 </html>
