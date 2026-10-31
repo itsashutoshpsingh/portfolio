@@ -9,8 +9,12 @@
   if (canvas && canvas.getContext) {
     var ctx = canvas.getContext('2d');
     var RAMP = ' .:-=+*#%@';
+    // The raw side is the page's own traffic; the lanes resolve to scored findings (the calculator's reference vectors)
+    var STREAM = 'EventID: 1 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H powershell.exe -nop -enc SQBFAFgA T1059.001 process_creation Image|endswith CommandLine|contains nessus qualys sysmon ';
+    var LABELS = ['9.8 critical', '7.8 high', '6.1 medium', '5.9 medium', '1.6 low'];
     var CELL_W = 8, CELL_H = 16;
     var colours = ['--color-glyph-1', '--color-glyph-2', '--color-glyph-3', '--color-glyph-4', '--color-accent-deep'].map(token);
+    var paper = token('--color-paper');
     var LANES = [0.26, 0.4, 0.54, 0.68, 0.82];
     var LANE_WEIGHT = [1, 0.84, 0.68, 0.52, 0.38]; // ranked, like findings sorted by score
     var cols = 0, rows = 0, w = 0, h = 0, dpr = 1;
@@ -74,7 +78,9 @@
           var level = Math.min(RAMP.length - 1, Math.floor(d * RAMP.length));
           if (level < 1) continue;
           var b = level >= 9 ? 4 : level >= 7 ? 3 : level >= 5 ? 2 : level >= 3 ? 1 : 0;
-          buckets[b].push(i * CELL_W, j * CELL_H, level);
+          var ch = m < 0.55 && level >= 3 ? STREAM.charAt((i + j * 11 + Math.floor(t * 6)) % STREAM.length) : RAMP.charAt(level);
+          if (ch === ' ') ch = RAMP.charAt(level);
+          buckets[b].push(i * CELL_W, j * CELL_H, ch);
         }
       }
       ctx.clearRect(0, 0, w, h);
@@ -82,7 +88,16 @@
         var list = buckets[c];
         if (!list.length) continue;
         ctx.fillStyle = colours[c];
-        for (var p = 0; p < list.length; p += 3) ctx.fillText(RAMP[list[p + 2]], list[p], list[p + 1]);
+        for (var p = 0; p < list.length; p += 3) ctx.fillText(list[p + 2], list[p], list[p + 1]);
+      }
+      if (reveal > 0.9 && w > 420) {
+        ctx.globalAlpha = Math.min(1, (reveal - 0.9) * 10);
+        for (var q = 0; q < LANES.length; q++) {
+          var ly = Math.round((LANES[q] * rows)) * CELL_H, lw = (LABELS[q].length + 2) * CELL_W, lx = w - lw - CELL_W * 2;
+          ctx.fillStyle = paper; ctx.fillRect(lx, ly - 2, lw, CELL_H + 4);
+          ctx.fillStyle = colours[q < 2 ? 4 : 3]; ctx.fillText(LABELS[q], lx + CELL_W, ly);
+        }
+        ctx.globalAlpha = 1;
       }
     }
 
@@ -203,7 +218,8 @@
         links.forEach(function (a) { a.setAttribute('aria-current', a.getAttribute('href') === '#' + e.target.id ? 'true' : 'false'); });
       });
     }, { rootMargin: '-45% 0px -50% 0px' });
-    ['top', 'case', 'work', 'lab', 'credentials'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    links.forEach(function (a) { a.setAttribute('aria-current', 'false'); });
+    ['top', 'where', 'case', 'work', 'lab', 'credentials', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
   /* ---------- Copy email ---------- */

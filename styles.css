@@ -84,8 +84,8 @@ html:not(.js) .hero::before { content: ""; position: absolute; inset: 0 0 0 auto
 
 /* ---------- Case: split, with the signature ---------- */
 .case { padding-block: var(--section-gap) 0; }
-.case__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); align-items: center; }
-.case__text { grid-column: 1 / span 5; display: grid; gap: var(--space-lg); }
+.case__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); align-items: start; }
+.case__text { grid-column: 1 / span 5; display: grid; gap: var(--space-lg); position: sticky; top: calc(var(--mast-h) + var(--space-xl)); }
 .case__text p:not([class]) { color: var(--color-ink-2); }
 .facts { margin: 0; padding-top: var(--space-xs); display: grid; border-top: var(--rule-hair) solid var(--color-rule); }
 .facts > div { display: grid; grid-template-columns: 5rem minmax(0, 1fr); gap: var(--space-md); padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); }
@@ -212,6 +212,7 @@ html:not(.js) .hero::before { content: ""; position: absolute; inset: 0 0 0 auto
   .mast__mark { justify-self: start; }
   .field, html:not(.js) .hero::before { width: 100%; opacity: 0.55; -webkit-mask-image: linear-gradient(to bottom, transparent, var(--color-ink) 70%); mask-image: linear-gradient(to bottom, transparent, var(--color-ink) 70%); }
   .hero { min-height: 0; padding-block: var(--space-2xl) var(--space-3xl); }
+  .case__text { position: static; }
   .where h2, .rows, .case__text, .calc, .head--split h2, .head--split .lead, .close__letter, .close__contact { grid-column: 1 / -1; }
   .head--split { row-gap: var(--space-md); }
   .map { grid-template-columns: minmax(0, 1fr); gap: var(--space-lg); }
@@ -232,7 +233,8 @@ html:not(.js) .hero::before { content: ""; position: absolute; inset: 0 0 0 auto
   .table tr { padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
   .table th, .table td { padding: 0; border: 0; text-align: left; }
   .table td:last-child { text-align: left; }
-  .table tbody th { width: auto; }
+  .table tbody th { width: 100%; }
+  .pane .ln { white-space: pre-wrap; overflow-wrap: anywhere; padding-left: calc(var(--space-lg) + 2ch); text-indent: -2ch; }
   .stat { flex-wrap: wrap; row-gap: var(--space-xs); }
 }
 
