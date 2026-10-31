@@ -1,27 +1,28 @@
 # Ashutosh Pal Singh · Portfolio
 
-Personal site for Ashutosh Pal Singh, cyber security analyst (MSc Cyber Security Engineering, University of Warwick).
+Personal portfolio for Ashutosh Pal Singh, cyber security analyst (MSc Cyber Security Engineering, University of Warwick).
 
 Live at **https://itsashutoshpsingh.github.io/portfolio/**
 
 ## Files
 
-- `index.html` – the page content
-- `styles.css` – the page styles, opened by the Hallmark stamp
-- `tokens.css`, `base.css` – the Hallmark Cobalt theme tokens and base rules
-- `app.js` – the hero's ASCII field, the CVSS v3.1 calculator, the event-to-rule connectors and the copy button
-- `favicon.svg`, `og.png` – the tab icon and the link-preview image
-- `.claude/skills/` – Emil Kowalski's design-engineering skills and Hallmark, loaded by Claude Code in this repo
-- `.hallmark/log.json` – Hallmark's build log, used to vary future builds
+- `index.html`: all content, taken from the master CV
+- `styles.css`: the Night Ops design system and the motion tokens
+- `app.js`: the hero network, cursor spotlight, card glow, scroll reveals and counters, nav indicator, timeline progress, project dialogs, CVSS v3.1 calculator, marquee control and copy button
+- `favicon.svg`, `og.png`: the tab icon and the link-preview image
+- `.claude/skills/`: Emil Kowalski's skills and Hallmark, loaded by Claude Code in this repo
 
-No build step and no dependencies apart from Google Fonts.
+No build step and no dependencies apart from Google Fonts (Geist and Geist Mono).
 
-## Design
+## Motion principles
 
-Built with the Hallmark skill, Cobalt theme: cool near-white paper, graphite code panels and one electric cobalt accent. The fonts are Familjen Grotesk, IBM Plex Sans and JetBrains Mono.
+The motion follows Emil Kowalski's design-engineering rules:
 
-- **Opening:** the hero's ASCII field sweeps from noise into ranked lanes, like raw scan output becoming prioritised findings, while the "7 months" figure counts up.
-- **Signature:** a working CVSS v3.1 base-score calculator using the FIRST formula.
-- **Accessibility:** reduced motion is respected and everything works without JavaScript. The smallest text is 15px and controls are at least 44px tall.
+- custom ease-out curves, with interface animations under 300ms
+- only transform and opacity animate, plus clip-path for the nav indicator
+- buttons give press feedback (scale 0.97), and hover effects only run on devices with a fine pointer
+- the menu opens from its button, and dialogs exit faster than they enter
+- decorative loops stop after a few cycles and pause when off screen
+- reduced motion gets a calm version with no movement, and everything is visible without JavaScript
 
-The previous version of the site is in git history at commit `0943d6e`.
+The previous versions are in git history.
