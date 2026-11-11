@@ -736,7 +736,7 @@
   },
   {
    "date": "2026-05-11",
-   "count": 14
+   "count": 24
   },
   {
    "date": "2026-05-12",
@@ -748,7 +748,7 @@
   },
   {
    "date": "2026-05-14",
-   "count": 4
+   "count": 7
   },
   {
    "date": "2026-05-15",
@@ -1396,7 +1396,7 @@
   },
   {
    "date": "2026-10-23",
-   "count": 0
+   "count": 2
   },
   {
    "date": "2026-10-24",
@@ -1428,7 +1428,7 @@
   },
   {
    "date": "2026-10-31",
-   "count": 0
+   "count": 3
   },
   {
    "date": "2026-11-01",
@@ -1460,7 +1460,7 @@
   },
   {
    "date": "2026-11-08",
-   "count": 0
+   "count": 1
   },
   {
    "date": "2026-11-09",
@@ -1472,10 +1472,50 @@
   },
   {
    "date": "2026-11-11",
-   "count": 4
+   "count": 22
   }
  ],
  "repos": [
+  {
+   "name": "itsashutoshpsingh.github.io",
+   "description": "",
+   "language": "HTML",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/itsashutoshpsingh.github.io",
+   "pushed": "2026-11-11"
+  },
+  {
+   "name": "itsashutoshpsingh",
+   "description": "",
+   "language": "",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/itsashutoshpsingh",
+   "pushed": "2026-11-11"
+  },
+  {
+   "name": "chain-evidence",
+   "description": "",
+   "language": "",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/chain-evidence",
+   "pushed": "2026-11-11"
+  },
+  {
+   "name": "timetruth",
+   "description": "",
+   "language": "",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/timetruth",
+   "pushed": "2026-11-11"
+  },
+  {
+   "name": "evm-cluster-check",
+   "description": "",
+   "language": "",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/evm-cluster-check",
+   "pushed": "2026-11-11"
+  },
   {
    "name": "portfolio",
    "description": "Portfolio",
@@ -1483,6 +1523,14 @@
    "stars": 0,
    "url": "https://github.com/itsashutoshpsingh/portfolio",
    "pushed": "2026-11-11"
+  },
+  {
+   "name": "claude",
+   "description": "",
+   "language": "",
+   "stars": 0,
+   "url": "https://github.com/itsashutoshpsingh/claude",
+   "pushed": "2026-10-01"
   },
   {
    "name": "aics-cic-ids2017-author-u5729347",
