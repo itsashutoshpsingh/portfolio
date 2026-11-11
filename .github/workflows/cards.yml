@@ -28,7 +28,7 @@ jobs:
       - name: Commit if changed
         run: |
           git config user.name "Ashutosh Pal Singh"
-          git config user.email "itsashutoshpsingh@gmail.com"
+          git config user.email "283610179+itsashutoshpsingh@users.noreply.github.com"
           git add data/github.json github/cards
           git diff --cached --quiet || git commit -m "Refresh README cards"
           git push

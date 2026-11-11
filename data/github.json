@@ -1485,14 +1485,6 @@
    "pushed": "2026-11-11"
   },
   {
-   "name": "claude",
-   "description": "",
-   "language": "",
-   "stars": 0,
-   "url": "https://github.com/itsashutoshpsingh/claude",
-   "pushed": "2026-10-01"
-  },
-  {
    "name": "aics-cic-ids2017-author-u5729347",
    "description": "AICS Assignment files ",
    "language": "Jupyter Notebook",

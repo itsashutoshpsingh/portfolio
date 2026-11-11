@@ -214,7 +214,7 @@ def main():
         "activity.svg": activity(data.get("days", [])),
         "graph.svg": graph(data.get("days", [])),
     }
-    SKIP = {data.get("user", "").lower(), "claude"}
+    SKIP = {data.get("user", "").lower()}
     repos = [r for r in data.get("repos", []) if r["name"].lower() not in SKIP][:4]
     for i, r in enumerate(repos):
         cards[f"repo-{i+1}.svg"] = repo_card(r, i)
