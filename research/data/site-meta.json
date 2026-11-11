@@ -1,0 +1,26 @@
+{
+  "profile": null,
+  "projects": [
+    {
+      "slug": "evm-cluster-check",
+      "tags": ["Blockchain analytics", "Fincrime"],
+      "oneLine": "How often published Ethereum clustering and taint rules wrongly link addresses that belong to different owners.",
+      "cmd": "make result   # evm-cluster-check",
+      "misses": []
+    },
+    {
+      "slug": "timetruth",
+      "tags": ["DFIR", "Tool validation"],
+      "oneLine": "Scripted actions at known times, then a check of whether mainstream forensic tools report those times correctly.",
+      "cmd": "make all      # timetruth",
+      "misses": []
+    },
+    {
+      "slug": "chain-evidence",
+      "tags": ["Evidence integrity", "Ethereum"],
+      "oneLine": "Ask several independent providers for the same on chain data, flag any disagreement, and prove completeness against the block header.",
+      "cmd": "chain-evidence survey",
+      "misses": []
+    }
+  ]
+}
