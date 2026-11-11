@@ -165,7 +165,7 @@ def activity(days):
 
 
 def graph(days):
-    w, h = 880, 150
+    w, h = 880, 176
     body = frame(w, h) + '<text class="m mute" x="40" y="40" font-size="13">Contribution graph</text>'
     if not days:
         body += '<text class="mute" x="40" y="96" font-size="15">Waiting for the first daily refresh.</text>'
@@ -214,7 +214,8 @@ def main():
         "activity.svg": activity(data.get("days", [])),
         "graph.svg": graph(data.get("days", [])),
     }
-    repos = [r for r in data.get("repos", []) if r["name"].lower() != data.get("user", "").lower()][:4]
+    SKIP = {data.get("user", "").lower(), "claude"}
+    repos = [r for r in data.get("repos", []) if r["name"].lower() not in SKIP][:4]
     for i, r in enumerate(repos):
         cards[f"repo-{i+1}.svg"] = repo_card(r, i)
     for name, content in cards.items():

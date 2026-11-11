@@ -10,7 +10,8 @@
 <a href="https://itsashutoshpsingh.github.io/portfolio/#work"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="32.5%" alt="Production work: 1,000+ IoT devices secured at Kyoka"></a>
 <a href="mailto:itsashutoshpsingh@gmail.com"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/contact.svg" width="32.5%" alt="Hiring? No visa sponsorship needed. UK Graduate visa."></a>
 
-<a href="https://github.com/itsashutoshpsingh/portfolio"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/repo-1.svg" width="49%" alt="Repository: portfolio"></a>
+<a href="https://github.com/itsashutoshpsingh?tab=repositories"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/repo-1.svg" width="49%" alt="Featured repository"></a>
+<a href="https://github.com/itsashutoshpsingh?tab=repositories"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/repo-2.svg" width="49%" alt="Featured repository"></a>
 
 Seven months at Kyoka Embedded Systems securing a production smart-home IoT estate of 1,000+ devices: Nessus and Qualys assessments, CVSS-led prioritisation, firmware fixes down to the bootloader, scanning automated in Python, mutual TLS for device authentication. Now I build the detection side in a home SOC lab: Sigma and Splunk rules mapped to MITRE ATT&CK, tested against Elastic and Sysmon telemetry until they fire on the attack and stay quiet on normal activity.
 
