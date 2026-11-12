@@ -27,7 +27,7 @@
       navLinks.forEach((a) => a.setAttribute("aria-current", a.getAttribute("href") === `#${en.target.id}` ? "true" : "false"));
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
-  ["work", "method", "misses", "faq", "contact"].forEach((id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
+  ["work", "method", "misses", "published", "faq", "contact"].forEach((id) => { const el = document.getElementById(id); if (el) spy.observe(el); });
 
   /* Scroll reveal, once per element */
   const riser = new IntersectionObserver((entries) => {

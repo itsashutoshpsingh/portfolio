@@ -6,7 +6,7 @@
   --surface-3: #272727;
   --line: #313131;
   --text: #ededed;
-  --text-muted: #9b9b9b;
+  --text-muted: #b8b8b8;
   --text-faint: rgba(237, 237, 237, 0.3);
   --signal: var(--c-green);
   --blue: var(--c-blue);
@@ -76,11 +76,11 @@ p, li { text-wrap: pretty; }
 :focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; border-radius: var(--r-md); }
 
 .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--s-300); }
-section { padding: var(--s-900) 0; position: relative; }
+section { padding: var(--s-700) 0; position: relative; }
 @media (max-width: 720px) { section { padding: var(--s-700) 0; } .wrap { padding: 0 var(--s-200); } }
 
 /* .eyebrow lives in ../fx.css, shared with the home page */
-.section-head { max-width: 680px; display: grid; gap: var(--s-200); margin-bottom: var(--s-600); }
+.section-head { max-width: 680px; display: grid; gap: var(--s-200); margin-bottom: var(--s-400); }
 
 /* Nav */
 .nav {
@@ -140,7 +140,7 @@ section { padding: var(--s-900) 0; position: relative; }
 .btn--ghost:hover { border-color: var(--text-muted); }
 
 /* Hero */
-.hero { min-height: 100vh; display: flex; align-items: center; padding-top: 140px; overflow: hidden; }
+.hero { min-height: 92vh; display: flex; align-items: center; padding-top: 112px; overflow: hidden; }
 #graph { opacity: 0.8; }
 .hero__grid { position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--s-600); align-items: center; }
 @media (max-width: 960px) { .hero__grid { grid-template-columns: 1fr; } }
@@ -259,3 +259,4 @@ footer a:hover { color: var(--text); }
   .reveal-text .w { color: var(--text); transition: none; }
   .reveal-text .w.accent { color: var(--signal); }
 }
+.nav__brand, .nav__links a { white-space: nowrap; }

@@ -21,11 +21,13 @@
   };
   var rgba = function (hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
 
-  /* Address graph: owners' clusters drift, packets run along edges, false merges between
-     clusters pulse red. One soft-glow sprite per colour keeps it cheap. */
+  /* Address graph: a far layer of drifting dust for depth; owners' clusters drift, packets run
+     along edges, false merges between clusters pulse red; every few seconds a transaction trace
+     lights up hop by hop, sometimes crossing a false merge, which is the error the research measures.
+     Nodes near the pointer reach out to it. One soft-glow sprite per colour keeps it cheap. */
   function graph(cv) {
     var ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var palette = [C.blue, C.green, C.amber], sprites = {}, W, H, nodes = [], edges = [], cross = [], packets = [], t = 0, running = false;
+    var palette = [C.blue, C.green, C.amber], sprites = {}, W, H, nodes = [], edges = [], cross = [], packets = [], dust = [], adj = [], trace = null, nextTrace = 1.5, t = 0, running = false, px = -1e4, py = -1e4;
     var density = parseFloat(cv.getAttribute('data-density') || '1'), zone = cv.getAttribute('data-zone') || 'all';
     // where cluster centres may sit, as fractions of the width: keep them clear of the text column
     function spot(c, k) {
@@ -65,9 +67,33 @@
         if (best && bd < Math.min(W, H) * 0.6) cross.push([best[0], best[1], Math.random() * 6.283]);
       }
       for (var p = 0; p < Math.round(edges.length / 4); p++) packets.push({ e: (Math.random() * edges.length) | 0, u: Math.random(), v: 0.004 + Math.random() * 0.008 });
+      adj = nodes.map(function () { return []; });
+      edges.concat(cross).forEach(function (e) { adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
+      dust = [];
+      for (var q = 0; q < Math.min(170, Math.round((W * H) / 9000)); q++) dust.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12, r: 0.4 + Math.random() * 0.9, a: 0.12 + Math.random() * 0.28, z: 0.3 + Math.random() * 0.7 });
+      trace = null;
+    }
+    function startTrace() {  // a random walk of up to 7 hops, preferring the false-merge bridge when one is adjacent
+      var crossSet = {}; cross.forEach(function (e) { crossSet[e[0]] = e[1]; crossSet[e[1]] = e[0]; });
+      var start = cross.length && Math.random() < 0.6 ? cross[(Math.random() * cross.length) | 0][0] : (Math.random() * nodes.length) | 0;
+      var path = [start], seen = {}; seen[start] = 1;
+      while (path.length < 8) {
+        var here = path[path.length - 1], opts = adj[here].filter(function (n) { return !seen[n]; });
+        if (!opts.length) break;
+        var nxt = crossSet[here] !== undefined && !seen[crossSet[here]] && Math.random() < 0.7 ? crossSet[here] : opts[(Math.random() * opts.length) | 0];
+        path.push(nxt); seen[nxt] = 1;
+      }
+      trace = path.length > 2 ? { path: path, u: 0, fade: 1 } : null;
     }
     function draw() {
       ctx.clearRect(0, 0, W, H);
+      var ox = px > -1e3 ? (px / W - 0.5) * 14 : 0, oy = py > -1e3 ? (py / H - 0.5) * 10 : 0;
+      dust.forEach(function (d) {  // far layer: slow drift, slight parallax with the pointer
+        d.x = (d.x + d.vx + W) % W; d.y = (d.y + d.vy + H) % H;
+        ctx.globalAlpha = d.a; ctx.fillStyle = d.z > 0.75 ? C.cyan : C.blue;
+        ctx.beginPath(); ctx.arc(d.x - ox * d.z, d.y - oy * d.z, d.r, 0, 6.283); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
       nodes.forEach(function (n) { n.x = n.bx + Math.cos(t * n.sp + n.ph) * n.amp; n.y = n.by + Math.sin(t * n.sp * 0.8 + n.ph) * n.amp; });
       ctx.lineWidth = 1;
       edges.forEach(function (e) {
@@ -82,7 +108,27 @@
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
         [a, b].forEach(function (n) { var s = sprite(C.red), z = 18 + 10 * pulse; ctx.globalAlpha = pulse; ctx.drawImage(s, n.x - z, n.y - z, z * 2, z * 2); ctx.globalAlpha = 1; });
       });
-      nodes.forEach(function (n) { var s = sprite(palette[n.c % 3]), z = n.r * 6; ctx.drawImage(s, n.x - z, n.y - z, z * 2, z * 2); });
+      nodes.forEach(function (n) {
+        var dd = Math.hypot(n.x - px, n.y - py), near = dd < 150 ? 1 - dd / 150 : 0, s = sprite(palette[n.c % 3]), z = n.r * (6 + 5 * near);
+        if (near) { ctx.strokeStyle = rgba(C.cyan, 0.35 * near); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(px, py); ctx.stroke(); }
+        ctx.drawImage(s, n.x - z, n.y - z, z * 2, z * 2);
+      });
+      if (trace) {  // the trace: finished hops stay lit and fade, the head moves along the current hop
+        var P = trace.path, seg = Math.floor(trace.u), f = trace.u - seg;
+        ctx.save(); ctx.lineCap = 'round'; ctx.shadowColor = C.cyan; ctx.shadowBlur = 12;
+        for (var i2 = 0; i2 < Math.min(seg + 1, P.length - 1); i2++) {
+          var A = nodes[P[i2]], B = nodes[P[i2 + 1]], isX = A.c !== B.c, part = i2 < seg ? 1 : f;
+          ctx.strokeStyle = rgba(isX ? C.red : C.cyan, 0.85 * trace.fade); ctx.lineWidth = isX ? 2.2 : 1.8;
+          ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(A.x + (B.x - A.x) * part, A.y + (B.y - A.y) * part); ctx.stroke();
+          if (i2 < seg) { ctx.globalAlpha = trace.fade; ctx.drawImage(sprite(C.cyan), B.x - 14, B.y - 14, 28, 28); ctx.globalAlpha = 1; }
+        }
+        ctx.restore();
+        if (seg < P.length - 1) {
+          var a2 = nodes[P[seg]], b2 = nodes[P[seg + 1]];
+          ctx.drawImage(sprite(C.cyan), a2.x + (b2.x - a2.x) * f - 16, a2.y + (b2.y - a2.y) * f - 16, 32, 32);
+          trace.u += 0.022;
+        } else if ((trace.fade -= 0.012) <= 0) { trace = null; nextTrace = t + 1.2 + Math.random() * 2; }
+      } else if (t > nextTrace && nodes.length) startTrace();
       packets.forEach(function (p) {
         p.u += p.v; if (p.u > 1) { p.u = 0; p.e = (Math.random() * edges.length) | 0; }
         var e = edges[p.e], a = nodes[e[0]], b = nodes[e[1]], x = a.x + (b.x - a.x) * p.u, y = a.y + (b.y - a.y) * p.u;
@@ -94,6 +140,7 @@
     var resize = function () { clearTimeout(resize.t); resize.t = setTimeout(function () { build(); draw(); }, 150); };
     window.addEventListener('resize', resize);
     if (still) return;
+    if (fine) window.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; }, { passive: true });
     var set = function (on) { var was = running; running = on && !document.hidden; if (running && !was) requestAnimationFrame(frame); };
     if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { set(es[0].isIntersecting); }).observe(cv); else set(true);
     document.addEventListener('visibilitychange', function () { set(!document.hidden); });

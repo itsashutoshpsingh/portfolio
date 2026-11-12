@@ -247,6 +247,30 @@ def toolkit():
     return svg(w, h, "Toolkit. " + " ".join(f"{n}: {', '.join(c)}." for n, c in TOOLKIT), body)
 
 
+PUBLISHED = [
+    ("Peer reviewed paper", "sig", ["Safeguarding Authenticity in the", "Digital Realm: content provenance", "and watermarking to combat", "deepfakes. IJFMR 6(3), 2024."]),
+    ("Certifications", "ok", ["Microsoft SC-200, Security", "Operations Analyst Associate, 2026", "Google Cybersecurity, 2024", "EC-Council Digital Forensics"]),
+    ("Education", "amber", ["MSc Cyber Security Engineering,", "Warwick (NCSC certified)", "BTech Computer Science,", "Symbiosis Institute of Technology"]),
+]
+
+
+def published():
+    w, h = 880, 218
+    body = frame(w, h) + f'<rect x="20" y="0" width="{w - 40}" height="3" rx="1.5" fill="url(#accent)"/>'
+    body += '<text class="m sig rise" x="32" y="40" font-size="12">&gt; cat published.txt</text>'
+    col = (w - 64) / 3
+    for i, (head, colour, lines) in enumerate(PUBLISHED):
+        x = 32 + i * col
+        body += (f'<g class="rise"{d(i, .15, .3)}><circle cx="{x + 4:.0f}" cy="72" r="4" style="fill:var(--{colour})" filter="url(#glow)"/>'
+                 f'<text x="{x + 16:.0f}" y="77" font-size="15" font-weight="600">{html.escape(head)}</text>'
+                 + "".join(f'<text class="mute" x="{x:.0f}" y="{106 + k * 21}" font-size="13">{html.escape(t)}</text>' for k, t in enumerate(lines))
+                 + "</g>")
+        assert max(len(t) for t in lines) <= 36, f"{head}: line too long for its column"
+        if i:
+            body += f'<rect x="{x - 14:.0f}" y="60" width="1" height="{h - 84}" fill="var(--line)"/>'
+    return svg(w, h, "Published and certified. " + " ".join(f"{a}: {' '.join(c)}." for a, _, c in PUBLISHED), body)
+
+
 def tile(label, big, sub, colour, i):
     w, h = 432, 210
     body = (f'<g class="tile"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
@@ -269,6 +293,7 @@ def main():
         "hero.svg": hero(),
         "terminal.svg": terminal(projects, term),
         "toolkit.svg": toolkit(),
+        "published.svg": published(),
         "experience.svg": tile("Experience", "4 roles", ["Kyoka, NASSCOM, Cisco AICTE and Verzeo,", "plus open research and a detection lab."], "sig", 0),
         "work.svg": tile("Production work", "1,000+", ["IoT devices secured at Kyoka, with open", "vulnerabilities cut by 45%."], "ok", 1),
     }
