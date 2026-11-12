@@ -1,26 +1,81 @@
 {
-  "profile": null,
+  "profile": {
+    "bio": "Ashutosh Pal Singh. Security analyst in vulnerability management and threat detection, MSc Cyber Security Engineering (University of Warwick), Microsoft SC-200 certified. These projects measure the error rates behind blockchain investigations and forensic timelines. Based in the UK, open to blockchain analytics, DFIR, fincrime and security research roles.",
+    "links": [
+      {
+        "label": "Email me",
+        "url": "mailto:itsashutoshpsingh@gmail.com",
+        "icon": "ph-envelope-simple"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ashutosh-pal-singh/",
+        "icon": "ph-linkedin-logo"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/itsashutoshpsingh",
+        "icon": "ph-github-logo"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://itsashutoshpsingh.github.io/portfolio/",
+        "icon": "ph-user"
+      }
+    ]
+  },
   "projects": [
     {
       "slug": "evm-cluster-check",
-      "tags": ["Blockchain analytics", "Fincrime"],
+      "tags": [
+        "Blockchain analytics",
+        "Fincrime"
+      ],
       "oneLine": "How often published Ethereum clustering and taint rules wrongly link addresses that belong to different owners.",
       "cmd": "make result   # evm-cluster-check",
       "misses": []
     },
     {
       "slug": "timetruth",
-      "tags": ["DFIR", "Tool validation"],
+      "tags": [
+        "DFIR",
+        "Tool validation"
+      ],
       "oneLine": "Scripted actions at known times, then a check of whether mainstream forensic tools report those times correctly.",
       "cmd": "make all      # timetruth",
-      "misses": []
+      "misses": [
+        "libfaketime also shifted stat() results, so my first NTFS run applied the offset twice. Fixed with NO_FAKE_STAT=1.",
+        "MFTECmd would not run under Mono, so analyzeMFT stands in on Linux and is labelled that way everywhere.",
+        "Every image was written by a Linux driver. The Windows kit that would test real Windows writes has not been run yet.",
+        "ext4 ignores libfaketime, so the ext4 \"DST\" runs did not actually cross a clock change."
+      ],
+      "metric_labels": [
+        "tool-reported times checked",
+        "not the true instant",
+        "correct on fat32",
+        "correct on ntfs"
+      ]
     },
     {
       "slug": "chain-evidence",
-      "tags": ["Evidence integrity", "Ethereum"],
+      "tags": [
+        "Evidence integrity",
+        "Ethereum"
+      ],
       "oneLine": "Ask several independent providers for the same on chain data, flag any disagreement, and prove completeness against the block header.",
       "cmd": "chain-evidence survey",
-      "misses": []
+      "misses": [
+        "I deleted the bundle of the first silent empty answer while resetting results. It is recorded in my notes and not counted.",
+        "1rpc ran out of free quota and relays publicnode, so most Ethereum comparisons are only two way.",
+        "My first probe said publicnode serves deep receipts. It counted a null answer as success.",
+        "mainnet.base.org refuses eth_getLogs, so Base has receipt proofs but no log comparison."
+      ],
+      "metric_labels": [
+        "ethereum: finalised ranges compared",
+        "ethereum: disagreement rate",
+        "ethereum: empty successes (0 logs where logs exist)",
+        "ethereum/drpc: blocks whose receipts reproduce receiptsRoot"
+      ]
     }
   ]
 }

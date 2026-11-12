@@ -37,6 +37,9 @@ def main():
         repo_dir = SRC / m["slug"]
         summary = json.loads((repo_dir / "results/summary.json").read_text())
         metrics = [{"label": x["label"], "value": str(x["value"])} for x in summary["metrics"]]
+        if m.get("metric_labels"):
+            by = {x["label"]: x for x in metrics}
+            metrics = [by[l] for l in m["metric_labels"]]  # KeyError = stale label, fail loudly
         if not metrics:
             raise SystemExit(f"{m['slug']}: summary has no metrics")
         proof_idx = m.get("proof_metric", 0)
