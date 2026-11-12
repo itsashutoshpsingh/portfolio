@@ -317,3 +317,13 @@ p { text-wrap: pretty; }
 .sec__lede { max-width: 680px; color: var(--fg-60); margin-bottom: var(--s-400); text-wrap: pretty; }
 .sec__eyebrow { margin-bottom: var(--s-200); }
 .close .eyebrow { margin-bottom: var(--s-200); }
+
+/* Experience: dated roles, two columns on wide screens */
+.xp { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-300); }
+.xp__item { padding: var(--s-400); display: grid; gap: var(--s-100); align-content: start; }
+.xp__when { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-75); color: var(--signal); }
+.xp__when span { color: var(--fg-40); }
+.xp__pts { margin: 0; gap: var(--s-100); }
+.xp__pts li::before { top: 9px; }
+.xp__pts .body-6 { color: var(--fg-60); }
+@media (max-width: 860px) { .xp { grid-template-columns: 1fr; } .xp__item { padding: var(--s-300); } }

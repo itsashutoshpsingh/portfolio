@@ -98,7 +98,7 @@
   once(heads, function (h) { h.classList.add('fx-on'); }, '0px 0px -8% 0px');
   once($$('[data-count]'), count);
   if (fine) {
-    $$('.glassline, .project, .miss, .step, .metric').forEach(tilt);
+    $$('#research .step, .project').forEach(tilt);  // research cards only: hover motion on every card is noise
     $$('.btn').forEach(magnet);
   }
 })();

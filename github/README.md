@@ -1,6 +1,6 @@
 <!-- Profile README for github.com/itsashutoshpsingh (copy into that repository as README.md). Cards are drawn by scripts/render_cards.py from research/data/projects.json. -->
 
-<a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/hero.svg" width="100%" alt="Ashutosh Pal Singh. Security analyst who measures the silent errors in crypto investigations and forensic evidence. MSc Cyber Security Engineering, Warwick. Microsoft SC-200. Open to UK roles in blockchain analytics, DFIR, fincrime and SOC."></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/hero.svg" width="100%" alt="Ashutosh Pal Singh. Security analyst who measures the silent errors in crypto investigations and forensic evidence. MSc Cyber Security Engineering, Warwick. Microsoft SC-200. Open to UK roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and security research."></a>
 
 <a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/terminal.svg" width="100%" alt="Research results: 198 cross-exchange false merges by deposit-address reuse; 27% of forensic tool times were not the true instant; 2 silent empty answers where receipt proofs show logs."></a>
 

@@ -44,7 +44,7 @@
     var spy = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'story', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['top', 'story', 'experience', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
   /* Mobile menu */

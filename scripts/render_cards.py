@@ -138,7 +138,7 @@ def hero():
         f'<text class="mute rise"{d(3)} x="40" y="210" font-size="14">MSc Cyber Security Engineering, Warwick (NCSC certified). Microsoft SC-200.</text>'
         f'<g class="rise"{d(4)}><circle class="ok" cx="47" cy="252" r="4"/>'
         '<circle class="ping" cx="47" cy="252" r="4" fill="none" stroke="var(--ok)" stroke-width="1.5"/>'
-        '<text class="m mute" x="60" y="256" font-size="12">Open to UK roles in blockchain analytics, DFIR, fincrime and SOC. No sponsorship needed.</text></g>')
+        '<text class="m mute" x="60" y="256" font-size="12">Open to UK roles: blockchain analytics, DFIR, fincrime, SOC, VM, research. No sponsorship.</text></g>')
     return svg(w, h, "Ashutosh Pal Singh, security analyst who measures the silent errors in crypto investigations and forensic evidence",
                frame(w, h) + graph + text, defs)
 
