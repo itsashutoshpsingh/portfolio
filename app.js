@@ -90,3 +90,11 @@
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText('itsashutoshpsingh@gmail.com').then(done, fallback); else fallback();
   });
 })();
+
+// Research teaser numbers come from the research page's data, never typed by hand
+fetch('research/data/projects.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
+  (d && d.projects || []).forEach(function (p) {
+    var el = document.querySelector('[data-proof="' + p.slug + '"]');
+    if (el) { el.textContent = p.proof.value; var s = document.createElement('small'); s.textContent = p.proof.label; el.appendChild(s); }
+  });
+}).catch(function () {});

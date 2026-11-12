@@ -309,3 +309,9 @@ p { text-wrap: pretty; }
   @keyframes fade { from { opacity: 0; } }
 }
 @media print { .top, .menu, .progress, .hero__film, .close__film, .close__actions { display: none !important; } .hero, .sheet, .close { position: static; background: #fff; color: #000; } }
+
+/* Research teaser: proof numbers filled from research/data/projects.json */
+.rsch__n { color: var(--ok); min-height: 36px; }
+.rsch__n small { display: block; font: 500 12px/16px var(--mono, monospace); color: var(--fg-60); }
+.rsch__cta { margin-top: var(--s-400); }
+.sec__lede { max-width: 680px; color: var(--fg-60); margin-bottom: var(--s-400); text-wrap: pretty; }
