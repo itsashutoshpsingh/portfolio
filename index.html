@@ -21,6 +21,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="fx.css">
 <script>
   document.documentElement.classList.add('js');
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('still');
@@ -135,6 +136,7 @@
     <!-- ============ PROBLEM TO SOLUTION ============ -->
     <section class="sec surf surf--grid" aria-labelledby="needTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>01 / The job</p>
         <h2 class="heading-2 sec__h" id="needTitle" data-reveal>What a SOC needs on day one,<br>and what I bring.</h2>
         <div class="twin">
           <div class="twin__col glassline" data-reveal>
@@ -163,7 +165,7 @@
     <section class="sec sec--story surf surf--dots" id="story" aria-labelledby="storyTitle">
       <div class="wrap story">
         <aside class="rail">
-          <p class="caption-4 mono rail__k">The story</p>
+          <p class="eyebrow caption-3 rail__k">02 / The story</p>
           <h2 class="heading-3" id="storyTitle">Pune to Coventry, in seven chapters.</h2>
           <ol class="rail__list caption-2 mono" id="railList">
             <li data-for="ch-1">2020</li><li data-for="ch-2">2022</li><li data-for="ch-3">2023</li><li data-for="ch-4">2024</li><li data-for="ch-5">2024</li><li data-for="ch-6">2025</li><li data-for="ch-7">2026</li>
@@ -227,6 +229,7 @@
     <!-- ============ BENEFITS ============ -->
     <section class="sec surf surf--dots" id="work" aria-labelledby="getTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>03 / What you get</p>
         <h2 class="heading-2 sec__h" id="getTitle" data-reveal>What your team gets.</h2>
         <ul class="bene">
           <li class="bene__item glassline" data-reveal>
@@ -260,6 +263,7 @@
     <!-- ============ HOW I WORK ============ -->
     <section class="sec surf surf--rings" aria-labelledby="howTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>04 / Method</p>
         <h2 class="heading-2 sec__h" id="howTitle" data-reveal>How I work, in three steps.</h2>
         <ol class="steps">
           <li class="step glassline" data-reveal><p class="caption-3 mono step__n">01</p><p class="title-1">Find it</p><p class="body-6">Scan, read the firmware, walk the attack path yourself. Nessus and Qualys first, then hands on the hardware.</p></li>
@@ -272,6 +276,7 @@
     <!-- ============ RESEARCH ============ -->
     <section class="sec surf surf--dots" id="research" aria-labelledby="researchTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>05 / Research</p>
         <h2 class="heading-2 sec__h" id="researchTitle" data-reveal>Research: measuring the silent errors.</h2>
         <p class="body-3 sec__lede" data-reveal>Three open projects that test the tools investigators trust, with real data, published error rates and a list of what went wrong.</p>
         <ul class="steps">
@@ -286,6 +291,7 @@
     <!-- ============ PROOF ============ -->
     <section class="sec surf surf--grid" id="proof" aria-labelledby="proofTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>06 / Proof</p>
         <h2 class="heading-2 sec__h" id="proofTitle" data-reveal>Proof you can check.</h2>
         <div class="proof">
           <article class="paper glassline" data-reveal>
@@ -315,6 +321,7 @@
     <!-- ============ BEYOND SECURITY ============ -->
     <section class="sec surf surf--dots" id="beyond" aria-labelledby="beyondTitle">
       <div class="wrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>07 / Beyond security</p>
         <h2 class="heading-2 sec__h" id="beyondTitle" data-reveal>What the job ad doesn't list.</h2>
         <ul class="beyond">
           <li class="beyond__item glassline" data-reveal>
@@ -340,6 +347,7 @@
     <!-- ============ FAQ ============ -->
     <section class="sec surf surf--grid" id="faq" aria-labelledby="faqTitle">
       <div class="wrap faqwrap">
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>08 / FAQ</p>
         <h2 class="heading-2 sec__h" id="faqTitle" data-reveal>Questions hiring managers ask.</h2>
         <div class="faq" data-reveal>
           <details class="q" open><summary class="title-2">Do you need visa sponsorship?</summary><p class="body-6">No. I am eligible for the UK Graduate visa on the back of my Warwick MSc, so there is no sponsorship and no paperwork on your side.</p></details>
@@ -361,6 +369,7 @@
       data-src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4"></video>
     <div class="close__dim" aria-hidden="true"></div>
     <div class="wrap close__inner">
+      <p class="eyebrow caption-3" data-reveal>09 / Contact</p>
       <h2 class="heading-2 close__h" id="closeTitle" data-reveal>Hiring for a SOC <br>or vulnerability team?</h2>
       <p class="body-3 close__p" data-reveal>No sponsorship, no relocation drama, and a lab you can ask me about in the first interview. Want a practical instead of a chat? Name an ATT&amp;CK technique and I will write and test the Sigma rule.</p>
       <div class="close__actions" data-reveal>
@@ -383,5 +392,6 @@
   </section>
 </main>
 <script src="app.js" defer></script>
+<script src="fx.js" defer></script>
 </body>
 </html>

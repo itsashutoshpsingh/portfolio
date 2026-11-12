@@ -44,7 +44,7 @@
     var spy = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'story', 'work', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['top', 'story', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
   /* Mobile menu */
@@ -95,6 +95,6 @@
 fetch('research/data/projects.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
   (d && d.projects || []).forEach(function (p) {
     var el = document.querySelector('[data-proof="' + p.slug + '"]');
-    if (el) { el.textContent = p.proof.value; var s = document.createElement('small'); s.textContent = p.proof.label; el.appendChild(s); }
+    if (el) { el.textContent = p.proof.value; var s = document.createElement('small'); s.textContent = p.proof.label; el.appendChild(s); if (window.fx) window.fx.count(el); }
   });
 }).catch(function () {});

@@ -1,12 +1,10 @@
 name: Refresh README cards
 
 on:
-  schedule:
-    - cron: "17 5 * * *"
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/**", "github/fonts/**", ".github/workflows/cards.yml"]
+    paths: ["scripts/render_cards.py", "research/data/projects.json", "github/fonts/**", ".github/workflows/cards.yml"]
 
 permissions:
   contents: write
@@ -19,16 +17,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Fetch contributions and repositories
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python scripts/fetch_github.py
       - name: Render cards
         run: python scripts/render_cards.py
       - name: Commit if changed
         run: |
           git config user.name "Ashutosh Pal Singh"
           git config user.email "283610179+itsashutoshpsingh@users.noreply.github.com"
-          git add data/github.json github/cards
+          git add -A github/cards
           git diff --cached --quiet || git commit -m "Refresh README cards"
           git push

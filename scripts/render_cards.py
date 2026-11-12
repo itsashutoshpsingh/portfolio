@@ -2,24 +2,20 @@
 """Render the GitHub profile README cards into github/cards/ as self-contained SVGs.
 
 Everything an <img> sandbox allows and nothing it strips: an inline <style> with CSS keyframes,
-one SMIL gradient sweep, and Geist subset to ASCII and embedded as base64 WOFF2. Motion is kept
-cheap on purpose: one animation per element at most, a single clip sweep over the contribution
-graph instead of one animation per square, and no frame-by-frame text counters.
+one SMIL gradient sweep, and Geist subset to ASCII and embedded as base64 WOFF2. Numbers come
+from research/data/projects.json (built by sync_research.py), never typed here.
 
 STATIC=1 renders every card at its final frame, for screenshots.
 """
 import base64
-import collections
-import datetime as dt
 import html
 import json
 import os
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
 OUT = os.path.join(ROOT, "github", "cards")
-DATA = os.path.join(ROOT, "data", "github.json")
+DATA = os.path.join(ROOT, "research", "data", "projects.json")
 STATIC = os.environ.get("STATIC") == "1"
-SITE = "https://itsashutoshpsingh.github.io/portfolio/"
 
 
 def font(name):
@@ -33,13 +29,13 @@ FONTS = (
     "@font-face{font-family:'GM';font-weight:500;src:url(data:font/woff2;base64,%s) format('woff2')}"
 ) % (font("geist-400.sub.woff2"), font("geist-600.sub.woff2"), font("geistmono-500.sub.woff2"))
 
-# Brand: GitHub dark and light surfaces, the site's signal blue, ice, green.
+# Brand: the site's tokens on GitHub's dark and light surfaces, so the cards sit flush on the profile.
 BASE = """
-:root{--bg:#0d1117;--card:#161b22;--card2:#1c2230;--line:rgba(255,255,255,.12);--dot:rgba(255,255,255,.07);--fg:#e6edf3;--mute:#8b949e;--sig:#5ba8ff;--ice:#a9d6ff;--ok:#4fd8a0;--amber:#f0b35b}
-@media(prefers-color-scheme:light){:root{--bg:#ffffff;--card:#f6f8fa;--card2:#eef2f6;--line:rgba(0,0,0,.1);--dot:rgba(0,0,0,.08);--fg:#1f2328;--mute:#656d76;--sig:#1f63e0;--ice:#1f63e0;--ok:#1a7f4b;--amber:#9a6700}}
+:root{--bg:#0d1117;--card:#161b22;--card2:#1c2230;--line:rgba(255,255,255,.12);--dot:rgba(255,255,255,.07);--fg:#e6edf3;--mute:#8b949e;--sig:#5ba8ff;--ice:#a9d6ff;--ok:#4fd8a0;--amber:#f0b35b;--red:#ff4d6d}
+@media(prefers-color-scheme:light){:root{--bg:#ffffff;--card:#f6f8fa;--card2:#eef2f6;--line:rgba(0,0,0,.1);--dot:rgba(0,0,0,.08);--fg:#1f2328;--mute:#656d76;--sig:#1f63e0;--ice:#1f63e0;--ok:#1a7f4b;--amber:#9a6700;--red:#cf222e}}
 text{font-family:'G',ui-sans-serif,system-ui,sans-serif;fill:var(--fg)}
 .m{font-family:'GM',ui-monospace,Menlo,monospace}
-.mute{fill:var(--mute)}.sig{fill:var(--sig)}.ice{fill:var(--ice)}.ok{fill:var(--ok)}
+.mute{fill:var(--mute)}.sig{fill:var(--sig)}.ok{fill:var(--ok)}.red{fill:var(--red)}
 .card{fill:var(--card);stroke:var(--line)}
 :root{--e:cubic-bezier(.22,1,.36,1)}
 """
@@ -48,17 +44,28 @@ ANIM = """
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .tile{opacity:0;transform-box:fill-box;transform-origin:50% 100%;animation:tile .9s var(--e) both}
 @keyframes tile{0%{opacity:0;transform:translateY(28px) rotate(2deg)}70%{opacity:1;transform:translateY(-3px) rotate(0)}100%{opacity:1;transform:none}}
-.bar{transform-box:fill-box;transform-origin:50% 100%;transform:scaleY(0);animation:bar .9s var(--e) both}
-@keyframes bar{to{transform:scaleY(1)}}
-.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 2.2s var(--e) both}
+.draw{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);animation:draw 1.6s var(--e) both}
 @keyframes draw{to{stroke-dashoffset:0}}
-.sweep{transform-box:fill-box;transform-origin:0 0;transform:scaleX(0);animation:sweep 1.8s var(--e) both}
-@keyframes sweep{to{transform:scaleX(1)}}
-.nudge{animation:nudge 2.8s ease-in-out infinite 2.4s}
+.pop{opacity:0;transform-box:fill-box;transform-origin:center;animation:pop .7s var(--e) both}
+@keyframes pop{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:none}}
+.ping{opacity:0;transform-box:fill-box;transform-origin:center;animation:ping 2.6s var(--e) infinite}
+@keyframes ping{0%{opacity:.8;transform:scale(1)}80%,100%{opacity:0;transform:scale(3.2)}}
+.flow{stroke-dasharray:6 6;animation:flow 1.2s linear infinite,warn 2.6s var(--e) infinite}
+@keyframes flow{to{stroke-dashoffset:-24}}
+@keyframes warn{0%,100%{opacity:.35}50%{opacity:1}}
+.scan{opacity:0;animation:scan 5.5s var(--e) infinite 1.8s}
+@keyframes scan{0%{transform:translateX(0);opacity:0}10%{opacity:.9}90%{opacity:.9}100%{transform:translateX(var(--dx));opacity:0}}
+.blink{animation:blink 1.1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.type{transform-box:fill-box;transform-origin:100% 0;animation:type var(--t) steps(var(--n)) both}
+@keyframes type{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.cell{opacity:.18;animation:cell 3.2s var(--e) infinite}
+@keyframes cell{0%,100%{opacity:.18}12%{opacity:1}40%{opacity:.18}}
+.nudge{animation:nudge 2.8s var(--e) infinite 2.4s}
 @keyframes nudge{0%,100%{transform:none}50%{transform:translate(3px,-3px)}}
-@media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}.type,.scan,.ping{display:none}}
 """
-STATIC_CSS = ".rise,.tile{opacity:1}.bar{transform:none}.draw{stroke-dashoffset:0}.sweep{transform:none}"
+STATIC_CSS = ".type,.scan,.ping{display:none}.cell{opacity:.6}"
 
 
 def svg(w, h, title, body, defs=""):
@@ -79,149 +86,174 @@ def d(i, step=0.1, base=0.1):
     return "" if STATIC else f' style="animation-delay:{base + i*step:.2f}s"'
 
 
+def wrap(text, width):
+    """Greedy word wrap for SVG text, which has no wrapping of its own."""
+    lines, cur = [], ""
+    for w in text.split():
+        if cur and len(cur) + 1 + len(w) > width:
+            lines.append(cur)
+            cur = w
+        else:
+            cur = f"{cur} {w}".strip()
+    return lines + [cur] if cur else lines
+
+
+# Two owners' address clusters with one wrong link between them: the error the research measures.
+NODES = [(640, 92), (690, 70), (705, 128), (660, 150), (735, 96),
+         (790, 178), (835, 150), (820, 214), (770, 226), (850, 198)]
+EDGES = [(0, 1), (0, 2), (1, 4), (2, 3), (2, 4), (0, 3), (5, 6), (5, 7), (6, 9), (7, 8), (7, 9), (5, 8)]
+
+
+def colour_of(i):
+    return "--sig" if i < 5 else "--ok"
+
+
 def hero():
-    w, h = 880, 280
-    # one signal line, drawn once; a slow blue sheen crosses the surname (SMIL, one element)
-    import math
-    pts = " ".join(f"{600+i*4.4:.1f},{74+math.sin(i/62*6.3)*24*(1-i/95)+math.sin(i/62*2.2+1)*10:.1f}" for i in range(63))
+    w, h = 880, 300
     defs = ('<linearGradient id="sheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--fg)"/><stop offset=".45" stop-color="var(--fg)"/>'
             '<stop offset=".5" stop-color="var(--ice)"/><stop offset=".55" stop-color="var(--fg)"/><stop offset="1" stop-color="var(--fg)"/>'
             + ('' if STATIC else '<animateTransform attributeName="gradientTransform" type="translate" from="-1 0" to="1 0" dur="6s" begin="2s" repeatCount="indefinite"/>')
-            + '</linearGradient>')
-    body = frame(w, h) + f'''
-<polyline class="draw ease" style="--len:320" points="{pts}" fill="none" stroke="var(--sig)" stroke-width="2" stroke-linecap="round" opacity=".9"/>
-<text class="m mute rise ease"{d(0)} x="40" y="52" font-size="13">Coventry, United Kingdom</text>
-<text class="rise ease"{d(1)} x="40" y="112" font-size="46" font-weight="600" letter-spacing="-1.6">Ashutosh <tspan fill="url(#sheen)">Pal Singh</tspan></text>
-<text class="rise ease"{d(2)} x="40" y="148" font-size="18" font-weight="600">Security analyst. Vulnerability management and threat detection.</text>
-<text class="mute rise ease"{d(3)} x="40" y="176" font-size="14">I find the weak spots in devices and networks, then write the detections that catch someone using them.</text>
-<text class="mute rise ease"{d(4)} x="40" y="200" font-size="14">MSc Cyber Security Engineering, University of Warwick (NCSC-certified).</text>
-<g class="rise ease"{d(5)}><circle class="ok" cx="47" cy="240" r="4"/><text class="m mute" x="60" y="244" font-size="12">Open to UK SOC and vulnerability roles. No sponsorship needed.</text></g>'''
-    return svg(w, h, "Ashutosh Pal Singh, security analyst", body, defs)
+            + '</linearGradient><clipPath id="gclip"><rect x="600" y="40" width="270" height="220"/></clipPath>')
+    edges = ""
+    for k, (a, b) in enumerate(EDGES):
+        (x1, y1), (x2, y2) = NODES[a], NODES[b]
+        length = int(((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5) + 2
+        delay = "" if STATIC else f";animation-delay:{.3 + k * .08:.2f}s"
+        edges += (f'<line class="draw" style="--len:{length}{delay}" x1="{x1}" y1="{y1}" x2="{x2}" y2="{y2}" '
+                  f'stroke="var({colour_of(a)})" stroke-width="1.4" opacity=".7"/>')
+    nodes = "".join(f'<circle class="pop" cx="{x}" cy="{y}" r="5" fill="var({colour_of(i)})"{d(i, .07, .2)}/>'
+                    for i, (x, y) in enumerate(NODES))
+    pings = "".join(f'<circle class="ping" cx="{NODES[i][0]}" cy="{NODES[i][1]}" r="5" fill="none" stroke="var(--red)" stroke-width="1.5"{d(j, 1.3, 2.2)}/>'
+                    for j, i in enumerate((4, 5)))
+    (ax, ay), (bx, by) = NODES[4], NODES[5]
+    graph = (f'{edges}{nodes}'
+             f'<line class="flow" x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="var(--red)" stroke-width="2"/>{pings}'
+             f'<text class="m red rise" x="772" y="128" font-size="11"{d(0, 0, 2.0)}>false merge</text>'
+             '<g clip-path="url(#gclip)"><rect class="scan" style="--dx:270px" x="600" y="40" width="2" height="220" fill="var(--sig)"/></g>')
+    text = (
+        f'<text class="m sig rise"{d(0)} x="40" y="56" font-size="13">&gt; whoami<tspan class="blink">_</tspan></text>'
+        f'<text class="rise"{d(1)} x="40" y="114" font-size="46" font-weight="600" letter-spacing="-1.6">Ashutosh <tspan fill="url(#sheen)">Pal Singh</tspan></text>'
+        f'<text class="rise"{d(2)} x="40" y="152" font-size="18" font-weight="600">Security analyst who measures the silent errors</text>'
+        f'<text class="rise"{d(2)} x="40" y="176" font-size="18" font-weight="600">in crypto investigations and forensic evidence.</text>'
+        f'<text class="mute rise"{d(3)} x="40" y="210" font-size="14">MSc Cyber Security Engineering, Warwick (NCSC certified). Microsoft SC-200.</text>'
+        f'<g class="rise"{d(4)}><circle class="ok" cx="47" cy="252" r="4"/>'
+        '<circle class="ping" cx="47" cy="252" r="4" fill="none" stroke="var(--ok)" stroke-width="1.5"/>'
+        '<text class="m mute" x="60" y="256" font-size="12">Open to UK roles in blockchain analytics, DFIR, fincrime and SOC. No sponsorship needed.</text></g>')
+    return svg(w, h, "Ashutosh Pal Singh, security analyst who measures the silent errors in crypto investigations and forensic evidence",
+               frame(w, h) + graph + text, defs)
 
 
-def tile(name, label, big, sub, colour, i):
+def terminal(projects, term):
+    w, lh = 880, 22
+    rows = []
+    for t, p in zip(term, projects):
+        rows += [("cmd", "$ " + t["cmd"]), ("out", f'{p["proof"]["value"]} {p["proof"]["label"]}'), ("gap", "")]
+    rows = rows[:-1]
+    h = 76 + len(rows) * lh + 30
+    body = frame(w, h, 16, texture=False) + (
+        '<circle cx="28" cy="26" r="5" fill="var(--red)"/><circle cx="46" cy="26" r="5" fill="var(--amber)"/><circle cx="64" cy="26" r="5" fill="var(--ok)"/>'
+        f'<text class="m mute" x="84" y="30" font-size="12">~/research</text><rect x="1" y="48" width="{w-2}" height="1" fill="var(--line)"/>')
+    t0 = 0.5
+    for k, (kind, line) in enumerate(rows):
+        if kind == "gap":
+            continue
+        y = 84 + k * lh
+        n = len(line)
+        dur = max(0.5, n * 0.03) if kind == "cmd" else 0.3
+        if kind == "out":  # results fade up; only commands are typed
+            delay = "" if STATIC else f' style="animation-delay:{t0:.2f}s"'
+            body += f'<text class="m rise" x="28" y="{y}" font-size="12.5"{delay}>{html.escape(line)}</text>'
+        else:
+            body += f'<text class="m sig" x="28" y="{y}" font-size="12.5" xml:space="preserve">{html.escape(line)}</text>'
+            if not STATIC:  # a card-coloured cover shrinks in steps, one character at a time, to "type" the line
+                body += (f'<rect class="type" style="--t:{dur:.2f}s;--n:{n};animation-delay:{t0:.2f}s" '
+                         f'x="26" y="{y - 14}" width="{n * 7.6 + 6:.0f}" height="19" fill="var(--card)"/>')
+        t0 += dur + (0.2 if kind == "cmd" else 0.7)
+    y = 84 + len(rows) * lh
+    delay = "" if STATIC else f' style="animation-delay:{t0:.2f}s"'
+    body += f'<text class="m sig rise" x="28" y="{y}" font-size="12.5"{delay}>$ <tspan class="blink">_</tspan></text>'
+    title = "Research results. " + " ".join(f'{p["title"]}: {p["proof"]["value"]} {p["proof"]["label"]}.' for p in projects)
+    return svg(w, h, title, body)
+
+
+def research_card(p, i):
+    w, h = 288, 250
+    colour = ("sig", "ok", "amber")[i % 3]
+    label = wrap(p["proof"]["label"], 32)[:3]
+    cells = ""
+    for c in range(20):
+        delay = "" if STATIC else f' style="animation-delay:{1.2 + c * .06:.2f}s"'
+        cells += f'<rect class="cell" x="{24 + c * 10}" y="{h - 34}" width="6" height="12" rx="1.5" fill="var(--{colour})"{delay}/>'
+    body = (f'<g class="tile"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
+            + f'<text class="m" x="24" y="40" font-size="11" style="fill:var(--{colour})">{html.escape(" / ".join(p["tags"]).upper())}</text>'
+            f'<text x="24" y="70" font-size="18" font-weight="600">{html.escape(p["title"])}</text>'
+            f'<text x="24" y="126" font-size="44" font-weight="600" letter-spacing="-1.5" style="fill:var(--{colour})">{html.escape(p["proof"]["value"])}</text>'
+            + "".join(f'<text class="mute" x="24" y="{154 + k * 19}" font-size="13">{html.escape(t)}</text>' for k, t in enumerate(label))
+            + cells
+            + f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 44} {h - 28}h16m-6-6l6 6-6 6" fill="none" stroke="var(--fg)" '
+            'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
+    return svg(w, h, f'{p["title"]}: {p["proof"]["value"]} {p["proof"]["label"]}', body)
+
+
+TOOLKIT = [
+    ("Blockchain forensics", ["Ethereum JSON-RPC", "ERC-4337", "EIP-7702", "Clustering", "Taint analysis"]),
+    ("DFIR", ["The Sleuth Kit", "Plaso", "NTFS", "exFAT and FAT32", "Timelines", "Evidence integrity"]),
+    ("Detection and VM", ["Splunk", "Elastic", "Sigma", "MITRE ATT&CK", "Nessus", "Qualys", "CVSS"]),
+    ("Code and data", ["Python", "pandas", "Parquet", "SQL", "pytest", "GitHub Actions", "Docker"]),
+]
+
+
+def toolkit():
+    w = 880
+    h = 60 + len(TOOLKIT) * 44 + 12
+    body = frame(w, h) + '<text class="m sig rise" x="32" y="40" font-size="12">&gt; ls toolkit/</text>'
+    for r, (name, chips) in enumerate(TOOLKIT):
+        y = 62 + r * 44
+        body += f'<g class="rise"{d(r, .12, .25)}><text x="32" y="{y + 19}" font-size="14" font-weight="600">{html.escape(name)}</text>'
+        x = 200
+        for c in chips:
+            cw = len(c) * 7.3 + 22
+            assert x + cw < w - 24, f"toolkit row {name} overflows"
+            body += (f'<rect x="{x:.0f}" y="{y}" width="{cw:.0f}" height="28" rx="8" fill="var(--card2)" stroke="var(--line)"/>'
+                     f'<text class="m" x="{x + 11:.0f}" y="{y + 18}" font-size="12">{html.escape(c)}</text>')
+            x += cw + 8
+        body += "</g>"
+    return svg(w, h, "Toolkit. " + " ".join(f"{n}: {', '.join(c)}." for n, c in TOOLKIT), body)
+
+
+def tile(label, big, sub, colour, i):
     w, h = 288, 210
-    body = (f'<g class="tile ease"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
-            + f'<rect x="1" y="1" width="{w-2}" height="6" rx="3" fill="var(--{colour})"/>'
+    body = (f'<g class="tile"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
+            + f'<rect x="1" y="1" width="{w - 2}" height="6" rx="3" fill="var(--{colour})"/>'
             f'<text class="m mute" x="24" y="46" font-size="12">{html.escape(label)}</text>'
-            f'<text x="24" y="104" font-size="40" font-weight="600" letter-spacing="-1.4" fill="var(--{colour})">{html.escape(big)}</text>'
-            + "".join(f'<text class="mute" x="24" y="{134+k*20}" font-size="13">{html.escape(line)}</text>' for k, line in enumerate(sub))
-            + f'<g class="nudge" style="transform-box:fill-box"><path d="M{w-46} {h-34}h18m-7-7l7 7-7 7" fill="none" stroke="var(--fg)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
+            f'<text x="24" y="104" font-size="40" font-weight="600" letter-spacing="-1.4" style="fill:var(--{colour})">{html.escape(big)}</text>'
+            + "".join(f'<text class="mute" x="24" y="{134 + k * 20}" font-size="13">{html.escape(line)}</text>' for k, line in enumerate(sub))
+            + f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 46} {h - 34}h18m-7-7l7 7-7 7" fill="none" stroke="var(--fg)" '
+            'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
     return svg(w, h, f"{label}: {big}", body)
 
 
-def month_stats(days):
-    today = dt.date.today()
-    counts = {x["date"]: x["count"] for x in days}
-    months = []
-    for k in range(11, -1, -1):
-        y, m = today.year, today.month - k
-        while m <= 0:
-            y, m = y - 1, m + 12
-        total = sum(c for date, c in counts.items() if date.startswith(f"{y:04d}-{m:02d}"))
-        months.append((dt.date(y, m, 1).strftime("%b"), total))
-    total = sum(x["count"] for x in days)
-    active = sum(1 for x in days if x["count"])
-    streak, cur, best_streak = 0, 0, 0
-    for x in sorted(days, key=lambda x: x["date"]):
-        cur = cur + 1 if x["count"] else 0
-        best_streak = max(best_streak, cur)
-    for x in sorted(days, key=lambda x: x["date"], reverse=True):
-        if x["count"]:
-            streak += 1
-        elif x["date"] != today.isoformat():
-            break
-    busiest = max(days, key=lambda x: x["count"]) if days else None
-    return months, total, active, streak, best_streak, busiest
-
-
-def activity(days):
-    w, h = 880, 260
-    months, total, active, streak, best_streak, busiest = month_stats(days)
-    body = frame(w, h) + '<text class="m mute" x="40" y="44" font-size="13">Contributions, last twelve months</text>'
-    if not days:
-        body += '<text class="mute" x="40" y="140" font-size="15">Waiting for the first daily refresh.</text>'
-        return svg(w, h, "Contribution activity", body)
-    top = max(1, max(t for _, t in months))
-    best_i = max(range(12), key=lambda i: months[i][1])
-    x0, bw, gap, base, maxh = 40, 44, 14, 190, 110
-    for i, (lab, t) in enumerate(months):
-        x = x0 + i * (bw + gap)
-        hh = max(3, round(maxh * t / top))
-        col = "var(--sig)" if i == best_i else "var(--line)"
-        body += f'<rect class="bar ease"{d(i, 0.06, 0.2)} x="{x}" y="{base-hh}" width="{bw}" height="{hh}" rx="4" fill="{col}"/>'
-        body += f'<text class="m mute" x="{x+bw/2:.0f}" y="{base+20}" font-size="12" text-anchor="middle">{lab}</text>'
-        if i == best_i and t:
-            body += f'<text class="m sig rise ease"{d(8, 0.06, 0.6)} x="{x+bw/2:.0f}" y="{base-hh-8}" font-size="12" text-anchor="middle">{t}</text>'
-    stats = [("Total", str(total)), ("Active days", str(active)), ("Current streak", f"{streak} d"), ("Best streak", f"{best_streak} d")]
-    if busiest and busiest["count"]:
-        stats.append(("Busiest day", f'{busiest["count"]} on {dt.date.fromisoformat(busiest["date"]).strftime("%-d %b")}'))
-    sx = 760
-    for k, (lab, val) in enumerate(stats[:5]):
-        y = 60 + k * 36
-        body += f'<g class="rise ease"{d(k, 0.08, 0.5)}><text class="m mute" x="{sx}" y="{y}" font-size="11">{html.escape(lab)}</text><text x="{sx}" y="{y+17}" font-size="15" font-weight="600">{html.escape(val)}</text></g>'
-    body = body.replace('width="44"', 'width="44"')  # keep bars inside the stats column
-    return svg(w, h, f"Contributions: {total} in the last year", body)
-
-
-def graph(days):
-    w, h = 880, 176
-    body = frame(w, h) + '<text class="m mute" x="40" y="40" font-size="13">Contribution graph</text>'
-    if not days:
-        body += '<text class="mute" x="40" y="96" font-size="15">Waiting for the first daily refresh.</text>'
-        return svg(w, h, "Contribution graph", body)
-    days = sorted(days, key=lambda x: x["date"])[-371:]
-    first = dt.date.fromisoformat(days[0]["date"])
-    offset = (first.weekday() + 1) % 7  # Sunday first, like GitHub
-    top = max(1, max(x["count"] for x in days))
-    cell, gap, x0, y0 = 11, 3, 40, 56
-    cols = (offset + len(days) + 6) // 7
-    scale = min(1, (w - 80) / (cols * (cell + gap)))
-    rects = ""
-    for i, x in enumerate(days):
-        c, r = divmod(offset + i, 7)
-        if x["count"] == 0:
-            a = ".08"
-        else:
-            a = {1: ".35", 2: ".6", 3: ".8"}.get(min(3, 1 + int(2.99 * x["count"] / top)), "1")
-        rects += f'<rect x="{c*(cell+gap)}" y="{r*(cell+gap)}" width="{cell}" height="{cell}" rx="2" fill="var(--sig)" opacity="{a}"/>'
-    defs = f'<clipPath id="wipe"><rect class="sweep ease" x="0" y="0" width="{cols*(cell+gap)}" height="{7*(cell+gap)}"/></clipPath>'
-    body += f'<g transform="translate({x0} {y0}) scale({scale:.3f})"><g clip-path="url(#wipe)">{rects}</g></g>'
-    return svg(w, h, "GitHub contribution graph in blue", body, defs)
-
-
-def repo_card(r, i):
-    w, h = 430, 120
-    desc = (r["description"] or "No description yet").strip()
-    if len(desc) > 60:
-        desc = desc[:57].rstrip() + "..."
-    body = (f'<g class="rise ease"{d(i, 0.12, 0.2)}>' + frame(w, h, 16)
-            + f'<text x="24" y="42" font-size="17" font-weight="600">{html.escape(r["name"])}</text>'
-            f'<text class="mute" x="24" y="66" font-size="13">{html.escape(desc)}</text>'
-            f'<text class="m mute" x="24" y="98" font-size="12">{html.escape(r["language"] or "")}</text>'
-            f'<text class="m mute" x="{w-24}" y="98" font-size="12" text-anchor="end">{r["stars"]} stars, updated {html.escape(r["pushed"])}</text></g>')
-    return svg(w, h, f'Repository {r["name"]}', body)
-
-
 def main():
-    data = json.load(open(DATA)) if os.path.exists(DATA) else {"days": [], "repos": []}
+    data = json.load(open(DATA))
+    projects, term = data["projects"], data["terminal"]
     os.makedirs(OUT, exist_ok=True)
+    for old in os.listdir(OUT):  # cards no longer drawn (contribution graph, repo cards) must not linger
+        os.remove(os.path.join(OUT, old))
     cards = {
         "hero.svg": hero(),
-        "story.svg": tile("story", "The story", "7 chapters", ["Pune 2020 to Coventry 2026.", "Devices, policy, a paper, a lab."], "sig", 0),
-        "work.svg": tile("work", "Production work", "1,000+", ["IoT devices secured at Kyoka.", "Nessus, Qualys, CVSS, firmware."], "ok", 1),
-        "contact.svg": tile("contact", "Hiring?", "No visa", ["sponsorship needed. UK Graduate", "visa. London, Manchester, remote."], "amber", 2),
-        "activity.svg": activity(data.get("days", [])),
-        "graph.svg": graph(data.get("days", [])),
+        "terminal.svg": terminal(projects, term),
+        "toolkit.svg": toolkit(),
+        "story.svg": tile("The story", "7 chapters", ["Pune 2020 to Coventry 2026.", "Devices, policy, a paper, a lab."], "sig", 0),
+        "work.svg": tile("Production work", "1,000+", ["IoT devices secured at Kyoka.", "Nessus, Qualys, CVSS, firmware."], "ok", 1),
+        "contact.svg": tile("Hiring?", "No visa", ["sponsorship needed. UK Graduate", "visa. London, Manchester, remote."], "amber", 2),
     }
-    SKIP = {data.get("user", "").lower()}
-    repos = [r for r in data.get("repos", []) if r["name"].lower() not in SKIP][:4]
-    for i, r in enumerate(repos):
-        cards[f"repo-{i+1}.svg"] = repo_card(r, i)
+    for i, p in enumerate(projects):
+        cards[f"research-{i + 1}.svg"] = research_card(p, i)
     for name, content in cards.items():
         open(os.path.join(OUT, name), "w").write(content)
     print("rendered", ", ".join(cards), "(static)" if STATIC else "")
 
 
 if __name__ == "__main__":
+    assert wrap("a bb ccc dddd", 6) == ["a bb", "ccc", "dddd"]
     main()

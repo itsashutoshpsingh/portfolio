@@ -315,3 +315,5 @@ p { text-wrap: pretty; }
 .rsch__n small { display: block; font: 500 12px/16px var(--mono, monospace); color: var(--fg-60); }
 .rsch__cta { margin-top: var(--s-400); }
 .sec__lede { max-width: 680px; color: var(--fg-60); margin-bottom: var(--s-400); text-wrap: pretty; }
+.sec__eyebrow { margin-bottom: var(--s-200); }
+.close .eyebrow { margin-bottom: var(--s-200); }

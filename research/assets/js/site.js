@@ -197,11 +197,11 @@
         if (d > 130) continue;
         const cross = a.c !== b.c;
         if (cross && d > 60) continue;
-        ctx.strokeStyle = cross ? `rgba(255,77,109,${0.5 * (1 - d / 60)})` : `rgba(0,229,160,${0.28 * (1 - d / 130)})`;
+        ctx.strokeStyle = cross ? `rgba(255,77,109,${0.5 * (1 - d / 60)})` : `rgba(91,168,255,${0.3 * (1 - d / 130)})`;
         ctx.lineWidth = cross ? 1.2 : 0.8;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
       }
-      for (const a of nodes) { ctx.fillStyle = a.c === 0 ? "#ffb000" : "#00e5a0"; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 7); ctx.fill(); }
+      for (const a of nodes) { ctx.fillStyle = a.c === 0 ? "#4fd8a0" : "#5ba8ff"; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 7); ctx.fill(); }
       requestAnimationFrame(frame);
     };
     new IntersectionObserver(([en]) => { const was = running; running = en.isIntersecting && !document.hidden; if (running && !was) requestAnimationFrame(frame); }).observe(cv);
