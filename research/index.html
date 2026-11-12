@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ashutosh Pal Singh · Blockchain forensics and DFIR research</title>
+  <meta name="description" content="Open benchmarks that measure silent errors in crypto tracing rules, blockchain data providers and forensic timeline tools. Real data, published error rates, every miss documented.">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://itsashutoshpsingh.github.io/portfolio/research/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ashutosh Pal Singh · Measuring silent errors in crypto and forensic evidence">
+  <meta property="og:description" content="Three open benchmarks: Ethereum clustering false merges, RPC provider disagreement, forensic timeline time zone errors.">
+  <meta property="og:url" content="https://itsashutoshpsingh.github.io/portfolio/research/">
+  <meta property="og:image" content="https://itsashutoshpsingh.github.io/portfolio/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+  <a class="skip button-sm" href="#main">Skip to content</a>
+
+  <nav class="nav" aria-label="Primary">
+    <a class="nav__brand title-4" href="../"><i class="ph ph-fingerprint" aria-hidden="true"></i>ashutosh.ps</a>
+    <ul class="nav__links title-4">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#misses">What went wrong</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav__toggle" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="menu" id="menu" hidden>
+    <ul class="heading-5">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#misses">What went wrong</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+
+  <main id="main">
+    <header class="hero" id="top">
+      <canvas id="graph" aria-hidden="true"></canvas>
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <span class="eyebrow caption-3">Blockchain forensics · DFIR · Evidence integrity</span>
+          <h1 class="heading-1 grad">Measuring the silent errors<br>in crypto and forensic evidence</h1>
+          <p class="lede title-2" id="hero-lede">I build open benchmarks that check whether tracing rules, blockchain data providers and forensic timeline tools tell investigators the truth. Real data, published error rates, every miss written down.</p>
+          <div class="hero__cta">
+            <a class="btn btn--primary button-md" href="#work">See the results <i class="ph ph-arrow-down" aria-hidden="true"></i></a>
+          </div>
+          <div class="proof" id="proof" aria-live="polite">
+            <div class="proof__item"><div class="skeleton sk-line"></div><div class="skeleton sk-line"></div></div>
+            <div class="proof__item"><div class="skeleton sk-line"></div><div class="skeleton sk-line"></div></div>
+            <div class="proof__item"><div class="skeleton sk-line"></div><div class="skeleton sk-line"></div></div>
+          </div>
+        </div>
+        <div class="term" role="img" aria-label="Terminal replaying each project's headline result">
+          <div class="term__bar"><span class="term__dot"></span><span class="term__dot"></span><span class="term__dot"></span><span class="term__title caption-5 mono muted">~/research</span></div>
+          <div class="term__body" id="term"></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="work" aria-labelledby="work-h">
+      <div class="wrap">
+        <div class="section-head rise">
+          <span class="eyebrow caption-3">Work</span>
+          <h2 class="heading-2" id="work-h">Three benchmarks, one question</h2>
+          <p class="title-2 muted">How often does the evidence pipeline quietly get it wrong? Each project answers with a number, a method you can rerun, and a list of what the number does not prove.</p>
+        </div>
+        <div class="projects" id="projects">
+          <article class="project"><div class="project__info"><div class="skeleton sk-line" style="width:40%"></div><div class="skeleton sk-line"></div><div class="skeleton sk-line"></div></div><div class="skeleton sk-fig"></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="Principle">
+      <div class="wrap">
+        <p class="heading-2 reveal-text" id="tagline">An investigation is only as sound as the <span class="accent">error rate</span> behind it. I measure that rate, then publish the <span class="accent">misses.</span></p>
+      </div>
+    </section>
+
+    <section id="method" aria-labelledby="method-h">
+      <div class="wrap">
+        <div class="section-head rise">
+          <span class="eyebrow caption-3">Method</span>
+          <h2 class="heading-2" id="method-h">How every project works</h2>
+        </div>
+        <div class="steps">
+          <div class="step rise"><i class="ph ph-target" aria-hidden="true"></i><span class="step__n caption-3">01</span><h3 class="heading-6">Start from ground truth</h3><p class="body-3 muted">Exchange proof of reserves lists, a script that logs its own actions in UTC, a receipts root in a block header. Known answers come first, tools come second.</p></div>
+          <div class="step rise"><i class="ph ph-git-diff" aria-hidden="true"></i><span class="step__n caption-3">02</span><h3 class="heading-6">Test differentially</h3><p class="body-3 muted">Run several rules, providers or tools on the same evidence. Compare them with each other and with the truth, then classify every mismatch instead of counting it blindly.</p></div>
+          <div class="step rise"><i class="ph ph-seal-check" aria-hidden="true"></i><span class="step__n caption-3">03</span><h3 class="heading-6">Publish the error profile</h3><p class="body-3 muted">Pinned versions, one command to reproduce, aggregate results only, and a written list of what went wrong. Hiring managers and courts should be able to check the work.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="misses" aria-labelledby="misses-h">
+      <div class="wrap">
+        <div class="section-head rise">
+          <span class="eyebrow caption-3">What went wrong</span>
+          <h2 class="heading-2" id="misses-h">The limits, stated up front</h2>
+          <p class="title-2 muted">Each repository carries a full write up. These are the points that most change how the numbers should be read.</p>
+        </div>
+        <div class="misses" id="miss-list"></div>
+      </div>
+    </section>
+
+    <section id="toolkit" aria-labelledby="toolkit-h">
+      <div class="wrap">
+        <div class="section-head rise">
+          <span class="eyebrow caption-3">Toolkit</span>
+          <h2 class="heading-2" id="toolkit-h">What the work runs on</h2>
+        </div>
+        <div class="toolkit rise">
+          <div class="toolkit__group"><h3 class="title-3 muted">Blockchain analytics</h3><div class="chips caption-5"><span class="chip">Ethereum JSON RPC</span><span class="chip">ERC 20 logs</span><span class="chip">ERC 4337</span><span class="chip">EIP 7702</span><span class="chip">Foundry anvil</span><span class="chip">Merkle Patricia tries</span><span class="chip">OFAC SDN</span><span class="chip">Base L2</span></div></div>
+          <div class="toolkit__group"><h3 class="title-3 muted">Digital forensics</h3><div class="chips caption-5"><span class="chip">The Sleuth Kit</span><span class="chip">Plaso log2timeline</span><span class="chip">MFTECmd</span><span class="chip">NTFS $SI and $FN</span><span class="chip">exFAT</span><span class="chip">FAT32</span><span class="chip">ext4</span><span class="chip">libfaketime</span></div></div>
+          <div class="toolkit__group"><h3 class="title-3 muted">Engineering and analysis</h3><div class="chips caption-5"><span class="chip">Python</span><span class="chip">pandas</span><span class="chip">Parquet</span><span class="chip">pytest</span><span class="chip">GitHub Actions</span><span class="chip">Docker</span><span class="chip">bootstrap CIs</span><span class="chip">Wilson intervals</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="section-head rise">
+          <span class="eyebrow caption-3">FAQ</span>
+          <h2 class="heading-2" id="faq-h">Questions reviewers ask</h2>
+        </div>
+        <div class="faq rise" id="faq-list">
+          <details><summary class="title-3">Is the data real?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">Yes. Ethereum and Base data come from public mainnet nodes over fixed, finalised block windows. Forensic results come from real disk images built and timed by script. No number on this page is estimated or typed in by hand; each is read from the repository's results file.</p></details>
+          <details><summary class="title-3">Are you measuring Chainalysis, Elliptic or TRM?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">No. The clustering benchmark tests open, published heuristics from the research literature. Commercial products use their own rules and data, and nothing here should be read as a claim about them.</p></details>
+          <details><summary class="title-3">Why publish aggregates only?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">A clustering error can wrongly connect a real person to a crime. The repositories publish counts and rates, never a claim that a specific address belongs to someone.</p></details>
+          <details><summary class="title-3">Can I reproduce a result?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">Each repository pins its tool versions and has one command that reruns the pipeline. Disk images and raw chain data are too large for git, so the repositories publish hashes and build steps instead.</p></details>
+          <details><summary class="title-3">Is every mismatch a bug?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">No, and most are not. Two tools can both be right and still disagree because they report different things. Each mismatch is classified as a tool bug, documented behaviour or my own mistake, after reading the tool's documentation.</p></details>
+          <details><summary class="title-3">Why does this matter for compliance and courts?<i class="ph ph-plus" aria-hidden="true"></i></summary><p class="body-3">Cluster attributions and timelines are used as evidence, often with no stated error rate. The UK Forensic Science Regulator's Code expects methods to be validated, and these benchmarks are a template for that validation evidence.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-h">
+      <div class="wrap">
+        <div class="contact rise">
+          <span class="eyebrow caption-3">Contact</span>
+          <h2 class="heading-3" id="contact-h">Hiring for fincrime, DFIR or blockchain investigations?</h2>
+          <p class="title-2 muted" id="bio">I'm happy to walk through any result, the method behind it, or what I would measure next.</p>
+          <div class="contact__links" id="contact-links">
+            <a class="btn btn--primary button-md" href="https://github.com/itsashutoshpsingh"><i class="ph ph-github-logo" aria-hidden="true"></i>GitHub</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap caption-5">
+      <span>© 2026 Ashutosh Pal Singh · Code MIT licensed</span>
+      <span class="foot-links"><a href="privacy.html">Privacy</a><a href="https://github.com/itsashutoshpsingh/portfolio">Source</a></span>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>

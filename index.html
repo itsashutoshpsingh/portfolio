@@ -70,6 +70,7 @@
   <nav class="pill glass" aria-label="Sections">
     <a class="title-4" href="#story">Story</a>
     <a class="title-4" href="#work">Work</a>
+    <a class="title-4" href="#research">Research</a>
     <a class="title-4" href="#proof">Proof</a>
     <a class="title-4" href="#faq">FAQ</a>
   </nav>
@@ -80,7 +81,7 @@
 </header>
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__links" aria-label="Sections">
-    <a href="#story">Story</a><a href="#work">Work</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#story">Story</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </nav>
   <a class="btn btn--solid" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
 </div>
@@ -265,6 +266,20 @@
           <li class="step glassline" data-reveal><p class="caption-3 mono step__n">02</p><p class="title-1">Rank it and fix it with the engineers</p><p class="body-6">CVSS gives the number. Exposure, what it protects and the cost of the fix decide the order. Then sit with the people who own the code.</p></li>
           <li class="step glassline" data-reveal><p class="caption-3 mono step__n">03</p><p class="title-1">Catch the rest</p><p class="body-6">Write the detection, map it to ATT&amp;CK, test it against the lab. Automate whatever was boring.</p></li>
         </ol>
+      </div>
+    </section>
+
+    <!-- ============ RESEARCH ============ -->
+    <section class="sec surf surf--dots" id="research" aria-labelledby="researchTitle">
+      <div class="wrap">
+        <h2 class="heading-2 sec__h" id="researchTitle" data-reveal>Research: measuring the silent errors.</h2>
+        <p class="body-3 sec__lede" data-reveal>Three open projects that test the tools investigators trust, with real data, published error rates and a list of what went wrong.</p>
+        <ul class="steps">
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">Blockchain analytics</p><p class="title-1">evm-cluster-check</p><p class="heading-4 mono rsch__n" data-proof="evm-cluster-check"></p><p class="body-6">How often published Ethereum clustering rules link addresses that belong to two different exchanges.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/evm-cluster-check" target="_blank" rel="noopener">Repository</a></li>
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">DFIR</p><p class="title-1">timetruth</p><p class="heading-4 mono rsch__n" data-proof="timetruth"></p><p class="body-6">Scripted file actions at known times, then a check of what Plaso and The Sleuth Kit report. Found a month offset bug in libfsfat.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/timetruth" target="_blank" rel="noopener">Repository</a></li>
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">Evidence integrity</p><p class="title-1">chain-evidence</p><p class="heading-4 mono rsch__n" data-proof="chain-evidence"></p><p class="body-6">Asks several RPC providers for the same logs and proves completeness against the block header.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/chain-evidence" target="_blank" rel="noopener">Repository</a></li>
+        </ul>
+        <p class="rsch__cta" data-reveal><a class="btn btn--solid" href="research/">See the full results</a></p>
       </div>
     </section>
 

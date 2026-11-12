@@ -1,0 +1,240 @@
+{
+  "profile": {
+    "bio": "Ashutosh Pal Singh. Security analyst in vulnerability management and threat detection, MSc Cyber Security Engineering (University of Warwick), Microsoft SC-200 certified. These projects measure the error rates behind blockchain investigations and forensic timelines. Based in the UK, open to blockchain analytics, DFIR, fincrime and security research roles.",
+    "links": [
+      {
+        "label": "Email me",
+        "url": "mailto:itsashutoshpsingh@gmail.com",
+        "icon": "ph-envelope-simple"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ashutosh-pal-singh/",
+        "icon": "ph-linkedin-logo"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/itsashutoshpsingh",
+        "icon": "ph-github-logo"
+      },
+      {
+        "label": "Portfolio",
+        "url": "https://itsashutoshpsingh.github.io/portfolio/",
+        "icon": "ph-user"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "slug": "evm-cluster-check",
+      "title": "evm-cluster-check",
+      "tags": [
+        "Blockchain analytics",
+        "Fincrime"
+      ],
+      "oneLine": "How often published Ethereum clustering and taint rules link addresses that belong to two different exchanges, and what causes it.",
+      "headline": "On 3 days of Ethereum (5.44M transactions), naive deposit-address reuse merged 198 pairs of addresses from two different exchanges, none caused by poisoning, sweepers or fee services; the same-sender rule merged 359, and 60% of those came only through poisoning transfers.",
+      "metrics": [
+        {
+          "label": "cross-exchange false merges, deposit-address reuse",
+          "value": "198"
+        },
+        {
+          "label": "of those caused by infrastructure",
+          "value": "0%"
+        },
+        {
+          "label": "cross-exchange false merges, same sender in one tx",
+          "value": "359"
+        },
+        {
+          "label": "of those caused by poisoning",
+          "value": "60%"
+        }
+      ],
+      "proof": {
+        "value": "198",
+        "label": "cross-exchange false merges by deposit-address reuse"
+      },
+      "charts": [
+        {
+          "src": "assets/img/evm-cluster-check/false_merges_by_rule_eth.png",
+          "label": "False merges by rule",
+          "alt": "Bar chart of cross-exchange false merges per clustering rule, with hubs included and excluded"
+        },
+        {
+          "src": "assets/img/evm-cluster-check/infra_causes_eth.png",
+          "label": "Causes",
+          "alt": "Share of false merges that disappear when poisoning, sweeper and paymaster transfers are removed"
+        },
+        {
+          "src": "assets/img/evm-cluster-check/taint_eth.png",
+          "label": "Taint",
+          "alt": "Addresses tainted at 1 to 3 hops, with and without zero-value transfers"
+        },
+        {
+          "src": "assets/img/evm-cluster-check/injected.png",
+          "label": "Injected tests",
+          "alt": "False links made by each rule on wallets I control on a local fork"
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/evm-cluster-check",
+      "report": "https://github.com/itsashutoshpsingh/evm-cluster-check#readme",
+      "misses": [
+        "Binance and Bitstamp publish their reserve lists only on their own sites, which I could not reach, so every false merge count is a lower bound.",
+        "Only one free provider served Ethereum logs, so the token transfer data has no second source. chain-evidence checked 40 blocks of it instead.",
+        "The taint stage ran the machine out of memory and lost a run. It now keeps one slim table and resumes from saved stages.",
+        "The 20 sampled false merges were classified by script, not opened one by one on a block explorer."
+      ]
+    },
+    {
+      "slug": "timetruth",
+      "title": "timetruth",
+      "tags": [
+        "DFIR",
+        "Tool validation"
+      ],
+      "oneLine": "Scripted actions at known times, then a check of whether mainstream forensic tools report those times correctly.",
+      "headline": "1828 tool-reported times checked (16 runs: 4 file systems x 4 time-zone scenarios x 30 actions, 6 tool configurations). 502 (27%) were not the true instant: 264 wrong value, 146 right clock reading in the wrong zone, 76 ambiguous, 16 missing.",
+      "metrics": [
+        {
+          "label": "tool-reported times checked",
+          "value": "1828"
+        },
+        {
+          "label": "not the true instant",
+          "value": "27%"
+        },
+        {
+          "label": "correct on fat32",
+          "value": "35.0%"
+        },
+        {
+          "label": "correct on ntfs",
+          "value": "95.8%"
+        }
+      ],
+      "proof": {
+        "value": "27%",
+        "label": "of forensic tool times were not the true instant"
+      },
+      "charts": [
+        {
+          "src": "assets/img/timetruth/hero_outcomes.png",
+          "label": "hero outcomes",
+          "alt": "hero outcomes"
+        },
+        {
+          "src": "assets/img/timetruth/heatmap_correct.png",
+          "label": "heatmap correct",
+          "alt": "heatmap correct"
+        },
+        {
+          "src": "assets/img/timetruth/dst_offsets.png",
+          "label": "dst offsets",
+          "alt": "dst offsets"
+        },
+        {
+          "src": "assets/img/timetruth/pipeline.png",
+          "label": "pipeline",
+          "alt": "pipeline"
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/timetruth",
+      "report": "https://github.com/itsashutoshpsingh/timetruth#readme",
+      "misses": [
+        "libfaketime also shifted stat() results, so my first NTFS run applied the offset twice. Fixed with NO_FAKE_STAT=1.",
+        "MFTECmd would not run under Mono, so analyzeMFT stands in on Linux and is labelled that way everywhere.",
+        "Every image was written by a Linux driver. The Windows kit that would test real Windows writes has not been run yet.",
+        "ext4 ignores libfaketime, so the ext4 \"DST\" runs did not actually cross a clock change."
+      ]
+    },
+    {
+      "slug": "chain-evidence",
+      "title": "chain-evidence",
+      "tags": [
+        "Evidence integrity",
+        "Ethereum"
+      ],
+      "oneLine": "Ask several independent providers for the same on chain data, flag any disagreement, and prove completeness against the block header.",
+      "headline": "Across 524 finalised Ethereum block ranges asked of three free RPC providers, every recent range agreed (383/383), but on older blocks a provider silently returned nothing where receipt proofs show 286 logs (2/20 comparable ranges), and publicnode returned `null` receipts for 7/7 sampled transactions older than ~6 days.",
+      "metrics": [
+        {
+          "label": "ethereum: finalised ranges compared",
+          "value": "403"
+        },
+        {
+          "label": "ethereum: disagreement rate",
+          "value": "0.5% (95% CI 0.1–1.8%)"
+        },
+        {
+          "label": "ethereum: empty successes (0 logs where logs exist)",
+          "value": "2"
+        },
+        {
+          "label": "ethereum/drpc: blocks whose receipts reproduce receiptsRoot",
+          "value": "28/28"
+        }
+      ],
+      "proof": {
+        "value": "2",
+        "label": "silent empty answers where receipt proofs show logs"
+      },
+      "charts": [
+        {
+          "src": "assets/img/chain-evidence/provider_outcomes.png",
+          "label": "provider outcomes",
+          "alt": "provider outcomes"
+        },
+        {
+          "src": "assets/img/chain-evidence/disagreement_rate.png",
+          "label": "disagreement rate",
+          "alt": "disagreement rate"
+        },
+        {
+          "src": "assets/img/chain-evidence/finalized_lag.png",
+          "label": "finalized lag",
+          "alt": "finalized lag"
+        },
+        {
+          "src": "assets/img/chain-evidence/receipts_root_proofs.png",
+          "label": "receipts root proofs",
+          "alt": "receipts root proofs"
+        },
+        {
+          "src": "assets/img/chain-evidence/receipt_depth.png",
+          "label": "receipt depth",
+          "alt": "receipt depth"
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/chain-evidence",
+      "report": "https://github.com/itsashutoshpsingh/chain-evidence#readme",
+      "misses": [
+        "I deleted the bundle of the first silent empty answer while resetting results. It is recorded in my notes and not counted.",
+        "1rpc ran out of free quota and relays publicnode, so most Ethereum comparisons are only two way.",
+        "My first probe said publicnode serves deep receipts. It counted a null answer as success.",
+        "mainnet.base.org refuses eth_getLogs, so Base has receipt proofs but no log comparison."
+      ]
+    }
+  ],
+  "terminal": [
+    {
+      "cmd": "make result   # evm-cluster-check",
+      "out": [
+        "On 3 days of Ethereum (5.44M transactions), naive deposit-address reuse merged 198 pairs of addresses from two different exchanges, none caused by poisoning, sweepers or fee services; the same-sender rule merged 359, and 60% of those came only through poisoning transfers."
+      ]
+    },
+    {
+      "cmd": "make all      # timetruth",
+      "out": [
+        "1828 tool-reported times checked (16 runs: 4 file systems x 4 time-zone scenarios x 30 actions, 6 tool configurations). 502 (27%) were not the true instant: 264 wrong value, 146 right clock reading in the wrong zone, 76 ambiguous, 16 missing."
+      ]
+    },
+    {
+      "cmd": "chain-evidence survey",
+      "out": [
+        "Across 524 finalised Ethereum block ranges asked of three free RPC providers, every recent range agreed (383/383), but on older blocks a provider silently returned nothing where receipt proofs show 286 logs (2/20 comparable ranges), and publicnode returned `null` receipts for 7/7 sampled transactions older than ~6 days."
+      ]
+    }
+  ]
+}
