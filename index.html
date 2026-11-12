@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="fx.css">
 <script>
@@ -48,8 +49,10 @@
       "@type": "FAQPage",
       "mainEntity": [
         { "@type": "Question", "name": "Do you need visa sponsorship?", "acceptedAnswer": { "@type": "Answer", "text": "No. I am eligible for the UK Graduate visa on the back of my Warwick MSc, so there is no sponsorship and no paperwork on your side." } },
+        {"@type": "Question", "name": "Have you worked with real blockchain data?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. evm-cluster-check analysed three days of Ethereum mainnet against exchange proof of reserves addresses, and chain-evidence checks that data across RPC providers and against the block headers. Both repositories publish the method, the numbers and every miss."}},
+        {"@type": "Question", "name": "Which forensic tools do you use?", "acceptedAnswer": {"@type": "Answer", "text": "The Sleuth Kit, Plaso, Autopsy, FTK Imager and Volatility, with Wireshark for packets. In timetruth I tested Plaso and The Sleuth Kit against scripted ground truth on NTFS, FAT32, exFAT and ext4, and found a month offset bug in libfsfat."}},
         { "@type": "Question", "name": "Where can you work?", "acceptedAnswer": { "@type": "Answer", "text": "I am in Coventry and will relocate to London, Manchester or Glasgow. Remote and hybrid both work." } },
-        { "@type": "Question", "name": "When can you start?", "acceptedAnswer": { "@type": "Answer", "text": "Quickly. My MSc is complete and my current part-time work needs only short notice." } },
+        { "@type": "Question", "name": "When can you start?", "acceptedAnswer": { "@type": "Answer", "text": "Quickly. My MSc dissertation is submitted, with the result pending, and my current part-time work needs only short notice." } },
         { "@type": "Question", "name": "Have you worked on a real estate, not just labs?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. At Kyoka Embedded Systems I spent seven months securing a production smart-home IoT estate of 1,000+ devices with Nessus and Qualys, and worked with firmware engineers on the fixes." } },
         { "@type": "Question", "name": "Which SIEM and tooling do you know?", "acceptedAnswer": { "@type": "Answer", "text": "Splunk and Elastic for SIEM, Sysmon for endpoint telemetry, Sigma for detection rules, MITRE ATT&CK for mapping, Wireshark for packet analysis, and Nessus and Qualys for vulnerability assessment." } },
         { "@type": "Question", "name": "Can you write for people who are not engineers?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. I wrote security reports and remediation guidance for management at Kyoka, and co-authored a policy document for senior government and industry stakeholders at NASSCOM." } },
@@ -69,7 +72,6 @@
 <header class="top">
   <a class="brand" href="#top"><span class="brand__disc glass">AP</span><span class="brand__name title-4">Ashutosh Pal Singh</span></a>
   <nav class="pill glass" aria-label="Sections">
-    <a class="title-4" href="#story">Story</a>
     <a class="title-4" href="#experience">Experience</a>
     <a class="title-4" href="#work">Work</a>
     <a class="title-4" href="#research">Research</a>
@@ -83,7 +85,7 @@
 </header>
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__links" aria-label="Sections">
-    <a href="#story">Story</a><a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </nav>
   <a class="btn btn--solid" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
 </div>
@@ -91,8 +93,7 @@
 <main id="main">
   <!-- ============ HERO ============ -->
   <section class="hero" id="top" aria-labelledby="h1">
-    <video class="hero__film" id="film" muted playsinline autoplay preload="auto" aria-hidden="true"
-      data-src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260508_064122_c4750c0e-7476-4b44-94a2-a85a65c63bf2.mp4"></video>
+    <canvas class="hero__graph" data-graph data-zone="right" aria-hidden="true"></canvas>
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
@@ -138,7 +139,6 @@
     <!-- ============ PROBLEM TO SOLUTION ============ -->
     <section class="sec surf surf--grid" aria-labelledby="needTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>01 / The job</p>
         <h2 class="heading-2 sec__h" id="needTitle" data-reveal>What a security team needs on day one,<br>and what I bring.</h2>
         <div class="twin">
           <div class="twin__col glassline" data-reveal>
@@ -165,64 +165,6 @@
       </div>
     </section>
 
-    <!-- ============ STORY ============ -->
-    <section class="sec sec--story surf surf--dots" id="story" aria-labelledby="storyTitle">
-      <div class="wrap story">
-        <aside class="rail">
-          <p class="eyebrow caption-3 rail__k">02 / The story</p>
-          <h2 class="heading-3" id="storyTitle">Pune to Coventry, in seven chapters.</h2>
-          <ol class="rail__list caption-2 mono" id="railList">
-            <li data-for="ch-1">2020</li><li data-for="ch-2">2022</li><li data-for="ch-3">2023</li><li data-for="ch-4">2024</li><li data-for="ch-5">2024</li><li data-for="ch-6">2025</li><li data-for="ch-7">2026</li>
-          </ol>
-        </aside>
-        <ol class="chapters">
-          <li class="ch glassline" id="ch-1" data-reveal data-n="01"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2020, Pune</p>
-            <h3 class="heading-5">A computer science degree, and a question</h3>
-            <p class="body-3">I started a BTech in Computer Science Engineering at Symbiosis Institute of Technology. The question that stuck was not how systems work but how they fail, and who notices first.</p>
-          </li>
-          <li class="ch glassline" id="ch-2" data-reveal data-n="02"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2022, Verzeo</p>
-            <h3 class="heading-5">First penetration tests</h3>
-            <p class="body-3">Ten-plus Windows targets with Metasploit and Nmap on Kali Linux. OWASP-aligned findings reports. Controlled phishing simulations with the Social-Engineer Toolkit, and the counter-strategies that followed. I learned to write a finding someone else could act on.</p>
-            <ul class="tags caption-4 mono"><li>Kali Linux</li><li>Nmap</li><li>Metasploit</li><li>SET</li><li>OWASP Top 10</li></ul>
-          </li>
-          <li class="ch glassline" id="ch-3" data-reveal data-n="03"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2023, Cisco AICTE programme</p>
-            <h3 class="heading-5">Build the network, then break it</h3>
-            <p class="body-3">I designed and simulated a 50+ node multi-site network in Packet Tracer, with routing, VLAN segmentation, firewall and ACL configuration. Then I audited my own design, found 15+ weaknesses, ranked the mitigations by risk, implemented IAM and RBAC for data-access governance, and built a Packet Flow Visualiser to see traffic move.</p>
-            <ul class="tags caption-4 mono"><li>TCP/IP</li><li>VLANs</li><li>ACLs</li><li>IAM</li><li>RBAC</li></ul>
-          </li>
-          <li class="ch glassline" id="ch-4" data-reveal data-n="04"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2024, NASSCOM and Tutelr Infosec</p>
-            <h3 class="heading-5">Policy by day, labs by night</h3>
-            <p class="body-3">At NASSCOM, India's national IT industry body, I led synthetic-media governance research: 250+ detection and provenance tools surveyed, hands-on with C2PA, Google SynthID and Meta Stable Signature, mapped to the Online Safety Act and the EU AI Act. I co-authored a policy document for senior government and industry stakeholders and presented to 100+ professionals from government, Adobe, Meta and Google at a closed-door event. The research became a peer-reviewed paper in IJFMR.</p>
-            <p class="body-3">In the evenings I completed Tutelr Infosec's industry programme with Palo Alto Networks, Google Cloud, Microsoft and Mandiant: 20+ labs across cloud security, DFIR, penetration testing and blue-team operations, producing incident-response playbooks, evidence-acquisition reports and cloud misconfiguration assessments.</p>
-            <ul class="tags caption-4 mono"><li>C2PA</li><li>SynthID</li><li>EU AI Act</li><li>DFIR</li><li>Playbooks</li><li>Google Cybersecurity Certificate</li></ul>
-          </li>
-          <li class="ch glassline" id="ch-5" data-reveal data-n="05"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2024, Kyoka Embedded Systems</p>
-            <h3 class="heading-5">Seven months on production devices</h3>
-            <p class="body-3">A smart-home IoT estate of 1,000+ connected switches and fan controllers. I ran Nessus and Qualys assessments across it, prioritised critical findings by CVSS and remediated through firmware hardening. Hardware and firmware analysis turned up five bootloader-level flaws, and I worked with engineering on each fix. I automated the routine scanning in Python, supported the rollout of mutual TLS with hardware-backed key storage, wrote the reports management read, and kept the security monitoring running day to day.</p>
-            <ul class="tags caption-4 mono"><li>Nessus</li><li>Qualys</li><li>CVSS</li><li>Firmware analysis</li><li>mTLS</li><li>Python</li></ul>
-          </li>
-          <li class="ch glassline" id="ch-6" data-reveal data-n="06"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2025, University of Warwick</p>
-            <h3 class="heading-5">The UK, and an NCSC-certified MSc</h3>
-            <p class="body-3">I moved to Coventry for the MSc in Cyber Security Engineering at WMG, with AI for Cyber Security as my elective. The ethical hacking module ended in a full penetration test of a simulated corporate network and a professional report. The AI module compared Random Forest and XGBoost on CIC-IDS-2017, and XGBoost won on the metric a SOC cares about: fewer missed attacks. My dissertation, PrivDeFi, used federated graph neural networks with differential privacy to flag fraud on Ethereum and BNB Smart Chain, mapped to MiCA and DORA.</p>
-            <ul class="tags caption-4 mono"><li>Penetration testing</li><li>XGBoost</li><li>Graph neural networks</li><li>Differential privacy</li></ul>
-          </li>
-          <li class="ch glassline" id="ch-7" data-reveal data-n="07"><span class="ch__dot" aria-hidden="true"></span>
-            <p class="caption-4 mono ch__k">2026, Coventry</p>
-            <h3 class="heading-5">The lab, the shop floor, and the search</h3>
-            <p class="body-3">The MSc is done. In my home lab, Windows telemetry flows through Sysmon into Elastic, and I write Sigma and Splunk rules mapped to ATT&amp;CK and test each one against it. On Hack The Box and TryHackMe I practise the attacker's side: Kerberoasting, BloodHound, Impacket, Evil-WinRM, Burp Suite and sqlmap. I am Microsoft SC-200 certified.</p>
-            <p class="body-3">Alongside the search I work part time in retail in Coventry. It is customer-facing, fast and unglamorous, and it keeps the habits a SOC runs on sharp: showing up reliably, staying calm when the queue builds, and explaining things clearly to people who do not share your vocabulary.</p>
-            <ul class="tags caption-4 mono"><li>Elastic</li><li>Sysmon</li><li>Sigma</li><li>Splunk</li><li>Active Directory</li><li>SC-200 certified</li></ul>
-          </li>
-        </ol>
-      </div>
-    </section>
-
     <!-- ============ TAGLINE REVEAL ============ -->
     <section class="sec sec--tag surf surf--rings" aria-label="In my own words">
       <div class="wrap">
@@ -233,8 +175,9 @@
     <!-- ============ EXPERIENCE ============ -->
     <section class="sec surf surf--grid" id="experience" aria-labelledby="xpTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>03 / Experience</p>
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>Experience</p>
         <h2 class="heading-2 sec__h" id="xpTitle" data-reveal>Where I have done the work.</h2>
+        <p class="body-3 sec__lede" data-reveal>How I got here: a BTech at Symbiosis in Pune, first penetration tests and network audits, policy research at NASSCOM, seven months on production devices at Kyoka, then the UK for an NCSC certified MSc at Warwick. Now open research on the tools investigators trust.</p>
         <ol class="xp">
           <li class="xp__item glassline" data-reveal>
             <p class="caption-4 mono xp__when">Nov 2026 to present<span>Independent research, Coventry</span></p>
@@ -279,7 +222,6 @@
     <!-- ============ BENEFITS ============ -->
     <section class="sec surf surf--dots" id="work" aria-labelledby="getTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>04 / What you get</p>
         <h2 class="heading-2 sec__h" id="getTitle" data-reveal>What your team gets.</h2>
         <ul class="bene">
           <li class="bene__item glassline" data-reveal>
@@ -313,7 +255,6 @@
     <!-- ============ HOW I WORK ============ -->
     <section class="sec surf surf--rings" aria-labelledby="howTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>05 / Method</p>
         <h2 class="heading-2 sec__h" id="howTitle" data-reveal>How I work, in three steps.</h2>
         <ol class="steps">
           <li class="step glassline" data-reveal><p class="caption-3 mono step__n">01</p><p class="title-1">Find it</p><p class="body-6">Scan, read the firmware, walk the attack path yourself. Nessus and Qualys first, then hands on the hardware.</p></li>
@@ -326,7 +267,7 @@
     <!-- ============ RESEARCH ============ -->
     <section class="sec surf surf--dots" id="research" aria-labelledby="researchTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>06 / Research</p>
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>Research</p>
         <h2 class="heading-2 sec__h" id="researchTitle" data-reveal>Research: measuring the silent errors.</h2>
         <p class="body-3 sec__lede" data-reveal>Three open projects that test the tools investigators trust, with real data, published error rates and a list of what went wrong.</p>
         <ul class="steps">
@@ -341,7 +282,7 @@
     <!-- ============ PROOF ============ -->
     <section class="sec surf surf--grid" id="proof" aria-labelledby="proofTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>07 / Proof</p>
+        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>Proof</p>
         <h2 class="heading-2 sec__h" id="proofTitle" data-reveal>Proof you can check.</h2>
         <div class="proof">
           <article class="paper glassline" data-reveal>
@@ -371,7 +312,6 @@
     <!-- ============ BEYOND SECURITY ============ -->
     <section class="sec surf surf--dots" id="beyond" aria-labelledby="beyondTitle">
       <div class="wrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>08 / Beyond security</p>
         <h2 class="heading-2 sec__h" id="beyondTitle" data-reveal>What the job ad doesn't list.</h2>
         <ul class="beyond">
           <li class="beyond__item glassline" data-reveal>
@@ -397,12 +337,13 @@
     <!-- ============ FAQ ============ -->
     <section class="sec surf surf--grid" id="faq" aria-labelledby="faqTitle">
       <div class="wrap faqwrap">
-        <p class="eyebrow caption-3 sec__eyebrow" data-reveal>09 / FAQ</p>
         <h2 class="heading-2 sec__h" id="faqTitle" data-reveal>Questions hiring managers ask.</h2>
         <div class="faq" data-reveal>
           <details class="q" open><summary class="title-2">Do you need visa sponsorship?</summary><p class="body-6">No. I am eligible for the UK Graduate visa on the back of my Warwick MSc, so there is no sponsorship and no paperwork on your side.</p></details>
+          <details class="q"><summary class="title-2">Have you worked with real blockchain data?</summary><p class="body-6">Yes. evm-cluster-check analysed three days of Ethereum mainnet against exchange proof of reserves addresses, and chain-evidence checks that data across RPC providers and against the block headers. Both repositories publish the method, the numbers and every miss.</p></details>
+          <details class="q"><summary class="title-2">Which forensic tools do you use?</summary><p class="body-6">The Sleuth Kit, Plaso, Autopsy, FTK Imager and Volatility, with Wireshark for packets. In timetruth I tested Plaso and The Sleuth Kit against scripted ground truth on NTFS, FAT32, exFAT and ext4, and found a month offset bug in libfsfat.</p></details>
           <details class="q"><summary class="title-2">Where can you work?</summary><p class="body-6">I am in Coventry and will relocate to London, Manchester or Glasgow. Remote and hybrid both work.</p></details>
-          <details class="q"><summary class="title-2">When can you start?</summary><p class="body-6">Quickly. My MSc is complete and my current part-time work needs only short notice.</p></details>
+          <details class="q"><summary class="title-2">When can you start?</summary><p class="body-6">Quickly. My MSc dissertation is submitted, with the result pending, and my current part-time work needs only short notice.</p></details>
           <details class="q"><summary class="title-2">Have you worked on a real estate, not just labs?</summary><p class="body-6">Yes. At Kyoka Embedded Systems I spent seven months securing a production smart-home IoT estate of 1,000+ devices with Nessus and Qualys, and worked with firmware engineers on the fixes.</p></details>
           <details class="q"><summary class="title-2">Which SIEM and tooling do you know?</summary><p class="body-6">Splunk and Elastic for SIEM, Sysmon for endpoint telemetry, Sigma for detection rules, MITRE ATT&amp;CK for mapping, Wireshark for packet analysis, and Nessus and Qualys for vulnerability assessment.</p></details>
           <details class="q"><summary class="title-2">Can you write for people who are not engineers?</summary><p class="body-6">Yes. I wrote security reports and remediation guidance for management at Kyoka, and co-authored a policy document for senior government and industry stakeholders at NASSCOM.</p></details>
@@ -415,11 +356,10 @@
 
   <!-- ============ FINAL CTA ============ -->
   <section class="close" id="contact" aria-labelledby="closeTitle">
-    <video class="close__film" muted playsinline autoplay loop preload="metadata" aria-hidden="true"
-      data-src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260808_112712_da9d53df-6d27-4b12-bdf6-aa9dc2622bdf.mp4"></video>
+    <canvas class="close__graph" data-graph data-zone="sides" data-density="0.7" aria-hidden="true"></canvas>
     <div class="close__dim" aria-hidden="true"></div>
     <div class="wrap close__inner">
-      <p class="eyebrow caption-3" data-reveal>10 / Contact</p>
+      <p class="eyebrow caption-3" data-reveal>Contact</p>
       <h2 class="heading-2 close__h" id="closeTitle" data-reveal>Hiring for investigations, <br>forensics or security?</h2>
       <p class="body-3 close__p" data-reveal>No sponsorship, no relocation drama, and research you can question me on in the first interview. Want a practical instead of a chat? Hand me a disk image, a wallet trace or an ATT&amp;CK technique, and I will show you how I work it.</p>
       <div class="close__actions" data-reveal>
@@ -437,7 +377,7 @@
         <a href="#privacy">Privacy</a>
         <a href="#top">Back to top</a>
       </nav>
-      <p id="privacy">Privacy: this site sets no cookies and collects no data. The films are hosted by a third party and load from their servers.</p>
+      <p id="privacy">Privacy: this site sets no cookies and collects no data. Fonts load from Google Fonts.</p>
     </footer>
   </section>
 </main>

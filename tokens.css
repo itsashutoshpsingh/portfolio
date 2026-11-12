@@ -1,0 +1,19 @@
+/* Brand palette: the one place colours are defined. Used by the home page, /research, fx.css,
+   and read by scripts/render_cards.py for the GitHub profile cards. */
+:root {
+  --c-bg: #000000;
+  --c-surface-1: #181818;
+  --c-surface-2: #1F1F1F;
+  --c-surface-3: #272727;
+  --c-line: #313131;
+  --c-ink: #FFFFFF;
+  --c-blue: #5BA8FF;   /* signal: labels, links, owner A */
+  --c-cyan: #6BE4F0;   /* motion highlight: scans, decoding glyphs, packets */
+  --c-green: #4FD8A0;  /* results and owner B */
+  --c-amber: #F0B35B;  /* caution */
+  --c-red: #FF5C7A;    /* errors: false merges, missing data */
+  --glow-blue: rgba(91, 168, 255, 0.45);
+  --glow-cyan: rgba(107, 228, 240, 0.45);
+  --glow-green: rgba(79, 216, 160, 0.4);
+  --glow-red: rgba(255, 92, 122, 0.5);
+}

@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- Source of og.png (1200x630). Regenerate: serve the repo root, open /scripts/og.html at 1200x630 and screenshot it.
+     Numbers come from research/data/projects.json; colours from tokens.css. -->
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Social image</title>
+<link rel="stylesheet" href="../tokens.css">
+<style>
+  @font-face { font-family: Geist; font-weight: 400; src: url(../github/fonts/geist-400.sub.woff2) format("woff2"); }
+  @font-face { font-family: Geist; font-weight: 600; src: url(../github/fonts/geist-600.sub.woff2) format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 500; src: url(../github/fonts/geistmono-500.sub.woff2) format("woff2"); }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; background: var(--c-bg); color: var(--c-ink); font-family: Geist, system-ui, sans-serif; }
+  .frame { position: relative; width: 1200px; height: 630px; box-sizing: border-box; padding: 64px; }
+  canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .copy { position: relative; max-width: 680px; }
+  .k { font: 500 16px/24px "Geist Mono", monospace; color: var(--c-blue); display: flex; align-items: center; gap: 12px; }
+  .k::before { content: ""; width: 10px; height: 10px; border-radius: 99px; background: var(--c-blue); box-shadow: 0 0 14px var(--c-blue); }
+  h1 { margin: 24px 0 0; font-weight: 600; font-size: 60px; line-height: 60px; letter-spacing: -2px;
+       background: linear-gradient(90deg, #FFFFFF, #9B9B9B); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .sub { margin-top: 24px; font-size: 20px; line-height: 28px; color: rgba(255,255,255,.7); }
+  .stats { position: absolute; left: 64px; right: 64px; bottom: 56px; display: flex; gap: 16px; }
+  .stat { flex: 1; padding: 16px 20px; border-radius: 16px; background: var(--c-surface-1); border: 1px solid var(--c-line); }
+  .stat b { display: block; font: 600 36px/40px "Geist Mono", monospace; color: var(--c-green); text-shadow: 0 0 18px var(--glow-green); }
+  .stat span { display: block; margin-top: 4px; font-size: 14px; line-height: 20px; color: rgba(255,255,255,.6); }
+  .url { position: absolute; right: 64px; top: 64px; font: 500 14px/20px "Geist Mono", monospace; color: rgba(255,255,255,.5); }
+</style>
+</head>
+<body>
+<div class="frame">
+  <canvas id="g"></canvas>
+  <p class="url">itsashutoshpsingh.github.io/portfolio</p>
+  <div class="copy">
+    <p class="k">Ashutosh Pal Singh, security analyst</p>
+    <h1>I find the errors in crypto traces, forensic timelines and alert queues.</h1>
+    <p class="sub">Blockchain analytics, DFIR, fincrime, SOC, vulnerability management and security research. MSc Warwick, SC-200.</p>
+  </div>
+  <div class="stats" id="stats"></div>
+</div>
+<script>
+  var css = getComputedStyle(document.documentElement), c = function (n) { return css.getPropertyValue(n).trim(); };
+  fetch('../research/data/projects.json').then(function (r) { return r.json(); }).then(function (d) {
+    document.getElementById('stats').innerHTML = d.projects.map(function (p) {
+      return '<div class="stat"><b>' + p.proof.value + '</b><span>' + p.title + ': ' + p.proof.label + '</span></div>';
+    }).join('');
+  });
+  // a still address graph on the right: two owners' clusters and one false merge between them
+  var cv = document.getElementById('g'), x = cv.getContext('2d'); cv.width = 2400; cv.height = 1260; x.scale(2, 2); x.translate(0, 50);
+  var A = [[880, 120], [960, 90], [1010, 160], [930, 200], [1060, 110], [990, 250]], B = [[1050, 300], [1120, 260], [1140, 340], [1080, 380], [1000, 350]];
+  function cluster(P, col, E) {
+    x.strokeStyle = col; x.globalAlpha = .45; x.lineWidth = 1.2;
+    E.forEach(function (e) { x.beginPath(); x.moveTo(P[e[0]][0], P[e[0]][1]); x.lineTo(P[e[1]][0], P[e[1]][1]); x.stroke(); });
+    x.globalAlpha = 1; x.fillStyle = col; x.shadowColor = col; x.shadowBlur = 14;
+    P.forEach(function (p) { x.beginPath(); x.arc(p[0], p[1], 5, 0, 7); x.fill(); }); x.shadowBlur = 0;
+  }
+  cluster(A, c('--c-blue'), [[0, 1], [1, 2], [0, 3], [2, 4], [2, 5], [3, 5]]);
+  cluster(B, c('--c-green'), [[0, 1], [1, 2], [2, 3], [0, 3], [0, 4], [3, 4]]);
+  x.setLineDash([6, 6]); x.strokeStyle = c('--c-red'); x.lineWidth = 2; x.shadowColor = c('--c-red'); x.shadowBlur = 12;
+  x.beginPath(); x.moveTo(A[5][0], A[5][1]); x.lineTo(B[0][0], B[0][1]); x.stroke();
+  x.setLineDash([]); x.shadowBlur = 0; x.fillStyle = c('--c-red'); x.font = '500 13px "Geist Mono", monospace'; x.fillText('false merge', 1030, 268);
+</script>
+</body>
+</html>

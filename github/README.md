@@ -18,9 +18,8 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 
 <a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/toolkit.svg" width="100%" alt="Toolkit. Blockchain forensics: Ethereum JSON-RPC, ERC-4337, EIP-7702, clustering, taint analysis. DFIR: The Sleuth Kit, Plaso, NTFS, exFAT and FAT32, timelines, evidence integrity. Detection and VM: Splunk, Elastic, Sigma, MITRE ATT&CK, Nessus, Qualys, CVSS. Code and data: Python, pandas, Parquet, SQL, pytest, GitHub Actions, Docker."></a>
 
-<a href="https://itsashutoshpsingh.github.io/portfolio/#story"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/story.svg" width="32.5%" alt="The story: seven chapters from Pune 2020 to Coventry 2026"></a>
-<a href="https://itsashutoshpsingh.github.io/portfolio/#work"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="32.5%" alt="Production work: 1,000+ IoT devices secured at Kyoka"></a>
-<a href="mailto:itsashutoshpsingh@gmail.com"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/contact.svg" width="32.5%" alt="Hiring? No visa sponsorship needed. UK Graduate visa."></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/experience.svg" width="49%" alt="Experience: four roles at Kyoka, NASSCOM, Cisco AICTE and Verzeo, plus open research and a detection lab"></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="49%" alt="Production work: 1,000+ IoT devices secured at Kyoka, with open vulnerabilities cut by 45%"></a>
 
 **Before the research:** seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and a home SOC lab with Sigma and Splunk rules mapped to MITRE ATT&CK. **Published:** [Safeguarding Authenticity in the Digital Realm](https://doi.org/10.36948/ijfmr.2024.v06i03.21580), IJFMR 6(3), 2024.
 

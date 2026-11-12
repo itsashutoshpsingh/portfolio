@@ -172,40 +172,4 @@
     });
   watchRise();
 
-  /* Hero canvas: drifting address graph; red edges mark a false merge between clusters */
-  const cv = $("#graph");
-  if (!reduced && cv) {
-    const ctx = cv.getContext("2d");
-    let W, H, nodes = [], running = true, dpr = Math.min(devicePixelRatio || 1, 2);
-    const resize = () => {
-      W = cv.clientWidth; H = cv.clientHeight; cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const n = Math.round(Math.min(90, (W * H) / 16000));
-      nodes = Array.from({ length: n }, (_, i) => ({
-        x: Math.random() * W, y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
-        c: i % 5, r: 1.2 + Math.random() * 1.6,
-      }));
-    };
-    resize();
-    addEventListener("resize", () => { clearTimeout(resize.t); resize.t = setTimeout(resize, 150); });
-    const frame = () => {
-      if (!running) return;
-      ctx.clearRect(0, 0, W, H);
-      for (const a of nodes) { a.x += a.vx; a.y += a.vy; if (a.x < 0 || a.x > W) a.vx *= -1; if (a.y < 0 || a.y > H) a.vy *= -1; }
-      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j], d = Math.hypot(a.x - b.x, a.y - b.y);
-        if (d > 130) continue;
-        const cross = a.c !== b.c;
-        if (cross && d > 60) continue;
-        ctx.strokeStyle = cross ? `rgba(255,77,109,${0.5 * (1 - d / 60)})` : `rgba(91,168,255,${0.3 * (1 - d / 130)})`;
-        ctx.lineWidth = cross ? 1.2 : 0.8;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      }
-      for (const a of nodes) { ctx.fillStyle = a.c === 0 ? "#4fd8a0" : "#5ba8ff"; ctx.beginPath(); ctx.arc(a.x, a.y, a.r, 0, 7); ctx.fill(); }
-      requestAnimationFrame(frame);
-    };
-    new IntersectionObserver(([en]) => { const was = running; running = en.isIntersecting && !document.hidden; if (running && !was) requestAnimationFrame(frame); }).observe(cv);
-    document.addEventListener("visibilitychange", () => { const was = running; running = !document.hidden; if (running && !was) requestAnimationFrame(frame); });
-    requestAnimationFrame(frame);
-  }
 })();

@@ -8,7 +8,7 @@ html, body { background: #000000; }
   --bg: #000000; --bg-2: #181818; --bg-3: #1F1F1F; --bg-4: #272727;
   --fg: #FFFFFF; --fg-80: rgba(255,255,255,.8); --fg-60: rgba(255,255,255,.6); --fg-40: rgba(255,255,255,.4); --fg-30: rgba(255,255,255,.3);
   --line: rgba(255,255,255,.1); --line-2: rgba(255,255,255,.2);
-  --signal: #5BA8FF; --ok: #4FD8A0;
+  --signal: var(--c-blue); --ok: var(--c-green); --cyan: var(--c-cyan); --red: var(--c-red);
   --sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --mono: "Geist Mono", ui-monospace, Menlo, Consolas, monospace;
   --s-25: 2px; --s-50: 4px; --s-75: 8px; --s-100: 12px; --s-200: 16px; --s-300: 24px; --s-400: 32px; --s-500: 40px; --s-600: 48px; --s-700: 64px; --s-800: 80px; --s-900: 96px;
@@ -60,10 +60,7 @@ p { text-wrap: pretty; }
   .heading-3 { font-size: 30px; line-height: 36px; }
 }
 
-/* Reading progress: CSS scroll timeline, no JavaScript */
-.progress { position: fixed; left: 0; top: 0; z-index: 90; width: 100%; height: 2px; background: var(--signal); transform-origin: left; transform: scaleX(0); }
-@supports (animation-timeline: scroll()) { .progress { animation: grow linear both; animation-timeline: scroll(root); } }
-@keyframes grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* Reading progress lives in fx.css, shared with /research */
 
 /* Glass: real liquid glass only where it sits over the film (nav, hero card). Blur is small to stay smooth. */
 .glass { position: relative; border: 0; background: rgba(255,255,255,.02); -webkit-backdrop-filter: blur(8px) saturate(140%); backdrop-filter: blur(8px) saturate(140%); box-shadow: inset 0 1px 1px rgba(255,255,255,.1); }
@@ -118,8 +115,7 @@ p { text-wrap: pretty; }
 .hero { position: sticky; top: 0; z-index: 0; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; padding: 128px 0 calc(var(--s-900) + 56px); background: var(--bg); isolation: isolate; overflow: hidden; }
 .hero::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(91,168,255,.22), transparent 70%), radial-gradient(rgba(255,255,255,.12) 1px, transparent 1.2px) 0 0 / 24px 24px; }
-.hero__film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% center; z-index: 0; pointer-events: none; opacity: 0; }
-.hero__film.is-ready { opacity: 1; transition: opacity 1200ms var(--ease); }
+.hero__graph, .close__graph { z-index: 0; }
 .hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, var(--bg) 0%, rgba(0,0,0,.55) 22%, rgba(0,0,0,0) 48%), linear-gradient(to right, rgba(0,0,0,.6) 0%, rgba(0,0,0,0) 55%); }
 .hero__grid { position: relative; z-index: 10; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--s-700); align-items: center; }
 .hero__copy { display: grid; gap: var(--s-300); max-width: 680px; }
@@ -182,7 +178,8 @@ p { text-wrap: pretty; }
 .list li::before { content: ""; position: absolute; left: 0; top: 11px; width: 10px; height: 1px; background: var(--fg-40); }
 .list--check li::before { top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--signal); }
 
-/* Story */
+/* Tags */
+/* Tags */
 .story { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: var(--s-700); align-items: start; }
 .rail { position: sticky; top: var(--s-900); display: grid; gap: var(--s-200); }
 .rail__k { color: var(--fg-40); }
@@ -254,8 +251,6 @@ p { text-wrap: pretty; }
 .close { position: relative; z-index: 10; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: space-between; background: var(--bg); isolation: isolate; overflow: hidden; }
 .close::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background: radial-gradient(ellipse 50% 60% at 50% 40%, rgba(91,168,255,.2), transparent 70%), repeating-radial-gradient(circle at 50% 40%, rgba(255,255,255,.06) 0 1px, transparent 1px 64px); }
-.close__film { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; z-index: 0; pointer-events: none; opacity: 0; }
-.close__film.is-ready { opacity: 1; transition: opacity 1200ms var(--ease); }
 .close__dim { position: absolute; inset: 0; z-index: 1; background: rgba(0,0,0,.5); pointer-events: none; }
 .close__inner { position: relative; z-index: 10; display: grid; gap: var(--s-300); justify-items: center; text-align: center; padding: var(--s-900) var(--gutter) var(--s-700); }
 .close__h { max-width: 680px; }
@@ -279,8 +274,6 @@ p { text-wrap: pretty; }
   .burger { display: block; }
   .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--s-500); }
   .idcard { justify-self: start; }
-  .story { grid-template-columns: minmax(0, 1fr); gap: var(--s-400); }
-  .rail { position: static; }
   .proof { grid-template-columns: minmax(0, 1fr); }
   .steps { grid-template-columns: minmax(0, 1fr); }
 }
@@ -291,15 +284,12 @@ p { text-wrap: pretty; }
   .twin, .bene, .beyond, .creds { grid-template-columns: minmax(0, 1fr); }
   .kit__row { grid-template-columns: minmax(0, 1fr); gap: var(--s-100); }
   .hero__cta .btn { width: 100%; }
-  .ch::after { font-size: 80px; }
-  .chapters { padding-left: var(--s-300); }
   .ch__dot { left: calc(-1 * var(--s-300) - 1px + 7px); }
 }
 
 /* Reduced motion: opacity only, no movement */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero__film, .close__film { opacity: 1; transition: none; }
   .menu__links a { transform: none; }
   .btn:hover, .btn:active { transform: none; }
   .progress { display: none; }
@@ -308,7 +298,7 @@ p { text-wrap: pretty; }
   .js [data-in], .js .top { animation: fade 300ms var(--ease) both; }
   @keyframes fade { from { opacity: 0; } }
 }
-@media print { .top, .menu, .progress, .hero__film, .close__film, .close__actions { display: none !important; } .hero, .sheet, .close { position: static; background: #fff; color: #000; } }
+@media print { .top, .menu, .progress, .hero__graph, .close__graph, .close__actions { display: none !important; } .hero, .sheet, .close { position: static; background: #fff; color: #000; } }
 
 /* Research teaser: proof numbers filled from research/data/projects.json */
 .rsch__n { color: var(--ok); min-height: 36px; }

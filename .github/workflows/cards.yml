@@ -1,28 +1,40 @@
-name: Refresh README cards
+name: Sync research and cards
 
+# Pulls each project's results/summary.json and charts, rebuilds research/data/projects.json,
+# then redraws the profile cards from it. Numbers on the site never need copying by hand.
 on:
+  schedule:
+    - cron: "23 6 * * 1"
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ["scripts/render_cards.py", "research/data/projects.json", "github/fonts/**", ".github/workflows/cards.yml"]
+    paths: ["scripts/render_cards.py", "scripts/sync_research.py", "research/data/site-meta.json", "tokens.css", "github/fonts/**", ".github/workflows/cards.yml"]
 
 permissions:
   contents: write
 
 jobs:
-  render:
+  sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/evm-cluster-check, path: projects/evm-cluster-check }
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/timetruth, path: projects/timetruth }
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/chain-evidence, path: projects/chain-evidence }
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Sync research data from the project repositories
+        run: python scripts/sync_research.py projects
       - name: Render cards
         run: python scripts/render_cards.py
       - name: Commit if changed
         run: |
           git config user.name "Ashutosh Pal Singh"
           git config user.email "283610179+itsashutoshpsingh@users.noreply.github.com"
-          git add -A github/cards
-          git diff --cached --quiet || git commit -m "Refresh README cards"
+          git add -A research github/cards
+          git diff --cached --quiet || git commit -m "Sync research results and cards"
           git push

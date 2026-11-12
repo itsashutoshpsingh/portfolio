@@ -18,6 +18,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css">
+  <link rel="stylesheet" href="../tokens.css">
   <link rel="stylesheet" href="assets/css/site.css">
   <link rel="stylesheet" href="../fx.css">
 </head>
@@ -47,7 +48,7 @@
 
   <main id="main">
     <header class="hero" id="top">
-      <canvas id="graph" aria-hidden="true"></canvas>
+      <canvas id="graph" data-graph data-zone="right" aria-hidden="true"></canvas>
       <div class="wrap hero__grid">
         <div class="hero__copy">
           <span class="eyebrow caption-3" data-caret>Blockchain forensics · DFIR · Evidence integrity</span>
@@ -72,7 +73,7 @@
     <section id="work" aria-labelledby="work-h">
       <div class="wrap">
         <div class="section-head rise">
-          <span class="eyebrow caption-3">01 / Work</span>
+          <span class="eyebrow caption-3">Work</span>
           <h2 class="heading-2" id="work-h">Three benchmarks, one question</h2>
           <p class="title-2 muted">How often does the evidence pipeline quietly get it wrong? Each project answers with a number, a method you can rerun, and a list of what the number does not prove.</p>
         </div>
@@ -91,7 +92,6 @@
     <section id="method" aria-labelledby="method-h">
       <div class="wrap">
         <div class="section-head rise">
-          <span class="eyebrow caption-3">02 / Method</span>
           <h2 class="heading-2" id="method-h">How every project works</h2>
         </div>
         <div class="steps">
@@ -105,7 +105,7 @@
     <section id="misses" aria-labelledby="misses-h">
       <div class="wrap">
         <div class="section-head rise">
-          <span class="eyebrow caption-3">03 / What went wrong</span>
+          <span class="eyebrow caption-3">What went wrong</span>
           <h2 class="heading-2" id="misses-h">The limits, stated up front</h2>
           <p class="title-2 muted">Each repository carries a full write up. These are the points that most change how the numbers should be read.</p>
         </div>
@@ -116,7 +116,6 @@
     <section id="toolkit" aria-labelledby="toolkit-h">
       <div class="wrap">
         <div class="section-head rise">
-          <span class="eyebrow caption-3">04 / Toolkit</span>
           <h2 class="heading-2" id="toolkit-h">What the work runs on</h2>
         </div>
         <div class="toolkit rise">
@@ -130,7 +129,6 @@
     <section id="faq" aria-labelledby="faq-h">
       <div class="wrap">
         <div class="section-head rise">
-          <span class="eyebrow caption-3">05 / FAQ</span>
           <h2 class="heading-2" id="faq-h">Questions reviewers ask</h2>
         </div>
         <div class="faq rise" id="faq-list">
@@ -147,7 +145,7 @@
     <section id="contact" aria-labelledby="contact-h">
       <div class="wrap">
         <div class="contact rise">
-          <span class="eyebrow caption-3">06 / Contact</span>
+          <span class="eyebrow caption-3">Contact</span>
           <h2 class="heading-3" id="contact-h">Hiring for fincrime, DFIR or blockchain investigations?</h2>
           <p class="title-2 muted" id="bio">I'm happy to walk through any result, the method behind it, or what I would measure next.</p>
           <div class="contact__links" id="contact-links">

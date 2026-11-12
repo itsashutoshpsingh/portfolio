@@ -5,21 +5,6 @@
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
   var io = 'IntersectionObserver' in window;
 
-  /* Films: fade in on first frame, pause off screen, still frame under reduced motion. No scroll handlers. */
-  function mountFilm(video) {
-    var src = video.getAttribute('data-src'); if (!src) return;
-    video.muted = true; video.playsInline = true; video.loop = true; video.src = src;
-    var ready = function () { video.classList.add('is-ready'); };
-    if (video.readyState >= 2) ready(); else video.addEventListener('loadeddata', ready, { once: true });
-    if (still.matches) { video.removeAttribute('autoplay'); video.pause(); return; }
-    video.play().catch(function () {});
-    if (io) new IntersectionObserver(function (es) { if (es[0].isIntersecting) video.play().catch(function () {}); else video.pause(); }, { threshold: 0.05 }).observe(video);
-  }
-  var conn = navigator.connection || {};
-  var lean = conn.saveData || /(^|-)2g$|^3g$/.test(conn.effectiveType || '');
-  var film = $('#film'); if (film && !lean) mountFilm(film);
-  var closeFilm = $('.close__film'); if (closeFilm) mountFilm(closeFilm);
-
   /* Live Coventry time on the card */
   var clock = $('#clock');
   if (clock) {
@@ -44,7 +29,7 @@
     var spy = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'story', 'experience', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['top', 'experience', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
   /* Mobile menu */
@@ -62,14 +47,6 @@
     addEventListener('resize', function () { if (innerWidth >= 1024 && menu.classList.contains('is-open')) setMenu(false); });
   }
 
-  /* Story rail: the chapter nearest the middle of the screen is marked */
-  var railItems = $$('#railList li');
-  if (io && railItems.length) {
-    var chapterIO = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (!e.isIntersecting) return; railItems.forEach(function (li) { li.classList.toggle('is-on', li.getAttribute('data-for') === e.target.id); }); });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    $$('.ch').forEach(function (ch) { chapterIO.observe(ch); });
-  }
 
   /* Tagline: each word lights when it crosses 60% of the viewport, observed per word */
   var tagline = $('#tagline');
