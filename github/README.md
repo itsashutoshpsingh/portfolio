@@ -25,4 +25,7 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 
 **Before the research:** seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and a home SOC lab with Sigma and Splunk rules mapped to MITRE ATT&CK.
 
-[Portfolio](https://itsashutoshpsingh.github.io/portfolio/) · [Research](https://itsashutoshpsingh.github.io/portfolio/research/) · [LinkedIn](https://www.linkedin.com/in/ashutosh-pal-singh/) · itsashutoshpsingh@gmail.com
+<a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-portfolio.svg" height="56" alt="Portfolio"></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-research.svg" height="56" alt="Research"></a>
+<a href="https://www.linkedin.com/in/ashutosh-pal-singh/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-linkedin.svg" height="56" alt="LinkedIn"></a>
+<a href="mailto:itsashutoshpsingh@gmail.com"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-email.svg" height="56" alt="Email"></a>

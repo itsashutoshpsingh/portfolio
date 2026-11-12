@@ -271,6 +271,24 @@ def published():
     return svg(w, h, "Published and certified. " + " ".join(f"{a}: {' '.join(c)}." for a, _, c in PUBLISHED), body)
 
 
+def icon(name):
+    """Path data of a Phosphor icon (MIT, github/icons/LICENSE), drawn in a 256 unit box."""
+    return re.search(r' d="([^"]+)"', open(os.path.join(ROOT, "github", "icons", name + ".svg")).read()).group(1)
+
+
+SOCIAL = [("Portfolio", "globe-simple", "sig"), ("Research", "article", "cyan"), ("LinkedIn", "linkedin-logo", "sig"), ("Email", "envelope-simple", "ok")]
+
+
+def social(label, ic, colour, i):
+    w, h = 210, 56
+    body = (f'<g class="rise"{d(i, .1, .2)}>' + frame(w, h, 28, texture=False)
+            + f'<circle cx="28" cy="28" r="16" style="fill:var(--card2)" stroke="var(--line)"/>'
+            f'<g transform="translate(18 18) scale(.078)" style="fill:var(--{colour})" filter="url(#glow)"><path d="{icon(ic)}"/></g>'
+            f'<text x="56" y="34" font-size="16" font-weight="600">{html.escape(label)}</text>'
+            f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 34} 28h12m-5-5l5 5-5 5" fill="none" stroke="var(--mute)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
+    return svg(w, h, label, body)
+
+
 def tile(label, big, sub, colour, i):
     w, h = 432, 210
     body = (f'<g class="tile"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
@@ -299,6 +317,8 @@ def main():
     }
     for i, p in enumerate(projects):
         cards[f"research-{i + 1}.svg"] = research_card(p, i)
+    for i, (label, ic, colour) in enumerate(SOCIAL):
+        cards[f"social-{label.lower()}.svg"] = social(label, ic, colour, i)
     for name, content in cards.items():
         open(os.path.join(OUT, name), "w").write(content)
     print("rendered", ", ".join(cards), "(static)" if STATIC else "")
