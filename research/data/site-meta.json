@@ -31,9 +31,21 @@
         "Blockchain analytics",
         "Fincrime"
       ],
-      "oneLine": "How often published Ethereum clustering and taint rules wrongly link addresses that belong to different owners.",
+      "oneLine": "How often published Ethereum clustering and taint rules link addresses that belong to two different exchanges, and what causes it.",
       "cmd": "make result   # evm-cluster-check",
-      "misses": []
+      "misses": [
+        "Binance and Bitstamp publish their reserve lists only on their own sites, which I could not reach, so every false merge count is a lower bound.",
+        "Only one free provider served Ethereum logs, so the token transfer data has no second source. chain-evidence checked 40 blocks of it instead.",
+        "The taint stage ran the machine out of memory and lost a run. It now keeps one slim table and resumes from saved stages.",
+        "The 20 sampled false merges were classified by script, not opened one by one on a block explorer."
+      ],
+      "metric_labels": [
+        "cross-exchange false merges, deposit-address reuse",
+        "of those caused by infrastructure",
+        "cross-exchange false merges, same sender in one tx",
+        "of those caused by poisoning"
+      ],
+      "proof_label": "cross-exchange false merges by deposit-address reuse"
     },
     {
       "slug": "timetruth",
@@ -54,7 +66,9 @@
         "not the true instant",
         "correct on fat32",
         "correct on ntfs"
-      ]
+      ],
+      "proof_metric": 1,
+      "proof_label": "of forensic tool times were not the true instant"
     },
     {
       "slug": "chain-evidence",
@@ -75,7 +89,9 @@
         "ethereum: disagreement rate",
         "ethereum: empty successes (0 logs where logs exist)",
         "ethereum/drpc: blocks whose receipts reproduce receiptsRoot"
-      ]
+      ],
+      "proof_metric": 2,
+      "proof_label": "silent empty answers where receipt proofs show logs"
     }
   ]
 }
