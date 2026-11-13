@@ -317,3 +317,8 @@ p { text-wrap: pretty; }
 .xp__pts li::before { top: 9px; }
 .xp__pts .body-6 { color: var(--fg-60); }
 @media (max-width: 860px) { .xp { grid-template-columns: 1fr; } .xp__item { padding: var(--s-300); } }
+.idcard__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--s-100); }
+.idcard__cv { display: inline-flex; align-items: center; gap: var(--s-75); min-height: 32px; padding: var(--s-50) var(--s-100); border-radius: 999px; border: 1px solid var(--line-2); color: var(--fg); text-decoration: none; transition: border-color 300ms var(--ease), transform 300ms var(--ease); }
+.idcard__cv svg { width: 16px; height: 16px; fill: var(--signal); }
+.idcard__cv:hover { border-color: var(--signal); transform: translateY(-1px); }
+.idcard__cv:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }

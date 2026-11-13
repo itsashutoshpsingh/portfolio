@@ -8,6 +8,11 @@
         "icon": "ph-envelope-simple"
       },
       {
+        "label": "Download CV",
+        "url": "../cv/Ashutosh_Pal_Singh_CV.pdf",
+        "icon": "ph-download-simple"
+      },
+      {
         "label": "LinkedIn",
         "url": "https://www.linkedin.com/in/ashutosh-pal-singh/",
         "icon": "ph-linkedin-logo"

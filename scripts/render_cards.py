@@ -276,7 +276,7 @@ def icon(name):
     return re.search(r' d="([^"]+)"', open(os.path.join(ROOT, "github", "icons", name + ".svg")).read()).group(1)
 
 
-SOCIAL = [("Portfolio", "globe-simple", "sig"), ("Research", "article", "cyan"), ("LinkedIn", "linkedin-logo", "sig"), ("Email", "envelope-simple", "ok")]
+SOCIAL = [("Portfolio", "globe-simple", "sig"), ("Research", "article", "cyan"), ("LinkedIn", "linkedin-logo", "sig"), ("Email", "envelope-simple", "ok"), ("CV", "download-simple", "amber")]
 
 
 def social(label, ic, colour, i):

@@ -29,3 +29,4 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 <a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-research.svg" height="56" alt="Research"></a>
 <a href="https://www.linkedin.com/in/ashutosh-pal-singh/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-linkedin.svg" height="56" alt="LinkedIn"></a>
 <a href="mailto:itsashutoshpsingh@gmail.com"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-email.svg" height="56" alt="Email"></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/cv/Ashutosh_Pal_Singh_CV.pdf"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-cv.svg" height="56" alt="Download CV"></a>
