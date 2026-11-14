@@ -1,8 +1,8 @@
-<!-- Profile README for github.com/itsashutoshpsingh (copy into that repository as README.md). Cards are drawn by scripts/render_cards.py from research/data/projects.json. -->
+<a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/hero.svg" width="100%" alt="Ashutosh Pal Singh, security analyst. I find the errors in the evidence. Open to roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and research."></a>
 
-<a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/hero.svg" width="100%" alt="Ashutosh Pal Singh. Security analyst who measures the silent errors in crypto investigations and forensic evidence. MSc Cyber Security Engineering, Warwick. Microsoft SC-200. Open to UK roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and security research."></a>
+### What I work on
 
-<a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/terminal.svg" width="100%" alt="Research results: 198 cross-exchange false merges by deposit-address reuse; 27% of forensic tool times were not the true instant; 2 silent empty answers where receipt proofs show logs."></a>
+Investigators trust tools they rarely measure. I build open benchmarks that check whether tracing rules, blockchain data providers and forensic timeline tools tell the truth, then publish the error rate and every miss.
 
 <a href="https://github.com/itsashutoshpsingh/evm-cluster-check"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-1.svg" width="32.5%" alt="evm-cluster-check: 198 cross-exchange false merges by deposit-address reuse"></a>
 <a href="https://github.com/itsashutoshpsingh/timetruth"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-2.svg" width="32.5%" alt="timetruth: 27% of forensic tool times were not the true instant"></a>
@@ -11,22 +11,27 @@
 <a href="https://github.com/itsashutoshpsingh/nhi-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-5.svg" width="32.5%" alt="nhi-evidence: 15 of 15 seeded misconfigurations found, with 0 false findings"></a>
 <a href="https://github.com/itsashutoshpsingh/fixproof"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-6.svg" width="32.5%" alt="fixproof: 100% of scanner verdicts said fixed while the old code was still running"></a>
 
-### What I work on
-
-Investigators trust tools they rarely measure. I build open benchmarks that check whether tracing rules, blockchain data providers and forensic timeline tools tell the truth, then publish the error rate and every miss.
-
 - **[evm-cluster-check](https://github.com/itsashutoshpsingh/evm-cluster-check):** how often published Ethereum clustering rules link addresses that belong to two different exchanges, measured against proof-of-reserves ground truth.
 - **[timetruth](https://github.com/itsashutoshpsingh/timetruth):** scripted file actions at known times, then a check of what Plaso and The Sleuth Kit report. Found a month offset in libfsfat that Plaso inherits.
 - **[chain-evidence](https://github.com/itsashutoshpsingh/chain-evidence):** asks several RPC providers for the same logs and proves completeness against the block header, so a missing log cannot drop a hop from a money trail.
+- **[rulefire](https://github.com/itsashutoshpsingh/rulefire):** do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.
+- **[nhi-evidence](https://github.com/itsashutoshpsingh/nhi-evidence):** read only evidence of risky apps, service principals and agents in Microsoft Entra ID, mapped to the OWASP Non-Human Identities Top 10.
+- **[fixproof](https://github.com/itsashutoshpsingh/fixproof):** do vulnerability scanners say fixed while the old vulnerable code is still running? 22 public CVEs on 8 Linux images, each host state built 3 times.
+
+### Before the research
+
+Seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and a home SOC lab with Sigma and Splunk rules mapped to MITRE ATT&CK.
+
+<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/experience.svg" width="49%" alt="Experience: four roles at Kyoka, NASSCOM, Cisco AICTE and Verzeo, plus open research and a detection lab"></a>
+<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="49%" alt="Production work: 1,000+ IoT devices secured at Kyoka, with open vulnerabilities cut by 45%"></a>
+
+### Toolkit and credentials
 
 <a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/toolkit.svg" width="100%" alt="Toolkit. Blockchain forensics: Ethereum JSON-RPC, ERC-4337, EIP-7702, clustering, taint analysis. DFIR: The Sleuth Kit, Plaso, NTFS, exFAT and FAT32, timelines, evidence integrity. Detection and VM: Splunk, Elastic, Sigma, MITRE ATT&CK, Nessus, Qualys, CVSS. Code and data: Python, pandas, Parquet, SQL, pytest, GitHub Actions, Docker."></a>
 
 <a href="https://doi.org/10.36948/ijfmr.2024.v06i03.21580"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/published.svg" width="100%" alt="Published and certified. Peer reviewed paper: Safeguarding Authenticity in the Digital Realm, IJFMR 6(3), 2024. Certifications: Microsoft SC-200 (2026), Google Cybersecurity Certificate (2024), EC-Council Digital Forensics Essentials. Education: MSc Cyber Security Engineering, University of Warwick; BTech Computer Science Engineering, Symbiosis Institute of Technology."></a>
 
-<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/experience.svg" width="49%" alt="Experience: four roles at Kyoka, NASSCOM, Cisco AICTE and Verzeo, plus open research and a detection lab"></a>
-<a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="49%" alt="Production work: 1,000+ IoT devices secured at Kyoka, with open vulnerabilities cut by 45%"></a>
-
-**Before the research:** seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and a home SOC lab with Sigma and Splunk rules mapped to MITRE ATT&CK.
+### Get in touch
 
 <a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-portfolio.svg" height="56" alt="Portfolio"></a>
 <a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/social-research.svg" height="56" alt="Research"></a>
