@@ -55,6 +55,7 @@ def main():
             "repo": f"{GH}/{m['slug']}",
             "report": f"{GH}/{m['slug']}#readme",
             "misses": m["misses"],
+            "viz": summary.get("viz", []),
         })
     terminal = [{"cmd": m["cmd"], "out": m.get("terminal_out") or [p["headline"]]} for m, p in zip(meta["projects"], projects)]
     data = {"profile": meta.get("profile"), "projects": projects, "terminal": terminal}

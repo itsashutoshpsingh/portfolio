@@ -1,4 +1,4 @@
-/* Shared motion for the home page and /research: the address-graph canvas, decrypt labels,
+/* Shared motion for the home page and /research: the WebGL background, decrypt labels,
    word-by-word headings, count-ups, card tilt and magnetic buttons. Transform and opacity only
    for DOM motion; IntersectionObserver, never scroll handlers. Under prefers-reduced-motion the
    graph draws one still frame and everything else is shown at its final state. */
@@ -19,134 +19,87 @@
     }, { rootMargin: margin || '0px 0px -12% 0px' });
     els.forEach(function (el) { io.observe(el); });
   };
-  var rgba = function (hex, a) { var n = parseInt(hex.slice(1), 16); return 'rgba(' + (n >> 16) + ',' + ((n >> 8) & 255) + ',' + (n & 255) + ',' + a + ')'; };
 
-  /* Address graph: a far layer of drifting dust for depth; owners' clusters drift, packets run
-     along edges, false merges between clusters pulse red; every few seconds a transaction trace
-     lights up hop by hop, sometimes crossing a false merge, which is the error the research measures.
-     Nodes near the pointer reach out to it. One soft-glow sprite per colour keeps it cheap. */
-  function graph(cv) {
-    var ctx = cv.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
-    var palette = [C.blue, C.green, C.amber], sprites = {}, W, H, nodes = [], edges = [], cross = [], packets = [], dust = [], adj = [], trace = null, nextTrace = 1.5, t = 0, running = false, px = -1e4, py = -1e4;
-    var density = parseFloat(cv.getAttribute('data-density') || '1'), zone = cv.getAttribute('data-zone') || 'all';
-    // where cluster centres may sit, as fractions of the width: keep them clear of the text column
-    function spot(c, k) {
-      if (W < 900) return 0.1 + 0.8 * Math.random();
-      if (zone === 'right') return 0.58 + 0.36 * Math.random();
-      if (zone === 'sides') return c % 2 ? 0.76 + 0.2 * Math.random() : 0.04 + 0.2 * Math.random();
-      return 0.12 + 0.76 * Math.random();
-    }
-    function sprite(col) {
-      if (sprites[col]) return sprites[col];
-      var s = document.createElement('canvas'), r = 24; s.width = s.height = r * 2;
-      var g = s.getContext('2d'), grd = g.createRadialGradient(r, r, 0, r, r, r);
-      grd.addColorStop(0, rgba(col, 0.9)); grd.addColorStop(0.18, rgba(col, 0.55)); grd.addColorStop(1, rgba(col, 0));
-      g.fillStyle = grd; g.fillRect(0, 0, r * 2, r * 2);
-      return (sprites[col] = s);
-    }
-    function build() {
-      W = cv.clientWidth; H = cv.clientHeight; if (!W || !H) return;
-      cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      var k = Math.max(3, Math.min(7, Math.round(W / 260))), per = Math.round(Math.min(14, Math.max(6, (W * H) / 52000)) * density);
-      nodes = []; edges = []; cross = []; packets = [];
-      for (var c = 0; c < k; c++) {
-        var cx = W * spot(c, k), cy = H * (0.15 + 0.7 * ((c + Math.random()) / k)), rad = Math.min(W, H) * (0.09 + Math.random() * 0.08), first = nodes.length;
-        for (var i = 0; i < per; i++) {
-          var a = Math.random() * 6.283, d = rad * Math.sqrt(Math.random());
-          nodes.push({ bx: cx + Math.cos(a) * d, by: cy + Math.sin(a) * d, ph: Math.random() * 6.283, sp: 0.2 + Math.random() * 0.5, amp: 4 + Math.random() * 10, c: c, r: 1.3 + Math.random() * 1.7, x: 0, y: 0 });
-          if (i) edges.push([first + i, first + ((Math.random() * i) | 0)]);
-          if (i > 2 && Math.random() < 0.35) edges.push([first + i, first + ((Math.random() * i) | 0)]);
-        }
-      }
-      // the error the research measures: a wrong link between two owners, drawn between the closest
-      // nodes of neighbouring clusters so it reads as one short bridge, not a line across the page
-      for (var j = 1; j < k; j++) {
-        var best = null, bd = 1e9;
-        nodes.forEach(function (a, ia) { if (a.c !== j) return; nodes.forEach(function (b, ib) {
-          if (b.c !== j - 1) return; var dd = Math.hypot(a.bx - b.bx, a.by - b.by); if (dd < bd) { bd = dd; best = [ia, ib]; } }); });
-        if (best && bd < Math.min(W, H) * 0.6) cross.push([best[0], best[1], Math.random() * 6.283]);
-      }
-      for (var p = 0; p < Math.round(edges.length / 4); p++) packets.push({ e: (Math.random() * edges.length) | 0, u: Math.random(), v: 0.004 + Math.random() * 0.008 });
-      adj = nodes.map(function () { return []; });
-      edges.concat(cross).forEach(function (e) { adj[e[0]].push(e[1]); adj[e[1]].push(e[0]); });
-      dust = [];
-      for (var q = 0; q < Math.min(170, Math.round((W * H) / 9000)); q++) dust.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - 0.5) * 0.12, vy: (Math.random() - 0.5) * 0.12, r: 0.4 + Math.random() * 0.9, a: 0.12 + Math.random() * 0.28, z: 0.3 + Math.random() * 0.7 });
-      trace = null;
-    }
-    function startTrace() {  // a random walk of up to 7 hops, preferring the false-merge bridge when one is adjacent
-      var crossSet = {}; cross.forEach(function (e) { crossSet[e[0]] = e[1]; crossSet[e[1]] = e[0]; });
-      var start = cross.length && Math.random() < 0.6 ? cross[(Math.random() * cross.length) | 0][0] : (Math.random() * nodes.length) | 0;
-      var path = [start], seen = {}; seen[start] = 1;
-      while (path.length < 8) {
-        var here = path[path.length - 1], opts = adj[here].filter(function (n) { return !seen[n]; });
-        if (!opts.length) break;
-        var nxt = crossSet[here] !== undefined && !seen[crossSet[here]] && Math.random() < 0.7 ? crossSet[here] : opts[(Math.random() * opts.length) | 0];
-        path.push(nxt); seen[nxt] = 1;
-      }
-      trace = path.length > 2 ? { path: path, u: 0, fade: 1 } : null;
-    }
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-      var ox = px > -1e3 ? (px / W - 0.5) * 14 : 0, oy = py > -1e3 ? (py / H - 0.5) * 10 : 0;
-      dust.forEach(function (d) {  // far layer: slow drift, slight parallax with the pointer
-        d.x = (d.x + d.vx + W) % W; d.y = (d.y + d.vy + H) % H;
-        ctx.globalAlpha = d.a; ctx.fillStyle = d.z > 0.75 ? C.cyan : C.blue;
-        ctx.beginPath(); ctx.arc(d.x - ox * d.z, d.y - oy * d.z, d.r, 0, 6.283); ctx.fill();
-      });
-      ctx.globalAlpha = 1;
-      nodes.forEach(function (n) { n.x = n.bx + Math.cos(t * n.sp + n.ph) * n.amp; n.y = n.by + Math.sin(t * n.sp * 0.8 + n.ph) * n.amp; });
-      ctx.lineWidth = 1;
-      edges.forEach(function (e) {
-        var a = nodes[e[0]], b = nodes[e[1]];
-        ctx.strokeStyle = rgba(palette[a.c % 3], 0.22);
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-      });
-      cross.forEach(function (e) {
-        var a = nodes[e[0]], b = nodes[e[1]], pulse = 0.35 + 0.45 * (0.5 + 0.5 * Math.sin(t * 2.2 + e[2]));
-        ctx.save(); ctx.setLineDash([5, 6]); ctx.lineDashOffset = -t * 18;
-        ctx.strokeStyle = rgba(C.red, pulse); ctx.lineWidth = 1.4; ctx.shadowColor = rgba(C.red, 0.8); ctx.shadowBlur = 10;
-        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); ctx.restore();
-        [a, b].forEach(function (n) { var s = sprite(C.red), z = 18 + 10 * pulse; ctx.globalAlpha = pulse; ctx.drawImage(s, n.x - z, n.y - z, z * 2, z * 2); ctx.globalAlpha = 1; });
-      });
-      nodes.forEach(function (n) {
-        var dd = Math.hypot(n.x - px, n.y - py), near = dd < 150 ? 1 - dd / 150 : 0, s = sprite(palette[n.c % 3]), z = n.r * (6 + 5 * near);
-        if (near) { ctx.strokeStyle = rgba(C.cyan, 0.35 * near); ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(n.x, n.y); ctx.lineTo(px, py); ctx.stroke(); }
-        ctx.drawImage(s, n.x - z, n.y - z, z * 2, z * 2);
-      });
-      if (trace) {  // the trace: finished hops stay lit and fade, the head moves along the current hop
-        var P = trace.path, seg = Math.floor(trace.u), f = trace.u - seg;
-        ctx.save(); ctx.lineCap = 'round'; ctx.shadowColor = C.cyan; ctx.shadowBlur = 12;
-        for (var i2 = 0; i2 < Math.min(seg + 1, P.length - 1); i2++) {
-          var A = nodes[P[i2]], B = nodes[P[i2 + 1]], isX = A.c !== B.c, part = i2 < seg ? 1 : f;
-          ctx.strokeStyle = rgba(isX ? C.red : C.cyan, 0.85 * trace.fade); ctx.lineWidth = isX ? 2.2 : 1.8;
-          ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(A.x + (B.x - A.x) * part, A.y + (B.y - A.y) * part); ctx.stroke();
-          if (i2 < seg) { ctx.globalAlpha = trace.fade; ctx.drawImage(sprite(C.cyan), B.x - 14, B.y - 14, 28, 28); ctx.globalAlpha = 1; }
-        }
-        ctx.restore();
-        if (seg < P.length - 1) {
-          var a2 = nodes[P[seg]], b2 = nodes[P[seg + 1]];
-          ctx.drawImage(sprite(C.cyan), a2.x + (b2.x - a2.x) * f - 16, a2.y + (b2.y - a2.y) * f - 16, 32, 32);
-          trace.u += 0.022;
-        } else if ((trace.fade -= 0.012) <= 0) { trace = null; nextTrace = t + 1.2 + Math.random() * 2; }
-      } else if (t > nextTrace && nodes.length) startTrace();
-      packets.forEach(function (p) {
-        p.u += p.v; if (p.u > 1) { p.u = 0; p.e = (Math.random() * edges.length) | 0; }
-        var e = edges[p.e], a = nodes[e[0]], b = nodes[e[1]], x = a.x + (b.x - a.x) * p.u, y = a.y + (b.y - a.y) * p.u;
-        ctx.drawImage(sprite(C.cyan), x - 8, y - 8, 16, 16);
-      });
-    }
-    function frame() { if (!running) return; t += 0.016; draw(); requestAnimationFrame(frame); }
-    build(); if (still) { draw(); }
-    var resize = function () { clearTimeout(resize.t); resize.t = setTimeout(function () { build(); draw(); }, 150); };
-    window.addEventListener('resize', resize);
+  /* Background: one full-screen WebGL fragment shader behind the whole page. A drifting
+     topographic field (domain-warped noise) in slate navy with soft blue and teal light and thin
+     glowing contour lines; the pointer bends the contours like a lens and lights them up, and
+     scrolling slowly moves the terrain. Rendered at 40% resolution and 30 fps (it is soft and slow by
+     design, and full-screen shaders are fill-rate bound), paused when the tab is hidden, one still frame under
+     reduced motion. Without WebGL the page keeps its flat background. */
+  var BG_FRAG = [
+    'precision mediump float;',
+    'uniform vec2 uRes; uniform float uTime; uniform vec2 uPtr; uniform float uPtrOn; uniform float uScroll;',
+    'uniform vec3 uBg; uniform vec3 uBlue; uniform vec3 uTeal; uniform vec3 uLine;',
+    'float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }',
+    'float n(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);',
+    '  return mix(mix(h(i), h(i + vec2(1., 0.)), u.x), mix(h(i + vec2(0., 1.)), h(i + vec2(1., 1.)), u.x), u.y); }',
+    'float fbm(vec2 p){ float v = 0.0, a = 0.5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);',
+    '  for (int i = 0; i < 4; i++){ v += a * n(p); p = m * p; a *= 0.5; } return v; }',
+    'void main(){',
+    '  vec2 uv = gl_FragCoord.xy / uRes; float asp = uRes.x / uRes.y;',
+    '  vec2 p = vec2(uv.x * asp, uv.y) * 2.4 + vec2(0.0, uScroll * 1.6);',
+    '  vec2 m = vec2(uPtr.x * asp, uPtr.y) * 2.4 + vec2(0.0, uScroll * 1.6);',
+    '  float d = length(p - m); float lens = uPtrOn * exp(-d * d * 3.5);',
+    '  p += (p - m) * lens * 0.35;',                                      // the pointer pushes the terrain outwards
+    '  float t = uTime * 0.035;',
+    '  vec2 q = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3) - t));',
+    '  float f = fbm(p + 1.8 * q + vec2(t * 0.6, -t * 0.4));',
+    '  vec3 col = uBg;',
+    '  col = mix(col, uBlue, smoothstep(0.45, 0.95, f) * 0.20);',          // soft light where the field is high
+    '  col = mix(col, uTeal, smoothstep(0.55, 1.0, q.x) * 0.12);',
+    '  float g = abs(fract(f * 11.0) - 0.5);',                              // contour lines every 1/11 of the field
+    '  float line = 1.0 - smoothstep(0.0, 0.05 + 0.03 * lens, g);',
+    '  col += uLine * line * (0.07 + 0.30 * lens);',
+    '  col += uBlue * lens * 0.06;',
+    '  float vig = smoothstep(1.25, 0.25, length((uv - 0.5) * vec2(asp, 1.0)));',
+    '  col *= 0.72 + 0.28 * vig;',
+    '  col += (h(gl_FragCoord.xy + fract(uTime) * 61.0) - 0.5) * 0.018;',  // fine grain, no banding
+    '  gl_FragColor = vec4(col, 1.0);',
+    '}'].join('\n');
+  function background(cv) {
+    var gl = cv.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
+    if (!gl) return;
+    var sh = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
+    var pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }'));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, BG_FRAG));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
+    gl.useProgram(pr);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    var a = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
+    var U = function (k) { return gl.getUniformLocation(pr, k); };
+    var rgb = function (hex) { var v = parseInt(hex.slice(1), 16); return [(v >> 16) / 255, ((v >> 8) & 255) / 255, (v & 255) / 255]; };
+    gl.uniform3fv(U('uBg'), rgb(tok('--c-bg', '#0C1421')));
+    gl.uniform3fv(U('uBlue'), rgb(C.blue)); gl.uniform3fv(U('uTeal'), rgb(C.green)); gl.uniform3fv(U('uLine'), rgb(C.cyan));
+    var uRes = U('uRes'), uTime = U('uTime'), uPtr = U('uPtr'), uPtrOn = U('uPtrOn'), uScroll = U('uScroll');
+    var tx = 0.7, ty = 0.6, px = tx, py = ty, on = 0, onT = 0, running = false, t0 = performance.now();
+    var size = function () {
+      var s = 0.4 * Math.min(window.devicePixelRatio || 1, 2);  // 40% resolution: the field is soft by design, so a sixth of the pixels is enough
+      cv.width = Math.max(1, Math.round(innerWidth * s)); cv.height = Math.max(1, Math.round(innerHeight * s));
+      gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height);
+    };
+    var draw = function (now) {
+      px += (tx - px) * 0.06; py += (ty - py) * 0.06; on += (onT - on) * 0.05;
+      gl.uniform1f(uTime, (now - t0) / 1000); gl.uniform2f(uPtr, px, py); gl.uniform1f(uPtrOn, on);
+      gl.uniform1f(uScroll, scrollY / Math.max(1, innerHeight) * 0.35);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
+    var last = 0;
+    var frame = function (now) { if (!running) return; if (now - last >= 32) { last = now; draw(now); } requestAnimationFrame(frame); };  // 30 fps: the field drifts slowly
+    size(); draw(t0 + 4000); cv.classList.add('is-ready');
+    window.addEventListener('resize', function () { size(); if (!running) draw(performance.now()); }, { passive: true });
     if (still) return;
-    if (fine) window.addEventListener('pointermove', function (e) { var r = cv.getBoundingClientRect(); px = e.clientX - r.left; py = e.clientY - r.top; }, { passive: true });
-    var set = function (on) { var was = running; running = on && !document.hidden; if (running && !was) requestAnimationFrame(frame); };
-    if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { set(es[0].isIntersecting); }).observe(cv); else set(true);
+    if (fine) {
+      window.addEventListener('pointermove', function (e) { tx = e.clientX / innerWidth; ty = 1 - e.clientY / innerHeight; onT = 1; }, { passive: true });
+      document.addEventListener('pointerleave', function () { onT = 0; });
+    }
+    var set = function (v) { var was = running; running = v; if (running && !was) requestAnimationFrame(frame); };
     document.addEventListener('visibilitychange', function () { set(!document.hidden); });
-    cv.classList.add('is-ready');
+    set(!document.hidden);
   }
-  $$('canvas[data-graph]').forEach(graph);
+  $$('canvas[data-bg]').forEach(background);
 
   /* Decrypt: cyan glyphs settle into the real text, left to right */
   function scramble(el) {
@@ -223,7 +176,29 @@
     btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
   }
 
-  window.fx = { count: function (el) { if (!still) once([el], count); }, scramble: scramble };
+  /* Result charts drawn from each repo's results/summary.json "viz" blocks: labelled bars whose
+     fill grows on reveal, coloured by what the number means (good, bad, warn, neutral). */
+  var esc = function (x) { return String(x).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  function chart(v) {
+    var max = v.unit === '%' ? 100 : Math.max.apply(null, v.bars.map(function (b) { return b.value; })) || 1;
+    var fmt = function (x) {
+      if (v.unit === '%') return (Math.round(x * 10) / 10).toLocaleString('en-GB') + '%';
+      return x.toLocaleString('en-GB') + (v.unit === 'ms' ? ' ms' : '');
+    };
+    return '<figure class="vz"><figcaption class="vz__t">' + esc(v.title) + '</figcaption><div class="vz__rows">' +
+      v.bars.map(function (b, i) {
+        return '<div class="vz__row" data-tone="' + esc(b.tone || 'neutral') + '" style="--i:' + i + '"><span class="vz__l">' + esc(b.label) +
+          '</span><span class="vz__track"><span class="vz__fill" style="--p:' + Math.max(0, Math.min(1, b.value / max)).toFixed(4) + '"></span></span>' +
+          '<span class="vz__v">' + esc(fmt(b.value)) + '</span></div>';
+      }).join('') + '</div></figure>';
+  }
+  var tilted = [];
+  function mount(root) {
+    once($$('.vz', root), function (el) { el.classList.add('is-on'); if (!still) $$('.vz__v', el).forEach(count); });
+    if (!still && fine) $$('.board__card, .project', root).forEach(function (c) { if (tilted.indexOf(c) < 0) { tilted.push(c); tilt(c); } });
+  }
+
+  window.fx = { count: function (el) { if (!still) once([el], count); }, scramble: scramble, chart: chart, mount: mount };
   if (!document.querySelector('.progress')) { var bar = document.createElement('div'); bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true'); document.body.prepend(bar); }
   if (still) return;
   document.documentElement.classList.add('fx');
@@ -233,7 +208,6 @@
   once(heads, function (h) { h.classList.add('fx-on'); }, '0px 0px -8% 0px');
   once($$('[data-count]'), count);
   if (fine) {
-    $$('#research .step, .project').forEach(tilt);  // research cards only: hover motion on every card is noise
     $$('.btn').forEach(magnet);
   }
 })();

@@ -29,7 +29,7 @@
     var spy = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); });
     }, { rootMargin: '-40% 0px -55% 0px' });
-    ['top', 'experience', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
+    ['top', 'experience', 'cv', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
 
   /* Mobile menu */
@@ -68,10 +68,28 @@
   });
 })();
 
-// Research teaser numbers come from the research page's data, never typed by hand
-fetch('research/data/projects.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-  (d && d.projects || []).forEach(function (p) {
-    var el = document.querySelector('[data-proof="' + p.slug + '"]');
-    if (el) { el.textContent = p.proof.value; var s = document.createElement('small'); s.textContent = p.proof.label; el.appendChild(s); if (window.fx) window.fx.count(el); }
-  });
-}).catch(function () {});
+// Research board: every number and chart comes from research/data/projects.json, built from each repo's results
+fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (d) {
+  var board = document.getElementById('board'), stats = document.getElementById('boardStats'), ps = d.projects || [];
+  var esc = function (x) { return String(x).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  var series = ps.reduce(function (n, p) { return n + (p.viz || []).length; }, 0);
+  var charts = ps.reduce(function (n, p) { return n + (p.charts || []).length; }, 0);
+  stats.innerHTML = [[ps.length, 'open benchmarks'], [series, 'result series'], [charts, 'published charts']].map(function (s) {
+    return '<p><b class="mono" data-count>' + s[0] + '</b><span>' + s[1] + '</span></p>'; }).join('');
+  board.innerHTML = ps.map(function (p, i) {
+    var v = (p.viz || [])[0];
+    return '<article class="board__card' + (i === 0 ? ' board__card--wide' : '') + '">' +
+      '<p class="board__tags caption-3 mono">' + p.tags.map(esc).join(' · ') + '</p>' +
+      '<h3 class="title-1">' + esc(p.title) + '</h3>' +
+      '<p class="board__n mono"><b data-count>' + esc(p.proof.value) + '</b><span>' + esc(p.proof.label) + '</span></p>' +
+      '<p class="body-6 board__one">' + esc(p.oneLine) + '</p>' +
+      (v && window.fx ? window.fx.chart(v) : '') +
+      '<p class="board__links"><a class="textlink caption-2" href="' + esc(p.repo) + '" target="_blank" rel="noopener">Repository</a>' +
+      '<a class="textlink caption-2" href="research/#' + esc(p.slug) + '">Results</a></p></article>';
+  }).join('');
+  board.removeAttribute('aria-busy');
+  if (window.fx) { document.querySelectorAll('#research [data-count]').forEach(window.fx.count); window.fx.mount(board); }
+}).catch(function () {
+  var board = document.getElementById('board');
+  if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
+});

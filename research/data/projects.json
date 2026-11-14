@@ -90,6 +90,71 @@
         "Only one free provider served Ethereum logs, so the token transfer data has no second source. chain-evidence checked 40 blocks of it instead.",
         "The taint stage ran the machine out of memory and lost a run. It now keeps one slim table and resumes from saved stages.",
         "The 20 sampled false merges were classified by script, not opened one by one on a block explorer."
+      ],
+      "viz": [
+        {
+          "title": "Pairs of addresses from two different exchanges wrongly merged",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "Deposit reuse, naive",
+              "value": 198,
+              "tone": "bad"
+            },
+            {
+              "label": "Deposit reuse, Victor 2020",
+              "value": 0,
+              "tone": "good"
+            },
+            {
+              "label": "Same sender in one tx",
+              "value": 359,
+              "tone": "bad"
+            },
+            {
+              "label": "All rules combined",
+              "value": 449,
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "title": "Share of those false merges caused by poisoning or other infrastructure",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "Deposit reuse, naive",
+              "value": 0.0,
+              "tone": "neutral"
+            },
+            {
+              "label": "Same sender in one tx",
+              "value": 60.2,
+              "tone": "warn"
+            },
+            {
+              "label": "All rules combined",
+              "value": 51.4,
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "title": "Addresses a one-hop taint rule flags, with and without zero-value transfers",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "All transfers",
+              "value": 147611,
+              "tone": "bad"
+            },
+            {
+              "label": "Zero-value removed",
+              "value": 23812,
+              "tone": "good"
+            }
+          ]
+        }
       ]
     },
     {
@@ -152,6 +217,101 @@
         "MFTECmd would not run under Mono, so analyzeMFT stands in on Linux and is labelled that way everywhere.",
         "Every image was written by a Linux driver. The Windows kit that would test real Windows writes has not been run yet.",
         "ext4 ignores libfaketime, so the ext4 \"DST\" runs did not actually cross a clock change."
+      ],
+      "viz": [
+        {
+          "title": "Times reported correctly, by file system",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "ext4",
+              "value": 100.0,
+              "tone": "good"
+            },
+            {
+              "label": "NTFS",
+              "value": 95.8,
+              "tone": "good"
+            },
+            {
+              "label": "FAT32",
+              "value": 35.0,
+              "tone": "bad"
+            },
+            {
+              "label": "exFAT",
+              "value": 30.5,
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "title": "What happened to 1,828 reported times",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "Correct",
+              "value": 1326,
+              "tone": "good"
+            },
+            {
+              "label": "Wrong value",
+              "value": 264,
+              "tone": "bad"
+            },
+            {
+              "label": "Wrong zone",
+              "value": 146,
+              "tone": "warn"
+            },
+            {
+              "label": "Ambiguous",
+              "value": 76,
+              "tone": "warn"
+            },
+            {
+              "label": "Missing",
+              "value": 16,
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "title": "Times reported correctly, by tool",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "TSK fls",
+              "value": 69.5,
+              "tone": "warn"
+            },
+            {
+              "label": "TSK fls -z",
+              "value": 86.9,
+              "tone": "warn"
+            },
+            {
+              "label": "TSK mactime",
+              "value": 79.1,
+              "tone": "warn"
+            },
+            {
+              "label": "Plaso",
+              "value": 59.3,
+              "tone": "bad"
+            },
+            {
+              "label": "Plaso --timezone",
+              "value": 59.3,
+              "tone": "bad"
+            },
+            {
+              "label": "analyzeMFT (NTFS)",
+              "value": 100.0,
+              "tone": "good"
+            }
+          ]
+        }
       ]
     },
     {
@@ -219,6 +379,71 @@
         "1rpc ran out of free quota and relays publicnode, so most Ethereum comparisons are only two way.",
         "My first probe said publicnode serves deep receipts. It counted a null answer as success.",
         "mainnet.base.org refuses eth_getLogs, so Base has receipt proofs but no log comparison."
+      ],
+      "viz": [
+        {
+          "title": "Recent blocks always agreed; older blocks did not",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "Recent (383 ranges)",
+              "value": 0.0,
+              "tone": "good"
+            },
+            {
+              "label": "Older than about 6 days (20 ranges)",
+              "value": 10.0,
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "title": "What three providers answered to the same Ethereum questions",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "Matched",
+              "value": 1061,
+              "tone": "good"
+            },
+            {
+              "label": "Differed",
+              "value": 2,
+              "tone": "bad"
+            },
+            {
+              "label": "Refused by policy",
+              "value": 614,
+              "tone": "neutral"
+            },
+            {
+              "label": "No second answer",
+              "value": 121,
+              "tone": "neutral"
+            },
+            {
+              "label": "Failed after retries",
+              "value": 14,
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "title": "Logs silently missing where receipt proofs show they exist",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "Recent ranges",
+              "value": 0,
+              "tone": "good"
+            },
+            {
+              "label": "Older ranges",
+              "value": 286,
+              "tone": "bad"
+            }
+          ]
+        }
       ]
     }
   ],

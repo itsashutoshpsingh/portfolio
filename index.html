@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ashutosh Pal Singh | Security Analyst, Blockchain Forensics and DFIR</title>
 <meta name="description" content="Ashutosh Pal Singh, security analyst. Open research on the error rates behind blockchain investigations and forensic timelines, plus production vulnerability management on a 1,000+ device IoT estate. MSc Cyber Security Engineering, Warwick. Microsoft SC-200. UK, no sponsorship needed.">
-<meta name="theme-color" content="#000000">
+<meta name="theme-color" content="#0C1421">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://itsashutoshpsingh.github.io/portfolio/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -66,6 +66,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
+<canvas class="bg" data-bg aria-hidden="true"></canvas>
 <div class="progress" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
@@ -73,6 +74,7 @@
   <a class="brand" href="#top"><span class="brand__disc glass">AP</span><span class="brand__name title-4">Ashutosh Pal Singh</span></a>
   <nav class="pill glass" aria-label="Sections">
     <a class="title-4" href="#experience">Experience</a>
+    <a class="title-4" href="#cv">CV</a>
     <a class="title-4" href="#work">Work</a>
     <a class="title-4" href="#research">Research</a>
     <a class="title-4" href="#proof">Proof</a>
@@ -85,7 +87,7 @@
 </header>
 <div class="menu" id="menu" aria-hidden="true">
   <nav class="menu__links" aria-label="Sections">
-    <a href="#experience">Experience</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    <a href="#experience">Experience</a><a href="#cv">CV</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </nav>
   <a class="btn btn--solid" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
 </div>
@@ -93,7 +95,7 @@
 <main id="main">
   <!-- ============ HERO ============ -->
   <section class="hero" id="top" aria-labelledby="h1">
-    <canvas class="hero__graph" data-graph data-zone="right" aria-hidden="true"></canvas>
+    
     <div class="hero__scrim" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div class="hero__copy">
@@ -219,6 +221,27 @@
       </div>
     </section>
 
+    <!-- ============ CV ============ -->
+    <section class="sec surf surf--grid" id="cv" aria-labelledby="cvTitle">
+      <div class="wrap cvsec">
+        <div class="cvsec__copy">
+          <p class="eyebrow caption-3 sec__eyebrow" data-reveal>CV</p>
+          <h2 class="heading-2 sec__h" id="cvTitle" data-reveal>The one page version.</h2>
+          <p class="body-3 sec__lede" data-reveal>Roles, results, certifications and tools on a single A4 page. Read it here or take a copy.</p>
+          <p class="cvsec__actions" data-reveal>
+            <a class="btn btn--solid" href="cv/Ashutosh_Pal_Singh_CV.pdf" download>Download CV (PDF)</a>
+            <a class="textlink" href="cv/Ashutosh_Pal_Singh_CV.pdf" target="_blank" rel="noopener">Open in a new tab</a>
+          </p>
+        </div>
+        <figure class="cvsec__doc" data-reveal>
+          <object class="cvsec__pdf" data="cv/Ashutosh_Pal_Singh_CV.pdf#view=FitH&amp;toolbar=0&amp;navpanes=0" type="application/pdf" aria-label="CV of Ashutosh Pal Singh">
+            <a href="cv/Ashutosh_Pal_Singh_CV.pdf"><img class="cvsec__img" src="cv/cv-preview.webp" width="1241" height="1754" loading="lazy" alt="First page of the CV of Ashutosh Pal Singh: profile, experience, education, projects, certifications and skills"></a>
+          </object>
+          <a class="cvsec__mobile" href="cv/Ashutosh_Pal_Singh_CV.pdf"><img class="cvsec__img" src="cv/cv-preview.webp" width="1241" height="1754" loading="lazy" alt="First page of the CV of Ashutosh Pal Singh: profile, experience, education, projects, certifications and skills"></a>
+        </figure>
+      </div>
+    </section>
+
     <!-- ============ BENEFITS ============ -->
     <section class="sec surf surf--dots" id="work" aria-labelledby="getTitle">
       <div class="wrap">
@@ -269,12 +292,9 @@
       <div class="wrap">
         <p class="eyebrow caption-3 sec__eyebrow" data-reveal>Research</p>
         <h2 class="heading-2 sec__h" id="researchTitle" data-reveal>Research: measuring the silent errors.</h2>
-        <p class="body-3 sec__lede" data-reveal>Three open projects that test the tools investigators trust, with real data, published error rates and a list of what went wrong.</p>
-        <ul class="steps">
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">Blockchain analytics</p><p class="title-1">evm-cluster-check</p><p class="heading-4 mono rsch__n" data-proof="evm-cluster-check"></p><p class="body-6">How often published Ethereum clustering rules link addresses that belong to two different exchanges.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/evm-cluster-check" target="_blank" rel="noopener">Repository</a></li>
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">DFIR</p><p class="title-1">timetruth</p><p class="heading-4 mono rsch__n" data-proof="timetruth"></p><p class="body-6">Scripted file actions at known times, then a check of what Plaso and The Sleuth Kit report. Found a month offset bug in libfsfat.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/timetruth" target="_blank" rel="noopener">Repository</a></li>
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">Evidence integrity</p><p class="title-1">chain-evidence</p><p class="heading-4 mono rsch__n" data-proof="chain-evidence"></p><p class="body-6">Asks several RPC providers for the same logs and proves completeness against the block header.</p><a class="textlink caption-2" href="https://github.com/itsashutoshpsingh/chain-evidence" target="_blank" rel="noopener">Repository</a></li>
-        </ul>
+        <p class="body-3 sec__lede" data-reveal>Open benchmarks that test the tools investigators, SOC analysts and vulnerability teams rely on. Real data, published error rates, and every miss written down.</p>
+        <div class="board__stats" id="boardStats" aria-live="polite"></div>
+        <div class="board" id="board" aria-busy="true"><article class="board__card board__card--skel" aria-hidden="true"></article><article class="board__card board__card--skel" aria-hidden="true"></article><article class="board__card board__card--skel" aria-hidden="true"></article></div>
         <p class="rsch__cta" data-reveal><a class="btn btn--solid" href="research/">See the full results</a></p>
       </div>
     </section>
@@ -356,7 +376,7 @@
 
   <!-- ============ FINAL CTA ============ -->
   <section class="close" id="contact" aria-labelledby="closeTitle">
-    <canvas class="close__graph" data-graph data-zone="sides" data-density="0.7" aria-hidden="true"></canvas>
+    
     <div class="close__dim" aria-hidden="true"></div>
     <div class="wrap close__inner">
       <p class="eyebrow caption-3" data-reveal>Contact</p>

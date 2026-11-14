@@ -1,12 +1,15 @@
 /* Brand palette: the one place colours are defined. Used by the home page, /research, fx.css,
    and read by scripts/render_cards.py for the GitHub profile cards. */
 :root {
-  --c-bg: #000000;
-  --c-surface-1: #181818;
-  --c-surface-2: #1F1F1F;
-  --c-surface-3: #272727;
-  --c-line: #313131;
-  --c-ink: #FFFFFF;
+  --c-bg: #0C1421;        /* deep slate navy, not black */
+  --c-surface-1: #121C2D;
+  --c-surface-2: #172437;
+  --c-surface-3: #1F2E45;
+  --c-line: #2B3D57;
+  --c-ink: #F2F6FB;       /* primary text */
+  --c-ink-2: #C9D4E2;     /* secondary text */
+  --c-ink-3: #94A5BB;     /* captions */
+  --c-scrim: 12, 20, 33;  /* rgb of the background, for overlays */
   --c-blue: #5BA8FF;   /* signal: labels, links, owner A */
   --c-cyan: #6BE4F0;   /* motion highlight: scans, decoding glyphs, packets */
   --c-green: #4FD8A0;  /* results and owner B */

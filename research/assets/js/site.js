@@ -140,6 +140,7 @@
             <button class="caption-5" role="tab" aria-selected="${j === 0}" data-fig="${i}" data-src="${esc(c.src)}" data-alt="${esc(c.alt)}">${esc(c.label)}</button>`).join("")}</div>` : ""}
           <figcaption class="caption-5 muted">${esc(p.charts[0].alt)}</figcaption>
         </figure>
+        ${(p.viz || []).length && window.fx ? `<div class="project__viz">${p.viz.map(window.fx.chart).join("")}</div>` : ""}
       </article>`).join("");
     $("#miss-list").innerHTML = projects.map((p) => `
       <div class="miss rise"><h3 class="title-2"><i class="ph ph-warning" aria-hidden="true"></i> ${esc(p.title)}</h3>
@@ -154,6 +155,7 @@
     }));
     document.querySelectorAll("[data-value]").forEach((el) => countObs.observe(el));
     watchRise();
+    if (window.fx) window.fx.mount($("#projects"));
 
     if (data.profile) {
       if (data.profile.bio) $("#bio").textContent = data.profile.bio;
