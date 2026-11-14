@@ -6,22 +6,23 @@
 @font-face { font-family: "Gelasio"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/gelasio-bold.woff2") format("woff2"); }
 @font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
-  --c-bg: #0B141C;        /* deep slate, the shadows of the lake footage */
-  --c-bg-2: #12222E;      /* the fallback background is a gradient between the two */
-  --c-surface-1: #111C26;
-  --c-surface-2: #172633;
-  --c-surface-3: #203444;
-  --c-line: #33495C;
-  --c-ink: #FFFFFF;       /* primary text */
-  --c-ink-2: #DCE6EE;     /* secondary text */
-  --c-ink-3: #A9B9C6;     /* captions */
-  --c-scrim: 9, 16, 23;   /* rgb of the background, for overlays */
-  --c-tint: 255, 255, 255;   /* rgb of the ink, for faint lines and dots */
-  --c-blue: #3B82F6;      /* signal: labels, links, neutral bars */
-  --c-cyan: #3B82F6;      /* motion highlights use the same solid blue */
-  --c-green: #22C55E;     /* good results */
-  --c-amber: #FACC15;     /* yellow: warnings */
-  --c-red: #EF4444;       /* errors: false merges, misses, loss */
+  --c-bg: #141B2D;        /* ink navy: the base */
+  --c-bg-2: #1B2540;      /* the fallback background is a gradient between the two */
+  --c-surface-1: #1A2238;
+  --c-surface-2: #202A44;
+  --c-surface-3: #2A3654;
+  --c-line: #3A4768;
+  --c-ink: #F4F1EA;       /* pearl white: text */
+  --c-ink-2: #D6D3CC;     /* secondary text */
+  --c-ink-3: #A5A9B5;     /* captions */
+  --c-scrim: 20, 27, 45;  /* rgb of the base, for overlays */
+  --c-tint: 244, 241, 234;   /* rgb of the ink, for faint lines and dots */
+  --c-accent: #F28C28;    /* tangerine: the one accent, for actions and the current place */
+  --c-blue: #3B82F6;      /* data: neutral bars */
+  --c-cyan: #F28C28;      /* motion highlights use the accent */
+  --c-green: #22C55E;     /* data: good results */
+  --c-amber: #FACC15;     /* data: warnings */
+  --c-red: #EF4444;       /* data: false merges, misses, loss */
   --glow-blue: transparent;   /* glows are off everywhere: solid colours only */
   --glow-cyan: transparent;
   --glow-green: transparent;

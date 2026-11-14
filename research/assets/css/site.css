@@ -8,7 +8,7 @@
   --text: var(--c-ink);
   --text-muted: var(--c-ink-2);
   --text-faint: rgba(var(--c-tint), .4);
-  --signal: var(--c-green);
+  --signal: var(--c-accent);
   --blue: var(--c-blue);
   --signal-dim: var(--c-surface-3);
   --amber: var(--c-amber);
@@ -174,7 +174,7 @@ section { padding: var(--s-700) 0; position: relative; }
   padding: var(--s-400); border-radius: var(--r-2xl); background: var(--surface-1); border: 1px solid var(--line);
   transition: border-color 300ms var(--ease), transform 500ms var(--ease);
 }
-.project:hover { border-color: var(--c-blue); }
+.project:hover { border-color: var(--c-accent); }
 @media (max-width: 900px) { .project { grid-template-columns: 1fr; padding: var(--s-300); } }
 .project__info { display: grid; gap: var(--s-200); align-content: start; }
 .tags { display: flex; flex-wrap: wrap; gap: var(--s-75); }

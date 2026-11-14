@@ -152,3 +152,21 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   try { seen = sessionStorage.getItem('gate') === '1'; } catch (e) {}
   if (!seen && !location.hash) open();
 })();
+
+// Scroll story: the three steps are pinned for three screens and swap as you scroll. Three invisible
+// markers, one screen each, tell an IntersectionObserver which step is current (no scroll handler).
+// Phones, reduced motion and old browsers keep the plain three-card row.
+(function () {
+  var story = document.querySelector('[data-scrolly]');
+  if (!story || !('IntersectionObserver' in window)) return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(min-width: 900px)').matches) return;
+  var n = story.querySelectorAll('.step').length, marks = document.createElement('div');
+  marks.className = 'scrolly__marks'; marks.setAttribute('aria-hidden', 'true');
+  for (var i = 0; i < n; i++) { var m = document.createElement('i'); m.dataset.i = i; marks.appendChild(m); }
+  story.querySelectorAll('.step').forEach(function (s) { s.removeAttribute('data-reveal'); });  // the pinned stage shows and hides the steps itself
+  story.appendChild(marks); story.classList.add('is-scrolly'); story.dataset.step = '0';
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) story.dataset.step = e.target.dataset.i; });
+  }, { rootMargin: '-50% 0px -50% 0px' });
+  marks.querySelectorAll('i').forEach(function (m) { io.observe(m); });
+})();

@@ -126,7 +126,7 @@
   var tilted = [];
   function mount(root) {
     once($$('.vz', root), function (el) { el.classList.add('is-on'); if (!still) $$('.vz__v', el).forEach(count); });
-    if (!still && fine) $$('.board__card, .project', root).forEach(function (c) { if (tilted.indexOf(c) < 0) { tilted.push(c); tilt(c); } });
+    if (!still && fine) $$('.board__card, .project, .idcard', root).forEach(function (c) { if (tilted.indexOf(c) < 0) { tilted.push(c); tilt(c); } });
   }
 
   window.fx = { count: function (el) { if (!still) once([el], count); }, scramble: scramble, chart: chart, mount: mount };

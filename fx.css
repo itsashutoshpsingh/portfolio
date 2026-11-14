@@ -22,18 +22,18 @@ video.bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; ob
 /* Cards and buttons */
 .fx .fx-tilt:hover { border-color: var(--glow-blue); box-shadow: 0 0 0 1px var(--glow-blue), 0 24px 64px -24px var(--glow-blue); }
 .fx .fx-mag { transition: transform 500ms cubic-bezier(.22,1,.36,1), background-color 300ms cubic-bezier(.22,1,.36,1), box-shadow 300ms cubic-bezier(.22,1,.36,1); }
-.fx .btn:hover { box-shadow: 0 0 0 2px var(--c-blue); }
+.fx .btn:hover { box-shadow: 0 0 0 2px var(--c-ink); }
 
 /* Reading progress: a thin signal line, blue to cyan to green, driven by the scroll timeline */
 .progress { position: fixed; left: 0; top: 0; z-index: 90; width: 100%; height: 2px; pointer-events: none;
-  background: linear-gradient(90deg, var(--c-blue), var(--c-cyan), var(--c-green)); box-shadow: 0 0 12px var(--glow-cyan);
+  background: linear-gradient(90deg, var(--c-ink), var(--c-accent));
   transform-origin: left; transform: scaleX(0); }
 @supports (animation-timeline: scroll()) { .progress { animation: fx-grow linear both; animation-timeline: scroll(root); } }
 @keyframes fx-grow { to { transform: scaleX(1); } }
 @supports not (animation-timeline: scroll()) { .progress { display: none; } }
 
 /* Section eyebrow: a mono label with a signal dot that pings */
-.eyebrow { position: relative; display: inline-flex; align-items: center; gap: 8px; color: var(--c-blue); font-family: var(--font-ui); }
+.eyebrow { position: relative; display: inline-flex; align-items: center; gap: 8px; color: var(--c-accent); font-family: var(--font-ui); }
 .eyebrow::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 9999px; background: currentColor; box-shadow: 0 0 12px currentColor; }
 .fx .eyebrow:not([data-caret])::after { content: ""; position: absolute; left: 0; top: 50%; width: 8px; height: 8px; margin-top: -4px; border-radius: 9999px;
   border: 1px solid currentColor; animation: fx-ping 2.6s cubic-bezier(.22,1,.36,1) infinite; }
@@ -48,7 +48,7 @@ video.bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; ob
 .social a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 14px 8px 10px; border-radius: 9999px;
   border: 1px solid var(--c-line); background: var(--c-surface-1); color: var(--c-ink); font: 500 14px/20px var(--font-ui); text-decoration: none;
   transition: border-color 300ms cubic-bezier(.22,1,.36,1), box-shadow 300ms cubic-bezier(.22,1,.36,1), transform 300ms cubic-bezier(.22,1,.36,1); }
-.social svg { width: 18px; height: 18px; fill: var(--c-blue); flex: none; transition: fill 300ms cubic-bezier(.22,1,.36,1); }
+.social svg { width: 18px; height: 18px; fill: var(--c-accent); flex: none; transition: fill 300ms cubic-bezier(.22,1,.36,1); }
 .social a:hover { border-color: var(--glow-cyan); box-shadow: none; transform: translateY(-2px); }
 .social a:hover svg { fill: var(--c-cyan); }
 .social a:active { transform: translateY(1px) scale(.98); }
