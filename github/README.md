@@ -7,6 +7,8 @@
 <a href="https://github.com/itsashutoshpsingh/evm-cluster-check"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-1.svg" width="32.5%" alt="evm-cluster-check: 198 cross-exchange false merges by deposit-address reuse"></a>
 <a href="https://github.com/itsashutoshpsingh/timetruth"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-2.svg" width="32.5%" alt="timetruth: 27% of forensic tool times were not the true instant"></a>
 <a href="https://github.com/itsashutoshpsingh/chain-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-3.svg" width="32.5%" alt="chain-evidence: 2 silent empty answers where receipt proofs show logs"></a>
+<a href="https://github.com/itsashutoshpsingh/rulefire"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-4.svg" width="32.5%" alt="rulefire: 15.9% of SigmaHQ rules fired on recordings of their own technique"></a>
+<a href="https://github.com/itsashutoshpsingh/nhi-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-5.svg" width="32.5%" alt="nhi-evidence: 15 of 15 seeded misconfigurations found, with 0 false findings"></a>
 
 ### What I work on
 

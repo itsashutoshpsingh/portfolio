@@ -97,6 +97,50 @@
       ],
       "proof_metric": 2,
       "proof_label": "silent empty answers where receipt proofs show logs"
+    },
+    {
+      "slug": "rulefire",
+      "tags": [
+        "Detection engineering",
+        "SOC"
+      ],
+      "oneLine": "Do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.",
+      "cmd": "make reproduce   # rulefire",
+      "metric_labels": [
+        "sigmahq rules fire on their technique",
+        "top silent error: never fires",
+        "techniques with a usable rule",
+        "executor regression tests passed"
+      ],
+      "proof_label": "of SigmaHQ rules fired on recordings of their own technique",
+      "misses": [
+        "No language model has written a rule yet: there is no API key here and model downloads are blocked, so the model rows are empty.",
+        "The benign logs are the set SigmaHQ already tests against, so its near zero false alarm rate is not a fair comparison for untuned rules.",
+        "196 technique and capture pairs from EVTX-ATTACK-SAMPLES are my own mapping, because that collection has no technique IDs.",
+        "My first Security 4688 pipeline never matched anything. It was fixed before the published run, with six other harness bugs listed."
+      ]
+    },
+    {
+      "slug": "nhi-evidence",
+      "tags": [
+        "Cloud identity",
+        "IAM"
+      ],
+      "oneLine": "Read only evidence of risky apps, service principals and agents in Microsoft Entra ID, mapped to the OWASP Non-Human Identities Top 10.",
+      "cmd": "make reproduce   # nhi-evidence",
+      "metric_labels": [
+        "seeded findings found",
+        "false findings on the seeded tenant",
+        "code mutants caught by the tests",
+        "run time at 100,000 identities"
+      ],
+      "proof_label": "seeded misconfigurations found, with 0 false findings",
+      "misses": [
+        "Every result comes from fixtures shaped like Microsoft Graph data, not a live tenant.",
+        "The same author wrote the synthetic tenants and the checks, so the scale runs show consistency, not real world accuracy.",
+        "Microsoft documents only a write permission for reading agent sponsors, so the read only collector skips them.",
+        "4 of my first 42 mutation expectations were wrong, and the tool was right in all 4."
+      ]
     }
   ]
 }

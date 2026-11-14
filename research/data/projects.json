@@ -445,6 +445,335 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "rulefire",
+      "title": "rulefire",
+      "tags": [
+        "Detection engineering",
+        "SOC"
+      ],
+      "oneLine": "Do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.",
+      "headline": "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access.",
+      "metrics": [
+        {
+          "label": "sigmahq rules fire on their technique",
+          "value": "15.9%"
+        },
+        {
+          "label": "top silent error: never fires",
+          "value": "71.8%"
+        },
+        {
+          "label": "techniques with a usable rule",
+          "value": "50 of 63"
+        },
+        {
+          "label": "executor regression tests passed",
+          "value": "474 of 474"
+        }
+      ],
+      "proof": {
+        "value": "15.9%",
+        "label": "of SigmaHQ rules fired on recordings of their own technique"
+      },
+      "charts": [
+        {
+          "src": "assets/img/rulefire/hero_outcomes.png",
+          "label": "Outcome by tactic",
+          "alt": "Stacked bars of outcome classes for SigmaHQ rules, overall and per ATT&CK tactic"
+        },
+        {
+          "src": "assets/img/rulefire/per_technique_fire.png",
+          "label": "Fire rate per technique",
+          "alt": "Share of SigmaHQ rules tagged with each of 63 techniques that fire on its captures"
+        },
+        {
+          "src": "assets/img/rulefire/pass_at_k.png",
+          "label": "Rules drawn at random",
+          "alt": "Technique-weighted chance that at least one of k random SigmaHQ rules fires, k from 1 to 10"
+        },
+        {
+          "src": "assets/img/rulefire/benign_hits.png",
+          "label": "Benign noise",
+          "alt": "Firing SigmaHQ rules bucketed by benign hits per 24 hours of baseline activity"
+        },
+        {
+          "src": "assets/img/rulefire/e4_logsources.png",
+          "label": "Missing log sources",
+          "alt": "Log sources of SigmaHQ rules whose logs the captures never recorded"
+        },
+        {
+          "src": "assets/img/rulefire/status_level.png",
+          "label": "Status and level",
+          "alt": "Fire rate of SigmaHQ rules by rule status and by rule level"
+        },
+        {
+          "src": "assets/img/rulefire/captures_coverage.png",
+          "label": "Capture coverage",
+          "alt": "Attack captures by whether a rule for their technique, another rule, or no rule fires"
+        },
+        {
+          "src": "assets/img/rulefire/regression_check.png",
+          "label": "Executor check",
+          "alt": "SigmaHQ regression tests passed by the rulefire executor"
+        },
+        {
+          "src": "assets/img/rulefire/pipeline.png",
+          "label": "Pipeline",
+          "alt": "Diagram of the rulefire pipeline from task list and rules to execution and scoring"
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/rulefire",
+      "report": "https://github.com/itsashutoshpsingh/rulefire#readme",
+      "misses": [
+        "No language model has written a rule yet: there is no API key here and model downloads are blocked, so the model rows are empty.",
+        "The benign logs are the set SigmaHQ already tests against, so its near zero false alarm rate is not a fair comparison for untuned rules.",
+        "196 technique and capture pairs from EVTX-ATTACK-SAMPLES are my own mapping, because that collection has no technique IDs.",
+        "My first Security 4688 pipeline never matched anything. It was fixed before the published run, with six other harness bugs listed."
+      ],
+      "viz": [
+        {
+          "title": "Most SigmaHQ rules never fire on their technique's captures (71.8%)",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "usable",
+              "value": 15.6,
+              "tone": "good"
+            },
+            {
+              "label": "over-broad on benign",
+              "value": 0.3,
+              "tone": "warn"
+            },
+            {
+              "label": "log not in capture",
+              "value": 12.3,
+              "tone": "warn"
+            },
+            {
+              "label": "never fires",
+              "value": 71.8,
+              "tone": "bad"
+            }
+          ]
+        },
+        {
+          "title": "More rules per technique catch more techniques",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "1 rule",
+              "value": 23.1,
+              "tone": "neutral"
+            },
+            {
+              "label": "3 rules",
+              "value": 46.8,
+              "tone": "neutral"
+            },
+            {
+              "label": "5 rules",
+              "value": 58.5,
+              "tone": "good"
+            },
+            {
+              "label": "10 rules",
+              "value": 71.5,
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "title": "Benign hits per day of the SigmaHQ rules that fire",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "0",
+              "value": 189,
+              "tone": "good"
+            },
+            {
+              "label": "up to 5",
+              "value": 11,
+              "tone": "good"
+            },
+            {
+              "label": "5 to 50",
+              "value": 2,
+              "tone": "bad"
+            },
+            {
+              "label": "50 to 500",
+              "value": 0,
+              "tone": "bad"
+            },
+            {
+              "label": "over 500",
+              "value": 2,
+              "tone": "bad"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "nhi-evidence",
+      "title": "nhi-evidence",
+      "tags": [
+        "Cloud identity",
+        "IAM"
+      ],
+      "oneLine": "Read only evidence of risky apps, service principals and agents in Microsoft Entra ID, mapped to the OWASP Non-Human Identities Top 10.",
+      "headline": "On a seeded test tenant built from fixtures shaped like Microsoft Graph data (not a live tenant), 14 read only checks found all 15 planted findings from 14 misconfigurations with 0 false findings, each mapped to the OWASP NHI Top 10.",
+      "metrics": [
+        {
+          "label": "seeded findings found",
+          "value": "15 of 15"
+        },
+        {
+          "label": "false findings on the seeded tenant",
+          "value": "0"
+        },
+        {
+          "label": "code mutants caught by the tests",
+          "value": "99.0%"
+        },
+        {
+          "label": "run time at 100,000 identities",
+          "value": "6.3 s"
+        }
+      ],
+      "proof": {
+        "value": "15 of 15",
+        "label": "seeded misconfigurations found, with 0 false findings"
+      },
+      "charts": [
+        {
+          "src": "assets/img/nhi-evidence/hero_seeded.png",
+          "label": "Seeded tenant",
+          "alt": "Planted and found findings per check on the seeded fixture tenant, all equal, no false findings"
+        },
+        {
+          "src": "assets/img/nhi-evidence/mutation_matrix.png",
+          "label": "Mutation matrix",
+          "alt": "Heat map of 51 single-change mutations against the 14 checks; each fires its own check"
+        },
+        {
+          "src": "assets/img/nhi-evidence/code_mutants.png",
+          "label": "Code mutants",
+          "alt": "Code mutants caught and not caught by the test suite, per check module"
+        },
+        {
+          "src": "assets/img/nhi-evidence/scale_runtime.png",
+          "label": "Run time",
+          "alt": "Run time of all checks against tenant size from 100 to 100,000, and per check at 100,000"
+        },
+        {
+          "src": "assets/img/nhi-evidence/scale_recall.png",
+          "label": "Recall at scale",
+          "alt": "Planted findings per check over 18 synthetic tenants with the Wilson lower bound of recall"
+        },
+        {
+          "src": "assets/img/nhi-evidence/ablation.png",
+          "label": "One-line rules",
+          "alt": "False and missed findings of one-line versions of each check compared with the refined checks"
+        },
+        {
+          "src": "assets/img/nhi-evidence/collect_cost.png",
+          "label": "Collection cost",
+          "alt": "Graph GET requests the collector sends for 100, 1,000 and 10,000 service principals"
+        },
+        {
+          "src": "assets/img/nhi-evidence/credential_paths.png",
+          "label": "Credential paths",
+          "alt": "Diagram of who can add a credential to privileged service principals in the seeded tenant"
+        },
+        {
+          "src": "assets/img/nhi-evidence/owasp_coverage.png",
+          "label": "OWASP coverage",
+          "alt": "Number of checks mapped to each OWASP NHI Top 10 risk"
+        },
+        {
+          "src": "assets/img/nhi-evidence/pipeline.png",
+          "label": "Pipeline",
+          "alt": "Pipeline from read-only Graph collection to snapshot, checks, allowlist and report"
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/nhi-evidence",
+      "report": "https://github.com/itsashutoshpsingh/nhi-evidence#readme",
+      "misses": [
+        "Every result comes from fixtures shaped like Microsoft Graph data, not a live tenant.",
+        "The same author wrote the synthetic tenants and the checks, so the scale runs show consistency, not real world accuracy.",
+        "Microsoft documents only a write permission for reading agent sponsors, so the read only collector skips them.",
+        "4 of my first 42 mutation expectations were wrong, and the tool was right in all 4."
+      ],
+      "viz": [
+        {
+          "title": "All 15 seeded findings found, none false, on the fixture tenant",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "found",
+              "value": 15,
+              "tone": "good"
+            },
+            {
+              "label": "missed",
+              "value": 0,
+              "tone": "bad"
+            },
+            {
+              "label": "false",
+              "value": 0,
+              "tone": "bad"
+            },
+            {
+              "label": "suppressed by allowlist",
+              "value": 5,
+              "tone": "neutral"
+            }
+          ]
+        },
+        {
+          "title": "The tests catch 99.0% of deliberately broken check code",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "first run",
+              "value": 80.2,
+              "tone": "warn"
+            },
+            {
+              "label": "final run",
+              "value": 99.0,
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "title": "One-line rules trip on look-alike controls; the refined checks do not",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "one-line false",
+              "value": 4440,
+              "tone": "bad"
+            },
+            {
+              "label": "one-line missed",
+              "value": 218,
+              "tone": "warn"
+            },
+            {
+              "label": "refined errors",
+              "value": 0,
+              "tone": "good"
+            }
+          ]
+        }
+      ]
     }
   ],
   "terminal": [
@@ -464,6 +793,18 @@
       "cmd": "chain-evidence survey",
       "out": [
         "Across 524 finalised Ethereum block ranges asked of three free RPC providers, every recent range agreed (383/383), but on older blocks a provider silently returned nothing where receipt proofs show 286 logs (2/20 comparable ranges), and publicnode returned `null` receipts for 7/7 sampled transactions older than ~6 days."
+      ]
+    },
+    {
+      "cmd": "make reproduce   # rulefire",
+      "out": [
+        "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access."
+      ]
+    },
+    {
+      "cmd": "make reproduce   # nhi-evidence",
+      "out": [
+        "On a seeded test tenant built from fixtures shaped like Microsoft Graph data (not a live tenant), 14 read only checks found all 15 planted findings from 14 misconfigurations with 0 false findings, each mapped to the OWASP NHI Top 10."
       ]
     }
   ]

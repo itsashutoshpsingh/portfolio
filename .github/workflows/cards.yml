@@ -24,6 +24,10 @@ jobs:
         with: { repository: itsashutoshpsingh/timetruth, path: projects/timetruth }
       - uses: actions/checkout@v4
         with: { repository: itsashutoshpsingh/chain-evidence, path: projects/chain-evidence }
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/rulefire, path: projects/rulefire }
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/nhi-evidence, path: projects/nhi-evidence }
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
