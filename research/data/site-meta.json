@@ -50,7 +50,7 @@
         "cross-exchange false merges, same sender in one tx",
         "of those caused by poisoning"
       ],
-      "proof_label": "cross-exchange false merges by deposit-address reuse"
+      "proof_label": "Cross-exchange false merges by deposit-address reuse"
     },
     {
       "slug": "timetruth",
@@ -73,7 +73,7 @@
         "correct on ntfs"
       ],
       "proof_metric": 1,
-      "proof_label": "of forensic tool times were not the true instant"
+      "proof_label": "Forensic tool times that were not the true instant"
     },
     {
       "slug": "chain-evidence",
@@ -96,7 +96,7 @@
         "ethereum/drpc: blocks whose receipts reproduce receiptsRoot"
       ],
       "proof_metric": 2,
-      "proof_label": "silent empty answers where receipt proofs show logs"
+      "proof_label": "Silent empty answers where receipt proofs show logs"
     },
     {
       "slug": "rulefire",
@@ -112,7 +112,7 @@
         "techniques with a usable rule",
         "executor regression tests passed"
       ],
-      "proof_label": "of SigmaHQ rules fired on recordings of their own technique",
+      "proof_label": "SigmaHQ rules that fired on recordings of their own technique",
       "misses": [
         "No language model has written a rule yet: there is no API key here and model downloads are blocked, so the model rows are empty.",
         "The benign logs are the set SigmaHQ already tests against, so its near zero false alarm rate is not a fair comparison for untuned rules.",
@@ -134,7 +134,7 @@
         "code mutants caught by the tests",
         "run time at 100,000 identities"
       ],
-      "proof_label": "seeded misconfigurations found, with 0 false findings",
+      "proof_label": "Seeded misconfigurations found, with 0 false findings",
       "misses": [
         "Every result comes from fixtures shaped like Microsoft Graph data, not a live tenant.",
         "The same author wrote the synthetic tenants and the checks, so the scale runs show consistency, not real world accuracy.",

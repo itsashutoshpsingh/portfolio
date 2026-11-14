@@ -27,9 +27,9 @@ def font(name):
 
 FONTS = (
     "@font-face{font-family:'G';font-weight:400;src:url(data:font/woff2;base64,%s) format('woff2')}"
-    "@font-face{font-family:'G';font-weight:600;src:url(data:font/woff2;base64,%s) format('woff2')}"
+    "@font-face{font-family:'G';font-weight:700;src:url(data:font/woff2;base64,%s) format('woff2')}"
     "@font-face{font-family:'GM';font-weight:500;src:url(data:font/woff2;base64,%s) format('woff2')}"
-) % (font("geist-400.sub.woff2"), font("geist-600.sub.woff2"), font("geistmono-500.sub.woff2"))
+) % (font("carlito-400.sub.woff2"), font("carlito-700.sub.woff2"), font("geistmono-500.sub.woff2"))
 
 # Brand: the site's tokens on GitHub's dark and light surfaces, so the cards sit flush on the profile.
 BASE = """
@@ -62,8 +62,8 @@ ANIM = """
 @keyframes blink{50%{opacity:0}}
 .type{transform-box:fill-box;transform-origin:100% 0;animation:type var(--t) steps(var(--n)) both}
 @keyframes type{from{transform:scaleX(1)}to{transform:scaleX(0)}}
-.cell{opacity:.18;animation:cell 3.2s var(--e) infinite}
-@keyframes cell{0%,100%{opacity:.18}12%{opacity:1}40%{opacity:.18}}
+.cell{transform-box:fill-box;transform-origin:50% 100%;animation:cell 3.2s var(--e) infinite}
+@keyframes cell{0%,100%{transform:scaleY(.35)}12%{transform:scaleY(1)}40%{transform:scaleY(.35)}}
 .shine{animation:shine 4.5s var(--e) infinite 1.5s}
 @keyframes shine{0%{transform:translateX(-120px);opacity:0}15%{opacity:1}60%,100%{transform:translateX(var(--dx));opacity:0}}
 .glowpulse{animation:glowpulse 3s var(--e) infinite}
@@ -72,7 +72,7 @@ ANIM = """
 @keyframes nudge{0%,100%{transform:none}50%{transform:translate(3px,-3px)}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;opacity:1!important;transform:none!important;stroke-dashoffset:0!important}.type,.scan,.ping,.shine,.packet{display:none}}
 """
-STATIC_CSS = ".type,.scan,.ping,.shine,.packet{display:none}.cell{opacity:.6}"
+STATIC_CSS = ".type,.scan,.ping,.shine,.packet{display:none}"
 
 
 def svg(w, h, title, body, defs=""):
@@ -82,14 +82,11 @@ def svg(w, h, title, body, defs=""):
             f'<pattern id="dots" width="16" height="16" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="var(--dot)"/></pattern>{COMMON}{defs}</defs>{body}</svg>')
 
 
-# Shared defs: a soft glow, and the brand accent ramp (blue, cyan, green) for bars and scan lines
-COMMON = ('<filter id="soft" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="7"/></filter>'
-          '<filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.4" result="b"/>'
-          '<feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>'
+# Shared defs: a pass-through filter (colours stay solid) and the brand accent ramp, blue to green
+COMMON = ('<filter id="glow"><feMerge><feMergeNode in="SourceGraphic"/></feMerge></filter>'  # solid colours only: no blur
           '<linearGradient id="accent" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--sig)"/>'
           '<stop offset=".5" stop-color="var(--cyan)"/><stop offset="1" stop-color="var(--ok)"/></linearGradient>'
-          '<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--cyan)" stop-opacity="0"/>'
-          '<stop offset=".5" stop-color="var(--cyan)" stop-opacity=".9"/><stop offset="1" stop-color="var(--cyan)" stop-opacity="0"/></linearGradient>')
+          '<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF"/></linearGradient>')
 
 
 def frame(w, h, r=20, texture=True):
@@ -152,13 +149,13 @@ def hero():
                         f'<animateMotion path="M{x1},{y1} L{x2},{y2}" dur="2.4s" begin="{2 + k * .4:.1f}s" repeatCount="indefinite"/></circle>')
     graph = (f'{edges}{nodes}'
              f'<line class="flow" x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="var(--red)" stroke-width="2" filter="url(#glow)"/>{pings}{packets}'
-             f'<text class="m red rise" x="772" y="128" font-size="11"{d(0, 0, 2.0)}>false merge</text>'
+             f'<text class="m red rise" x="772" y="128" font-size="11"{d(0, 0, 2.0)}>False merge</text>'
              '<g clip-path="url(#gclip)"><rect class="scan" style="--dx:270px" x="600" y="40" width="2" height="220" fill="var(--cyan)" filter="url(#glow)"/></g>')
     text = (
         f'<text class="m sig rise"{d(0)} x="40" y="56" font-size="13">&gt; whoami<tspan class="blink">_</tspan></text>'
-        f'<text class="rise"{d(1)} x="40" y="114" font-size="46" font-weight="600" letter-spacing="-1.6">Ashutosh <tspan fill="url(#sheen)">Pal Singh</tspan></text>'
-        f'<text class="rise"{d(2)} x="40" y="152" font-size="18" font-weight="600">Security analyst who measures the silent errors</text>'
-        f'<text class="rise"{d(2)} x="40" y="176" font-size="18" font-weight="600">in crypto investigations and forensic evidence.</text>'
+        f'<text class="rise"{d(1)} x="40" y="114" font-size="46" font-weight="700" letter-spacing="-1.6">Ashutosh <tspan fill="url(#sheen)">Pal Singh</tspan></text>'
+        f'<text class="rise"{d(2)} x="40" y="152" font-size="18" font-weight="700">Security analyst who measures the silent errors</text>'
+        f'<text class="rise"{d(2)} x="40" y="176" font-size="18" font-weight="700">in crypto investigations and forensic evidence.</text>'
         f'<text class="mute rise"{d(3)} x="40" y="210" font-size="14">MSc Cyber Security Engineering, Warwick (NCSC certified). Microsoft SC-200.</text>'
         f'<g class="rise"{d(4)}><circle class="ok" cx="47" cy="252" r="4"/>'
         '<circle class="ping" cx="47" cy="252" r="4" fill="none" stroke="var(--ok)" stroke-width="1.5"/>'
@@ -212,9 +209,8 @@ def research_card(p, i):
             + f'<rect x="20" y="0" width="{w - 40}" height="3" rx="1.5" fill="url(#accent)"/>'
             f'<g clip-path="url(#bar{i})"><rect class="shine" style="--dx:{w + 120}px" x="0" y="0" width="120" height="3" fill="url(#beam)"/></g>'
             + f'<text class="m" x="24" y="40" font-size="11" style="fill:var(--{colour})">{html.escape(" / ".join(p["tags"]).upper())}</text>'
-            f'<text x="24" y="70" font-size="18" font-weight="600">{html.escape(p["title"])}</text>'
-            f'<text class="glowpulse" x="24" y="126" font-size="44" font-weight="600" letter-spacing="-1.5" style="fill:var(--{colour})" filter="url(#soft)">{html.escape(p["proof"]["value"])}</text>'
-            f'<text x="24" y="126" font-size="44" font-weight="600" letter-spacing="-1.5" style="fill:var(--{colour})">{html.escape(p["proof"]["value"])}</text>'
+            f'<text x="24" y="70" font-size="18" font-weight="700">{html.escape(p["title"])}</text>'
+            f'<text x="24" y="126" font-size="44" font-weight="700" letter-spacing="-1.5" style="fill:var(--{colour})">{html.escape(p["proof"]["value"])}</text>'
             + "".join(f'<text class="mute" x="24" y="{154 + k * 19}" font-size="13">{html.escape(t)}</text>' for k, t in enumerate(label))
             + cells
             + f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 44} {h - 28}h16m-6-6l6 6-6 6" fill="none" stroke="var(--fg)" '
@@ -236,7 +232,7 @@ def toolkit():
     body = frame(w, h) + '<text class="m sig rise" x="32" y="40" font-size="12">&gt; ls toolkit/</text>'
     for r, (name, chips) in enumerate(TOOLKIT):
         y = 62 + r * 44
-        body += f'<g class="rise"{d(r, .12, .25)}><text x="32" y="{y + 19}" font-size="14" font-weight="600">{html.escape(name)}</text></g>'
+        body += f'<g class="rise"{d(r, .12, .25)}><text x="32" y="{y + 19}" font-size="14" font-weight="700">{html.escape(name)}</text></g>'
         x = 200
         for j, c in enumerate(chips):
             cw = len(c) * 7.3 + 22
@@ -262,7 +258,7 @@ def published():
     for i, (head, colour, lines) in enumerate(PUBLISHED):
         x = 32 + i * col
         body += (f'<g class="rise"{d(i, .15, .3)}><circle cx="{x + 4:.0f}" cy="72" r="4" style="fill:var(--{colour})" filter="url(#glow)"/>'
-                 f'<text x="{x + 16:.0f}" y="77" font-size="15" font-weight="600">{html.escape(head)}</text>'
+                 f'<text x="{x + 16:.0f}" y="77" font-size="15" font-weight="700">{html.escape(head)}</text>'
                  + "".join(f'<text class="mute" x="{x:.0f}" y="{106 + k * 21}" font-size="13">{html.escape(t)}</text>' for k, t in enumerate(lines))
                  + "</g>")
         assert max(len(t) for t in lines) <= 36, f"{head}: line too long for its column"
@@ -284,7 +280,7 @@ def social(label, ic, colour, i):
     body = (f'<g class="rise"{d(i, .1, .2)}>' + frame(w, h, 28, texture=False)
             + f'<circle cx="28" cy="28" r="16" style="fill:var(--card2)" stroke="var(--line)"/>'
             f'<g transform="translate(18 18) scale(.078)" style="fill:var(--{colour})" filter="url(#glow)"><path d="{icon(ic)}"/></g>'
-            f'<text x="56" y="34" font-size="16" font-weight="600">{html.escape(label)}</text>'
+            f'<text x="56" y="34" font-size="16" font-weight="700">{html.escape(label)}</text>'
             f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 34} 28h12m-5-5l5 5-5 5" fill="none" stroke="var(--mute)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')
     return svg(w, h, label, body)
 
@@ -294,7 +290,7 @@ def tile(label, big, sub, colour, i):
     body = (f'<g class="tile"{d(i, 0.14, 0.2)}>' + frame(w, h, 18)
             + f'<rect x="20" y="0" width="{w - 40}" height="3" rx="1.5" fill="url(#accent)"/>'
             f'<text class="m mute" x="24" y="46" font-size="12">{html.escape(label)}</text>'
-            f'<text x="24" y="104" font-size="40" font-weight="600" letter-spacing="-1.4" style="fill:var(--{colour})">{html.escape(big)}</text>'
+            f'<text x="24" y="104" font-size="40" font-weight="700" letter-spacing="-1.4" style="fill:var(--{colour})">{html.escape(big)}</text>'
             + "".join(f'<text class="mute" x="24" y="{134 + k * 20}" font-size="13">{html.escape(line)}</text>' for k, line in enumerate(sub))
             + f'<g class="nudge" style="transform-box:fill-box"><path d="M{w - 46} {h - 34}h18m-7-7l7 7-7 7" fill="none" stroke="var(--fg)" '
             'stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></g></g>')

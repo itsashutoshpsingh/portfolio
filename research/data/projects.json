@@ -41,25 +41,25 @@
       "headline": "On 3 days of Ethereum (5.44M transactions), naive deposit-address reuse merged 198 pairs of addresses from two different exchanges, none caused by poisoning, sweepers or fee services; the same-sender rule merged 359, and 60% of those came only through poisoning transfers.",
       "metrics": [
         {
-          "label": "cross-exchange false merges, deposit-address reuse",
+          "label": "Cross-exchange false merges, deposit-address reuse",
           "value": "198"
         },
         {
-          "label": "of those caused by infrastructure",
+          "label": "Of those caused by infrastructure",
           "value": "0%"
         },
         {
-          "label": "cross-exchange false merges, same sender in one tx",
+          "label": "Cross-exchange false merges, same sender in one tx",
           "value": "359"
         },
         {
-          "label": "of those caused by poisoning",
+          "label": "Of those caused by poisoning",
           "value": "60%"
         }
       ],
       "proof": {
         "value": "198",
-        "label": "cross-exchange false merges by deposit-address reuse"
+        "label": "Cross-exchange false merges by deposit-address reuse"
       },
       "charts": [
         {
@@ -168,25 +168,25 @@
       "headline": "1828 tool-reported times checked (16 runs: 4 file systems x 4 time-zone scenarios x 30 actions, 6 tool configurations). 502 (27%) were not the true instant: 264 wrong value, 146 right clock reading in the wrong zone, 76 ambiguous, 16 missing.",
       "metrics": [
         {
-          "label": "tool-reported times checked",
+          "label": "Tool-reported times checked",
           "value": "1828"
         },
         {
-          "label": "not the true instant",
+          "label": "Not the true instant",
           "value": "27%"
         },
         {
-          "label": "correct on fat32",
+          "label": "Correct on fat32",
           "value": "35.0%"
         },
         {
-          "label": "correct on ntfs",
+          "label": "Correct on ntfs",
           "value": "95.8%"
         }
       ],
       "proof": {
         "value": "27%",
-        "label": "of forensic tool times were not the true instant"
+        "label": "Forensic tool times that were not the true instant"
       },
       "charts": [
         {
@@ -306,7 +306,7 @@
               "tone": "bad"
             },
             {
-              "label": "analyzeMFT (NTFS)",
+              "label": "AnalyzeMFT (NTFS)",
               "value": 100.0,
               "tone": "good"
             }
@@ -325,25 +325,25 @@
       "headline": "Across 524 finalised Ethereum block ranges asked of three free RPC providers, every recent range agreed (383/383), but on older blocks a provider silently returned nothing where receipt proofs show 286 logs (2/20 comparable ranges), and publicnode returned `null` receipts for 7/7 sampled transactions older than ~6 days.",
       "metrics": [
         {
-          "label": "ethereum: finalised ranges compared",
+          "label": "Ethereum: finalised ranges compared",
           "value": "403"
         },
         {
-          "label": "ethereum: disagreement rate",
+          "label": "Ethereum: disagreement rate",
           "value": "0.5% (95% CI 0.1–1.8%)"
         },
         {
-          "label": "ethereum: empty successes (0 logs where logs exist)",
+          "label": "Ethereum: empty successes (0 logs where logs exist)",
           "value": "2"
         },
         {
-          "label": "ethereum/drpc: blocks whose receipts reproduce receiptsRoot",
+          "label": "Ethereum/drpc: blocks whose receipts reproduce receiptsRoot",
           "value": "28/28"
         }
       ],
       "proof": {
         "value": "2",
-        "label": "silent empty answers where receipt proofs show logs"
+        "label": "Silent empty answers where receipt proofs show logs"
       },
       "charts": [
         {
@@ -457,25 +457,25 @@
       "headline": "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access.",
       "metrics": [
         {
-          "label": "sigmahq rules fire on their technique",
+          "label": "SigmaHQ rules fire on their technique",
           "value": "15.9%"
         },
         {
-          "label": "top silent error: never fires",
+          "label": "Top silent error: never fires",
           "value": "71.8%"
         },
         {
-          "label": "techniques with a usable rule",
+          "label": "Techniques with a usable rule",
           "value": "50 of 63"
         },
         {
-          "label": "executor regression tests passed",
+          "label": "Executor regression tests passed",
           "value": "474 of 474"
         }
       ],
       "proof": {
         "value": "15.9%",
-        "label": "of SigmaHQ rules fired on recordings of their own technique"
+        "label": "SigmaHQ rules that fired on recordings of their own technique"
       },
       "charts": [
         {
@@ -538,22 +538,22 @@
           "unit": "%",
           "bars": [
             {
-              "label": "usable",
+              "label": "Usable",
               "value": 15.6,
               "tone": "good"
             },
             {
-              "label": "over-broad on benign",
+              "label": "Over-broad on benign",
               "value": 0.3,
               "tone": "warn"
             },
             {
-              "label": "log not in capture",
+              "label": "Log not in capture",
               "value": 12.3,
               "tone": "warn"
             },
             {
-              "label": "never fires",
+              "label": "Never fires",
               "value": 71.8,
               "tone": "bad"
             }
@@ -595,7 +595,7 @@
               "tone": "good"
             },
             {
-              "label": "up to 5",
+              "label": "Up to 5",
               "value": 11,
               "tone": "good"
             },
@@ -610,7 +610,7 @@
               "tone": "bad"
             },
             {
-              "label": "over 500",
+              "label": "Over 500",
               "value": 2,
               "tone": "bad"
             }
@@ -629,25 +629,25 @@
       "headline": "On a seeded test tenant built from fixtures shaped like Microsoft Graph data (not a live tenant), 14 read only checks found all 15 planted findings from 14 misconfigurations with 0 false findings, each mapped to the OWASP NHI Top 10.",
       "metrics": [
         {
-          "label": "seeded findings found",
+          "label": "Seeded findings found",
           "value": "15 of 15"
         },
         {
-          "label": "false findings on the seeded tenant",
+          "label": "False findings on the seeded tenant",
           "value": "0"
         },
         {
-          "label": "code mutants caught by the tests",
+          "label": "Code mutants caught by the tests",
           "value": "99.0%"
         },
         {
-          "label": "run time at 100,000 identities",
+          "label": "Run time at 100,000 identities",
           "value": "6.3 s"
         }
       ],
       "proof": {
         "value": "15 of 15",
-        "label": "seeded misconfigurations found, with 0 false findings"
+        "label": "Seeded misconfigurations found, with 0 false findings"
       },
       "charts": [
         {
@@ -715,22 +715,22 @@
           "unit": "count",
           "bars": [
             {
-              "label": "found",
+              "label": "Found",
               "value": 15,
               "tone": "good"
             },
             {
-              "label": "missed",
+              "label": "Missed",
               "value": 0,
               "tone": "bad"
             },
             {
-              "label": "false",
+              "label": "False",
               "value": 0,
               "tone": "bad"
             },
             {
-              "label": "suppressed by allowlist",
+              "label": "Suppressed by allowlist",
               "value": 5,
               "tone": "neutral"
             }
@@ -741,12 +741,12 @@
           "unit": "%",
           "bars": [
             {
-              "label": "first run",
+              "label": "First run",
               "value": 80.2,
               "tone": "warn"
             },
             {
-              "label": "final run",
+              "label": "Final run",
               "value": 99.0,
               "tone": "good"
             }
@@ -757,17 +757,17 @@
           "unit": "count",
           "bars": [
             {
-              "label": "one-line false",
+              "label": "One-line false",
               "value": 4440,
               "tone": "bad"
             },
             {
-              "label": "one-line missed",
+              "label": "One-line missed",
               "value": 218,
               "tone": "warn"
             },
             {
-              "label": "refined errors",
+              "label": "Refined errors",
               "value": 0,
               "tone": "good"
             }

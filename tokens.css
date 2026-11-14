@@ -1,22 +1,30 @@
-/* Brand palette: the one place colours are defined. Used by the home page, /research, fx.css,
-   and read by scripts/render_cards.py for the GitHub profile cards. */
+/* Brand palette and type: the one place colours and fonts are defined. Used by the home page,
+   /research, fx.css, and read by scripts/render_cards.py for the GitHub profile cards.
+   Solid colours only: no translucent tints, no glows. Gradients only where deliberate. */
+@font-face { font-family: "Carlito"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/carlito-regular.woff2") format("woff2"); }
+@font-face { font-family: "Gelasio"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/gelasio-regular.woff2") format("woff2"); }  /* Georgia metrics, for devices without Georgia */
+@font-face { font-family: "Gelasio"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/gelasio-bold.woff2") format("woff2"); }
+@font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
   --c-bg: #0C1421;        /* deep slate navy, not black */
   --c-surface-1: #121C2D;
   --c-surface-2: #172437;
   --c-surface-3: #1F2E45;
   --c-line: #2B3D57;
-  --c-ink: #F2F6FB;       /* primary text */
+  --c-ink: #FFFFFF;       /* primary text */
   --c-ink-2: #C9D4E2;     /* secondary text */
   --c-ink-3: #94A5BB;     /* captions */
   --c-scrim: 12, 20, 33;  /* rgb of the background, for overlays */
-  --c-blue: #5BA8FF;   /* signal: labels, links, owner A */
-  --c-cyan: #6BE4F0;   /* motion highlight: scans, decoding glyphs, packets */
-  --c-green: #4FD8A0;  /* results and owner B */
-  --c-amber: #F0B35B;  /* caution */
-  --c-red: #FF5C7A;    /* errors: false merges, missing data */
-  --glow-blue: rgba(91, 168, 255, 0.45);
-  --glow-cyan: rgba(107, 228, 240, 0.45);
-  --glow-green: rgba(79, 216, 160, 0.4);
-  --glow-red: rgba(255, 92, 122, 0.5);
+  --c-blue: #3B82F6;      /* signal: labels, links, neutral bars */
+  --c-cyan: #3B82F6;      /* motion highlights use the same solid blue */
+  --c-green: #22C55E;     /* good results */
+  --c-amber: #FACC15;     /* yellow: warnings */
+  --c-red: #EF4444;       /* errors: false merges, misses, loss */
+  --glow-blue: transparent;   /* glows are off everywhere: solid colours only */
+  --glow-cyan: transparent;
+  --glow-green: transparent;
+  --glow-red: transparent;
+  --font-serif: Georgia, "Gelasio", "Times New Roman", serif;               /* headings and reading text */
+  --font-ui: Calibri, "Carlito", "Segoe UI", system-ui, sans-serif;        /* labels, numbers, buttons, charts */
+  --font-code: "Geist Mono", ui-monospace, Consolas, "Courier New", monospace;  /* code only */
 }

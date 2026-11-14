@@ -6,6 +6,7 @@ Numbers are never typed into the site: they come from the summary files,
 and charts are copied from the project repos into assets/img/<slug>/.
 """
 import json
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -13,6 +14,13 @@ from pathlib import Path
 SITE = Path(__file__).resolve().parent.parent / "research"
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else SITE.parent.parent
 GH = "https://github.com/itsashutoshpsingh"
+# Labels start with a capital, except names that are lower case by definition
+KEEP = re.compile(r"^(ext\d|exFAT|eth_|pySigma|publicnode|drpc|1rpc|npm|iOS|macOS)")
+
+
+def cap(s):
+    s = re.sub(r"^sigmahq\b", "SigmaHQ", str(s))
+    return s if not s or KEEP.match(s) or not s[0].isalpha() else s[0].upper() + s[1:]
 
 
 def chart_list(summary, repo_dir, slug):
@@ -36,10 +44,10 @@ def main():
     for m in meta["projects"]:
         repo_dir = SRC / m["slug"]
         summary = json.loads((repo_dir / "results/summary.json").read_text())
-        metrics = [{"label": x["label"], "value": str(x["value"])} for x in summary["metrics"]]
+        metrics = [{"label": cap(x["label"]), "value": str(x["value"])} for x in summary["metrics"]]
         if m.get("metric_labels"):
-            by = {x["label"]: x for x in metrics}
-            metrics = [by[l] for l in m["metric_labels"]]  # KeyError = stale label, fail loudly
+            by = {x["label"].lower(): x for x in metrics}
+            metrics = [by[l.lower()] for l in m["metric_labels"]]  # KeyError = stale label, fail loudly
         if not metrics:
             raise SystemExit(f"{m['slug']}: summary has no metrics")
         proof_idx = m.get("proof_metric", 0)
@@ -50,12 +58,12 @@ def main():
             "oneLine": m["oneLine"],
             "headline": summary["headline"],
             "metrics": metrics[: m.get("max_metrics", 4)],
-            "proof": {"value": metrics[proof_idx]["value"], "label": m.get("proof_label") or metrics[proof_idx]["label"]},
+            "proof": {"value": metrics[proof_idx]["value"], "label": cap(m.get("proof_label") or metrics[proof_idx]["label"])},
             "charts": chart_list(summary, repo_dir, m["slug"]),
             "repo": f"{GH}/{m['slug']}",
             "report": f"{GH}/{m['slug']}#readme",
             "misses": m["misses"],
-            "viz": summary.get("viz", []),
+            "viz": [dict(v, title=cap(v["title"]), bars=[dict(b, label=cap(b["label"])) for b in v["bars"]]) for v in summary.get("viz", [])],
         })
     terminal = [{"cmd": m["cmd"], "out": m.get("terminal_out") or [p["headline"]]} for m, p in zip(meta["projects"], projects)]
     data = {"profile": meta.get("profile"), "projects": projects, "terminal": terminal}
@@ -64,4 +72,5 @@ def main():
 
 
 if __name__ == "__main__":
+    assert cap("ext4") == "ext4" and cap("seeded findings") == "Seeded findings" and cap("15%") == "15%"
     main()

@@ -8,24 +8,24 @@
 <title>LinkedIn banner</title>
 <link rel="stylesheet" href="../tokens.css">
 <style>
-  @font-face { font-family: Geist; font-weight: 400; src: url(../github/fonts/geist-400.sub.woff2) format("woff2"); }
-  @font-face { font-family: Geist; font-weight: 600; src: url(../github/fonts/geist-600.sub.woff2) format("woff2"); }
-  @font-face { font-family: "Geist Mono"; font-weight: 500; src: url(../github/fonts/geistmono-500.sub.woff2) format("woff2"); }
-  html, body { margin: 0; width: 1584px; height: 396px; overflow: hidden; background: #0B0F14; color: var(--c-ink); font-family: Geist, system-ui, sans-serif; }
+  @font-face { font-family: Gelasio; font-weight: 700; src: url(../fonts/gelasio-bold.woff2) format("woff2"); }
+  @font-face { font-family: Carlito; font-weight: 400; src: url(../fonts/carlito-regular.woff2) format("woff2"); }
+  @font-face { font-family: Carlito; font-weight: 700; src: url(../fonts/carlito-bold.woff2) format("woff2"); }
+  html, body { margin: 0; width: 1584px; height: 396px; overflow: hidden; background: #0B0F14; color: var(--c-ink); font-family: Carlito, Calibri, sans-serif; }
   canvas { position: absolute; inset: 0; width: 1584px; height: 396px; }
   .rule { position: absolute; left: 560px; right: 352px; top: 0; height: 3px; background: linear-gradient(90deg, var(--c-blue), var(--c-green)); }
   .copy { position: absolute; left: 560px; top: 62px; width: 680px; }
-  .k { margin: 0; font: 500 14px/20px "Geist Mono", monospace; letter-spacing: 0.08em; color: var(--c-blue); }
-  h1 { margin: 14px 0 0; font-weight: 600; font-size: 40px; line-height: 46px; letter-spacing: -1px; color: #FFFFFF; }
-  .roles { margin: 20px 0 0; font-size: 17px; line-height: 26px; color: rgba(255,255,255,.82); }
+  .k { margin: 0; font: 400 14px/20px Carlito, sans-serif; letter-spacing: 0.08em; color: var(--c-blue); }
+  h1 { margin: 14px 0 0; font-family: Georgia, Gelasio, serif; font-weight: 700; font-size: 40px; line-height: 46px; letter-spacing: -0.3px; color: #FFFFFF; text-wrap: balance; }
+  .roles { margin: 20px 0 0; font-size: 17px; line-height: 26px; color: #E6ECF3; }
   .roles b { color: var(--c-green); font-weight: 600; padding: 0 2px; }
   .roles span { white-space: nowrap; }
-  .creds { margin: 22px 0 0; padding: 14px 0 0; border-top: 1px solid rgba(255,255,255,.12); font: 500 13px/20px "Geist Mono", monospace; color: rgba(255,255,255,.62); }
-  .creds span + span::before { content: "|"; margin: 0 12px; color: rgba(255,255,255,.28); }
+  .creds { margin: 22px 0 0; padding: 14px 0 0; border-top: 1px solid #2B3D57; font: 400 13px/20px Carlito, sans-serif; color: #C9D4E2; }
+  .creds span + span::before { content: "|"; margin: 0 12px; color: #56677E; }
   .qr { position: absolute; right: 112px; top: 64px; width: 208px; padding: 16px; box-sizing: border-box; border-radius: 16px; background: #FFFFFF; text-align: center; }
   .qr img { display: block; width: 176px; height: 176px; margin: 0 auto; }
-  .qr p { margin: 10px 0 0; font: 600 14px/20px Geist, sans-serif; color: #0B0F14; }
-  .qr small { display: block; margin-top: 2px; font: 500 11px/16px "Geist Mono", monospace; color: #4A5562; }
+  .qr p { margin: 10px 0 0; font: 600 14px/20px Carlito, sans-serif; color: #0B0F14; }
+  .qr small { display: block; margin-top: 2px; font: 400 11px/16px Carlito, sans-serif; color: #4A5562; }
 </style>
 </head>
 <body>

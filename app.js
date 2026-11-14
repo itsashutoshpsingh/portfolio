@@ -74,7 +74,7 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var esc = function (x) { return String(x).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
   var series = ps.reduce(function (n, p) { return n + (p.viz || []).length; }, 0);
   var charts = ps.reduce(function (n, p) { return n + (p.charts || []).length; }, 0);
-  stats.innerHTML = [[ps.length, 'open benchmarks'], [series, 'result series'], [charts, 'published charts']].map(function (s) {
+  stats.innerHTML = [[ps.length, 'Open benchmarks'], [series, 'Result series'], [charts, 'Published charts']].map(function (s) {
     return '<p><b class="mono" data-count>' + s[0] + '</b><span>' + s[1] + '</span></p>'; }).join('');
   board.innerHTML = ps.map(function (p, i) {
     var v = (p.viz || [])[0];
