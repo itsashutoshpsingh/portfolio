@@ -24,10 +24,13 @@
   } else $$('[data-reveal]').forEach(function (el) { el.classList.add('is-in'); });
 
   /* Nav: current section */
-  var pillLinks = $$('.pill a');
+  var pillLinks = $$('.pill a, .trail a'), stops = $$('.trail a');
   if (io && pillLinks.length) {
     var spy = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); }); });
+      es.forEach(function (e) { if (!e.isIntersecting) return; pillLinks.forEach(function (a) { if (a.getAttribute('href') === '#' + e.target.id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+        var k = stops.findIndex(function (a) { return a.getAttribute('href') === '#' + e.target.id; });  // the path fills up to the current stop
+        if (k >= 0) stops.forEach(function (a, i) { a.parentNode.classList.toggle('is-on', i <= k); });
+      });
     }, { rootMargin: '-40% 0px -55% 0px' });
     ['top', 'experience', 'cv', 'work', 'research', 'proof', 'beyond', 'faq', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) spy.observe(el); });
   }
