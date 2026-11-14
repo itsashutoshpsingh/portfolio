@@ -245,7 +245,6 @@ section { padding: var(--s-700) 0; position: relative; }
 /* Without JavaScript there is nothing to fill these, so only the note is shown */
 html:not(.js) :is(.proof, .term, .project, .nav__toggle) { display: none; }
 /* browsers put playback controls on any video when scripts are off */
-video.bg::-webkit-media-controls { display: none !important; }
 
 /* Tagline reveal */
 .reveal-text { max-width: 880px; }

@@ -553,3 +553,14 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 .brand__name { white-space: nowrap; }
 .tagline .wd:not(.is-lit) { color: rgba(var(--c-tint), .55); }
 .door__frame, .trail a::before { border-color: var(--c-ink-3); }
+
+/* One button pair across the site: the filled accent, and a pearl outline for everything secondary */
+.btn.glass { background: none; border: 1px solid var(--c-ink); -webkit-backdrop-filter: none; backdrop-filter: none; }
+.btn.glass::before { display: none; }
+.btn.glass:hover { background: var(--c-ink); color: var(--c-bg); }
+.idcard__cv { border-color: var(--c-ink); background: none; }
+.idcard__cv:hover { background: var(--c-ink); color: var(--c-bg); border-color: var(--c-ink); }
+.idcard__cv:hover svg { fill: var(--c-bg); }
+/* The step numerals stay below the size of the page headline; the step titles below the section headings */
+.scrolly.is-scrolly .step__n { font-size: clamp(72px, 7vw, 112px); line-height: .9; }
+.scrolly.is-scrolly .step .title-1 { font-size: clamp(30px, 3vw, 44px); line-height: 1.05; }
