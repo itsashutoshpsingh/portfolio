@@ -1,5 +1,7 @@
 <a href="https://itsashutoshpsingh.github.io/portfolio/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/hero.svg" width="100%" alt="Ashutosh Pal Singh, security analyst. I find the errors in the evidence. Open to roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and research."></a>
 
+<a href="https://itsashutoshpsingh.github.io/portfolio/research/"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/terminal.svg" width="100%" alt="Research results: 198 cross-exchange false merges by deposit-address reuse; 27% of forensic tool times were not the true instant; 2 silent empty answers where receipt proofs show logs."></a>
+
 ### What I work on
 
 Investigators trust tools they rarely measure. I build open benchmarks that check whether tracing rules, blockchain data providers and forensic timeline tools tell the truth, then publish the error rate and every miss.
