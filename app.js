@@ -43,7 +43,8 @@
     burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     document.documentElement.classList.toggle('is-locked', open);
     var main = $('#main'), trail = $('.trail');  // nothing behind the open menu can be reached
-    if (main) main.inert = open; if (trail) trail.inert = open;
+    var skip = $('.skip');
+    if (main) main.inert = open; if (trail) trail.inert = open; if (skip) skip.inert = open;
   }
   if (burger && menu) {
     burger.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
@@ -94,9 +95,11 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   }).join('');
   board.removeAttribute('aria-busy');
   if (window.fx) window.fx.mount(board);
+  var deep = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (deep) deep.scrollIntoView({ behavior: 'instant' });
 }).catch(function () {
   var board = document.getElementById('board');
-  if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
+  if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3" role="alert">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
 });
 
 // Entrance doors: shown once per visit on a plain arrival (deep links and no-JS visitors go straight in).
@@ -105,7 +108,7 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var gate = document.getElementById('gate');
   if (!gate) return;
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var main = document.getElementById('main'), opener = null, timer = 0, pending = null;
+  var main = document.getElementById('main'), opener = null, timer = 0, pending = null, was = 0;
   var go = function (target) {
     var el = target && document.querySelector(target);
     if (!el) return false;
@@ -118,16 +121,16 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     clearTimeout(timer); timer = 0; pending = null;
     gate.hidden = true; document.body.classList.remove('gated'); if (main) main.inert = false;
     try { sessionStorage.setItem('gate', '1'); } catch (e) {}
-    if (!go(target)) { var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
+    if (!go(target)) { scrollTo({ top: was, behavior: 'instant' }); var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
     opener = null;
   };
   var open = function (from) {
-    opener = from || null;
+    opener = from || null; was = scrollY;
     gate.classList.remove('is-leaving');
     gate.querySelectorAll('.door').forEach(function (d) { d.classList.remove('is-open'); });
     scrollTo({ top: 0, behavior: 'instant' });
     gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
-    gate.querySelector('.door').focus({ preventScroll: true, focusVisible: false });
+    gate.querySelector('.door').focus({ preventScroll: true });
   };
   gate.querySelectorAll('.door').forEach(function (d) {
     d.addEventListener('click', function () {
@@ -152,7 +155,7 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   if (!btn || !ticker) return;
   btn.addEventListener('click', function () {
     var paused = ticker.classList.toggle('is-paused');
-    btn.setAttribute('aria-pressed', String(paused)); btn.textContent = paused ? 'Play' : 'Pause';
+    btn.setAttribute('aria-pressed', String(paused));
   });
 })();
 

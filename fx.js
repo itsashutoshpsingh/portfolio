@@ -117,7 +117,7 @@
     var max = v.unit === '%' ? 100 : Math.max.apply(null, v.bars.map(function (b) { return b.value; })) || 1;
     var fmt = function (x) {
       if (v.unit === '%') return (Math.round(x * 10) / 10).toLocaleString('en-GB') + '%';
-      return x.toLocaleString('en-GB') + (v.unit === 'ms' ? ' ms' : '');
+      return x.toLocaleString('en-GB') + (v.unit === 'ms' ? '\u00a0ms' : '');
     };
     return '<figure class="vz"><figcaption class="vz__t">' + esc(v.title) + '</figcaption><div class="vz__rows">' +
       v.bars.map(function (b, i) {

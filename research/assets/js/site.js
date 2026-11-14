@@ -81,18 +81,18 @@
       row.innerHTML = '<span class="p">$ </span>';
       term.append(row);
       const cursor = document.createElement("span"); cursor.className = "cursor";
-      for (const ch of l.cmd) { row.append(ch); row.append(cursor); follow(); await sleep(28 + Math.random() * 40); }
+      for (const ch of l.cmd) { row.append(ch); row.append(cursor); follow(); await sleep(8 + Math.random() * 6); }
       cursor.remove();
-      await sleep(380);
+      await sleep(120);
       for (const o of l.out) {
         const out = document.createElement("span");
         out.className = "o";
         out.textContent = "\n" + o;
         term.append(out);
         follow();
-        await sleep(110);
+        await sleep(60);
       }
-      if (i < lines.length - 1) { term.append("\n\n"); await sleep(900); }
+      if (i < lines.length - 1) { term.append("\n\n"); await sleep(250); }
     }
   };
 

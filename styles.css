@@ -564,3 +564,18 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 /* The step numerals stay below the size of the page headline; the step titles below the section headings */
 .scrolly.is-scrolly .step__n { font-size: clamp(72px, 7vw, 112px); line-height: .9; }
 .scrolly.is-scrolly .step .title-1 { font-size: clamp(30px, 3vw, 44px); line-height: 1.05; }
+
+/* Re-audit fixes */
+.ticker__pause[aria-pressed="true"] { border-color: var(--c-accent); color: var(--c-accent); }
+.close__dim { background: rgba(var(--c-scrim), .55); }
+.foot { color: var(--c-ink-2); }
+.close__email a:hover, .burger:hover { color: var(--c-accent); border-color: var(--c-accent); }
+.burger:hover span { background: var(--c-accent); }
+.cue i::after { animation-iteration-count: 2; }
+.menu, .gate, .foot { padding-inline: max(var(--gutter), env(safe-area-inset-left), env(safe-area-inset-right)); }
+.ticker__pause { right: max(var(--gutter), env(safe-area-inset-right)); }
+@media (min-width: 1360px) and (max-width: 1399px) { .trail { display: none; } }   /* the trail's labels need a wider margin than this */
+@media (max-width: 1099px) { .cue { display: none; } }
+@media (hover: none) and (min-width: 1024px) { .pill a, .pill__doors, .btn--sm { min-height: 44px; display: inline-flex; align-items: center; } }
+@media (max-height: 600px) { .door__frame { height: min(34svh, 300px); } .gate__h { font-size: 30px; line-height: 34px; } }
+@media (prefers-reduced-motion: reduce) { .ticker__pause { display: none; } }
