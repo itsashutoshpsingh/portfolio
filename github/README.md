@@ -9,6 +9,7 @@
 <a href="https://github.com/itsashutoshpsingh/chain-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-3.svg" width="32.5%" alt="chain-evidence: 2 silent empty answers where receipt proofs show logs"></a>
 <a href="https://github.com/itsashutoshpsingh/rulefire"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-4.svg" width="32.5%" alt="rulefire: 15.9% of SigmaHQ rules fired on recordings of their own technique"></a>
 <a href="https://github.com/itsashutoshpsingh/nhi-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-5.svg" width="32.5%" alt="nhi-evidence: 15 of 15 seeded misconfigurations found, with 0 false findings"></a>
+<a href="https://github.com/itsashutoshpsingh/fixproof"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-6.svg" width="32.5%" alt="fixproof: 100% of scanner verdicts said fixed while the old code was still running"></a>
 
 ### What I work on
 

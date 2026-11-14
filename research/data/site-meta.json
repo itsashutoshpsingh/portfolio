@@ -141,6 +141,28 @@
         "Microsoft documents only a write permission for reading agent sponsors, so the read only collector skips them.",
         "4 of my first 42 mutation expectations were wrong, and the tool was right in all 4."
       ]
+    },
+    {
+      "slug": "fixproof",
+      "tags": [
+        "Vulnerability management",
+        "Linux"
+      ],
+      "oneLine": "Do vulnerability scanners say fixed while the old vulnerable code is still running? 22 public CVEs on 8 Linux images, each host state built 3 times.",
+      "cmd": "make reproduce   # fixproof",
+      "metric_labels": [
+        "False fixed, updated not restarted",
+        "Needrestart caught stale programs",
+        "Backport false vulnerable, scanners",
+        "Verdicts scored"
+      ],
+      "proof_label": "Scanner verdicts that said fixed while the old code was still running",
+      "misses": [
+        "Only Trivy and OSV-Scanner were scored. OpenVAS, Wazuh, Grype and OpenSCAP could not run in the lab.",
+        "The hosts are containers, so the new kernel installed but old kernel running state could not be built.",
+        "Only the Ubuntu hosts were upgraded with apt. Debian, Alpine, Rocky and Alma used an image overlay.",
+        "The Vuls restart check needs sudo and could not run on 21 of 38 host states."
+      ]
     }
   ]
 }
