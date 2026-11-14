@@ -1,5 +1,6 @@
-/* Shared motion for the home page and /research: the footage veil, decrypt labels,
-   word-by-word headings, count-ups, card tilt and magnetic buttons. Transform and opacity only
+/* Shared motion for the home page and /research: scroll-driven footage, decrypt labels,
+   word-by-word headings, card tilt and magnetic buttons. Numbers are never animated: a result is
+   shown as its final value, because a counting figure is a wrong figure until it stops. Transform and opacity only
    for DOM motion; IntersectionObserver, never scroll handlers. Under prefers-reduced-motion the
    footage stays on its poster frame and everything else is shown at its final state. */
 (function () {
@@ -20,45 +21,43 @@
     els.forEach(function (el) { io.observe(el); });
   };
 
-  /* Background: real footage (a muted, looping video) under a dark veil. The veil thins around the pointer
-     and shows a fine grid there. Under reduced motion the video stays on its poster frame. */
-  var veil = document.querySelector('.veil'), film = document.querySelector('video.bg');
-  if (film && still) { film.removeAttribute('autoplay'); film.pause(); }
-  if (veil && fine && !still) {
-    var mx = 0, my = 0, queued = false;
-    window.addEventListener('pointermove', function (e) {
-      mx = e.clientX; my = e.clientY;
-      if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; veil.style.setProperty('--mx', mx + 'px'); veil.style.setProperty('--my', my + 'px'); }); }
-    }, { passive: true });
+  /* Background: real footage that moves with the page. Scrolling plays the film forward and back, eased
+     so it glides instead of stepping, while the frame slowly pushes in. It never plays on its own, so
+     nothing moves unless the visitor scrolls. Under reduced motion it stays on its poster frame. */
+  var film = document.querySelector('video.bg');
+  if (film && !still) {
+    var want = 0, at = 0, ticking = false;
+    var glide = function () {
+      at += (want - at) * 0.12;
+      if (Math.abs(want - at) < 0.0005) at = want;
+      var d = film.duration, t = d ? at * (d - 0.05) : 0, late = false;
+      if (d) { if (film.seeking) late = true; else if (Math.abs(film.currentTime - t) > 0.01) film.currentTime = t; }
+      film.style.transform = 'scale(' + (1 + at * 0.12).toFixed(4) + ')';
+      if (at !== want || late) requestAnimationFrame(glide); else ticking = false;
+    };
+    var aim = function () {
+      var max = document.documentElement.scrollHeight - innerHeight;
+      want = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+      if (!ticking) { ticking = true; requestAnimationFrame(glide); }
+    };
+    var primed = film.play();  // some phones only load frames once play has been called
+    if (primed && primed.then) primed.then(function () { film.pause(); aim(); }).catch(function () {}); else film.pause();
+    film.addEventListener('loadedmetadata', aim);
+    window.addEventListener('scroll', aim, { passive: true });
+    window.addEventListener('resize', aim, { passive: true });
+    aim();
   }
 
   /* Decrypt: cyan glyphs settle into the real text, left to right */
   function scramble(el) {
     var text = el.textContent, n = text.length, t0 = performance.now(), dur = Math.min(900, 300 + n * 28);
-    el.setAttribute('aria-label', text);
+    el.setAttribute('aria-hidden', 'true');
     var esc = function (ch) { return ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch === '&' ? '&amp;' : ch; };
     (function step(now) {
       var k = Math.min(1, (now - t0) / dur), done = Math.floor(n * k), out = esc(text.slice(0, done)), tail = '';
       for (var i = done; i < n; i++) tail += text[i] === ' ' ? ' ' : esc(GLYPHS[(Math.random() * GLYPHS.length) | 0]);
       el.innerHTML = out + (tail ? '<span class="fx-glyph">' + tail + '</span>' : '');
-      if (k < 1) requestAnimationFrame(step); else { el.textContent = text; el.removeAttribute('aria-label'); }
-    })(t0);
-  }
-
-  /* Count up the leading number of a value such as "1,828", "27%" or "0.5% (95% CI ...)" */
-  function count(el) {
-    var raw = el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild.nodeValue : el.textContent;
-    var m = raw.match(/^(\D*?)(\d[\d,]*\.?\d*)(.*)$/s);
-    if (!m || still) return;
-    var target = parseFloat(m[2].replace(/,/g, '')), dec = (m[2].split('.')[1] || '').length, comma = m[2].indexOf(',') > -1;
-    var node = el.firstChild && el.firstChild.nodeType === 3 ? el.firstChild : el, t0 = performance.now(), dur = 1400;
-    var fmt = function (v) { var s = v.toFixed(dec); return comma ? Number(s).toLocaleString('en-GB', { minimumFractionDigits: dec }) : s; };
-    el.classList.add('fx-counting');
-    (function step(now) {
-      var k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 4);
-      var v = m[1] + fmt(target * e) + m[3];
-      if (node === el) el.textContent = v; else node.nodeValue = v;
-      if (k < 1) requestAnimationFrame(step); else el.classList.remove('fx-counting');
+      if (k < 1) requestAnimationFrame(step); else { el.textContent = text; el.removeAttribute('aria-hidden'); }
     })(t0);
   }
 
@@ -100,11 +99,15 @@
   /* Buttons drift a few pixels towards the pointer */
   function magnet(btn) {
     btn.classList.add('fx-mag');
+    var raf = 0;
     btn.addEventListener('pointermove', function (e) {
-      var r = btn.getBoundingClientRect();
-      btn.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.25).toFixed(1) + 'px)';
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        var r = btn.getBoundingClientRect();
+        btn.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * 0.18).toFixed(1) + 'px,' + ((e.clientY - r.top - r.height / 2) * 0.25).toFixed(1) + 'px)';
+      });
     });
-    btn.addEventListener('pointerleave', function () { btn.style.transform = ''; });
+    btn.addEventListener('pointerleave', function () { cancelAnimationFrame(raf); btn.style.transform = ''; });
   }
 
   /* Result charts drawn from each repo's results/summary.json "viz" blocks: labelled bars whose
@@ -125,11 +128,11 @@
   }
   var tilted = [];
   function mount(root) {
-    once($$('.vz', root), function (el) { el.classList.add('is-on'); if (!still) $$('.vz__v', el).forEach(count); });
+    once($$('.vz', root), function (el) { el.classList.add('is-on'); });
     if (!still && fine) $$('.board__card, .project, .idcard', root).forEach(function (c) { if (tilted.indexOf(c) < 0) { tilted.push(c); tilt(c); } });
   }
 
-  window.fx = { count: function (el) { if (!still) once([el], count); }, scramble: scramble, chart: chart, mount: mount };
+  window.fx = { count: function () {}, scramble: scramble, chart: chart, mount: mount };  // count is kept as a no-op for older callers
   if (!document.querySelector('.progress')) { var bar = document.createElement('div'); bar.className = 'progress'; bar.setAttribute('aria-hidden', 'true'); document.body.prepend(bar); }
   if (still) return;
   document.documentElement.classList.add('fx');
@@ -137,7 +140,6 @@
   var heads = $$('main h2');
   heads.forEach(split);
   once(heads, function (h) { h.classList.add('fx-on'); }, '0px 0px -8% 0px');
-  once($$('[data-count]'), count);
   if (fine) {
     $$('.btn').forEach(magnet);
   }

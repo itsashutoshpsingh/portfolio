@@ -5,18 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Page not found | Ashutosh Pal Singh</title>
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#141B2D">
 <link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="/portfolio/tokens.css">
 <style>
-  html, body { background: #0B1226; }
-  :root { --fg: #F4F1EA; --fg-60: #D6D3CC; --fg-40: #A5A9B5; --signal: #F28C28; }
-  body { margin: 0; min-height: 100svh; display: grid; place-items: center; padding: 24px; color: var(--fg); font: 400 16px/24px "Geist", ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  :root { color-scheme: dark; }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--c-bg); }
+  body { margin: 0; min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 24px; color: var(--c-ink); font: 400 18px/28px var(--font-serif); -webkit-font-smoothing: antialiased; }
   main { display: grid; gap: 24px; justify-items: start; max-width: 36rem; }
-  p.k { font: 400 14px/20px "Geist Mono", ui-monospace, monospace; color: var(--fg-40); margin: 0; }
-  h1 { margin: 0; font-size: 48px; line-height: 1; letter-spacing: -.03em; font-weight: 600; }
-  p { margin: 0; color: var(--fg-60); font-size: 18px; line-height: 28px; }
-  a { display: inline-flex; align-items: center; min-height: 48px; padding: 12px 24px; border-radius: 999px; background: var(--fg); color: #000; font-weight: 600; text-decoration: none; }
-  a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+  h1, p { margin: 0; }
+  .k { font: 400 14px/20px var(--font-ui); color: var(--c-ink-3); }
+  h1 { font: 400 clamp(48px, 8vw, 96px)/1 var(--font-ui); letter-spacing: -.03em; text-wrap: balance; }
+  p { color: var(--c-ink-2); }
+  nav { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; }
+  a { display: inline-flex; align-items: center; min-height: 48px; color: var(--c-ink); font: 700 16px/24px var(--font-ui); text-decoration-color: var(--c-ink-3); text-underline-offset: 4px; transition: color 300ms, background-color 300ms, text-decoration-color 300ms; }
+  a:hover { text-decoration-color: var(--c-accent); }
+  .btn { padding: 12px 24px; border-radius: 999px; background: var(--c-accent); color: var(--c-bg); text-decoration: none; }
+  .btn:hover { background: var(--c-ink); }
+  a:focus-visible { outline: 2px solid var(--c-accent); outline-offset: 3px; }
+  ::selection { background: var(--c-accent); color: var(--c-bg); }
+  @media (prefers-reduced-motion: reduce) { a { transition: none; } }
 </style>
 </head>
 <body>
@@ -24,7 +33,11 @@
   <p class="k">404</p>
   <h1>No signal here.</h1>
   <p>That address does not exist on this site. The portfolio lives one level up.</p>
-  <a href="/portfolio/">Back to the portfolio</a>
+  <nav aria-label="Ways out">
+    <a class="btn" href="/portfolio/">Back to the portfolio</a>
+    <a href="/portfolio/research/">Research</a>
+    <a href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
+  </nav>
 </main>
 </body>
 </html>

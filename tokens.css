@@ -1,11 +1,12 @@
 /* Brand palette and type: the one place colours and fonts are defined. Used by the home page,
    /research, fx.css, and read by scripts/render_cards.py for the GitHub profile cards.
-   Solid colours only: no translucent tints, no glows. Gradients only where deliberate. */
+   One dark base, one light text colour and one accent; the data colours are for charts only. */
 @font-face { font-family: "Carlito"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/carlito-regular.woff2") format("woff2"); }
 @font-face { font-family: "Gelasio"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/gelasio-regular.woff2") format("woff2"); }  /* Georgia metrics, for devices without Georgia */
 @font-face { font-family: "Gelasio"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/gelasio-bold.woff2") format("woff2"); }
 @font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
+  color-scheme: dark;
   --c-bg: #141B2D;        /* ink navy: the base */
   --c-bg-2: #1B2540;      /* the fallback background is a gradient between the two */
   --c-surface-1: #1A2238;
@@ -19,7 +20,7 @@
   --c-tint: 244, 241, 234;   /* rgb of the ink, for faint lines and dots */
   --c-accent: #F28C28;    /* tangerine: the one accent, for actions and the current place */
   --c-blue: #3B82F6;      /* data: neutral bars */
-  --c-cyan: #F28C28;      /* motion highlights use the accent */
+  --c-cyan: #F28C28;      /* older name for the accent, still used by the motion styles */
   --c-green: #22C55E;     /* data: good results */
   --c-amber: #FACC15;     /* data: warnings */
   --c-red: #EF4444;       /* data: false merges, misses, loss */

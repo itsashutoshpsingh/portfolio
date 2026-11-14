@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap">
+<link rel="preload" href="fonts/carlito-regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet" href="fx.css">
@@ -65,7 +66,7 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<video class="bg" autoplay muted loop playsinline preload="metadata" poster="media/bg.webp" aria-hidden="true" tabindex="-1" disablepictureinpicture><source src="media/bg.mp4" type="video/mp4"></video>
+<video class="bg" muted playsinline preload="auto" poster="media/bg.webp" aria-hidden="true" tabindex="-1" disablepictureinpicture><source src="media/bg-s.mp4" type="video/mp4" media="(max-width: 720px)"><source src="media/bg.mp4" type="video/mp4"></video>
 <div class="veil" aria-hidden="true"></div>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
   <div class="gate__inner">
@@ -96,25 +97,31 @@
 
 <!-- ============ NAV ============ -->
 <header class="top">
-  <a class="brand" href="#top"><span class="brand__disc glass">AP</span><span class="brand__name title-4">Ashutosh Pal Singh</span></a>
+  <a class="brand" href="#top" aria-label="Ashutosh Pal Singh, home"><span class="brand__disc glass" aria-hidden="true">AP</span><span class="brand__name title-4">Ashutosh Pal Singh</span></a>
   <nav class="pill glass" aria-label="Sections">
+    <button class="title-4 pill__doors" type="button" data-doors>Doors</button>
     <a class="title-4" href="#experience">Experience</a>
     <a class="title-4" href="#cv">CV</a>
-    <a class="title-4" href="#work">Work</a>
+    <a class="title-4" href="#work">What you get</a>
     <a class="title-4" href="#research">Research</a>
     <a class="title-4" href="#proof">Proof</a>
     <a class="title-4" href="#faq">FAQ</a>
   </nav>
   <div class="top__end">
+    <a class="btn btn--line btn--sm top__cv" href="cv/Ashutosh_Pal_Singh_CV.pdf" download>Download CV</a>
     <a class="btn btn--solid btn--sm" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
     <button class="burger glass" id="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
   </div>
 </header>
 <div class="menu" id="menu" aria-hidden="true">
-  <nav class="menu__links" aria-label="Sections">
-    <a href="#experience">Experience</a><a href="#cv">CV</a><a href="#work">Work</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+  <nav class="menu__links" aria-label="Menu">
+    <a href="#experience">Experience</a><a href="#cv">CV</a><a href="#work">What you get</a><a href="#research">Research</a><a href="#proof">Proof</a><a href="#beyond">Beyond security</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
   </nav>
-  <a class="btn btn--solid" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
+  <div class="menu__actions">
+    <a class="btn btn--solid" href="mailto:itsashutoshpsingh@gmail.com">Email me</a>
+    <a class="btn btn--line" href="cv/Ashutosh_Pal_Singh_CV.pdf" download>Download CV</a>
+    <button class="btn btn--line" type="button" data-doors>Back to the doors</button>
+  </div>
 </div>
 
 <main id="main">
@@ -122,7 +129,6 @@
   <section class="hero" id="top" aria-labelledby="h1">
     
     <div class="hero__scrim" aria-hidden="true"></div>
-    <a class="cue" href="#experience"><span>Scroll</span></a>
     <div class="wrap hero__grid">
       <div class="hero__copy">
         <p class="chip" data-in="1">Security analyst, open to roles</p>
@@ -154,6 +160,8 @@
         <div class="idcard__foot"><p class="idcard__status caption-4"><span class="idcard__dot" aria-hidden="true"></span>Available now</p><a class="idcard__cv caption-3" href="cv/Ashutosh_Pal_Singh_CV.pdf" download><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg>Download CV</a></div>
       </aside>
     </div>
+    <a class="cue" href="#experience"><span>Scroll</span><i aria-hidden="true"></i></a>
+    <button class="ticker__pause caption-4" type="button" aria-pressed="false" data-in="4">Pause</button>
     <div class="ticker" aria-hidden="true" data-in="4">
       <div class="ticker__track">
         <ul class="ticker__set caption-2 mono"><li>Ethereum clustering error rates measured</li><li>Forensic timeline tools tested across DST</li><li>1,000+ IoT devices secured</li><li>45% fewer open vulnerabilities</li><li>Five bootloader-level flaws found and fixed</li><li>Sigma and Splunk rules mapped to ATT&amp;CK</li><li>Peer-reviewed in IJFMR 2024</li><li>250+ deepfake detection tools surveyed for NASSCOM</li><li>MSc Cyber Security Engineering, Warwick</li><li>Microsoft SC-200 certified</li></ul>
@@ -183,7 +191,7 @@
             <p class="title-2 twin__k">What I have done already</p>
             <ul class="list list--check">
               <li class="body-3">Written Sigma and Splunk rules mapped to ATT&amp;CK and tested them until they fire on the attack and stay quiet on normal activity.</li>
-              <li class="body-3">Ranked a 1,000+ device estate's findings by CVSS so the riskiest were fixed first.</li>
+              <li class="body-3">Ranked a 1,000+ device estate’s findings by CVSS so the riskiest were fixed first.</li>
               <li class="body-3">Sat with firmware engineers on fixes down to the bootloader, and wrote the remediation guidance management read.</li>
               <li class="body-3">Automated the routine scanning in Python because it was the boring part.</li>
               <li class="body-3">Measured how often Ethereum clustering rules and forensic timeline tools get it wrong, and published every miss.</li>
@@ -274,19 +282,19 @@
         <h2 class="heading-2 sec__h" id="getTitle" data-reveal>What your team gets.</h2>
         <ul class="bene">
           <li class="bene__item glassline" data-reveal>
-            <p class="title-1">Fewer missed attacks</p>
+            <h3 class="title-1">Fewer missed attacks</h3>
             <p class="body-6">Detections written against real telemetry and mapped to MITRE ATT&amp;CK, in Sigma for Elastic and as Splunk correlation searches. Tested until they fire on the technique and stay quiet otherwise.</p>
           </li>
           <li class="bene__item glassline" data-reveal>
-            <p class="title-1">A backlog in the right order</p>
+            <h3 class="title-1">A backlog in the right order</h3>
             <p class="body-6">Seven months of CVSS-led prioritisation on a 1,000+ device estate with Nessus and Qualys, so the fixes that matter land first.</p>
           </li>
           <li class="bene__item glassline" data-reveal>
-            <p class="title-1">Findings engineers can act on</p>
+            <h3 class="title-1">Findings engineers can act on</h3>
             <p class="body-6">Reports and remediation guidance that have been read by firmware teams and by management, plus a peer-reviewed paper and a government policy document.</p>
           </li>
           <li class="bene__item glassline" data-reveal>
-            <p class="title-1">Less manual work next quarter</p>
+            <h3 class="title-1">Less manual work next quarter</h3>
             <p class="body-6">Routine scanning automated in Python at Kyoka. SQL, pandas and scikit-learn for the analysis that follows.</p>
           </li>
         </ul>
@@ -295,7 +303,7 @@
             <span class="caption-4 mono rule__k">From the lab, Sigma</span>
             <span class="caption-4 mono rule__id">T1558.003 Kerberoasting</span>
           </figcaption>
-          <pre class="rule__code caption-2 mono"><code><span class="ln" data-reveal><span class="c">title:</span> Kerberoasting, RC4 service ticket request</span><span class="ln" data-reveal><span class="c">status:</span> test</span><span class="ln" data-reveal><span class="c">logsource:</span> product: windows, service: security</span><span class="ln" data-reveal><span class="c">detection:</span></span><span class="ln" data-reveal>  selection: EventID: 4769, TicketEncryptionType: 0x17</span><span class="ln" data-reveal>  filter: ServiceName|endswith: '$'</span><span class="ln" data-reveal>  condition: selection and not filter</span><span class="ln" data-reveal><span class="c">tags:</span> attack.credential_access, attack.t1558.003</span></code></pre>
+          <pre class="rule__code caption-2 mono" tabindex="0" role="region" aria-label="Sigma rule" translate="no"><code><span class="ln" data-reveal><span class="c">title:</span> Kerberoasting, RC4 service ticket request</span><span class="ln" data-reveal><span class="c">status:</span> test</span><span class="ln" data-reveal><span class="c">logsource:</span> product: windows, service: security</span><span class="ln" data-reveal><span class="c">detection:</span></span><span class="ln" data-reveal>  selection: EventID: 4769, TicketEncryptionType: 0x17</span><span class="ln" data-reveal>  filter: ServiceName|endswith: '$'</span><span class="ln" data-reveal>  condition: selection and not filter</span><span class="ln" data-reveal><span class="c">tags:</span> attack.credential_access, attack.t1558.003</span></code></pre>
           <p class="body-6 rule__p">Fires on an RC4 service ticket for a user account, stays quiet on machine accounts. Tested against Sysmon and Security logs in Elastic, then ported to a Splunk search.</p>
         </figure>
       </div>
@@ -308,9 +316,9 @@
         <div class="scrolly" data-scrolly>
         <div class="scrolly__stage">
         <ol class="steps">
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">01</p><p class="title-1">Find it</p><p class="body-6">Scan, read the firmware, walk the attack path yourself. Nessus and Qualys first, then hands on the hardware.</p></li>
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">02</p><p class="title-1">Rank it and fix it with the engineers</p><p class="body-6">CVSS gives the number. Exposure, what it protects and the cost of the fix decide the order. Then sit with the people who own the code.</p></li>
-          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">03</p><p class="title-1">Catch the rest</p><p class="body-6">Write the detection, map it to ATT&amp;CK, test it against the lab. Automate whatever was boring.</p></li>
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">01</p><h3 class="title-1">Find it</h3><p class="body-6">Scan, read the firmware, walk the attack path yourself. Nessus and Qualys first, then hands on the hardware.</p></li>
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">02</p><h3 class="title-1">Rank it and fix it with the engineers</h3><p class="body-6">CVSS gives the number. Exposure, what it protects and the cost of the fix decide the order. Then sit with the people who own the code.</p></li>
+          <li class="step glassline" data-reveal><p class="caption-3 mono step__n">03</p><h3 class="title-1">Catch the rest</h3><p class="body-6">Write the detection, map it to ATT&amp;CK, test it against the lab. Automate whatever was boring.</p></li>
         </ol>
         <p class="scrolly__bar" aria-hidden="true"><span>Find</span><span>Rank and fix</span><span>Catch the rest</span></p>
         </div>
@@ -324,8 +332,9 @@
         <p class="eyebrow caption-3 sec__eyebrow" data-reveal>Research</p>
         <h2 class="heading-2 sec__h" id="researchTitle" data-reveal>Research: measuring the silent errors.</h2>
         <p class="body-3 sec__lede" data-reveal>Open benchmarks that test the tools investigators, SOC analysts and vulnerability teams rely on. Real data, published error rates, and every miss written down.</p>
-        <div class="board__stats" id="boardStats" aria-live="polite"></div>
+        <div class="board__stats" id="boardStats"></div>
         <div class="board" id="board" aria-busy="true"><article class="board__card board__card--skel" aria-hidden="true"></article><article class="board__card board__card--skel" aria-hidden="true"></article><article class="board__card board__card--skel" aria-hidden="true"></article></div>
+        <noscript><p class="body-3">The results need JavaScript. They are also on <a class="textlink" href="https://github.com/itsashutoshpsingh">GitHub</a>.</p></noscript>
         <p class="rsch__cta" data-reveal><a class="btn btn--solid" href="research/">See the full results</a></p>
       </div>
     </section>
@@ -363,22 +372,22 @@
     <!-- ============ BEYOND SECURITY ============ -->
     <section class="sec surf surf--dots" id="beyond" aria-labelledby="beyondTitle">
       <div class="wrap">
-        <h2 class="heading-2 sec__h" id="beyondTitle" data-reveal>What the job ad doesn't list.</h2>
+        <h2 class="heading-2 sec__h" id="beyondTitle" data-reveal>What the job ad doesn’t list.</h2>
         <ul class="beyond">
           <li class="beyond__item glassline" data-reveal>
-            <p class="title-1">Calm under a queue</p>
+            <h3 class="title-1">Calm under a queue</h3>
             <p class="body-6">Part-time retail in Coventry while I search: customer-facing, busy, reliable. Triage is the same skill with different stakes.</p>
           </li>
           <li class="beyond__item glassline" data-reveal>
-            <p class="title-1">Can hold a room</p>
+            <h3 class="title-1">Can hold a room</h3>
             <p class="body-6">Model United Nations across 10+ conferences, with five Best Delegate awards and three Special Mentions. Useful when a finding needs defending in front of people who outrank you.</p>
           </li>
           <li class="beyond__item glassline" data-reveal>
-            <p class="title-1">Writes for non-engineers</p>
+            <h3 class="title-1">Writes for non-engineers</h3>
             <p class="body-6">A policy document for senior government and industry stakeholders, briefings on incident-reporting obligations, and management-facing remediation guidance.</p>
           </li>
           <li class="beyond__item glassline" data-reveal>
-            <p class="title-1">Four languages</p>
+            <h3 class="title-1">Four languages</h3>
             <p class="body-6">English (IELTS 7.5), Hindi, Punjabi and beginner French.</p>
           </li>
         </ul>
@@ -436,18 +445,13 @@
     <li><a href="#top" data-side="me"><span>Start</span></a></li>
     <li><a href="#experience" data-side="me"><span>Experience</span></a></li>
     <li><a href="#cv" data-side="me"><span>CV</span></a></li>
-    <li><a href="#work" data-side="me"><span>Work</span></a></li>
+    <li><a href="#work" data-side="me"><span>What you get</span></a></li>
     <li><a href="#research" data-side="work"><span>Research</span></a></li>
     <li><a href="#proof" data-side="work"><span>Proof</span></a></li>
     <li><a href="#beyond" data-side="work"><span>Beyond</span></a></li>
     <li><a href="#faq" data-side="work"><span>FAQ</span></a></li>
     <li><a href="#contact" data-side="work"><span>Contact</span></a></li>
   </ol>
-</nav>
-<nav class="switch" aria-label="Doors">
-  <a class="switch__item" href="#top" data-side="me">Portfolio</a>
-  <a class="switch__item" href="#research" data-side="work">Work</a>
-  <button class="switch__item switch__doors" type="button">Back to the doors</button>
 </nav>
 <script src="app.js" defer></script>
 <script src="fx.js" defer></script>

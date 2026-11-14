@@ -41,11 +41,13 @@
   function setMenu(open) {
     menu.classList.toggle('is-open', open); menu.setAttribute('aria-hidden', String(!open));
     burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    document.body.style.overflow = open ? 'hidden' : '';
+    document.documentElement.classList.toggle('is-locked', open);
+    var main = $('#main'), trail = $('.trail');  // nothing behind the open menu can be reached
+    if (main) main.inert = open; if (trail) trail.inert = open;
   }
   if (burger && menu) {
     burger.addEventListener('click', function () { setMenu(!menu.classList.contains('is-open')); });
-    menu.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+    menu.addEventListener('click', function (e) { if (e.target.closest('a, [data-doors]')) setMenu(false); });
     addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('is-open')) { setMenu(false); burger.focus(); } });
     addEventListener('resize', function () { if (innerWidth >= 1024 && menu.classList.contains('is-open')) setMenu(false); });
   }
@@ -78,95 +80,105 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var series = ps.reduce(function (n, p) { return n + (p.viz || []).length; }, 0);
   var charts = ps.reduce(function (n, p) { return n + (p.charts || []).length; }, 0);
   stats.innerHTML = [[ps.length, 'Open benchmarks'], [series, 'Result series'], [charts, 'Published charts']].map(function (s) {
-    return '<p><b class="mono" data-count>' + s[0] + '</b><span>' + s[1] + '</span></p>'; }).join('');
+    return '<p><b class="mono">' + s[0] + '</b><span>' + s[1] + '</span></p>'; }).join('');
   board.innerHTML = ps.map(function (p, i) {
     var v = (p.viz || [])[0];
     return '<article class="board__card' + (i === 0 ? ' board__card--wide' : '') + '">' +
       '<p class="board__tags caption-3 mono">' + p.tags.map(esc).join(' · ') + '</p>' +
       '<h3 class="title-1">' + esc(p.title) + '</h3>' +
-      '<p class="board__n mono"><b data-count>' + esc(p.proof.value) + '</b><span>' + esc(p.proof.label) + '</span></p>' +
+      '<p class="board__n mono"><b>' + esc(p.proof.value) + '</b><span>' + esc(p.proof.label) + '</span></p>' +
       '<p class="body-6 board__one">' + esc(p.oneLine) + '</p>' +
       (v && window.fx ? window.fx.chart(v) : '') +
-      '<p class="board__links"><a class="textlink caption-2" href="' + esc(p.repo) + '" target="_blank" rel="noopener">Repository</a>' +
-      '<a class="textlink caption-2" href="research/#' + esc(p.slug) + '">Results</a></p></article>';
+      '<p class="board__links"><a class="textlink caption-2" href="' + esc(p.repo) + '" target="_blank" rel="noopener" aria-label="Repository: ' + esc(p.title) + '">Repository</a>' +
+      '<a class="textlink caption-2" href="research/#' + esc(p.slug) + '" aria-label="Results: ' + esc(p.title) + '">Results</a></p></article>';
   }).join('');
   board.removeAttribute('aria-busy');
-  if (window.fx) { document.querySelectorAll('#research [data-count]').forEach(window.fx.count); window.fx.mount(board); }
+  if (window.fx) window.fx.mount(board);
 }).catch(function () {
   var board = document.getElementById('board');
   if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
 });
 
-// Entrance doors: shown once per session on a plain visit (deep links and no-JS visitors go straight in);
-// the switcher at the bottom moves between the two sides and reopens the doors at any time
+// Entrance doors: shown once per visit on a plain arrival (deep links and no-JS visitors go straight in).
+// Any "Doors" control reopens them; closing puts focus back where it came from.
 (function () {
   var gate = document.getElementById('gate');
   if (!gate) return;
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var main = document.getElementById('main');
+  var main = document.getElementById('main'), opener = null, timer = 0, pending = null;
   var go = function (target) {
     var el = target && document.querySelector(target);
-    if (!el) return;
-    if (target === '#top') scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' });
-    else el.scrollIntoView({ behavior: still ? 'auto' : 'smooth' });
-    var focus = el.querySelector('h1, h2'); if (focus) { focus.setAttribute('tabindex', '-1'); focus.focus({ preventScroll: true }); }
+    if (!el) return false;
+    if (target === '#top') scrollTo({ top: 0, behavior: 'auto' });
+    else el.scrollIntoView({ behavior: 'auto' });
+    var head = el.querySelector('h1, h2'); if (head) { head.setAttribute('tabindex', '-1'); head.focus({ preventScroll: true }); }
+    return !!head;
   };
   var close = function (target) {
+    clearTimeout(timer); timer = 0; pending = null;
     gate.hidden = true; document.body.classList.remove('gated'); if (main) main.inert = false;
     try { sessionStorage.setItem('gate', '1'); } catch (e) {}
-    go(target);
+    if (!go(target)) { var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
+    opener = null;
   };
-  var open = function () {
+  var open = function (from) {
+    opener = from || null;
     gate.classList.remove('is-leaving');
     gate.querySelectorAll('.door').forEach(function (d) { d.classList.remove('is-open'); });
+    scrollTo({ top: 0, behavior: 'instant' });
     gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
     gate.querySelector('.door').focus({ preventScroll: true, focusVisible: false });
   };
   gate.querySelectorAll('.door').forEach(function (d) {
     d.addEventListener('click', function () {
-      if (gate.classList.contains('is-leaving')) return;
+      if (pending) { close(pending); return; }  // a second click skips the rest of the animation
+      pending = d.getAttribute('data-go');
       d.classList.add('is-open'); gate.classList.add('is-leaving');
-      setTimeout(function () { close(d.getAttribute('data-go')); }, still ? 0 : 1400);
+      timer = setTimeout(function () { close(pending); }, still ? 0 : 900);
     });
   });
   gate.querySelector('.gate__skip').addEventListener('click', function () { close(null); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !gate.hidden) close(null); });
-
-  var sw = document.querySelector('.switch'), work = document.getElementById('research');
-  if (sw && work) {
-    sw.querySelector('.switch__doors').addEventListener('click', open);
-    sw.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function (e) { e.preventDefault(); go(a.getAttribute('href')); });
-    });
-    var me = sw.querySelector('[data-side="me"]'), wk = sw.querySelector('[data-side="work"]'), queued = false;
-    var mark = function () {
-      queued = false;
-      var inWork = work.getBoundingClientRect().top < innerHeight / 2;
-      me.toggleAttribute('aria-current', !inWork); wk.toggleAttribute('aria-current', inWork);
-    };
-    addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(mark); } }, { passive: true });
-    mark();
-  }
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !gate.hidden) close(pending); });
+  document.querySelectorAll('[data-doors]').forEach(function (b) { b.addEventListener('click', function () { open(b.closest('.menu') ? document.getElementById('burger') : b); }); });
 
   var seen = false;
   try { seen = sessionStorage.getItem('gate') === '1'; } catch (e) {}
-  if (!seen && !location.hash) open();
+  if (!seen && !location.hash) open(null);
 })();
 
-// Scroll story: the three steps are pinned for three screens and swap as you scroll. Three invisible
-// markers, one screen each, tell an IntersectionObserver which step is current (no scroll handler).
-// Phones, reduced motion and old browsers keep the plain three-card row.
+// Ticker: a visible pause control, because it never stops on its own
+(function () {
+  var btn = document.querySelector('.ticker__pause'), ticker = document.querySelector('.ticker');
+  if (!btn || !ticker) return;
+  btn.addEventListener('click', function () {
+    var paused = ticker.classList.toggle('is-paused');
+    btn.setAttribute('aria-pressed', String(paused)); btn.textContent = paused ? 'Play' : 'Pause';
+  });
+})();
+
+// Scroll story: on wide screens the three steps are pinned for under one screen of scrolling and swap as
+// you go, so the page never feels held. Three invisible markers tell an IntersectionObserver which step is
+// current (no scroll handler). Phones, reduced motion and old browsers keep the plain three-card row.
 (function () {
   var story = document.querySelector('[data-scrolly]');
   if (!story || !('IntersectionObserver' in window)) return;
-  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(min-width: 900px)').matches) return;
+  var calm = matchMedia('(prefers-reduced-motion: reduce)'), wide = matchMedia('(min-width: 900px)');
   var n = story.querySelectorAll('.step').length, marks = document.createElement('div');
   marks.className = 'scrolly__marks'; marks.setAttribute('aria-hidden', 'true');
   for (var i = 0; i < n; i++) { var m = document.createElement('i'); m.dataset.i = i; marks.appendChild(m); }
-  story.querySelectorAll('.step').forEach(function (s) { s.removeAttribute('data-reveal'); });  // the pinned stage shows and hides the steps itself
-  story.appendChild(marks); story.classList.add('is-scrolly'); story.dataset.step = '0';
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) story.dataset.step = e.target.dataset.i; });
   }, { rootMargin: '-50% 0px -50% 0px' });
-  marks.querySelectorAll('i').forEach(function (m) { io.observe(m); });
+  var set = function () {
+    var on = wide.matches && !calm.matches;
+    if (on === story.classList.contains('is-scrolly')) return;
+    story.classList.toggle('is-scrolly', on);
+    if (on) {
+      story.querySelectorAll('.step').forEach(function (s) { s.removeAttribute('data-reveal'); });  // the pinned stage shows and hides the steps itself
+      story.appendChild(marks); story.dataset.step = '0';
+      marks.querySelectorAll('i').forEach(function (m) { io.observe(m); });
+    } else { io.disconnect(); marks.remove(); delete story.dataset.step; }
+  };
+  wide.addEventListener('change', set); calm.addEventListener('change', set);
+  set();
 })();

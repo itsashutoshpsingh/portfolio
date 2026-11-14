@@ -64,7 +64,7 @@
         "libfaketime also shifted stat() results, so my first NTFS run applied the offset twice. Fixed with NO_FAKE_STAT=1.",
         "MFTECmd would not run under Mono, so analyzeMFT stands in on Linux and is labelled that way everywhere.",
         "Every image was written by a Linux driver. The Windows kit that would test real Windows writes has not been run yet.",
-        "ext4 ignores libfaketime, so the ext4 \"DST\" runs did not actually cross a clock change."
+        "ext4 ignores libfaketime, so the ext4 “DST” runs did not actually cross a clock change."
       ],
       "metric_labels": [
         "Tool-reported times checked",
@@ -73,7 +73,25 @@
         "Times correct on NTFS"
       ],
       "proof_metric": 1,
-      "proof_label": "Forensic tool times that were not the true instant"
+      "proof_label": "Forensic tool times that were not the true instant",
+      "chart_meta": {
+        "hero_outcomes.png": {
+          "label": "Outcome by tool",
+          "alt": "Stacked bars of each tool’s reported times by outcome: correct, wrong zone, ambiguous, wrong value or missing"
+        },
+        "heatmap_correct.png": {
+          "label": "Correct by file system",
+          "alt": "Heat map of the percentage of reported times that are the true instant, per tool, file system and time zone scenario"
+        },
+        "dst_offsets.png": {
+          "label": "Clock changes",
+          "alt": "TSK fls reported minus true time around the London and New York clock changes, and Plaso’s offset of about 30 days on FAT32 and exFAT"
+        },
+        "pipeline.png": {
+          "label": "Pipeline",
+          "alt": "Flow from scripted actions through a fake clock, disk image, the tools under test and a common schema to the classifier"
+        }
+      }
     },
     {
       "slug": "chain-evidence",
@@ -96,7 +114,29 @@
         "Ethereum blocks from drpc whose receipts reproduce receiptsRoot"
       ],
       "proof_metric": 2,
-      "proof_label": "Silent empty answers where receipt proofs show logs"
+      "proof_label": "Silent empty answers where receipt proofs show logs",
+      "chart_meta": {
+        "provider_outcomes.png": {
+          "label": "Provider outcomes",
+          "alt": "Stacked bars of what each provider returned on Ethereum and Base: matching, differing or uncompared answers, refusals and failures"
+        },
+        "disagreement_rate.png": {
+          "label": "Disagreement rate",
+          "alt": "Share of finalised Ethereum ranges that disagreed in each of three runs, with 95% Wilson intervals; the worst run was 2 of 161"
+        },
+        "finalized_lag.png": {
+          "label": "Finalized tag lag",
+          "alt": "Most blocks each provider’s finalized head fell behind the most advanced provider, up to 17,376 for 1rpc on Base"
+        },
+        "receipts_root_proofs.png": {
+          "label": "Receipts root proofs",
+          "alt": "Blocks per provider whose header hash, transactionsRoot and receiptsRoot reproduce; none mismatched, publicnode returned null receipts for 5 blocks"
+        },
+        "receipt_depth.png": {
+          "label": "Receipt depth",
+          "alt": "publicnode receipts by block age: 63 returned up to about 6 days behind the finalised head, 7 null beyond that"
+        }
+      }
     },
     {
       "slug": "rulefire",

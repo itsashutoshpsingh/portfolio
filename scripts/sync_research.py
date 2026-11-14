@@ -8,6 +8,7 @@ and charts are copied from the project repos into assets/img/<slug>/.
 import json
 import re
 import shutil
+import struct
 import sys
 from pathlib import Path
 
@@ -23,8 +24,14 @@ def cap(s):
     return s if not s or KEEP.match(s) or not s[0].isalpha() else s[0].upper() + s[1:]
 
 
-def chart_list(summary, repo_dir, slug):
-    out = []
+def typo(s):
+    return re.sub(r"(?<=\w)'(?=\w)", "’", str(s))
+
+
+def chart_list(summary, repo_dir, slug, chart_meta):
+    """chart_meta is the project's optional map in site-meta.json, file name -> {label, alt},
+    used only where the summary gives a bare path."""
+    out, seen = [], set()
     for c in summary.get("charts", []):
         c = {"path": c} if isinstance(c, str) else dict(c)
         src = repo_dir / c["path"]
@@ -33,8 +40,17 @@ def chart_list(summary, repo_dir, slug):
         dest = SITE / "assets/img" / slug / src.name
         dest.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(src, dest)
-        label = c.get("label") or src.stem.replace("_", " ").replace("-", " ")
-        out.append({"src": f"assets/img/{slug}/{src.name}", "label": label, "alt": c.get("alt") or c.get("caption") or label})
+        seen.add(src.name)
+        given = chart_meta.get(src.name, {})
+        label = cap(c.get("label") or given.get("label") or src.stem.replace("_", " ").replace("-", " "))
+        alt = typo(c.get("alt") or c.get("caption") or given.get("alt") or label)
+        if src.suffix != ".png":
+            raise SystemExit(f"{slug}: chart is not a PNG, cannot read its size: {src}")
+        w, h = struct.unpack(">II", src.read_bytes()[16:24])  # IHDR, so the page can reserve the space
+        out.append({"src": f"assets/img/{slug}/{src.name}", "label": label, "alt": alt, "w": w, "h": h})
+    stale = set(chart_meta) - seen
+    if stale:
+        raise SystemExit(f"{slug}: chart_meta names charts the summary does not list: {sorted(stale)}")
     return out
 
 
@@ -59,11 +75,11 @@ def main():
             "headline": summary["headline"],
             "metrics": metrics[: m.get("max_metrics", 4)],
             "proof": {"value": metrics[proof_idx]["value"], "label": cap(m.get("proof_label") or metrics[proof_idx]["label"])},
-            "charts": chart_list(summary, repo_dir, m["slug"]),
+            "charts": chart_list(summary, repo_dir, m["slug"], m.get("chart_meta", {})),
             "repo": f"{GH}/{m['slug']}",
             "report": f"{GH}/{m['slug']}#readme",
             "misses": m["misses"],
-            "viz": [dict(v, title=cap(v["title"]), bars=[dict(b, label=cap(b["label"])) for b in v["bars"]]) for v in summary.get("viz", [])],
+            "viz": [dict(v, title=typo(cap(v["title"])), bars=[dict(b, label=cap(b["label"])) for b in v["bars"]]) for v in summary.get("viz", [])],
         })
     terminal = [{"cmd": m["cmd"], "out": m.get("terminal_out") or [p["headline"]]} for m, p in zip(meta["projects"], projects)]
     data = {"profile": meta.get("profile"), "projects": projects, "terminal": terminal}
@@ -73,4 +89,5 @@ def main():
 
 if __name__ == "__main__":
     assert cap("ext4") == "ext4" and cap("seeded findings") == "Seeded findings" and cap("15%") == "15%"
+    assert typo("each scanner's verdict") == "each scanner’s verdict" and typo("'quoted'") == "'quoted'"
     main()
