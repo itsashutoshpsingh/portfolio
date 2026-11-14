@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ashutosh Pal Singh | Security Analyst, Blockchain Forensics and DFIR</title>
 <meta name="description" content="Ashutosh Pal Singh, security analyst. Open research on the error rates behind blockchain investigations and forensic timelines, plus production vulnerability management on a 1,000+ device IoT estate. MSc Cyber Security Engineering, Warwick. Microsoft SC-200.">
-<meta name="theme-color" content="#0B1226">
+<meta name="theme-color" content="#0B141C">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://itsashutoshpsingh.github.io/portfolio/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
@@ -65,7 +65,8 @@
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<canvas class="bg" data-bg aria-hidden="true"></canvas>
+<video class="bg" autoplay muted loop playsinline preload="metadata" poster="media/bg.webp" aria-hidden="true" tabindex="-1" disablepictureinpicture><source src="media/bg.mp4" type="video/mp4"></video>
+<div class="veil" aria-hidden="true"></div>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
   <div class="gate__inner">
     <p class="gate__k">Ashutosh Pal Singh · Security analyst</p>
@@ -423,6 +424,11 @@
     </footer>
   </section>
 </main>
+<nav class="switch" aria-label="Doors">
+  <a class="switch__item" href="#top" data-side="me">Portfolio</a>
+  <a class="switch__item" href="#research" data-side="work">Work</a>
+  <button class="switch__item switch__doors" type="button">Back to the doors</button>
+</nav>
 <script src="app.js" defer></script>
 <script src="fx.js" defer></script>
 </body>

@@ -1,7 +1,7 @@
-/* Shared motion for the home page and /research: the WebGL background, decrypt labels,
+/* Shared motion for the home page and /research: the footage veil, decrypt labels,
    word-by-word headings, count-ups, card tilt and magnetic buttons. Transform and opacity only
    for DOM motion; IntersectionObserver, never scroll handlers. Under prefers-reduced-motion the
-   graph draws one still frame and everything else is shown at its final state. */
+   footage stays on its poster frame and everything else is shown at its final state. */
 (function () {
   'use strict';
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,94 +20,17 @@
     els.forEach(function (el) { io.observe(el); });
   };
 
-  /* Background: one full-screen WebGL fragment shader behind the whole page. A drifting
-     topographic field (domain-warped noise) in slate navy with soft blue and teal light and thin
-     glowing contour lines; the pointer bends the contours like a lens and lights them up, and
-     scrolling slowly moves the terrain. Rendered at 40% resolution and 30 fps (it is soft and slow by
-     design, and full-screen shaders are fill-rate bound), paused when the tab is hidden, one still frame under
-     reduced motion. Without WebGL the page keeps its flat background. */
-  var BG_FRAG = [
-    'precision mediump float;',
-    'uniform vec2 uRes; uniform float uTime; uniform vec2 uPtr; uniform float uPtrOn; uniform float uScroll;',
-    'uniform vec3 uBg; uniform vec3 uBg2; uniform vec3 uBlue; uniform vec3 uTeal; uniform vec3 uLine; uniform vec3 uClick;',
-    'float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }',
-    'float n(vec2 p){ vec2 i = floor(p), f = fract(p); vec2 u = f * f * (3.0 - 2.0 * f);',
-    '  return mix(mix(h(i), h(i + vec2(1., 0.)), u.x), mix(h(i + vec2(0., 1.)), h(i + vec2(1., 1.)), u.x), u.y); }',
-    'float fbm(vec2 p){ float v = 0.0, a = 0.5; mat2 m = mat2(1.6, 1.2, -1.2, 1.6);',
-    '  for (int i = 0; i < 4; i++){ v += a * n(p); p = m * p; a *= 0.5; } return v; }',
-    'void main(){',
-    '  vec2 uv = gl_FragCoord.xy / uRes; float asp = uRes.x / uRes.y;',
-    '  vec2 p = vec2(uv.x * asp, uv.y) * 2.4 + vec2(0.0, uScroll * 1.6);',
-    '  vec2 m = vec2(uPtr.x * asp, uPtr.y) * 2.4 + vec2(0.0, uScroll * 1.6);',
-    '  float d = length(p - m); float lens = uPtrOn * exp(-d * d * 3.5);',
-    '  p += (p - m) * lens * 0.35;',                                      // the pointer pushes the terrain outwards
-    '  vec2 c = vec2(uClick.x * asp, uClick.y) * 2.4 + vec2(0.0, uScroll * 1.6); float dc = length(p - c);',
-    '  float ring = exp(-pow(dc - uClick.z * 1.6, 2.0) * 40.0) * exp(-uClick.z * 1.4);',  // a click sends one ring outwards
-    '  p += (p - c) / max(dc, 0.001) * ring * 0.08;',
-    '  float t = uTime * 0.035;',
-    '  vec2 q = vec2(fbm(p + vec2(0.0, t)), fbm(p + vec2(5.2, 1.3) - t));',
-    '  float f = fbm(p + 1.8 * q + vec2(t * 0.6, -t * 0.4));',
-    '  vec3 col = mix(uBg2, uBg, uv.y);',                                 // navy at the top, indigo at the bottom
-    '  col = mix(col, uBlue, smoothstep(0.45, 0.95, f) * 0.20);',          // soft light where the field is high
-    '  col = mix(col, uTeal, smoothstep(0.55, 1.0, q.x) * 0.12);',
-    '  float g = abs(fract(f * 11.0) - 0.5);',                              // contour lines every 1/11 of the field
-    '  float line = 1.0 - smoothstep(0.0, 0.05 + 0.03 * lens, g);',
-    '  col += uLine * line * (0.07 + 0.30 * lens + 0.55 * ring);',
-    '  col += uBlue * lens * 0.06;',
-    '  float vig = smoothstep(1.25, 0.25, length((uv - 0.5) * vec2(asp, 1.0)));',
-    '  col *= 0.72 + 0.28 * vig;',
-    '  col += (h(gl_FragCoord.xy + fract(uTime) * 61.0) - 0.5) * 0.018;',  // fine grain, no banding
-    '  gl_FragColor = vec4(col, 1.0);',
-    '}'].join('\n');
-  function background(cv) {
-    var gl = cv.getContext('webgl', { antialias: false, alpha: false, depth: false, powerPreference: 'low-power' });
-    if (!gl) return;
-    var sh = function (type, src) { var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
-    var pr = gl.createProgram();
-    gl.attachShader(pr, sh(gl.VERTEX_SHADER, 'attribute vec2 a; void main(){ gl_Position = vec4(a, 0.0, 1.0); }'));
-    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, BG_FRAG));
-    gl.linkProgram(pr);
-    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) return;
-    gl.useProgram(pr);
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
-    var a = gl.getAttribLocation(pr, 'a'); gl.enableVertexAttribArray(a); gl.vertexAttribPointer(a, 2, gl.FLOAT, false, 0, 0);
-    var U = function (k) { return gl.getUniformLocation(pr, k); };
-    var rgb = function (hex) { var v = parseInt(hex.slice(1), 16); return [(v >> 16) / 255, ((v >> 8) & 255) / 255, (v & 255) / 255]; };
-    gl.uniform3fv(U('uBg'), rgb(tok('--c-bg', '#0B1226'))); gl.uniform3fv(U('uBg2'), rgb(tok('--c-bg-2', '#16285C')));
-    gl.uniform3fv(U('uBlue'), rgb(C.blue)); gl.uniform3fv(U('uTeal'), rgb(C.green)); gl.uniform3fv(U('uLine'), rgb(C.cyan));
-    var uRes = U('uRes'), uTime = U('uTime'), uPtr = U('uPtr'), uPtrOn = U('uPtrOn'), uScroll = U('uScroll'), uClick = U('uClick');
-    var cx = 0.5, cy = 0.5, cT = -1e6;
-    var tx = 0.7, ty = 0.6, px = tx, py = ty, on = 0, onT = 0, running = false, t0 = performance.now();
-    var size = function () {
-      var s = 0.4 * Math.min(window.devicePixelRatio || 1, 2);  // 40% resolution: the field is soft by design, so a sixth of the pixels is enough
-      cv.width = Math.max(1, Math.round(innerWidth * s)); cv.height = Math.max(1, Math.round(innerHeight * s));
-      gl.viewport(0, 0, cv.width, cv.height); gl.uniform2f(uRes, cv.width, cv.height);
-    };
-    var draw = function (now) {
-      px += (tx - px) * 0.06; py += (ty - py) * 0.06; on += (onT - on) * 0.05;
-      gl.uniform1f(uTime, (now - t0) / 1000); gl.uniform2f(uPtr, px, py); gl.uniform1f(uPtrOn, on);
-      gl.uniform1f(uScroll, scrollY / Math.max(1, innerHeight) * 0.35);
-      gl.uniform3f(uClick, cx, cy, Math.min(30, (now - cT) / 1000));
-      gl.drawArrays(gl.TRIANGLES, 0, 3);
-    };
-    var last = 0;
-    var frame = function (now) { if (!running) return; if (now - last >= 32) { last = now; draw(now); } requestAnimationFrame(frame); };  // 30 fps: the field drifts slowly
-    size(); draw(t0 + 4000); cv.classList.add('is-ready');
-    window.addEventListener('resize', function () { size(); if (!running) draw(performance.now()); }, { passive: true });
-    if (still) return;
-    if (fine) {
-      window.addEventListener('pointermove', function (e) { tx = e.clientX / innerWidth; ty = 1 - e.clientY / innerHeight; onT = 1; }, { passive: true });
-      document.addEventListener('pointerleave', function () { onT = 0; });
-    }
-    if (!still) {
-      window.addEventListener('pointerdown', function (e) { cx = e.clientX / innerWidth; cy = 1 - e.clientY / innerHeight; cT = performance.now(); }, { passive: true });
-    }
-    var set = function (v) { var was = running; running = v; if (running && !was) requestAnimationFrame(frame); };
-    document.addEventListener('visibilitychange', function () { set(!document.hidden); });
-    set(!document.hidden);
+  /* Background: real footage (a muted, looping video) under a dark veil. The veil thins around the pointer
+     and shows a fine grid there. Under reduced motion the video stays on its poster frame. */
+  var veil = document.querySelector('.veil'), film = document.querySelector('video.bg');
+  if (film && still) { film.removeAttribute('autoplay'); film.pause(); }
+  if (veil && fine && !still) {
+    var mx = 0, my = 0, queued = false;
+    window.addEventListener('pointermove', function (e) {
+      mx = e.clientX; my = e.clientY;
+      if (!queued) { queued = true; requestAnimationFrame(function () { queued = false; veil.style.setProperty('--mx', mx + 'px'); veil.style.setProperty('--my', my + 'px'); }); }
+    }, { passive: true });
   }
-  $$('canvas[data-bg]').forEach(background);
 
   /* Decrypt: cyan glyphs settle into the real text, left to right */
   function scramble(el) {

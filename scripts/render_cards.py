@@ -17,7 +17,7 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 OUT = os.path.join(ROOT, "github", "cards")
 DATA = os.path.join(ROOT, "research", "data", "projects.json")
 STATIC = os.environ.get("STATIC") == "1"
-TOKENS = dict(re.findall(r"--c-([a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})", open(os.path.join(ROOT, "tokens.css")).read()))
+TOKENS = dict(re.findall(r"--c-([a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})", open(os.path.join(ROOT, "github", "cards-tokens.css")).read()))
 
 
 def font(name):

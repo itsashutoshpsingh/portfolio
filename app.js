@@ -94,23 +94,31 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
 });
 
-// Entrance doors: shown once per session on a plain visit (deep links and no-JS visitors go straight in)
+// Entrance doors: shown once per session on a plain visit (deep links and no-JS visitors go straight in);
+// the switcher at the bottom moves between the two sides and reopens the doors at any time
 (function () {
   var gate = document.getElementById('gate');
   if (!gate) return;
-  var seen = false;
-  try { seen = sessionStorage.getItem('gate') === '1'; } catch (e) {}
-  if (seen || location.hash) return;
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var main = document.getElementById('main');
+  var go = function (target) {
+    var el = target && document.querySelector(target);
+    if (!el) return;
+    if (target === '#top') scrollTo({ top: 0, behavior: still ? 'auto' : 'smooth' });
+    else el.scrollIntoView({ behavior: still ? 'auto' : 'smooth' });
+    var focus = el.querySelector('h1, h2'); if (focus) { focus.setAttribute('tabindex', '-1'); focus.focus({ preventScroll: true }); }
+  };
   var close = function (target) {
     gate.hidden = true; document.body.classList.remove('gated'); if (main) main.inert = false;
     try { sessionStorage.setItem('gate', '1'); } catch (e) {}
-    var el = target && document.querySelector(target);
-    if (el && target !== '#top') el.scrollIntoView({ behavior: still ? 'auto' : 'smooth' });
-    var focus = el && el.querySelector('h1, h2'); if (focus) { focus.setAttribute('tabindex', '-1'); focus.focus({ preventScroll: true }); }
+    go(target);
   };
-  gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
+  var open = function () {
+    gate.classList.remove('is-leaving');
+    gate.querySelectorAll('.door').forEach(function (d) { d.classList.remove('is-open'); });
+    gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
+    gate.querySelector('.door').focus({ preventScroll: true, focusVisible: false });
+  };
   gate.querySelectorAll('.door').forEach(function (d) {
     d.addEventListener('click', function () {
       if (gate.classList.contains('is-leaving')) return;
@@ -119,6 +127,25 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     });
   });
   gate.querySelector('.gate__skip').addEventListener('click', function () { close(null); });
-  document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape' && !gate.hidden) { close(null); document.removeEventListener('keydown', esc); } });
-  gate.querySelector('.door').focus({ preventScroll: true, focusVisible: false });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !gate.hidden) close(null); });
+
+  var sw = document.querySelector('.switch'), work = document.getElementById('research');
+  if (sw && work) {
+    sw.querySelector('.switch__doors').addEventListener('click', open);
+    sw.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); go(a.getAttribute('href')); });
+    });
+    var me = sw.querySelector('[data-side="me"]'), wk = sw.querySelector('[data-side="work"]'), queued = false;
+    var mark = function () {
+      queued = false;
+      var inWork = work.getBoundingClientRect().top < innerHeight / 2;
+      me.toggleAttribute('aria-current', !inWork); wk.toggleAttribute('aria-current', inWork);
+    };
+    addEventListener('scroll', function () { if (!queued) { queued = true; requestAnimationFrame(mark); } }, { passive: true });
+    mark();
+  }
+
+  var seen = false;
+  try { seen = sessionStorage.getItem('gate') === '1'; } catch (e) {}
+  if (!seen && !location.hash) open();
 })();
