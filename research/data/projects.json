@@ -45,7 +45,7 @@
           "value": "198"
         },
         {
-          "label": "Of those caused by infrastructure",
+          "label": "Share of deposit-reuse false merges caused by infrastructure",
           "value": "0%"
         },
         {
@@ -53,7 +53,7 @@
           "value": "359"
         },
         {
-          "label": "Of those caused by poisoning",
+          "label": "Share of same-sender false merges caused by poisoning",
           "value": "60%"
         }
       ],
@@ -93,7 +93,7 @@
       ],
       "viz": [
         {
-          "title": "Pairs of addresses from two different exchanges wrongly merged",
+          "title": "Naive deposit reuse and the same-sender rule wrongly merge addresses of two different exchanges",
           "unit": "count",
           "bars": [
             {
@@ -119,7 +119,7 @@
           ]
         },
         {
-          "title": "Share of those false merges caused by poisoning or other infrastructure",
+          "title": "Poisoning and other infrastructure cause most same-sender false merges and none from deposit reuse",
           "unit": "%",
           "bars": [
             {
@@ -140,7 +140,7 @@
           ]
         },
         {
-          "title": "Addresses a one-hop taint rule flags, with and without zero-value transfers",
+          "title": "Zero-value transfers inflate the addresses a one-hop taint rule flags",
           "unit": "count",
           "bars": [
             {
@@ -172,15 +172,15 @@
           "value": "1828"
         },
         {
-          "label": "Not the true instant",
+          "label": "Times not the true instant",
           "value": "27%"
         },
         {
-          "label": "Correct on fat32",
+          "label": "Times correct on FAT32",
           "value": "35.0%"
         },
         {
-          "label": "Correct on ntfs",
+          "label": "Times correct on NTFS",
           "value": "95.8%"
         }
       ],
@@ -220,7 +220,7 @@
       ],
       "viz": [
         {
-          "title": "Times reported correctly, by file system",
+          "title": "Only ext4 and NTFS times are reported correctly almost every time",
           "unit": "%",
           "bars": [
             {
@@ -246,7 +246,7 @@
           ]
         },
         {
-          "title": "What happened to 1,828 reported times",
+          "title": "Of 1,828 reported times, about a quarter were not the true instant",
           "unit": "count",
           "bars": [
             {
@@ -277,7 +277,7 @@
           ]
         },
         {
-          "title": "Times reported correctly, by tool",
+          "title": "Only analyzeMFT reports every time correctly; Plaso reports the fewest",
           "unit": "%",
           "bars": [
             {
@@ -325,19 +325,19 @@
       "headline": "Across 524 finalised Ethereum block ranges asked of three free RPC providers, every recent range agreed (383/383), but on older blocks a provider silently returned nothing where receipt proofs show 286 logs (2/20 comparable ranges), and publicnode returned `null` receipts for 7/7 sampled transactions older than ~6 days.",
       "metrics": [
         {
-          "label": "Ethereum: finalised ranges compared",
+          "label": "Ethereum finalised ranges compared",
           "value": "403"
         },
         {
-          "label": "Ethereum: disagreement rate",
+          "label": "Ethereum disagreement rate",
           "value": "0.5% (95% CI 0.1–1.8%)"
         },
         {
-          "label": "Ethereum: empty successes (0 logs where logs exist)",
+          "label": "Ethereum empty successes (0 logs where logs exist)",
           "value": "2"
         },
         {
-          "label": "Ethereum/drpc: blocks whose receipts reproduce receiptsRoot",
+          "label": "Ethereum blocks from drpc whose receipts reproduce receiptsRoot",
           "value": "28/28"
         }
       ],
@@ -398,7 +398,7 @@
           ]
         },
         {
-          "title": "What three providers answered to the same Ethereum questions",
+          "title": "Most answers from three Ethereum providers matched; refusals were the main failure",
           "unit": "count",
           "bars": [
             {
@@ -429,7 +429,7 @@
           ]
         },
         {
-          "title": "Logs silently missing where receipt proofs show they exist",
+          "title": "Only older ranges silently missed logs that receipt proofs show exist",
           "unit": "count",
           "bars": [
             {
@@ -457,11 +457,11 @@
       "headline": "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access.",
       "metrics": [
         {
-          "label": "SigmaHQ rules fire on their technique",
+          "label": "SigmaHQ rules that fire on their technique",
           "value": "15.9%"
         },
         {
-          "label": "Top silent error: never fires",
+          "label": "Pairs that never fire (top silent error)",
           "value": "71.8%"
         },
         {
@@ -586,7 +586,7 @@
           ]
         },
         {
-          "title": "Benign hits per day of the SigmaHQ rules that fire",
+          "title": "Most firing SigmaHQ rules raise no benign hits at all",
           "unit": "count",
           "bars": [
             {
@@ -725,7 +725,7 @@
               "tone": "bad"
             },
             {
-              "label": "False",
+              "label": "False findings",
               "value": 0,
               "tone": "bad"
             },
@@ -757,17 +757,17 @@
           "unit": "count",
           "bars": [
             {
-              "label": "One-line false",
+              "label": "One-line rule false findings",
               "value": 4440,
               "tone": "bad"
             },
             {
-              "label": "One-line missed",
+              "label": "One-line rule missed findings",
               "value": 218,
               "tone": "warn"
             },
             {
-              "label": "Refined errors",
+              "label": "Refined check errors",
               "value": 0,
               "tone": "good"
             }

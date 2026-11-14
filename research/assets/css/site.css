@@ -27,7 +27,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-html { background: var(--bg); }
+html { background: var(--bg) linear-gradient(180deg, var(--c-bg), var(--c-bg-2)) fixed; }
 body {
   margin: 0;
   background: transparent;

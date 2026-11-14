@@ -6,15 +6,16 @@
 @font-face { font-family: "Gelasio"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/gelasio-bold.woff2") format("woff2"); }
 @font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
-  --c-bg: #0C1421;        /* deep slate navy, not black */
-  --c-surface-1: #121C2D;
-  --c-surface-2: #172437;
-  --c-surface-3: #1F2E45;
-  --c-line: #2B3D57;
+  --c-bg: #0B1226;        /* deep navy at the top of the page */
+  --c-bg-2: #16285C;      /* indigo at the bottom: the background is a vertical gradient between the two */
+  --c-surface-1: #121C3A;
+  --c-surface-2: #18244A;
+  --c-surface-3: #22305C;
+  --c-line: #33457A;
   --c-ink: #FFFFFF;       /* primary text */
-  --c-ink-2: #C9D4E2;     /* secondary text */
-  --c-ink-3: #94A5BB;     /* captions */
-  --c-scrim: 12, 20, 33;  /* rgb of the background, for overlays */
+  --c-ink-2: #DCE4F2;     /* secondary text */
+  --c-ink-3: #AEBAD3;     /* captions */
+  --c-scrim: 11, 18, 38;  /* rgb of the background, for overlays */
   --c-blue: #3B82F6;      /* signal: labels, links, neutral bars */
   --c-cyan: #3B82F6;      /* motion highlights use the same solid blue */
   --c-green: #22C55E;     /* good results */

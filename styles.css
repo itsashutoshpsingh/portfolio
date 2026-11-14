@@ -2,7 +2,7 @@
    spacing scale 2/4/8/12/16/24/32/40/48/64/80/96, flat backgrounds, one text gradient in the hero.
    Motion: base curve cubic-bezier(.22,1,.36,1), transform and opacity only, no scroll listeners. */
 
-html { background: var(--c-bg); }
+html { background: var(--c-bg) linear-gradient(180deg, var(--c-bg), var(--c-bg-2)) fixed; }  /* the shader draws the same gradient; this is the fallback */
 body { background: transparent; }
 
 :root {
@@ -69,7 +69,7 @@ p { text-wrap: pretty; }
   background: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,.15) 80%, rgba(255,255,255,.45) 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); mask-composite: exclude; }
 /* Glassline: the same rim on a flat surface, no blur, for panels on the sheet */
-.glassline { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)), rgba(18,28,45,.8); border-radius: var(--r-3xl); box-shadow: 0 24px 48px -32px rgba(2,6,14,.8); transition: transform 300ms var(--ease); }
+.glassline { position: relative; background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03)), var(--c-surface-1); border-radius: var(--r-3xl); box-shadow: 0 24px 48px -32px rgba(2,6,14,.8); transition: transform 300ms var(--ease); }
 .glassline:hover { transform: translateY(-2px); }
 .glassline::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
   background: linear-gradient(180deg, rgba(255,255,255,.28) 0%, rgba(255,255,255,.08) 25%, rgba(255,255,255,.04) 75%, rgba(255,255,255,.16) 100%);
@@ -321,7 +321,7 @@ p { text-wrap: pretty; }
 .idcard__cv:hover { border-color: var(--signal); transform: translateY(-1px); }
 .idcard__cv:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 /* The ID card sits on a solid surface: a backdrop blur over the moving background would be recomputed every frame */
-.idcard.glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgba(18, 28, 45, .9); }
+.idcard.glass { -webkit-backdrop-filter: none; backdrop-filter: none; background: var(--c-surface-1); }
 
 /* Research board: a bento of projects, each with its headline number and a live chart */
 .board__stats { display: flex; flex-wrap: wrap; gap: var(--s-300) var(--s-600); margin-bottom: var(--s-400); }
@@ -329,15 +329,15 @@ p { text-wrap: pretty; }
 .board__stats b { font-size: 36px; line-height: 40px; font-weight: 600; color: var(--fg); }
 .board__stats span { font-size: 14px; line-height: 20px; color: var(--fg-60); }
 .board { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-300); }
-.board__card { display: grid; gap: var(--s-100); align-content: start; padding: var(--s-300); border-radius: var(--r-3xl); background: rgba(18, 28, 45, .88); border: 1px solid var(--line); }
+.board__card { display: grid; gap: var(--s-100); align-content: start; padding: var(--s-300); border-radius: var(--r-3xl); background: var(--c-surface-1); border: 1px solid var(--line); }
 .board__card--wide { grid-column: span 2; }
-.board__card--skel { min-height: 320px; background: rgba(18, 28, 45, .6); }
+.board__card--skel { min-height: 320px; background: var(--c-surface-1); }
 .board__tags { color: var(--signal); }
 .board__n { display: grid; gap: var(--s-25); margin-top: var(--s-75); }
 .board__n b { font-size: 48px; line-height: 48px; font-weight: 600; color: var(--ok); }
 .board__n span { font: 400 14px/20px var(--sans); color: var(--fg-80); }
 .board__one { color: var(--fg-60); margin-bottom: var(--s-100); }
-.board__card .vz { background: rgba(12, 20, 33, .7); }
+.board__card .vz { background: var(--c-bg); }
 .board__links { display: flex; gap: var(--s-300); margin-top: var(--s-100); }
 @media (max-width: 1080px) { .board { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 720px) { .board { grid-template-columns: minmax(0, 1fr); } .board__card--wide { grid-column: auto; } }
@@ -380,4 +380,47 @@ p { text-wrap: pretty; }
   .caption-3, .caption-4 { font-size: 14px; line-height: 20px; }
   body { font-size: 18px; line-height: 28px; }
   .idcard { max-width: 460px; }
+}
+
+/* ===== Entrance: two doors, one into the profile and one into the work ===== */
+.gate { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: var(--s-400) var(--gutter); overflow: auto; }
+.gate[hidden] { display: none; }
+body.gated > :not(.gate):not(canvas.bg) { visibility: hidden; }
+.gate__inner { display: grid; justify-items: center; gap: var(--s-300); text-align: center; }
+.gate__k { font: 700 14px/20px var(--font-ui); color: var(--c-amber); letter-spacing: .08em; text-transform: uppercase; }
+.gate__h { font: 700 48px/1 var(--font-serif); color: #FFFFFF; text-wrap: balance; max-width: 680px; }
+.gate__doors { display: flex; gap: var(--s-800); margin-top: var(--s-300); }
+.door { display: grid; justify-items: center; gap: var(--s-75); padding: 0; border: 0; background: none; color: #FFFFFF; cursor: pointer; font: inherit; }
+.door__frame { position: relative; display: block; width: 220px; height: 400px; padding: 8px; border: 1px solid var(--c-line); border-radius: 6px; background: var(--c-bg); perspective: 1600px; transition: border-color 300ms var(--ease); }
+.door__light { position: absolute; inset: 8px; display: grid; place-items: center; border-radius: 2px; background: var(--door, var(--c-blue)); }
+.door__enter { font: 700 16px/24px var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: #0B1226; opacity: 0; transform: translateX(-12px); transition: opacity 300ms var(--ease) 200ms, transform 500ms var(--ease) 200ms; }
+.door__leaf { position: absolute; inset: 8px; border-radius: 2px; background: linear-gradient(180deg, var(--c-surface-3), var(--c-surface-1)); border: 1px solid var(--c-line); transform-origin: left center; transform: rotateY(0); transition: transform 600ms var(--ease); }
+.door__no { position: absolute; top: 20px; left: 20px; font: 700 12px/16px var(--font-ui); letter-spacing: .12em; color: var(--c-ink-3); }
+.door__handle { position: absolute; right: 18px; top: calc(50% - 64px); width: 4px; height: 128px; border-radius: 2px; background: var(--c-ink-2); }
+.door__label { font: 700 30px/36px var(--font-serif); margin-top: var(--s-200); }
+.door__sub { font: 400 16px/24px var(--font-ui); color: var(--c-ink-2); max-width: 240px; text-wrap: balance; }
+.door--me { --door: var(--c-blue); }
+.door--work { --door: var(--c-green); }
+.door:hover .door__frame, .door:focus-visible .door__frame { border-color: var(--door); }
+.door:hover .door__leaf, .door:focus-visible .door__leaf { transform: rotateY(-28deg); }
+.door:hover .door__enter, .door:focus-visible .door__enter { opacity: 1; transform: none; }
+.door:active .door__frame { transform: scale(.98); }
+.door:focus-visible { outline: none; }
+.door:focus-visible .door__frame { outline: 2px solid var(--c-amber); outline-offset: 4px; }
+.door.is-open .door__leaf { transform: rotateY(-100deg); transition-duration: 900ms; }
+.door.is-open .door__enter { opacity: 1; transform: none; }
+.gate.is-leaving .gate__inner { opacity: 0; transform: scale(1.04); transition: opacity 500ms var(--ease) 650ms, transform 900ms var(--ease) 400ms; }
+.gate__skip { margin-top: var(--s-200); border: 0; background: none; color: var(--c-ink-2); font: 400 16px/24px var(--font-ui); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.gate__skip:hover { color: #FFFFFF; }
+.gate__skip:focus-visible { outline: 2px solid var(--c-amber); outline-offset: 4px; }
+@media (max-width: 720px) {
+  .gate__h { font-size: 36px; line-height: 40px; }
+  .gate__doors { gap: var(--s-300); }
+  .door__frame { width: 40vw; height: min(52vh, 340px); }
+  .door__handle { height: 96px; top: calc(50% - 48px); right: 14px; }
+  .door__label { font-size: 24px; line-height: 32px; }
+  .door__sub { font-size: 14px; line-height: 20px; max-width: 40vw; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .door__leaf, .door__enter, .door__frame, .gate.is-leaving .gate__inner { transition: none; }
 }

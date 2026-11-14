@@ -93,3 +93,32 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var board = document.getElementById('board');
   if (board) { board.removeAttribute('aria-busy'); board.innerHTML = '<p class="body-3">The results did not load. Open the <a class="textlink" href="research/">research page</a> instead.</p>'; }
 });
+
+// Entrance doors: shown once per session on a plain visit (deep links and no-JS visitors go straight in)
+(function () {
+  var gate = document.getElementById('gate');
+  if (!gate) return;
+  var seen = false;
+  try { seen = sessionStorage.getItem('gate') === '1'; } catch (e) {}
+  if (seen || location.hash) return;
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var main = document.getElementById('main');
+  var close = function (target) {
+    gate.hidden = true; document.body.classList.remove('gated'); if (main) main.inert = false;
+    try { sessionStorage.setItem('gate', '1'); } catch (e) {}
+    var el = target && document.querySelector(target);
+    if (el && target !== '#top') el.scrollIntoView({ behavior: still ? 'auto' : 'smooth' });
+    var focus = el && el.querySelector('h1, h2'); if (focus) { focus.setAttribute('tabindex', '-1'); focus.focus({ preventScroll: true }); }
+  };
+  gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
+  gate.querySelectorAll('.door').forEach(function (d) {
+    d.addEventListener('click', function () {
+      if (gate.classList.contains('is-leaving')) return;
+      d.classList.add('is-open'); gate.classList.add('is-leaving');
+      setTimeout(function () { close(d.getAttribute('data-go')); }, still ? 0 : 1400);
+    });
+  });
+  gate.querySelector('.gate__skip').addEventListener('click', function () { close(null); });
+  document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape' && !gate.hidden) { close(null); document.removeEventListener('keydown', esc); } });
+  gate.querySelector('.door').focus({ preventScroll: true, focusVisible: false });
+})();
