@@ -282,6 +282,7 @@ p { text-wrap: pretty; }
   .hero { padding-top: 112px; }
   .hero__h1 br, .close__h br { display: none; }
   .brand__name { display: none; }
+  .brand { padding: var(--s-50); }
   .twin, .bene, .beyond, .creds { grid-template-columns: minmax(0, 1fr); }
   .kit__row { grid-template-columns: minmax(0, 1fr); gap: var(--s-100); }
   .hero__cta .btn { width: 100%; }
