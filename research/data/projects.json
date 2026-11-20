@@ -979,6 +979,212 @@
           ]
         }
       ]
+    },
+    {
+      "slug": "logcanary",
+      "title": "logcanary",
+      "tags": [
+        "SOC",
+        "Log pipelines"
+      ],
+      "oneLine": "Numbered canary events written through rsyslog and journald, then counted again in Elasticsearch, to measure how many logs Filebeat, Fluent Bit and Vector lose under faults, and whether anything says so.",
+      "headline": "1,561,800 numbered canaries written through rsyslog and journald on an Ubuntu 24.04 host and counted again in Elasticsearch across 25 conditions: default pipelines lost up to 84.8% (Fluent Bit, Elasticsearch stopped for 10 min), and 82 of 124 lossy streams left no log line anywhere saying events were lost.",
+      "metrics": [
+        {
+          "label": "Worst default loss (Fluent Bit, Elasticsearch stopped for 10 min)",
+          "value": "84.8%"
+        },
+        {
+          "label": "Lossy streams with no log line about the loss",
+          "value": "82 of 124"
+        },
+        {
+          "label": "Worst loss with tuned shippers (Filebeat, Partition 150 s with aggressive rotation and an 8 MB journal cap)",
+          "value": "43.9%"
+        },
+        {
+          "label": "Canaries written and reconciled",
+          "value": "1,561,800"
+        }
+      ],
+      "proof": {
+        "value": "84.8%",
+        "label": "Logs lost by default Fluent Bit while Elasticsearch was down for 10 minutes"
+      },
+      "charts": [
+        {
+          "src": "assets/img/logcanary/loss_by_condition.png",
+          "label": "Loss by condition",
+          "alt": "Mean percentage of canaries lost per condition, shipper and log path, with 95% confidence intervals",
+          "w": 2977,
+          "h": 2829
+        },
+        {
+          "src": "assets/img/logcanary/timelines.png",
+          "label": "Fault timelines",
+          "alt": "Cumulative share of canaries indexed over time for nine conditions, with fault windows shaded",
+          "w": 3373,
+          "h": 2717
+        },
+        {
+          "src": "assets/img/logcanary/alerts.png",
+          "label": "Who reported loss",
+          "alt": "For each lossy condition, shipper and path, the share of runs where the shipper log, host daemon log or shipper counters reported lost events",
+          "w": 2376,
+          "h": 3185
+        },
+        {
+          "src": "assets/img/logcanary/bursts.png",
+          "label": "Burst loss",
+          "alt": "Loss under bursts split into canaries the host never wrote to disk and canaries missing in Elasticsearch",
+          "w": 2977,
+          "h": 1104
+        },
+        {
+          "src": "assets/img/logcanary/latency_baseline_ecdf.png",
+          "label": "Delay at steady load",
+          "alt": "Cumulative distribution of ingest latency at 20 events per second for each shipper and path",
+          "w": 2010,
+          "h": 1141
+        },
+        {
+          "src": "assets/img/logcanary/latency_p95_heatmap.png",
+          "label": "Delay under faults",
+          "alt": "95th percentile ingest latency per condition, shipper and path",
+          "w": 3433,
+          "h": 1140
+        },
+        {
+          "src": "assets/img/logcanary/fidelity.png",
+          "label": "Field fidelity",
+          "alt": "Share of canaries arriving with every field intact by message size and by content type",
+          "w": 3373,
+          "h": 1183
+        },
+        {
+          "src": "assets/img/logcanary/clock_skew.png",
+          "label": "Clock jumps",
+          "alt": "Difference between the SIEM event time and the true write time during host clock jumps of +2 hours and -10 minutes",
+          "w": 3373,
+          "h": 1183
+        },
+        {
+          "src": "assets/img/logcanary/rule_blind_spots.png",
+          "label": "Rule blind spots",
+          "alt": "Share of sent canaries a 5 minute scheduled rule never sees, split into lost and arrived too late",
+          "w": 2785,
+          "h": 1263
+        },
+        {
+          "src": "assets/img/logcanary/duplicates.png",
+          "label": "Duplicates",
+          "alt": "Duplicate documents as a share of sent canaries per condition",
+          "w": 2149,
+          "h": 1127
+        },
+        {
+          "src": "assets/img/logcanary/default_vs_tuned.png",
+          "label": "Default against tuned",
+          "alt": "Loss with default and tuned shipper settings for five fault conditions",
+          "w": 3573,
+          "h": 1182
+        },
+        {
+          "src": "assets/img/logcanary/pipeline.png",
+          "label": "Lab pipeline",
+          "alt": "Architecture: canary writer and ledger on the host, rsyslog and journald, three shippers, Elasticsearch and the reconciler",
+          "w": 1882,
+          "h": 857
+        }
+      ],
+      "repo": "https://github.com/itsashutoshpsingh/logcanary",
+      "report": "https://github.com/itsashutoshpsingh/logcanary#readme",
+      "misses": [
+        "Elasticsearch throttled indexing in 56 of the 88 runs because the build disk was nearly full. Those runs are flagged in every table and the lab now sets the disk watermark; I did not rerun them.",
+        "The Ubuntu 22.04 host is defined in code but was not run, and neither were auditd, Windows or Splunk.",
+        "The raw ledgers and arrival files (76 MB) are kept out of git. Their hashes are published, but without them the latency, timeline and clock charts cannot be redrawn from the repository alone.",
+        "In the +2 h clock runs journald restarted about once a second, which may be caused by the fake-clock tool rather than by journald."
+      ],
+      "viz": [
+        {
+          "title": "Elasticsearch down for 2 minutes: share of canaries lost on the file path",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "Filebeat",
+              "value": 0.0,
+              "tone": "good"
+            },
+            {
+              "label": "Fluent Bit",
+              "value": 75.37,
+              "tone": "bad"
+            },
+            {
+              "label": "Vector",
+              "value": 0.0,
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "title": "Fluent Bit on the file path: share of canaries lost with default and tuned settings",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "Restart, default",
+              "value": 1.26,
+              "tone": "warn"
+            },
+            {
+              "label": "Restart, tuned",
+              "value": 0.0,
+              "tone": "good"
+            },
+            {
+              "label": "Crash, default",
+              "value": 13.27,
+              "tone": "bad"
+            },
+            {
+              "label": "Crash, tuned",
+              "value": 0.0,
+              "tone": "good"
+            },
+            {
+              "label": "Partition, default",
+              "value": 42.333,
+              "tone": "bad"
+            },
+            {
+              "label": "Partition, tuned",
+              "value": 0.0,
+              "tone": "good"
+            }
+          ]
+        },
+        {
+          "title": "Of 124 lossy streams, which ones left a log line about the loss",
+          "unit": "count",
+          "bars": [
+            {
+              "label": "Shipper log said so",
+              "value": 42,
+              "tone": "neutral"
+            },
+            {
+              "label": "Host daemon log said so",
+              "value": 0,
+              "tone": "neutral"
+            },
+            {
+              "label": "No log line anywhere",
+              "value": 82,
+              "tone": "bad"
+            }
+          ]
+        }
+      ]
     }
   ],
   "terminal": [
@@ -1016,6 +1222,12 @@
       "cmd": "make reproduce   # fixproof",
       "out": [
         "On hosts updated but not restarted, 138 of 138 scanner verdicts (100.0%) said fixed while the old vulnerable code was still running; 2 of 2 scanners did so every time."
+      ]
+    },
+    {
+      "cmd": "make reproduce   # logcanary",
+      "out": [
+        "1,561,800 numbered canaries written through rsyslog and journald on an Ubuntu 24.04 host and counted again in Elasticsearch across 25 conditions: default pipelines lost up to 84.8% (Fluent Bit, Elasticsearch stopped for 10 min), and 82 of 124 lossy streams left no log line anywhere saying events were lost."
       ]
     }
   ]

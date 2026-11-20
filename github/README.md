@@ -12,6 +12,7 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 <a href="https://github.com/itsashutoshpsingh/rulefire"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-4.svg" width="32.5%" alt="rulefire: 15.9% of SigmaHQ rules fired on recordings of their own technique"></a>
 <a href="https://github.com/itsashutoshpsingh/nhi-evidence"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-5.svg" width="32.5%" alt="nhi-evidence: 15 of 15 seeded misconfigurations found, with 0 false findings"></a>
 <a href="https://github.com/itsashutoshpsingh/fixproof"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-6.svg" width="32.5%" alt="fixproof: 100% of scanner verdicts said fixed while the old code was still running"></a>
+<a href="https://github.com/itsashutoshpsingh/logcanary"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/research-7.svg" width="32.5%" alt="logcanary: 84.8% of logs lost by default Fluent Bit while Elasticsearch was down for 10 minutes"></a>
 
 - **[evm-cluster-check](https://github.com/itsashutoshpsingh/evm-cluster-check):** how often published Ethereum clustering rules link addresses that belong to two different exchanges, measured against proof-of-reserves ground truth.
 - **[timetruth](https://github.com/itsashutoshpsingh/timetruth):** scripted file actions at known times, then a check of what Plaso and The Sleuth Kit report. Found a month offset in libfsfat that Plaso inherits.
@@ -19,6 +20,7 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 - **[rulefire](https://github.com/itsashutoshpsingh/rulefire):** do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.
 - **[nhi-evidence](https://github.com/itsashutoshpsingh/nhi-evidence):** read only evidence of risky apps, service principals and agents in Microsoft Entra ID, mapped to the OWASP Non-Human Identities Top 10.
 - **[fixproof](https://github.com/itsashutoshpsingh/fixproof):** do vulnerability scanners say fixed while the old vulnerable code is still running? 22 public CVEs on 8 Linux images, each host state built 3 times.
+- **[logcanary](https://github.com/itsashutoshpsingh/logcanary):** how many logs Filebeat, Fluent Bit and Vector lose between rsyslog or journald and Elasticsearch under crashes, partitions, outages and bursts, counted with numbered canary events, and whether anything says so.
 
 ### Before the research
 

@@ -30,6 +30,8 @@ jobs:
         with: { repository: itsashutoshpsingh/nhi-evidence, path: projects/nhi-evidence }
       - uses: actions/checkout@v4
         with: { repository: itsashutoshpsingh/fixproof, path: projects/fixproof }
+      - uses: actions/checkout@v4
+        with: { repository: itsashutoshpsingh/logcanary, path: projects/logcanary }
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

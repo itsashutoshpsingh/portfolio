@@ -203,6 +203,28 @@
         "Only the Ubuntu hosts were upgraded with apt. Debian, Alpine, Rocky and Alma used an image overlay.",
         "The Vuls restart check needs sudo and could not run on 21 of 38 host states."
       ]
+    },
+    {
+      "slug": "logcanary",
+      "tags": [
+        "SOC",
+        "Log pipelines"
+      ],
+      "oneLine": "Numbered canary events written through rsyslog and journald, then counted again in Elasticsearch, to measure how many logs Filebeat, Fluent Bit and Vector lose under faults, and whether anything says so.",
+      "cmd": "make reproduce   # logcanary",
+      "misses": [
+        "Elasticsearch throttled indexing in 56 of the 88 runs because the build disk was nearly full. Those runs are flagged in every table and the lab now sets the disk watermark; I did not rerun them.",
+        "The Ubuntu 22.04 host is defined in code but was not run, and neither were auditd, Windows or Splunk.",
+        "The raw ledgers and arrival files (76 MB) are kept out of git. Their hashes are published, but without them the latency, timeline and clock charts cannot be redrawn from the repository alone.",
+        "In the +2 h clock runs journald restarted about once a second, which may be caused by the fake-clock tool rather than by journald."
+      ],
+      "metric_labels": [
+        "Worst default loss (Fluent Bit, Elasticsearch stopped for 10 min)",
+        "Lossy streams with no log line about the loss",
+        "Worst loss with tuned shippers (Filebeat, Partition 150 s with aggressive rotation and an 8 MB journal cap)",
+        "Canaries written and reconciled"
+      ],
+      "proof_label": "Logs lost by default Fluent Bit while Elasticsearch was down for 10 minutes"
     }
   ]
 }
