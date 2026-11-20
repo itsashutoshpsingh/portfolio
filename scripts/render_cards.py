@@ -39,7 +39,7 @@ BASE = """
 @media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#B5432A;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
 text{font-family:'G',Calibri,Carlito,ui-sans-serif,system-ui,sans-serif;fill:var(--fg)}
 .m{font-family:'GM',ui-monospace,Menlo,monospace}
-.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}
+.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}.pearl{fill:var(--pearl)}.pearl2{fill:var(--pearl2)}.tang{fill:var(--tang)}
 .cap{font-size:12px;font-weight:700;letter-spacing:1.3px;fill:var(--mute)}
 .card{fill:var(--card);stroke:var(--line)}
 """ % TOKENS
@@ -138,23 +138,23 @@ def hero():
     pings = "".join(f'<circle class="ping" cx="{x}" cy="{y}" r="5" fill="none" stroke="var(--tang)" stroke-width="1.5"{d(j, 1.3, 2.2)}/>' for j, (x, y) in enumerate(((ax, ay), (bx, by))))
     graph = (f'{edges}<line class="flow" x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="var(--tang)" stroke-width="2.2"/>'
              f'{nodes}<circle cx="{ax}" cy="{ay}" r="4.5" fill="var(--tang)"/><circle cx="{bx}" cy="{by}" r="4.5" fill="var(--tang)"/>{pings}{packets}'
-             f'<text class="rise" x="776" y="128" font-size="13" font-weight="700" style="fill:var(--tang)"{d(0, 0, 2.0)}>False merge</text>'
+             f'<text class="rise tang" x="776" y="128" font-size="13" font-weight="700"{d(0, 0, 2.0)}>False merge</text>'
              '<g clip-path="url(#g)"><rect class="scan" style="--dx:270px" x="600" y="40" width="2" height="220" fill="var(--tang)"/></g>')
-    p, p2 = 'style="fill:var(--pearl)"', 'style="fill:var(--pearl2)"'
+    p, p2 = 'class="pearl"', 'class="pearl2"'
     text = (
         f'<g class="rise"{d(0)}><rect x="40.5" y="34.5" width="252" height="32" rx="16" fill="var(--navy)" fill-opacity=".6" stroke="var(--pearl)" stroke-opacity=".3"/>'
         f'<circle cx="58" cy="50.5" r="4" fill="var(--tang)"/><circle class="ping" cx="58" cy="50.5" r="4" fill="none" stroke="var(--tang)" stroke-width="1.5"/>'
         f'<text x="70" y="55.5" font-size="14" {p}>Security analyst, open to roles</text></g>'
-        f'<text class="rise"{d(1)} x="38" y="134" font-size="62" letter-spacing="-2.2" {p}>I find the errors</text>'
-        f'<text class="rise"{d(2)} x="38" y="198" font-size="62" letter-spacing="-2.2" {p}>in the evidence<tspan class="blink" style="fill:var(--tang)">.</tspan></text>'
-        f'<text class="rise"{d(3)} x="40" y="240" font-size="15.5" {p2}>Ashutosh Pal Singh. MSc Cyber Security Engineering, Warwick (NCSC certified).</text>'
-        f'<text class="rise"{d(3)} x="40" y="262" font-size="15.5" {p2}>Open to roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and research.</text>'
+        f'<text class="rise pearl"{d(1)} x="38" y="134" font-size="62" letter-spacing="-2.2">I find the errors</text>'
+        f'<text class="rise pearl"{d(2)} x="38" y="198" font-size="62" letter-spacing="-2.2">in the evidence<tspan class="blink" style="fill:var(--tang)">.</tspan></text>'
+        f'<text class="rise pearl2"{d(3)} x="40" y="240" font-size="15.5">Ashutosh Pal Singh. MSc Cyber Security Engineering, Warwick (NCSC certified).</text>'
+        f'<text class="rise pearl2"{d(3)} x="40" y="262" font-size="15.5">Open to roles in blockchain analytics, DFIR, fincrime, SOC, vulnerability management and research.</text>'
         f'<g class="rise"{d(4)}><rect x="40" y="284" width="196" height="44" rx="22" fill="var(--tang)"/>'
         f'<text x="62" y="312" font-size="16" font-weight="700" style="fill:var(--navy)">Open the portfolio</text>{arrow(201, 306, "var(--navy)", 14)}'
         '<rect x="248.5" y="284.5" width="166" height="43" rx="21.5" fill="none" stroke="var(--pearl)"/>'
         f'<text x="270" y="312" font-size="16" font-weight="700" {p}>See the research</text></g>'
         f'<rect x="40" y="346" width="{w - 80}" height="1" fill="var(--pearl)" fill-opacity=".25"/>'
-        + "".join(f'<text class="rise" x="{40 + k * 280}" y="366" font-size="12.5" {p2}{d(5 + k)}>{html.escape(t)}</text>' for k, t in enumerate(FACTS)))
+        + "".join(f'<text class="rise pearl2" x="{40 + k * 280}" y="366" font-size="12.5"{d(5 + k)}>{html.escape(t)}</text>' for k, t in enumerate(FACTS)))
     return svg(w, h, "Ashutosh Pal Singh, security analyst: I find the errors in the evidence", photo + graph + text, defs)
 
 

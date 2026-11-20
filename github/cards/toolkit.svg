@@ -3,7 +3,7 @@
 @media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#B5432A;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
 text{font-family:'G',Calibri,Carlito,ui-sans-serif,system-ui,sans-serif;fill:var(--fg)}
 .m{font-family:'GM',ui-monospace,Menlo,monospace}
-.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}
+.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}.pearl{fill:var(--pearl)}.pearl2{fill:var(--pearl2)}.tang{fill:var(--tang)}
 .cap{font-size:12px;font-weight:700;letter-spacing:1.3px;fill:var(--mute)}
 .card{fill:var(--card);stroke:var(--line)}
 
