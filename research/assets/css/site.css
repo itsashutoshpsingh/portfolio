@@ -1,6 +1,6 @@
 /* Tokens: spacing, radius, type and colour come from one table each. */
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   --bg: var(--c-bg);
   --surface-1: var(--c-surface-1);
   --surface-2: var(--c-surface-2);
@@ -342,3 +342,5 @@ footer .social svg, footer .social a:hover svg { fill: currentColor; }
 @media (max-width: 767px) { .body-3 { font-size: 19px; line-height: 31px; } .lede { font-size: 20px; line-height: 32px; } }
 /* The hero label wraps on narrow phones instead of running under the edge */
 .hero__head .eyebrow { max-width: 100%; white-space: normal; flex-wrap: wrap; row-gap: 2px; }
+
+.js .rise:focus-within { opacity: 1; transform: none; }  /* a keyboard user never lands on hidden content */

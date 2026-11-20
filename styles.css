@@ -16,7 +16,7 @@ body { background: transparent; }
   --r-md: 6px; --r-lg: 8px; --r-xl: 12px; --r-2xl: 16px; --r-3xl: 24px;
   --ease: cubic-bezier(.22, 1, .36, 1);
   --gutter: clamp(16px, 4vw, 64px);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -844,3 +844,11 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 /* Company and university logos: small, at the top of each card, printed into the card rather than boxed */
 .xp__logo { display: block; max-width: 100%; height: auto; mix-blend-mode: multiply; opacity: .95; }  /* size comes from the width and height attributes */
 .xp__logo--dark { mix-blend-mode: normal; border-radius: 6px; box-shadow: 0 6px 14px -8px rgba(15, 27, 77, .5); }
+
+/* Audit fixes: no sideways swipe on the door scene, no scrollbar jump when it opens or closes,
+   the door number leaves with the words, and the short-screen door scene fits */
+html { scrollbar-gutter: stable; }
+.gate { overflow-x: clip; }
+.gate.is-leaving .door.is-open .door__no { opacity: 0; transition: opacity 200ms var(--ease-out-strong); }
+@media (max-height: 620px) { .gate__inner { gap: 12px; } .gate__h { font-size: 30px; } .door__frame { height: min(30svh, 260px); } .gate__skip { margin-top: 8px; } }
+@media (max-width: 720px) { .door__smoke { width: 34%; } }  /* on phones the smoke stays on screen */
