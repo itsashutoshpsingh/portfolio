@@ -117,16 +117,28 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     var head = el.querySelector('h1, h2'); if (head) { head.setAttribute('tabindex', '-1'); head.focus({ preventScroll: true }); }
     return !!head;
   };
-  var close = function (target) {
-    clearTimeout(timer); timer = 0; pending = null;
-    gate.hidden = true; document.body.classList.remove('gated'); if (main) main.inert = false;
+  var revealed = false;
+  // the site comes back behind the doorway: unlock it, jump to the chosen place, play the arrival
+  var reveal = function (target) {
+    if (revealed) return true;
+    revealed = true;
+    document.body.classList.remove('gated'); if (main) main.inert = false;
     try { sessionStorage.setItem('gate', '1'); } catch (e) {}
-    if (!go(target)) { scrollTo({ top: was, behavior: 'instant' }); var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
+    var landed = go(target);
+    if (!landed) scrollTo({ top: was, behavior: 'instant' });
+    document.body.classList.remove('arrived'); void document.body.offsetWidth; document.body.classList.add('arrived');
+    return landed;
+  };
+  var close = function (target) {
+    clearTimeout(timer); clearTimeout(reveal.t); timer = 0; pending = null;
+    var landed = reveal(target);
+    gate.hidden = true; gate.classList.remove('is-leaving', 'is-walking');
+    if (!landed) { var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
     opener = null;
   };
   var open = function (from) {
-    opener = from || null; was = scrollY;
-    gate.classList.remove('is-leaving');
+    opener = from || null; was = scrollY; revealed = false;
+    gate.classList.remove('is-leaving', 'is-walking');
     gate.querySelectorAll('.door').forEach(function (d) { d.classList.remove('is-open'); });
     scrollTo({ top: 0, behavior: 'instant' });
     gate.hidden = false; document.body.classList.add('gated'); if (main) main.inert = true;
@@ -136,8 +148,14 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     d.addEventListener('click', function () {
       if (pending) { close(pending); return; }  // a second click skips the rest of the animation
       pending = d.getAttribute('data-go');
+      // walk towards the doorway: the scene grows around the centre of the chosen door
+      var inner = gate.querySelector('.gate__inner'), a = inner.getBoundingClientRect(), b = d.querySelector('.door__frame').getBoundingClientRect();
+      inner.style.setProperty('--ox', (b.left + b.width / 2 - a.left) + 'px'); inner.style.setProperty('--oy', (b.top + b.height / 2 - a.top) + 'px');
       d.classList.add('is-open'); gate.classList.add('is-leaving');
-      timer = setTimeout(function () { close(pending); }, still ? 0 : 900);
+      if (still) { close(pending); return; }
+      timer = setTimeout(function () { gate.classList.add('is-walking'); }, 520);    // once the leaf is mostly open
+      reveal.t = setTimeout(function () { reveal(pending); }, 1050);                  // the site appears through the doorway
+      timer = setTimeout(function () { close(pending); }, 1700);
     });
   });
   gate.querySelector('.gate__skip').addEventListener('click', function () { close(null); });
@@ -159,28 +177,30 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   });
 })();
 
-// Scroll story: on wide screens the three steps are pinned for under one screen of scrolling and swap as
-// you go, so the page never feels held. Three invisible markers tell an IntersectionObserver which step is
-// current (no scroll handler). Phones, reduced motion and old browsers keep the plain three-card row.
+// Scroll story: on wide screens the three steps are pinned for about two and a half screens of scrolling,
+// one step per stretch, with a line that fills as you go. Position comes from one rAF-throttled scroll read.
+// Phones, reduced motion and old browsers keep the plain three-card row.
 (function () {
   var story = document.querySelector('[data-scrolly]');
-  if (!story || !('IntersectionObserver' in window)) return;
-  var calm = matchMedia('(prefers-reduced-motion: reduce)'), wide = matchMedia('(min-width: 900px)');
-  var n = story.querySelectorAll('.step').length, marks = document.createElement('div');
-  marks.className = 'scrolly__marks'; marks.setAttribute('aria-hidden', 'true');
-  for (var i = 0; i < n; i++) { var m = document.createElement('i'); m.dataset.i = i; marks.appendChild(m); }
-  var io = new IntersectionObserver(function (es) {
-    es.forEach(function (e) { if (e.isIntersecting) story.dataset.step = e.target.dataset.i; });
-  }, { rootMargin: '-50% 0px -50% 0px' });
+  if (!story) return;
+  var calm = matchMedia('(prefers-reduced-motion: reduce)'), wide = matchMedia('(min-width: 900px)'), queued = false;
+  var n = story.querySelectorAll('.step').length;
+  var read = function () {
+    queued = false;
+    if (!story.classList.contains('is-scrolly')) return;
+    var r = story.getBoundingClientRect(), span = r.height - innerHeight;
+    var p = span > 0 ? Math.min(1, Math.max(0, -r.top / span)) : 0;
+    story.style.setProperty('--p', p.toFixed(4));
+    story.dataset.step = String(Math.min(n - 1, Math.floor(p * n * 0.999)));
+  };
+  var onScroll = function () { if (!queued) { queued = true; requestAnimationFrame(read); } };
   var set = function () {
     var on = wide.matches && !calm.matches;
-    if (on === story.classList.contains('is-scrolly')) return;
     story.classList.toggle('is-scrolly', on);
     if (on) {
-      story.querySelectorAll('.step').forEach(function (s) { s.removeAttribute('data-reveal'); });  // the pinned stage shows and hides the steps itself
-      story.appendChild(marks); story.dataset.step = '0';
-      marks.querySelectorAll('i').forEach(function (m) { io.observe(m); });
-    } else { io.disconnect(); marks.remove(); delete story.dataset.step; }
+      story.querySelectorAll('.step').forEach(function (s) { s.removeAttribute('data-reveal'); s.classList.add('is-in'); });  // the pinned stage shows and hides the steps itself
+      addEventListener('scroll', onScroll, { passive: true }); read();
+    } else { removeEventListener('scroll', onScroll); delete story.dataset.step; story.style.removeProperty('--p'); }
   };
   wide.addEventListener('change', set); calm.addEventListener('change', set);
   set();

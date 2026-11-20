@@ -35,11 +35,11 @@ FONTS = (
 # GitHub's surfaces in both of its themes, with the site's accent (darkened on the light theme so it still reads).
 # The banner keeps the site's navy and pearl in both themes because it is a photograph.
 BASE = """
-:root{--card:#161b22;--card2:#21262d;--line:#30363d;--fg:#f0f6fc;--soft:#c9d1d9;--mute:#9198a1;--sig:%(accent)s;--on:#0d1117;--ok:%(green)s;--amber:%(amber)s;--red:%(red)s;--navy:%(bg)s;--pearl:%(ink)s;--pearl2:%(ink-2)s;--tang:%(accent)s;--e:cubic-bezier(.22,1,.36,1)}
-@media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#B5432A;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
+:root{--card:#161b22;--card2:#21262d;--line:#30363d;--fg:#f0f6fc;--soft:#c9d1d9;--mute:#9198a1;--sig:%(accent)s;--on:#0d1117;--ok:%(green)s;--amber:%(amber)s;--red:%(red)s;--navy:%(bg)s;--pearl:%(ink)s;--pearl2:%(ink-2)s;--tang:%(accent)s;--royal:%(royal)s;--e:cubic-bezier(.22,1,.36,1)}
+@media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#1F4FD1;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
 text{font-family:'G',Calibri,Carlito,ui-sans-serif,system-ui,sans-serif;fill:var(--fg)}
 .m{font-family:'GM',ui-monospace,Menlo,monospace}
-.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}.pearl{fill:var(--pearl)}.pearl2{fill:var(--pearl2)}.tang{fill:var(--tang)}
+.soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}.pearl{fill:var(--pearl)}.pearl2{fill:var(--pearl2)}.tang{fill:var(--tang)}.wrong{fill:var(--red)}
 .cap{font-size:12px;font-weight:700;letter-spacing:1.3px;fill:var(--mute)}
 .card{fill:var(--card);stroke:var(--line)}
 """ % TOKENS
@@ -118,11 +118,12 @@ def hero():
     Data moves along the edges, a scan line crosses the graph and the wrong link keeps flashing."""
     w, h = 880, 380
     defs = (f'<clipPath id="r"><rect width="{w}" height="{h}" rx="20"/></clipPath><clipPath id="g"><rect x="600" y="40" width="270" height="220"/></clipPath>'
-            '<linearGradient id="veil" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--navy)" stop-opacity=".9"/>'
-            '<stop offset=".6" stop-color="var(--navy)" stop-opacity=".66"/><stop offset="1" stop-color="var(--navy)" stop-opacity=".5"/></linearGradient>')
+            '<radialGradient id="glow" cx=".78" cy=".42" r=".7"><stop offset="0" stop-color="var(--royal)" stop-opacity=".45"/><stop offset="1" stop-color="var(--navy)" stop-opacity="0"/></radialGradient>'
+            '<pattern id="gridp" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="var(--line)" stroke-opacity=".35"/></pattern>')
+    # the site's own background: midnight royal, a faint grid and a floor of light where the path runs
     photo = (f'<g clip-path="url(#r)"><rect width="{w}" height="{h}" fill="var(--navy)"/>'
-             f'<image href="data:image/jpeg;base64,{b64("github", "hero-bg.jpg")}" width="{w}" height="{h}" preserveAspectRatio="xMidYMid slice"/>'
-             f'<rect width="{w}" height="{h}" fill="url(#veil)"/></g><rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="20" fill="none" stroke="var(--line)"/>')
+             f'<rect width="{w}" height="{h}" fill="url(#glow)"/><rect width="{w}" height="{h}" fill="url(#gridp)"/></g>'
+             f'<rect x=".5" y=".5" width="{w-1}" height="{h-1}" rx="20" fill="none" stroke="var(--line)"/>')
     edges = packets = ""
     for k, (a, b) in enumerate(EDGES):
         (x1, y1), (x2, y2) = NODES[a], NODES[b]
@@ -135,10 +136,10 @@ def hero():
                         f'<animateMotion path="M{x1},{y1} L{x2},{y2}" dur="2.4s" begin="{2 + k * .2:.1f}s" repeatCount="indefinite"/></circle>')
     nodes = "".join(f'<circle class="pop" cx="{x}" cy="{y}" r="4.5" fill="var(--pearl)"{d(i, .07, .2)}/>' for i, (x, y) in enumerate(NODES))
     (ax, ay), (bx, by) = NODES[4], NODES[5]
-    pings = "".join(f'<circle class="ping" cx="{x}" cy="{y}" r="5" fill="none" stroke="var(--tang)" stroke-width="1.5"{d(j, 1.3, 2.2)}/>' for j, (x, y) in enumerate(((ax, ay), (bx, by))))
-    graph = (f'{edges}<line class="flow" x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="var(--tang)" stroke-width="2.2"/>'
-             f'{nodes}<circle cx="{ax}" cy="{ay}" r="4.5" fill="var(--tang)"/><circle cx="{bx}" cy="{by}" r="4.5" fill="var(--tang)"/>{pings}{packets}'
-             f'<text class="rise tang" x="776" y="128" font-size="13" font-weight="700"{d(0, 0, 2.0)}>False merge</text>'
+    pings = "".join(f'<circle class="ping" cx="{x}" cy="{y}" r="5" fill="none" stroke="var(--red)" stroke-width="1.5"{d(j, 1.3, 2.2)}/>' for j, (x, y) in enumerate(((ax, ay), (bx, by))))
+    graph = (f'{edges}<line class="flow" x1="{ax}" y1="{ay}" x2="{bx}" y2="{by}" stroke="var(--red)" stroke-width="2.2"/>'
+             f'{nodes}<circle cx="{ax}" cy="{ay}" r="4.5" fill="var(--red)"/><circle cx="{bx}" cy="{by}" r="4.5" fill="var(--red)"/>{pings}{packets}'
+             f'<text class="rise wrong" x="776" y="128" font-size="13" font-weight="700"{d(0, 0, 2.0)}>False merge</text>'
              '<g clip-path="url(#g)"><rect class="scan" style="--dx:270px" x="600" y="40" width="2" height="220" fill="var(--tang)"/></g>')
     p, p2 = 'class="pearl"', 'class="pearl2"'
     text = (

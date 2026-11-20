@@ -1,11 +1,25 @@
 /* Shared motion styles for fx.js. Colours come from tokens.css. Motion rules apply only when the
    page has the .fx class (motion allowed); without it everything sits at its final state. */
 
-/* Background footage: fixed behind the whole page; fx.js moves it with the scroll */
-video.bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; object-fit: cover; pointer-events: none; transform-origin: 50% 40%; will-change: transform; }
-video.bg::-webkit-media-controls { display: none !important; }   /* without scripts some browsers would offer to play it */
-/* The veil darkens the footage evenly so text stays readable wherever it sits */
-.veil { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: rgba(var(--c-scrim), .7); }
+/* The 3D journey (journey.js): fixed behind the whole page, fades in once the first frame is drawn */
+canvas.journey { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none; opacity: 0; transition: opacity 900ms cubic-bezier(.22,1,.36,1); }
+canvas.journey.is-ready { opacity: 1; }
+
+/* The meter: how far down the page, and where in the journey the reader is */
+.meter { position: fixed; right: 12px; bottom: 24px; z-index: 44; width: 100px; display: none; justify-items: center; gap: 2px; padding: 12px 6px 14px; text-align: center;
+  border-radius: 16px; border: 1px solid var(--c-line); background: rgba(var(--c-scrim), .86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  opacity: 0; transform: perspective(600px) rotateY(-18deg) translateX(12px); transform-origin: right center; transition: opacity 300ms cubic-bezier(.22,1,.36,1), transform 600ms cubic-bezier(.22,1,.36,1); pointer-events: none; }
+.meter svg { grid-area: 1 / 1; width: 60px; height: 60px; transform: rotate(-90deg); }
+.meter__track { fill: none; stroke: var(--c-surface-3); stroke-width: 5; }
+.meter__fill { fill: none; stroke: var(--c-accent); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 160ms linear; }
+.meter__pct { grid-area: 1 / 1; align-self: center; font: 700 14px/1 var(--font-ui); color: var(--c-ink); font-variant-numeric: tabular-nums; }
+.meter__year { margin-top: 6px; font: 700 18px/22px var(--font-ui); color: var(--c-ink); letter-spacing: -.01em; }
+.meter__place { font: 600 12px/16px var(--font-ui); color: var(--c-green); }
+.meter__what { font: 400 11px/14px var(--font-ui); color: var(--c-ink-3); text-wrap: balance; }
+.meter.is-new .meter__year, .meter.is-new .meter__place, .meter.is-new .meter__what { animation: meter-in 500ms cubic-bezier(.22,1,.36,1) both; }
+@keyframes meter-in { from { opacity: 0; transform: translateY(6px); } }
+@media (min-width: 1400px) { .meter { display: grid; } body.past-hero .meter { opacity: 1; transform: perspective(600px) rotateY(-10deg); } }
+@media (prefers-reduced-motion: reduce) { .meter, .meter__fill { transition: none; } .meter.is-new * { animation: none; } }
 
 /* Headings: words rise and settle from ice blue to the text colour */
 .fx .fx-split .fx-w { display: inline-block; opacity: 0; transform: translateY(40%); color: var(--c-cyan);
@@ -22,8 +36,8 @@ video.bg::-webkit-media-controls { display: none !important; }   /* without scri
 .fx .btn:hover { box-shadow: 0 0 0 2px var(--c-ink); }
 
 /* Reading progress: a thin line, pearl to the accent, driven by the scroll timeline */
-.progress { position: fixed; left: 0; top: 0; z-index: 90; width: 100%; height: 2px; pointer-events: none;
-  background: linear-gradient(90deg, var(--c-ink), var(--c-accent));
+.progress { position: fixed; left: 0; top: 0; z-index: 90; width: 100%; height: 3px; pointer-events: none;
+  background: linear-gradient(90deg, var(--c-royal), var(--c-accent), var(--c-green));
   transform-origin: left; transform: scaleX(0); }
 @supports (animation-timeline: scroll()) { .progress { animation: fx-grow linear both; animation-timeline: scroll(root); } }
 @keyframes fx-grow { to { transform: scaleX(1); } }

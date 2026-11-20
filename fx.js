@@ -1,8 +1,8 @@
-/* Shared motion for the home page and /research: scroll-driven footage, decrypt labels,
+/* Shared motion for the home page and /research (the 3D background lives in journey.js): decrypt labels,
    word-by-word headings, card tilt and magnetic buttons. Numbers are never animated: a result is
    shown as its final value, because a counting figure is a wrong figure until it stops. Transform and opacity only
    for DOM motion; IntersectionObserver, never scroll handlers. Under prefers-reduced-motion the
-   footage stays on its poster frame and everything else is shown at its final state. */
+   everything is shown at its final state. */
 (function () {
   'use strict';
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -20,33 +20,6 @@
     }, { rootMargin: margin || '0px 0px -12% 0px' });
     els.forEach(function (el) { io.observe(el); });
   };
-
-  /* Background: real footage that moves with the page. Scrolling plays the film forward and back, eased
-     so it glides instead of stepping, while the frame slowly pushes in. It never plays on its own, so
-     nothing moves unless the visitor scrolls. Under reduced motion it stays on its poster frame. */
-  var film = document.querySelector('video.bg');
-  if (film && !still) {
-    var want = 0, at = 0, ticking = false;
-    var glide = function () {
-      at += (want - at) * 0.12;
-      if (Math.abs(want - at) < 0.0005) at = want;
-      var d = film.duration, t = d ? at * (d - 0.05) : 0, late = false;
-      if (d) { if (film.seeking) late = true; else if (Math.abs(film.currentTime - t) > 0.01) film.currentTime = t; }
-      film.style.transform = 'scale(' + (1 + at * 0.12).toFixed(4) + ')';
-      if (at !== want || late) requestAnimationFrame(glide); else ticking = false;
-    };
-    var aim = function () {
-      var max = document.documentElement.scrollHeight - innerHeight;
-      want = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
-      if (!ticking) { ticking = true; requestAnimationFrame(glide); }
-    };
-    var primed = film.play();  // some phones only load frames once play has been called
-    if (primed && primed.then) primed.then(function () { film.pause(); aim(); }).catch(function () {}); else film.pause();
-    film.addEventListener('loadedmetadata', aim);
-    window.addEventListener('scroll', aim, { passive: true });
-    window.addEventListener('resize', aim, { passive: true });
-    aim();
-  }
 
   /* Decrypt: cyan glyphs settle into the real text, left to right */
   function scramble(el) {
