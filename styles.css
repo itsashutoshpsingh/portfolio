@@ -840,3 +840,7 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 .gate::before { background:
     linear-gradient(180deg, rgba(15, 27, 77, 0) 72%, rgba(15, 27, 77, .1) 72.2%, rgba(15, 27, 77, .04) 100%),
     radial-gradient(60% 55% at 50% 42%, rgba(255, 255, 255, .8) 0%, rgba(238, 242, 251, .5) 45%, rgba(203, 213, 238, .62) 100%); }
+
+/* Company and university logos: small, at the top of each card, printed into the card rather than boxed */
+.xp__logo { display: block; max-width: 100%; height: auto; mix-blend-mode: multiply; opacity: .95; }  /* size comes from the width and height attributes */
+.xp__logo--dark { mix-blend-mode: normal; border-radius: 6px; box-shadow: 0 6px 14px -8px rgba(15, 27, 77, .5); }
