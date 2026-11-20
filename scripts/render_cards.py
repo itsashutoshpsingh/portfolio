@@ -36,7 +36,7 @@ FONTS = (
 # The banner keeps the site's navy and pearl in both themes because it is a photograph.
 BASE = """
 :root{--card:#161b22;--card2:#21262d;--line:#30363d;--fg:#f0f6fc;--soft:#c9d1d9;--mute:#9198a1;--sig:%(accent)s;--on:#0d1117;--ok:%(green)s;--amber:%(amber)s;--red:%(red)s;--navy:%(bg)s;--pearl:%(ink)s;--pearl2:%(ink-2)s;--tang:%(accent)s;--e:cubic-bezier(.22,1,.36,1)}
-@media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#bc4c00;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
+@media(prefers-color-scheme:light){:root{--card:#f6f8fa;--card2:#ffffff;--line:#d1d9e0;--fg:#1f2328;--soft:#424a53;--mute:#59636e;--sig:#B5432A;--on:#ffffff;--ok:#1a7f37;--amber:#9a6700;--red:#cf222e}}
 text{font-family:'G',Calibri,Carlito,ui-sans-serif,system-ui,sans-serif;fill:var(--fg)}
 .m{font-family:'GM',ui-monospace,Menlo,monospace}
 .soft{fill:var(--soft)}.mute{fill:var(--mute)}.sig{fill:var(--sig)}.on{fill:var(--on)}

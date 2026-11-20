@@ -44,7 +44,7 @@ a { color: inherit; text-underline-offset: 4px; }
 h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3, h4 { text-wrap: balance; }
 p, li { text-wrap: pretty; }
-::selection { background: var(--signal); color: var(--c-bg); }
+::selection { background: var(--c-glacier); color: var(--c-bg); }
 
 /* Named text styles */
 .heading-1 { font-size: clamp(36px, 5.2vw, 96px); line-height: 1; }
@@ -78,7 +78,7 @@ h1, h2, .heading-1, .heading-2, .heading-3 { font-family: var(--font-ui); font-w
   border-radius: var(--r-full); text-decoration: none;
 }
 .skip:focus { top: var(--s-200); }
-:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--c-glacier); outline-offset: 3px; }
 
 .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 var(--s-300); }
 section { padding: var(--s-700) 0; position: relative; }
@@ -152,7 +152,7 @@ section { padding: var(--s-700) 0; position: relative; }
 .menu ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-100); }
 .menu a { opacity: 0; transform: translateY(24px); transition: opacity 500ms var(--ease), transform 500ms var(--ease), color 300ms var(--ease), background-color 300ms var(--ease); }
 .menu li a { display: block; padding: var(--s-100) 0; text-decoration: none; }
-.menu li a:hover { color: var(--signal); }
+.menu li a:hover { color: var(--c-glacier); }
 .menu.open a { opacity: 1; transform: none; }
 
 /* Hero: the scrim is solid behind the copy and thins to the right, where only the large heading
@@ -193,9 +193,9 @@ section { padding: var(--s-700) 0; position: relative; }
 .term__title { margin-left: var(--s-75); }
 .term__body { padding: var(--s-200); height: 400px; overflow: auto; overscroll-behavior: contain; font-family: var(--font-code); font-size: 14px; line-height: 20px; white-space: pre-wrap; word-break: break-word; }
 @media (max-width: 960px) { .term__body { height: 320px; } }
-.term__body .p { color: var(--signal); }
+.term__body .p { color: var(--c-glacier); }
 .term__body .o { color: var(--text-muted); }
-.cursor { display: inline-block; width: 8px; height: 16px; background: var(--signal); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+.cursor { display: inline-block; width: 8px; height: 16px; background: var(--c-glacier); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
 /* Projects: two cards to a row. Each card's three parts sit on shared row lines (subgrid), so the
@@ -233,7 +233,7 @@ section { padding: var(--s-700) 0; position: relative; }
   transition: color 300ms var(--ease), border-color 300ms var(--ease);
 }
 .figure__tabs button:hover { color: var(--text); border-color: var(--text); }
-.figure__tabs button[aria-pressed="true"] { color: var(--text); border-color: var(--signal); }
+.figure__tabs button[aria-pressed="true"] { color: var(--text); border-color: var(--c-glacier); }
 /* room for the longest description, so a shorter one does not pull the card up */
 .figure figcaption { min-height: 48px; }
 .project__viz { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: var(--s-200); align-content: start; }
@@ -250,13 +250,13 @@ html:not(.js) :is(.proof, .term, .project, .nav__toggle) { display: none; }
 .reveal-text { max-width: 880px; }
 .reveal-text .w { color: var(--text-faint); transition: color 600ms var(--ease); }
 .reveal-text .w.on { color: var(--text); }
-.reveal-text .w.accent.on { color: var(--signal); }
+.reveal-text .w.accent.on { color: var(--c-glacier); }
 
 /* Steps */
 .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-200); counter-reset: step; }
 @media (max-width: 860px) { .steps { grid-template-columns: minmax(0, 1fr); } }
 .step { padding: var(--s-300); border-radius: var(--r-2xl); background: var(--surface-1); border: 1px solid var(--line); display: grid; gap: var(--s-100); align-content: start; }
-.step i { font-size: 28px; color: var(--signal); }
+.step i { font-size: 28px; color: var(--c-glacier); }
 .step__n { color: var(--text-muted); font-family: var(--mono); }
 
 /* Misses */
@@ -340,3 +340,5 @@ footer .social svg, footer .social a:hover svg { fill: currentColor; }
 .muted { color: var(--c-ink-2); }
 @media (min-width: 900px) { main section { padding: var(--s-900) 0; } }
 @media (max-width: 767px) { .body-3 { font-size: 17px; line-height: 28px; } .lede { font-size: 18px; line-height: 29px; } }
+/* The hero label wraps on narrow phones instead of running under the edge */
+.hero__head .eyebrow { max-width: 100%; white-space: normal; flex-wrap: wrap; row-gap: 2px; }

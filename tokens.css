@@ -7,23 +7,24 @@
 @font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
   color-scheme: dark;
-  --c-bg: #141B2D;        /* ink navy: the base */
-  --c-bg-2: #1B2540;      /* the fallback background is a gradient between the two */
-  --c-surface-1: #1E2740;
-  --c-surface-2: #263150;
-  --c-surface-3: #324163;
-  --c-line: #485980;
-  --c-ink: #F4F1EA;       /* pearl white: text */
-  --c-ink-2: #E8E5DD;     /* secondary text */
-  --c-ink-3: #C3C8D2;     /* captions */
-  --c-scrim: 20, 27, 45;  /* rgb of the base, for overlays */
-  --c-tint: 244, 241, 234;   /* rgb of the ink, for faint lines and dots */
-  --c-accent: #F28C28;    /* tangerine: the one accent, for actions and the current place */
-  --c-blue: #3B82F6;      /* data: neutral bars */
-  --c-cyan: #F28C28;      /* older name for the accent, still used by the motion styles */
-  --c-green: #22C55E;     /* data: good results */
-  --c-amber: #FACC15;     /* data: warnings */
-  --c-red: #EF4444;       /* data: false merges, misses, loss */
+  --c-bg: #0F1B24;        /* glacier slate: the darkest tone in the lake footage */
+  --c-bg-2: #15232E;      /* the fallback background is a gradient between the two */
+  --c-surface-1: #17262F;
+  --c-surface-2: #1E3140;
+  --c-surface-3: #27404F;
+  --c-line: #3B556A;
+  --c-ink: #EEF3F6;       /* mist: text */
+  --c-ink-2: #CBD8E0;     /* secondary text, tinted from the same cold hue */
+  --c-ink-3: #9DB1BF;     /* captions */
+  --c-scrim: 15, 27, 36;  /* rgb of the base, for overlays */
+  --c-tint: 238, 243, 246;   /* rgb of the ink, for faint lines and dots */
+  --c-accent: #F0825F;    /* alpenglow: the one warm colour, for actions and the current place */
+  --c-glacier: #8FD3F4;   /* ice blue: labels, marks, links and focus */
+  --c-blue: #5EA8F0;      /* data: neutral bars */
+  --c-cyan: #8FD3F4;      /* older name for the ice blue, still used by the motion styles */
+  --c-green: #38C172;     /* data: good results */
+  --c-amber: #F2C14E;     /* data: warnings */
+  --c-red: #F25C54;       /* data: false merges, misses, loss */
   --glow-blue: transparent;   /* glows are off everywhere: solid colours only */
   --glow-cyan: transparent;
   --glow-green: transparent;
