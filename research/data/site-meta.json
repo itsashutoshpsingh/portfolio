@@ -147,14 +147,14 @@
       "oneLine": "Do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.",
       "cmd": "make reproduce   # rulefire",
       "metric_labels": [
-        "SigmaHQ rules that fire on their technique",
-        "Pairs that never fire (top silent error)",
-        "Techniques with a usable rule",
-        "Executor regression tests passed"
+        "SigmaHQ rules that fire, all 1,280 pairs",
+        "Model rules that load as valid Sigma",
+        "Model rules that parse as YAML",
+        "Techniques with a usable SigmaHQ rule"
       ],
       "proof_label": "SigmaHQ rules that fired on recordings of their own technique",
       "misses": [
-        "No language model has written a rule yet: there is no API key here and model downloads are blocked, so the model rows are empty.",
+        "Only two small open models ran (qwen2.5-coder 3B and llama3.2 3B), one sample per technique, on a CPU. Larger models, five samples per technique, the repair loop and any hosted model were not run.",
         "The benign logs are the set SigmaHQ already tests against, so its near zero false alarm rate is not a fair comparison for untuned rules.",
         "196 technique and capture pairs from EVTX-ATTACK-SAMPLES are my own mapping, because that collection has no technique IDs.",
         "My first Security 4688 pipeline never matched anything. It was fixed before the published run, with six other harness bugs listed."

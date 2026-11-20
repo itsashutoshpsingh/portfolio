@@ -480,23 +480,23 @@
         "SOC"
       ],
       "oneLine": "Do Sigma rules fire on the attack they were written for? Every rule run against public attack recordings and benign Windows logs.",
-      "headline": "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access.",
+      "headline": "2 small open models running on CPU wrote 252 Sigma rules for 63 ATT&CK techniques: 53.2% parsed as YAML, 0 loaded as valid Sigma and 0 fired on public attack captures of their technique; one SigmaHQ rule per technique fires on 23.1%.",
       "metrics": [
         {
-          "label": "SigmaHQ rules that fire on their technique",
+          "label": "SigmaHQ rules that fire, all 1,280 pairs",
           "value": "15.9%"
         },
         {
-          "label": "Pairs that never fire (top silent error)",
-          "value": "71.8%"
+          "label": "Model rules that load as valid Sigma",
+          "value": "0 of 252"
         },
         {
-          "label": "Techniques with a usable rule",
+          "label": "Model rules that parse as YAML",
+          "value": "53.2%"
+        },
+        {
+          "label": "Techniques with a usable SigmaHQ rule",
           "value": "50 of 63"
-        },
-        {
-          "label": "Executor regression tests passed",
-          "value": "474 of 474"
         }
       ],
       "proof": {
@@ -504,6 +504,27 @@
         "label": "SigmaHQ rules that fired on recordings of their own technique"
       },
       "charts": [
+        {
+          "src": "assets/img/rulefire/models_vs_baseline.png",
+          "label": "Models against SigmaHQ",
+          "alt": "Shares of rules that parse as YAML, load as Sigma and fire, per open model and prompt, against SigmaHQ",
+          "w": 2207,
+          "h": 2079
+        },
+        {
+          "src": "assets/img/rulefire/model_outcomes.png",
+          "label": "Model outcomes",
+          "alt": "Outcome classes of each rule source, from no YAML to usable",
+          "w": 2138,
+          "h": 1632
+        },
+        {
+          "src": "assets/img/rulefire/model_failures.png",
+          "label": "Why model rules fail",
+          "alt": "Most common YAML parser and pySigma errors in model-written rules",
+          "w": 2613,
+          "h": 1191
+        },
         {
           "src": "assets/img/rulefire/hero_outcomes.png",
           "label": "Outcome by tactic",
@@ -571,91 +592,96 @@
       "repo": "https://github.com/itsashutoshpsingh/rulefire",
       "report": "https://github.com/itsashutoshpsingh/rulefire#readme",
       "misses": [
-        "No language model has written a rule yet: there is no API key here and model downloads are blocked, so the model rows are empty.",
+        "Only two small open models ran (qwen2.5-coder 3B and llama3.2 3B), one sample per technique, on a CPU. Larger models, five samples per technique, the repair loop and any hosted model were not run.",
         "The benign logs are the set SigmaHQ already tests against, so its near zero false alarm rate is not a fair comparison for untuned rules.",
         "196 technique and capture pairs from EVTX-ATTACK-SAMPLES are my own mapping, because that collection has no technique IDs.",
         "My first Security 4688 pipeline never matched anything. It was fixed before the published run, with six other harness bugs listed."
       ],
       "viz": [
         {
-          "title": "Most SigmaHQ rules never fire on their technique’s captures (71.8%)",
+          "title": "Where all model rules fail: before they ever run",
           "unit": "%",
           "bars": [
             {
-              "label": "Usable",
-              "value": 15.6,
-              "tone": "good"
-            },
-            {
-              "label": "Over-broad on benign",
-              "value": 0.3,
-              "tone": "warn"
-            },
-            {
-              "label": "Log not in capture",
-              "value": 12.3,
-              "tone": "warn"
-            },
-            {
-              "label": "Never fires",
-              "value": 71.8,
+              "label": "No parseable YAML",
+              "value": 46.8,
               "tone": "bad"
+            },
+            {
+              "label": "Invalid Sigma",
+              "value": 53.2,
+              "tone": "bad"
+            },
+            {
+              "label": "Valid, fails silently",
+              "value": 0.0,
+              "tone": "bad"
+            },
+            {
+              "label": "Usable",
+              "value": 0.0,
+              "tone": "good"
             }
           ]
         },
         {
-          "title": "More rules per technique catch more techniques",
+          "title": "The coder model writes YAML far more often, and the log-source list helps both",
           "unit": "%",
           "bars": [
             {
-              "label": "1 rule",
+              "label": "SigmaHQ rules",
+              "value": 100.0,
+              "tone": "neutral"
+            },
+            {
+              "label": "Llama3.2-3b, with schema",
+              "value": 38.1,
+              "tone": "bad"
+            },
+            {
+              "label": "Llama3.2-3b, zero shot",
+              "value": 17.5,
+              "tone": "bad"
+            },
+            {
+              "label": "Qwen2.5-coder-3b, with schema",
+              "value": 82.5,
+              "tone": "warn"
+            },
+            {
+              "label": "Qwen2.5-coder-3b, zero shot",
+              "value": 74.6,
+              "tone": "warn"
+            }
+          ]
+        },
+        {
+          "title": "Rules that fire on their technique: one SigmaHQ rule 23.1%, models none",
+          "unit": "%",
+          "bars": [
+            {
+              "label": "SigmaHQ, one rule",
               "value": 23.1,
               "tone": "neutral"
             },
             {
-              "label": "3 rules",
-              "value": 46.8,
-              "tone": "neutral"
-            },
-            {
-              "label": "5 rules",
-              "value": 58.5,
-              "tone": "good"
-            },
-            {
-              "label": "10 rules",
-              "value": 71.5,
-              "tone": "good"
-            }
-          ]
-        },
-        {
-          "title": "Most firing SigmaHQ rules raise no benign hits at all",
-          "unit": "count",
-          "bars": [
-            {
-              "label": "0",
-              "value": 189,
-              "tone": "good"
-            },
-            {
-              "label": "Up to 5",
-              "value": 11,
-              "tone": "good"
-            },
-            {
-              "label": "5 to 50",
-              "value": 2,
+              "label": "Llama3.2-3b, with schema",
+              "value": 0.0,
               "tone": "bad"
             },
             {
-              "label": "50 to 500",
-              "value": 0,
+              "label": "Llama3.2-3b, zero shot",
+              "value": 0.0,
               "tone": "bad"
             },
             {
-              "label": "Over 500",
-              "value": 2,
+              "label": "Qwen2.5-coder-3b, with schema",
+              "value": 0.0,
+              "tone": "bad"
+            },
+            {
+              "label": "Qwen2.5-coder-3b, zero shot",
+              "value": 0.0,
               "tone": "bad"
             }
           ]
@@ -1209,7 +1235,7 @@
     {
       "cmd": "make reproduce   # rulefire",
       "out": [
-        "Only 15.9% of 1280 SigmaHQ rules fired on public attack captures of the ATT&CK technique they are tagged with (63 techniques); 15.6% also stayed quiet on 68 hours of benign Windows logs. Model rows are pending model access."
+        "2 small open models running on CPU wrote 252 Sigma rules for 63 ATT&CK techniques: 53.2% parsed as YAML, 0 loaded as valid Sigma and 0 fired on public attack captures of their technique; one SigmaHQ rule per technique fires on 23.1%."
       ]
     },
     {
