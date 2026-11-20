@@ -22,7 +22,7 @@ Investigators trust tools they rarely measure. I build open benchmarks that chec
 
 ### Before the research
 
-Seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and a home SOC lab with Sigma and Splunk rules mapped to MITRE ATT&CK.
+A live online store in Coventry hardened against a formal threat model (two step staff login, least privilege, CSP, HSTS, CSRF protection, 237 commits scanned for secrets), seven months at Kyoka Embedded Systems securing a 1,000+ device smart-home IoT estate (Nessus, Qualys, CVSS, firmware fixes down to the bootloader, mutual TLS), and two home labs: Elastic and Sysmon detection on hardened Debian, and twelve Linux hosts across Fedora, Debian and Arch.
 
 <a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/experience.svg" width="49%" alt="Experience: four roles at Kyoka, NASSCOM, Cisco AICTE and Verzeo, plus open research and a detection lab"></a>
 <a href="https://itsashutoshpsingh.github.io/portfolio/#experience"><img src="https://raw.githubusercontent.com/itsashutoshpsingh/portfolio/main/github/cards/work.svg" width="49%" alt="Production work: 1,000+ IoT devices secured at Kyoka, with open vulnerabilities cut by 45%"></a>

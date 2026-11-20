@@ -212,10 +212,12 @@ def research_card(p, i):
 
 
 TOOLKIT = [
+    ("Detection", ["Microsoft Sentinel", "KQL", "Defender XDR", "Splunk", "Elastic", "Sigma", "MITRE ATT&CK"]),
+    ("Vulnerability and AppSec", ["Nessus", "Qualys", "Trivy", "OSV-Scanner", "Burp Suite", "CVSS", "OWASP Top 10"]),
+    ("Cloud and identity", ["Microsoft Azure", "Microsoft 365", "Entra ID", "Conditional Access", "Intune", "mTLS"]),
     ("Blockchain forensics", ["Ethereum JSON-RPC", "ERC-4337", "EIP-7702", "Clustering", "Taint analysis"]),
-    ("DFIR", ["The Sleuth Kit", "Plaso", "NTFS", "exFAT and FAT32", "Timelines", "Evidence integrity"]),
-    ("Detection and VM", ["Splunk", "Elastic", "Sigma", "MITRE ATT&CK", "Nessus", "Qualys", "CVSS"]),
-    ("Code and data", ["Python", "pandas", "Parquet", "SQL", "pytest", "GitHub Actions", "Docker"]),
+    ("DFIR", ["The Sleuth Kit", "Plaso", "Volatility", "Autopsy", "NTFS", "exFAT and FAT32", "Timelines"]),
+    ("Code and data", ["Python", "Bash", "SQL", "Node.js", "pandas", "pytest", "GitHub Actions", "Docker"]),
 ]
 
 
@@ -301,8 +303,8 @@ def main():
         "terminal.svg": terminal(projects, term),
         "toolkit.svg": toolkit(),
         "published.svg": published(),
-        "experience.svg": tile("Experience", "4 roles", ["Kyoka, NASSCOM, Cisco AICTE and Verzeo,", "plus open research and a detection lab."], 0),
-        "work.svg": tile("Production work", "1,000+", ["IoT devices secured at Kyoka, with open", "vulnerabilities cut by 45%."], 1),
+        "experience.svg": tile("Experience", "5 roles", ["Perfume Reverie, Kyoka, NASSCOM, Cisco and Verzeo,", "plus open research and two home labs."], 0),
+        "work.svg": tile("Production work", "1,000+", ["IoT devices secured at Kyoka, and a live online", "store hardened against a formal threat model."], 1),
     }
     for i, p in enumerate(projects):
         cards[f"research-{i + 1}.svg"] = research_card(p, i)

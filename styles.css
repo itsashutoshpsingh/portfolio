@@ -579,3 +579,44 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 @media (hover: none) and (min-width: 1024px) { .pill a, .pill__doors, .btn--sm { min-height: 44px; display: inline-flex; align-items: center; } }
 @media (max-height: 600px) { .door__frame { height: min(34svh, 300px); } .gate__h { font-size: 30px; line-height: 34px; } }
 @media (prefers-reduced-motion: reduce) { .ticker__pause { display: none; } }
+
+/* ===== Larger, lighter, better spaced reading text ===== */
+.body-3 { font-size: 18px; line-height: 30px; }
+.body-5 { font-size: 15px; line-height: 22px; }
+.body-6, .q .body-6 { font-size: 16px; line-height: 26px; }
+.caption-2 { font-size: 15px; line-height: 22px; }
+.title-3 { font-size: 17px; line-height: 26px; }
+.title-1 { font-size: 22px; line-height: 30px; }
+.heading-6 { font-size: 22px; line-height: 30px; }
+.hero__sub { font-size: 20px; line-height: 32px; max-width: 640px; }
+.list li, .bene__item .body-6, .beyond__item .body-6, .step .body-6, .xp__pts .body-6, .q .body-6, .board__one, .sec__lede, .hero__sub, .close__p, .cred .body-6 { color: var(--c-ink-2); }
+.list { gap: var(--s-200); }
+.list li::before { top: 13px; }
+.xp__pts li::before { top: 12px; }
+.xp__item, .bene__item, .beyond__item, .cred { gap: var(--s-200); }
+.xp { gap: var(--s-400); }
+.xp__item--wide { grid-column: 1 / -1; }
+.xp__item--wide .xp__pts { max-width: 78ch; }
+.sec__h { margin-bottom: var(--s-500); }
+.sec__lede { margin-bottom: var(--s-500); max-width: 720px; }
+.q summary { min-height: 72px; }
+@media (min-width: 900px) { .sec { padding: var(--s-900) 0; } }
+@media (max-width: 767px) { .body-3 { font-size: 17px; line-height: 28px; } .hero__sub { font-size: 18px; line-height: 29px; } }
+
+/* ===== Doors: walnut, blended into the scene ===== */
+.door__frame { background: rgba(var(--c-scrim), .55); border-color: rgba(244, 241, 234, .22); }
+.door__leaf { border: 1px solid rgba(0, 0, 0, .55); background:
+  repeating-linear-gradient(91deg, rgba(0, 0, 0, .16) 0 2px, transparent 2px 7px, rgba(255, 230, 200, .05) 7px 9px, transparent 9px 17px),
+  repeating-linear-gradient(89deg, transparent 0 13px, rgba(0, 0, 0, .10) 13px 15px, transparent 15px 31px),
+  linear-gradient(180deg, #6F4B2E 0%, #553823 40%, #4A2F1D 70%, #5E3F27 100%);
+  box-shadow: inset 10px 0 24px -12px rgba(0, 0, 0, .7), inset -8px 0 20px -12px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 230, 200, .12); }
+.door__leaf::before { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; mix-blend-mode: multiply; opacity: .85;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='400'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.85 0.014' numOctaves='3' seed='9'/><feColorMatrix values='0 0 0 0 0.35  0 0 0 0 0.22  0 0 0 0 0.12  0 0 0 0.9 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>") center / cover; }
+.door__leaf::after { content: ""; position: absolute; inset: 22px 20px; border: 2px solid rgba(0, 0, 0, .28); border-radius: 2px; pointer-events: none;
+  box-shadow: inset 0 1px 0 rgba(255, 230, 200, .10), 0 1px 0 rgba(255, 230, 200, .08); background: linear-gradient(180deg, transparent 46%, rgba(0, 0, 0, .28) 46% 47.5%, transparent 47.5%); }
+.door__no { color: rgba(255, 236, 214, .9); text-shadow: 0 1px 0 rgba(0, 0, 0, .5); z-index: 1; }
+.door__handle { width: 6px; height: 120px; border-radius: 3px; background: linear-gradient(90deg, #F7B36B, #D97A1F 55%, #A85A12); box-shadow: 0 2px 6px rgba(0, 0, 0, .55), inset 0 1px 0 rgba(255, 255, 255, .45); z-index: 1; }
+.door__handle::before, .door__handle::after { content: ""; position: absolute; left: -3px; width: 12px; height: 12px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #F7B36B, #B8651A); box-shadow: 0 1px 3px rgba(0, 0, 0, .6); }
+.door__handle::before { top: -4px; } .door__handle::after { bottom: -4px; }
+.door--me { --door: #F4F1EA; } .door--work { --door: #F28C28; }
+.door:hover .door__frame, .door:focus-visible .door__frame { border-color: rgba(244, 241, 234, .6); }

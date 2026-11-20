@@ -9,13 +9,13 @@
   color-scheme: dark;
   --c-bg: #141B2D;        /* ink navy: the base */
   --c-bg-2: #1B2540;      /* the fallback background is a gradient between the two */
-  --c-surface-1: #1A2238;
-  --c-surface-2: #202A44;
-  --c-surface-3: #2A3654;
-  --c-line: #3A4768;
+  --c-surface-1: #1E2740;
+  --c-surface-2: #263150;
+  --c-surface-3: #324163;
+  --c-line: #485980;
   --c-ink: #F4F1EA;       /* pearl white: text */
-  --c-ink-2: #D6D3CC;     /* secondary text */
-  --c-ink-3: #A5A9B5;     /* captions */
+  --c-ink-2: #E8E5DD;     /* secondary text */
+  --c-ink-3: #C3C8D2;     /* captions */
   --c-scrim: 20, 27, 45;  /* rgb of the base, for overlays */
   --c-tint: 244, 241, 234;   /* rgb of the ink, for faint lines and dots */
   --c-accent: #F28C28;    /* tangerine: the one accent, for actions and the current place */

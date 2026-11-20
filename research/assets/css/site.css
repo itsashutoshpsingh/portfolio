@@ -331,3 +331,12 @@ footer .social svg, footer .social a:hover svg { fill: currentColor; }
   .caption-3, .caption-5 { font-size: 14px; line-height: 20px; }
   body { font-size: 18px; line-height: 28px; }
 }
+
+/* Larger, lighter, better spaced reading text, as on the home page */
+.body-3 { font-size: 18px; line-height: 30px; }
+.body-6 { font-size: 16px; line-height: 26px; }
+.title-2 { font-size: 19px; line-height: 30px; }
+.lede { font-size: 20px; line-height: 32px; }
+.muted { color: var(--c-ink-2); }
+@media (min-width: 900px) { main section { padding: var(--s-900) 0; } }
+@media (max-width: 767px) { .body-3 { font-size: 17px; line-height: 28px; } .lede { font-size: 18px; line-height: 29px; } }
