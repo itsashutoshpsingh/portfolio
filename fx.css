@@ -97,5 +97,5 @@ html.lenis { scroll-behavior: auto; }
 .lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
 .lenis [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
-/* On phones the text runs over the whole width, so the scene stays in the background */
-@media (max-width: 899px) { canvas.journey { opacity: .35; } }
+/* On phones the text runs over the whole width, so the network sits further back */
+@media (max-width: 899px) { canvas.journey.is-ready { opacity: .7; } }
