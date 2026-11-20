@@ -1,32 +1,32 @@
 /* Brand palette and type: the one place colours and fonts are defined. Used by the home page,
    /research, fx.css, and read by scripts/render_cards.py for the GitHub profile cards.
-   One dark base, one light text colour and one accent; the data colours are for charts only. */
+   One light base, one navy text colour and one accent; the data colours are for charts only. */
 @font-face { font-family: "Carlito"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/carlito-regular.woff2") format("woff2"); }
 @font-face { font-family: "Gelasio"; font-weight: 400; font-style: normal; font-display: swap; src: url("fonts/gelasio-regular.woff2") format("woff2"); }  /* Georgia metrics, for devices without Georgia */
 @font-face { font-family: "Gelasio"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/gelasio-bold.woff2") format("woff2"); }
 @font-face { font-family: "Carlito"; font-weight: 700; font-style: normal; font-display: swap; src: url("fonts/carlito-bold.woff2") format("woff2"); }
 :root {
-  color-scheme: dark;
-  --c-bg: #070D24;        /* midnight royal: the base */
-  --c-bg-2: #0C1638;      /* the fallback background is a gradient between the two */
-  --c-surface-1: #0F1A44;
-  --c-surface-2: #142257;
-  --c-surface-3: #1C2D6E;
-  --c-line: #2C3F8C;
-  --c-ink: #EEF2FF;       /* text */
-  --c-ink-2: #CDD6F5;     /* secondary text, tinted from the same blue */
-  --c-ink-3: #A3B0DE;     /* captions */
-  --c-scrim: 7, 13, 36;   /* rgb of the base, for overlays */
-  --c-tint: 238, 242, 255;   /* rgb of the ink, for faint lines and dots */
-  --c-accent: #5AA2FF;    /* electric blue: actions, the lit path, the current place */
-  --c-glacier: #8FD0FF;   /* light electric blue: labels, links and focus */
+  color-scheme: light;
+  --c-bg: #EEF2FB;        /* pale blue-white paper: the base */
+  --c-bg-2: #E6ECF9;      /* the page background is a gradient between the two */
+  --c-surface-1: #FFFFFF;
+  --c-surface-2: #F6F8FE;
+  --c-surface-3: #E2E8F6;
+  --c-line: #C3CDE6;
+  --c-ink: #0F1B4D;       /* royal navy: text */
+  --c-ink-2: #2E3D70;     /* secondary text, from the same blue */
+  --c-ink-3: #4E5B86;     /* captions */
+  --c-scrim: 238, 242, 251;  /* rgb of the base, for overlays */
+  --c-tint: 15, 27, 77;      /* rgb of the ink, for faint lines and dots */
+  --c-accent: #1E56D6;    /* electric royal blue: actions, the lit path, the current place */
+  --c-glacier: #1A4DBF;   /* deeper blue: labels, links and focus */
   --c-royal: #3355E6;     /* royal blue: depth, tracks and fills */
-  --c-green: #4ADE9A;     /* emerald: status, the current stop, good results */
+  --c-green: #0B7A4B;     /* emerald: status, the current stop, good results */
   --c-burgundy: #8E2B57;  /* burgundy: tags and badges */
-  --c-blue: #5AA2FF;      /* data: neutral bars */
-  --c-cyan: #8FD0FF;      /* older name for the light electric blue, still used by the motion styles */
-  --c-amber: #F2C14E;     /* data: warnings */
-  --c-red: #D2638F;       /* data: misses and loss, a burgundy rose rather than a red */
+  --c-blue: #2563EB;      /* data: neutral bars */
+  --c-cyan: #1A4DBF;      /* older name for the label blue, still used by the motion styles */
+  --c-amber: #9A5B00;     /* data: warnings */
+  --c-red: #B23A68;       /* data: misses and loss, a burgundy rose rather than a red */
   --glow-blue: transparent;   /* glows are off everywhere: solid colours only */
   --glow-cyan: transparent;
   --glow-green: transparent;

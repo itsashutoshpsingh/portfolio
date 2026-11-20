@@ -19,7 +19,8 @@ ROOT = os.path.join(os.path.dirname(__file__), "..")
 OUT = os.path.join(ROOT, "github", "cards")
 DATA = os.path.join(ROOT, "research", "data", "projects.json")
 STATIC = os.environ.get("STATIC") == "1"
-TOKENS = dict(re.findall(r"--c-([a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})", open(os.path.join(ROOT, "tokens.css")).read()))
+# the cards sit on GitHub's dark theme, so they keep the site's dark palette rather than the light page tokens
+TOKENS = {'bg': '#070D24', 'bg-2': '#0C1638', 'surface-1': '#0F1A44', 'surface-2': '#142257', 'surface-3': '#1C2D6E', 'line': '#2C3F8C', 'ink': '#EEF2FF', 'ink-2': '#CDD6F5', 'ink-3': '#A3B0DE', 'accent': '#5AA2FF', 'glacier': '#8FD0FF', 'royal': '#3355E6', 'green': '#4ADE9A', 'burgundy': '#8E2B57', 'blue': '#5AA2FF', 'cyan': '#8FD0FF', 'amber': '#F2C14E', 'red': '#D2638F'}
 
 
 def b64(*path):

@@ -2,7 +2,7 @@
    Whatever part of the page is in the middle of the screen chooses where the camera looks: a chapter
    of the journey (data-chapter="0" to "8") or the whole path (data-chapter="all"). On pages without
    chapters the camera simply travels the path as you scroll. The path is lit up to the current stop,
-   the current stop pulses, and a small meter in the corner shows the year, the place and how far down
+   the current stop pulses, a light keeps running along the lit part, and a small meter in the corner shows the year, the place and how far down
    the page you are. Under reduced motion the camera jumps instead of flying and nothing pulses.
    Without WebGL the page keeps its plain background. */
 
@@ -53,14 +53,23 @@ function start() {
   const lengths = curve.getLengths(900), total = lengths[lengths.length - 1];
   const along = points.map((_, i) => lengths[Math.round((i / (points.length - 1)) * 900)] / total);  // each stop as a share of the path's length
 
-  const base = new THREE.Mesh(new THREE.TubeGeometry(curve, SEG, 0.022, RAD, false), new THREE.MeshBasicMaterial({ color: C.line, transparent: true, opacity: 0.55 }));
+  const base = new THREE.Mesh(new THREE.TubeGeometry(curve, SEG, 0.022, RAD, false), new THREE.MeshBasicMaterial({ color: C.royal, transparent: true, opacity: 0.22 }));
   const lit = new THREE.Mesh(new THREE.TubeGeometry(curve, SEG, 0.03, RAD, false), new THREE.MeshBasicMaterial({ color: C.accent, transparent: true, opacity: 0.9 }));
-  scene.add(base, lit);
+  // the travelling light: a short bright stretch of tube and a head that run along the lit part, over and over
+  const comet = new THREE.Mesh(new THREE.TubeGeometry(curve, SEG, 0.05, RAD, false), new THREE.MeshBasicMaterial({ color: C.green, transparent: true, opacity: 0.9, depthWrite: false }));
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.1, 20, 14), new THREE.MeshBasicMaterial({ color: C.green }));
+  scene.add(base, lit, comet, head);
   const per = RAD * 6;  // index count of one tube segment
   const reveal = (u) => lit.geometry.setDrawRange(0, Math.max(0, Math.floor(u * SEG)) * per);
+  const TAIL = 0.07, LAP = 6.5;  // the tail's share of the path, and seconds for one run along the whole path
+  const run = (now, u) => {
+    const span = Math.max(u, 0.12), h = ((now / 1000) % LAP) / LAP * span, t = Math.max(0, h - TAIL);
+    comet.geometry.setDrawRange(Math.floor(t * SEG) * per, Math.max(1, Math.floor((h - t) * SEG)) * per);
+    head.position.copy(curve.getPointAt(Math.min(1, h)));
+  };
 
   const dotGeo = new THREE.SphereGeometry(0.075, 20, 14);
-  const dots = points.map((p) => { const m = new THREE.Mesh(dotGeo, new THREE.MeshBasicMaterial({ color: C.line })); m.position.copy(p); scene.add(m); return m; });
+  const dots = points.map((p) => { const m = new THREE.Mesh(dotGeo, new THREE.MeshBasicMaterial({ color: C.ink3 })); m.position.copy(p); scene.add(m); return m; });
   const ring = new THREE.Mesh(new THREE.RingGeometry(0.2, 0.225, 48), new THREE.MeshBasicMaterial({ color: C.green, transparent: true, side: THREE.DoubleSide }));
   scene.add(ring);
 
@@ -77,11 +86,11 @@ function start() {
 
   // depth: a faint floor grid and a slow field of points
   const grid = new THREE.GridHelper(70, 70, C.line, C.line);
-  grid.position.y = -3.4; grid.material.transparent = true; grid.material.opacity = 0.22; scene.add(grid);
+  grid.position.y = -3.4; grid.material.transparent = true; grid.material.opacity = 0.5; scene.add(grid);
   const N = 520, pos = new Float32Array(N * 3);
   for (let i = 0; i < N; i++) { pos[i * 3] = (Math.random() - 0.5) * 36; pos[i * 3 + 1] = Math.random() * 11 - 4; pos[i * 3 + 2] = (Math.random() - 0.5) * 18 - 2; }
   const dust = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(pos, 3)),
-    new THREE.PointsMaterial({ color: C.royal, size: 0.04, transparent: true, opacity: 0.8, depthWrite: false }));
+    new THREE.PointsMaterial({ color: C.royal, size: 0.04, transparent: true, opacity: 0.4, depthWrite: false }));
   scene.add(dust);
 
   // where the camera wants to be for a stop, or for the whole path
@@ -141,7 +150,7 @@ function start() {
 
     const active = typeof chapter === 'number' ? chapter : -1;
     if (active !== shown) {
-      dots.forEach((d, i) => { d.material.color.set(i === active ? C.green : along[i] <= target.u + 1e-6 ? C.accent : C.line); d.scale.setScalar(i === active ? 1.6 : 1); });
+      dots.forEach((d, i) => { d.material.color.set(i === active ? C.green : along[i] <= target.u + 1e-6 ? C.accent : C.ink3); d.scale.setScalar(i === active ? 1.6 : 1); });
       years.forEach((y) => { y.material.opacity = active < 0 ? 0.4 : 0; });  // years show on the overview only; the meter carries the current one
       shown = active; pulseUntil = still ? now : now + 2800;
     }
@@ -151,12 +160,15 @@ function start() {
       const p = still ? 0 : Math.max(0, pulseUntil - now) / 2800, s = 1 + (1 - p) * 0.35 * Math.sin(now / 260) * (p > 0 ? 1 : 0);
       ring.scale.setScalar(s); ring.material.opacity = 0.95;
     }
-    dust.rotation.y = still ? 0 : now * 0.000015;
+    dust.rotation.y = still ? 0 : now * 0.00003;
+    comet.visible = head.visible = !still;
+    if (!still) run(now, cur.u);
     setMeter(chapter, progress * 100);
     renderer.render(scene, camera);
 
     const settled = cur.pos.distanceTo(target.pos) < 0.002 && cur.look.distanceTo(target.look) < 0.002 && Math.abs(px - tpx) < 0.002 && Math.abs(py - tpy) < 0.002 && now > pulseUntil;
-    if (settled || document.hidden) { running = false; return; }
+    // with motion on, the light keeps running, so the loop runs every frame; it pauses in a hidden tab
+    if ((still && settled) || document.hidden) { running = false; return; }
     requestAnimationFrame(frame);
   };
   const wake = () => { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
