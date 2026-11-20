@@ -379,7 +379,6 @@ body.gated > :not(.gate):not(.journey) { visibility: hidden; }
 .door { display: grid; justify-items: center; gap: var(--s-75); padding: 0; border: 0; background: none; color: var(--c-ink); cursor: pointer; font: inherit; }
 .door__frame { position: relative; display: block; width: 220px; height: 400px; padding: 8px; border: 1px solid var(--c-line); border-radius: 6px; background: var(--c-surface-1); perspective: 1600px; transition: border-color 300ms var(--ease); }
 .door__light { position: absolute; inset: 8px; display: grid; place-items: center; border-radius: 2px; background: var(--door, var(--c-blue)); }
-.door__enter { font: 700 18px/27px var(--font-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--c-bg); opacity: 0; transform: translateX(-12px); transition: opacity 300ms var(--ease) 200ms, transform 500ms var(--ease) 200ms; }
 .door__leaf { position: absolute; inset: 8px; border-radius: 2px; background: linear-gradient(180deg, var(--c-surface-3), var(--c-surface-1)); border: 1px solid var(--c-line); transform-origin: left center; transform: rotateY(0); transition: transform 600ms var(--ease); }
 .door__no { position: absolute; top: 20px; left: 20px; font: 700 14px/20px var(--font-ui); letter-spacing: .12em; color: #FFFFFF; }
 .door__handle { position: absolute; right: 18px; top: calc(50% - 64px); width: 4px; height: 128px; border-radius: 2px; background: var(--c-accent); }
@@ -390,12 +389,10 @@ body.gated > :not(.gate):not(.journey) { visibility: hidden; }
 .door:hover .door__frame, .door:focus-visible .door__frame { border-color: var(--door); }
 .door:focus-visible .door__leaf { transform: rotateY(-28deg); }
 @media (hover: hover) and (pointer: fine) { .door:hover .door__leaf { transform: rotateY(-28deg); } }
-.door:hover .door__enter, .door:focus-visible .door__enter { opacity: 1; transform: none; }
 .door:active .door__frame { transform: scale(.98); }
 .door:focus-visible { outline: none; }
 .door:focus-visible .door__frame { outline: 2px solid var(--c-glacier); outline-offset: 4px; }
 .door.is-open .door__leaf { transform: rotateY(-100deg); transition-duration: 900ms; }
-.door.is-open .door__enter { opacity: 1; transform: none; }
 .gate.is-leaving .gate__inner { opacity: 0; transform: scale(1.04); transition: opacity 500ms var(--ease) 650ms, transform 900ms var(--ease) 400ms; }
 .gate__skip { margin-top: var(--s-200); border: 0; background: none; color: var(--c-ink-2); font: 400 18px/27px var(--font-ui); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
 .gate__skip:hover { color: var(--c-ink); }
@@ -409,7 +406,7 @@ body.gated > :not(.gate):not(.journey) { visibility: hidden; }
   .door__sub { font-size: 16px; line-height: 24px; max-width: 40vw; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .door__leaf, .door__enter, .door__frame, .gate.is-leaving .gate__inner { transition: none; }
+  .door__leaf, .door__frame, .gate.is-leaving .gate__inner { transition: none; }
 }
 
 
@@ -707,7 +704,6 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 .gate.is-leaving .door.is-open .door__label, .gate.is-leaving .door.is-open .door__sub { opacity: 0; transition: opacity 260ms var(--ease-out-strong) 260ms; }
 /* Walking through: the doorway comes towards us in real perspective, with a light step in the stride.
    The words are gone before we move, so nothing is ever scaled up into a blur. */
-.door.is-open .door__enter { opacity: 0; transition: opacity 150ms var(--ease-out-strong); }
 /* the room's light stays while the door opens; as we walk in it turns into the page itself */
 .door__light::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; background: radial-gradient(closest-side, #FFFFFF, var(--c-bg)); opacity: 0; transition: opacity 450ms var(--ease-out-strong); }
 .gate.is-walking .door.is-open .door__light::before { opacity: 1; }
@@ -815,7 +811,14 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 @media (max-width: 720px) { .door__smoke i, .door__smoke--magic i { width: 60px; height: 60px; margin: -30px 0 0 -30px; } .door__label { font-size: 26px; line-height: 32px; } .door__sub { font-size: 16px; line-height: 23px; } }
 
 /* The NASSCOM visual: a face half captured, half synthetic, and the three provenance schemes tested */
-.xpv__fake { width: 100%; height: auto; max-width: 620px; }
+.xpv__fakewrap { display: grid; grid-template-columns: minmax(150px, 210px) minmax(0, 1fr); gap: var(--s-300); align-items: center; }
+.xpv__fake { width: 100%; height: auto; }
+.xpv__schemes { display: grid; gap: var(--s-200); margin: 0; padding: 0; list-style: none; }
+.xpv__schemes li { position: relative; display: grid; padding-left: 34px; }
+.xpv__schemes li::before { content: ""; position: absolute; left: 0; top: 2px; width: 22px; height: 22px; border-radius: 50%; background: var(--c-green) url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M6.5 12.5l3.5 3.5 7-8%27 fill=%27none%27 stroke=%27white%27 stroke-width=%272.6%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E") center / 100% no-repeat; }
+.xpv__schemes b { font: 700 18px/24px var(--font-ui); color: var(--c-ink); }
+.xpv__schemes span { font: 400 16px/22px var(--font-ui); color: var(--c-ink-2); }
+@media (max-width: 520px) { .xpv__fakewrap { grid-template-columns: 1fr; } .xpv__fake { max-width: 220px; } }
 .xpv__pane { fill: #FFFFFF; stroke: var(--c-line); }
 .xpv__eye { fill: var(--c-ink); opacity: .55; }
 .xpv__lip { fill: none; stroke: var(--c-ink); stroke-width: 2; stroke-linecap: round; opacity: .45; }
@@ -824,7 +827,7 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 .xpv__lm { fill: var(--c-accent); }
 .xpv__split { stroke: var(--c-burgundy); stroke-width: 1.5; stroke-dasharray: 4 4; }
 .xpv__scan { fill: var(--c-green); opacity: .7; }
-.xpv__t { font: 700 13px var(--font-ui); fill: var(--c-ink-2); }
+.xpv__t { font: 700 14px var(--font-ui); fill: var(--c-ink-2); }
 .xpv__ok { fill: var(--c-green); }
 .xpv__tick { fill: none; stroke: #FFFFFF; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 .xpv__h { font: 700 19px var(--font-ui); fill: var(--c-ink); }
@@ -850,5 +853,5 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 html { scrollbar-gutter: stable; }
 .gate { overflow-x: clip; }
 .gate.is-leaving .door.is-open .door__no { opacity: 0; transition: opacity 200ms var(--ease-out-strong); }
-@media (max-height: 620px) { .gate__inner { gap: 12px; } .gate__h { font-size: 30px; } .door__frame { height: min(30svh, 260px); } .gate__skip { margin-top: 8px; } }
+@media (max-height: 800px) { .gate__inner { gap: 12px; } .gate__h { font-size: 30px; } .door__frame { height: min(30svh, 260px); } .gate__skip { margin-top: 8px; } }
 @media (max-width: 720px) { .door__smoke { width: 34%; } }  /* on phones the smoke stays on screen */

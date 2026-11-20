@@ -187,8 +187,10 @@ function start() {
   };
 
   // ---- the loop: every frame while motion is on; one frame on change when it is off ----
-  let last = performance.now(), running = false, slow = 0;
+  let last = performance.now(), running = false, slow = 0, lastInput = performance.now(), tick = 0;
   const frame = (now) => {
+    // after four quiet seconds the network drifts at half the frame rate, to spare the battery
+    if (now - lastInput > 4000 && (tick++ & 1) && !still && !document.hidden) { requestAnimationFrame(frame); return; }
     const dt = Math.min(0.1, (now - last) / 1000); last = now;
     vel += ((scrollY - lastY) / Math.max(dt, 0.001) - vel) * 0.2; lastY = scrollY;
     // a device that cannot keep up gets fewer pixels, once
@@ -198,7 +200,7 @@ function start() {
     if (still || document.hidden) { running = false; return; }
     requestAnimationFrame(frame);
   };
-  const wake = () => { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
+  const wake = () => { lastInput = performance.now(); if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
 
   let lastW = 0, lastH = 0;
   const size = (rebuild) => {

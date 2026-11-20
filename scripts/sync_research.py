@@ -28,6 +28,23 @@ def typo(s):
     return re.sub(r"(?<=\w)'(?=\w)", "’", str(s))
 
 
+MAX_W = 1600  # charts show at about 600-900px and zoom to full width; 2x of that is plenty
+
+
+def shrink(src, dest):
+    """Copy a chart, scaled down to MAX_W wide if the project exported it larger."""
+    from PIL import Image  # Pillow: installed by the cards workflow
+    with Image.open(src) as im:
+        if im.width <= MAX_W:
+            shutil.copyfile(src, dest)
+            return
+        small = im.convert("RGBA").resize((MAX_W, round(im.height * MAX_W / im.width)), Image.LANCZOS)
+        # flat chart colours fit a 256-colour palette; keep the original if that is not smaller
+        small.quantize(256, method=Image.Quantize.FASTOCTREE, dither=Image.Dither.NONE).save(dest, "PNG", optimize=True)
+    if dest.stat().st_size >= src.stat().st_size:
+        shutil.copyfile(src, dest)
+
+
 def chart_list(summary, repo_dir, slug, chart_meta):
     """chart_meta is the project's optional map in site-meta.json, file name -> {label, alt},
     used only where the summary gives a bare path."""
@@ -39,14 +56,14 @@ def chart_list(summary, repo_dir, slug, chart_meta):
             raise SystemExit(f"{slug}: chart missing: {src}")
         dest = SITE / "assets/img" / slug / src.name
         dest.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(src, dest)
+        shrink(src, dest)
         seen.add(src.name)
         given = chart_meta.get(src.name, {})
         label = cap(c.get("label") or given.get("label") or src.stem.replace("_", " ").replace("-", " "))
         alt = typo(c.get("alt") or c.get("caption") or given.get("alt") or label)
         if src.suffix != ".png":
             raise SystemExit(f"{slug}: chart is not a PNG, cannot read its size: {src}")
-        w, h = struct.unpack(">II", src.read_bytes()[16:24])  # IHDR, so the page can reserve the space
+        w, h = struct.unpack(">II", dest.read_bytes()[16:24])  # IHDR, so the page can reserve the space
         out.append({"src": f"assets/img/{slug}/{src.name}", "label": label, "alt": alt, "w": w, "h": h})
     stale = set(chart_meta) - seen
     if stale:

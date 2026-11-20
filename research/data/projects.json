@@ -66,22 +66,22 @@
           "src": "assets/img/evm-cluster-check/false_merges_by_rule_eth.png",
           "label": "False merges by rule",
           "alt": "Bar chart of cross-exchange false merges per clustering rule, with hubs included and excluded",
-          "w": 1744,
-          "h": 941
+          "w": 1600,
+          "h": 863
         },
         {
           "src": "assets/img/evm-cluster-check/infra_causes_eth.png",
           "label": "Causes",
           "alt": "Share of false merges that disappear when poisoning, sweeper and paymaster transfers are removed",
-          "w": 1780,
-          "h": 891
+          "w": 1600,
+          "h": 801
         },
         {
           "src": "assets/img/evm-cluster-check/taint_eth.png",
           "label": "Taint",
           "alt": "Addresses tainted at 1 to 3 hops, with and without zero-value transfers",
-          "w": 2173,
-          "h": 1418
+          "w": 1600,
+          "h": 1044
         },
         {
           "src": "assets/img/evm-cluster-check/injected.png",
@@ -201,29 +201,29 @@
           "src": "assets/img/timetruth/hero_outcomes.png",
           "label": "Outcome by tool",
           "alt": "Stacked bars of each tool’s reported times by outcome: correct, wrong zone, ambiguous, wrong value or missing",
-          "w": 2148,
-          "h": 906
+          "w": 1600,
+          "h": 675
         },
         {
           "src": "assets/img/timetruth/heatmap_correct.png",
           "label": "Correct by file system",
           "alt": "Heat map of the percentage of reported times that are the true instant, per tool, file system and time zone scenario",
-          "w": 2689,
-          "h": 888
+          "w": 1600,
+          "h": 528
         },
         {
           "src": "assets/img/timetruth/dst_offsets.png",
           "label": "Clock changes",
           "alt": "TSK fls reported minus true time around the London and New York clock changes, and Plaso’s offset of about 30 days on FAT32 and exFAT",
-          "w": 3373,
-          "h": 987
+          "w": 1600,
+          "h": 468
         },
         {
           "src": "assets/img/timetruth/pipeline.png",
           "label": "Pipeline",
           "alt": "Flow from scripted actions through a fake clock, disk image, the tools under test and a common schema to the classifier",
-          "w": 2520,
-          "h": 549
+          "w": 1600,
+          "h": 349
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/timetruth",
@@ -366,36 +366,36 @@
           "src": "assets/img/chain-evidence/provider_outcomes.png",
           "label": "Provider outcomes",
           "alt": "Stacked bars of what each provider returned on Ethereum and Base: matching, differing or uncompared answers, refusals and failures",
-          "w": 1800,
-          "h": 980
+          "w": 1600,
+          "h": 871
         },
         {
           "src": "assets/img/chain-evidence/disagreement_rate.png",
           "label": "Disagreement rate",
           "alt": "Share of finalised Ethereum ranges that disagreed in each of three runs, with 95% Wilson intervals; the worst run was 2 of 161",
-          "w": 1800,
-          "h": 720
+          "w": 1600,
+          "h": 640
         },
         {
           "src": "assets/img/chain-evidence/finalized_lag.png",
           "label": "Finalized tag lag",
           "alt": "Most blocks each provider’s finalized head fell behind the most advanced provider, up to 17,376 for 1rpc on Base",
-          "w": 1800,
-          "h": 880
+          "w": 1600,
+          "h": 782
         },
         {
           "src": "assets/img/chain-evidence/receipts_root_proofs.png",
           "label": "Receipts root proofs",
           "alt": "Blocks per provider whose header hash, transactionsRoot and receiptsRoot reproduce; none mismatched, publicnode returned null receipts for 5 blocks",
-          "w": 2000,
-          "h": 920
+          "w": 1600,
+          "h": 736
         },
         {
           "src": "assets/img/chain-evidence/receipt_depth.png",
           "label": "Receipt depth",
           "alt": "publicnode receipts by block age: 63 returned up to about 6 days behind the finalised head, 7 null beyond that",
-          "w": 2000,
-          "h": 600
+          "w": 1600,
+          "h": 480
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/chain-evidence",
@@ -508,36 +508,36 @@
           "src": "assets/img/rulefire/models_vs_baseline.png",
           "label": "Models against SigmaHQ",
           "alt": "Shares of rules that parse as YAML, load as Sigma and fire, per open model and prompt, against SigmaHQ",
-          "w": 2207,
-          "h": 2079
+          "w": 1600,
+          "h": 1507
         },
         {
           "src": "assets/img/rulefire/model_outcomes.png",
           "label": "Model outcomes",
           "alt": "Outcome classes of each rule source, from no YAML to usable",
-          "w": 2138,
-          "h": 1632
+          "w": 1600,
+          "h": 1221
         },
         {
           "src": "assets/img/rulefire/model_failures.png",
           "label": "Why model rules fail",
           "alt": "Most common YAML parser and pySigma errors in model-written rules",
-          "w": 2613,
-          "h": 1191
+          "w": 1600,
+          "h": 729
         },
         {
           "src": "assets/img/rulefire/hero_outcomes.png",
           "label": "Outcome by tactic",
           "alt": "Stacked bars of outcome classes for SigmaHQ rules, overall and per ATT&CK tactic",
-          "w": 1886,
-          "h": 1266
+          "w": 1600,
+          "h": 1074
         },
         {
           "src": "assets/img/rulefire/per_technique_fire.png",
           "label": "Fire rate per technique",
           "alt": "Share of SigmaHQ rules tagged with each of 63 techniques that fire on its captures",
-          "w": 2481,
-          "h": 2492
+          "w": 1600,
+          "h": 1607
         },
         {
           "src": "assets/img/rulefire/pass_at_k.png",
@@ -557,22 +557,22 @@
           "src": "assets/img/rulefire/e4_logsources.png",
           "label": "Missing log sources",
           "alt": "Log sources of SigmaHQ rules whose logs the captures never recorded",
-          "w": 1743,
-          "h": 1029
+          "w": 1600,
+          "h": 945
         },
         {
           "src": "assets/img/rulefire/status_level.png",
           "label": "Status and level",
           "alt": "Fire rate of SigmaHQ rules by rule status and by rule level",
-          "w": 2170,
-          "h": 947
+          "w": 1600,
+          "h": 698
         },
         {
           "src": "assets/img/rulefire/captures_coverage.png",
           "label": "Capture coverage",
           "alt": "Attack captures by whether a rule for their technique, another rule, or no rule fires",
-          "w": 1742,
-          "h": 978
+          "w": 1600,
+          "h": 898
         },
         {
           "src": "assets/img/rulefire/regression_check.png",
@@ -585,8 +585,8 @@
           "src": "assets/img/rulefire/pipeline.png",
           "label": "Pipeline",
           "alt": "Diagram of the rulefire pipeline from task list and rules to execution and scoring",
-          "w": 2520,
-          "h": 1027
+          "w": 1600,
+          "h": 652
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/rulefire",
@@ -724,71 +724,71 @@
           "src": "assets/img/nhi-evidence/hero_seeded.png",
           "label": "Seeded tenant",
           "alt": "Planted and found findings per check on the seeded fixture tenant, all equal, no false findings",
-          "w": 1998,
-          "h": 905
+          "w": 1600,
+          "h": 725
         },
         {
           "src": "assets/img/nhi-evidence/mutation_matrix.png",
           "label": "Mutation matrix",
           "alt": "Heat map of 51 single-change mutations against the 14 checks; each fires its own check",
-          "w": 1642,
-          "h": 2543
+          "w": 1600,
+          "h": 2478
         },
         {
           "src": "assets/img/nhi-evidence/code_mutants.png",
           "label": "Code mutants",
           "alt": "Code mutants caught and not caught by the test suite, per check module",
-          "w": 2354,
-          "h": 979
+          "w": 1600,
+          "h": 665
         },
         {
           "src": "assets/img/nhi-evidence/scale_runtime.png",
           "label": "Run time",
           "alt": "Run time of all checks against tenant size from 100 to 100,000, and per check at 100,000",
-          "w": 2710,
-          "h": 1187
+          "w": 1600,
+          "h": 701
         },
         {
           "src": "assets/img/nhi-evidence/scale_recall.png",
           "label": "Recall at scale",
           "alt": "Planted findings per check over 18 synthetic tenants with the Wilson lower bound of recall",
-          "w": 2286,
-          "h": 941
+          "w": 1600,
+          "h": 659
         },
         {
           "src": "assets/img/nhi-evidence/ablation.png",
           "label": "One-line rules",
           "alt": "False and missed findings of one-line versions of each check compared with the refined checks",
-          "w": 2532,
-          "h": 978
+          "w": 1600,
+          "h": 618
         },
         {
           "src": "assets/img/nhi-evidence/collect_cost.png",
           "label": "Collection cost",
           "alt": "Graph GET requests the collector sends for 100, 1,000 and 10,000 service principals",
-          "w": 1820,
-          "h": 1015
+          "w": 1600,
+          "h": 892
         },
         {
           "src": "assets/img/nhi-evidence/credential_paths.png",
           "label": "Credential paths",
           "alt": "Diagram of who can add a credential to privileged service principals in the seeded tenant",
-          "w": 2888,
-          "h": 1439
+          "w": 1600,
+          "h": 797
         },
         {
           "src": "assets/img/nhi-evidence/owasp_coverage.png",
           "label": "OWASP coverage",
           "alt": "Number of checks mapped to each OWASP NHI Top 10 risk",
-          "w": 2363,
-          "h": 1015
+          "w": 1600,
+          "h": 687
         },
         {
           "src": "assets/img/nhi-evidence/pipeline.png",
           "label": "Pipeline",
           "alt": "Pipeline from read-only Graph collection to snapshot, checks, allowlist and report",
-          "w": 2520,
-          "h": 750
+          "w": 1600,
+          "h": 476
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/nhi-evidence",
@@ -901,50 +901,50 @@
           "src": "assets/img/fixproof/hero_false_fixed.png",
           "label": "False fixed by state",
           "alt": "Bar chart of the share of vulnerable verdicts each scanner reported as fixed, by host state",
-          "w": 2000,
-          "h": 1040
+          "w": 1600,
+          "h": 832
         },
         {
           "src": "assets/img/fixproof/cell_grid.png",
           "label": "Every cell",
           "alt": "Grid of CVE by distro by state showing truth and each scanner’s verdict",
-          "w": 2400,
-          "h": 3308
+          "w": 1600,
+          "h": 2205
         },
         {
           "src": "assets/img/fixproof/confusion.png",
           "label": "Confusion matrices",
           "alt": "Truth against verdict counts for each scanner",
-          "w": 2800,
-          "h": 840
+          "w": 1600,
+          "h": 480
         },
         {
           "src": "assets/img/fixproof/restart_detectors.png",
           "label": "Restart detectors",
           "alt": "Share of processes running stale vulnerable code that needrestart and Vuls flagged",
-          "w": 2000,
-          "h": 960
+          "w": 1600,
+          "h": 768
         },
         {
           "src": "assets/img/fixproof/backport_banner.png",
           "label": "Backports and banners",
           "alt": "False vulnerable rate on backported hosts for package scanners and a banner version check",
-          "w": 2000,
-          "h": 960
+          "w": 1600,
+          "h": 768
         },
         {
           "src": "assets/img/fixproof/coverage.png",
           "label": "Coverage by distro",
           "alt": "Share of vulnerable S0 cells each scanner flagged, per distro",
-          "w": 2000,
-          "h": 960
+          "w": 1600,
+          "h": 768
         },
         {
           "src": "assets/img/fixproof/pipeline.png",
           "label": "Pipeline",
           "alt": "Diagram of the lab: host states, evidence collector, scanners, scoring",
-          "w": 2400,
-          "h": 919
+          "w": 1600,
+          "h": 613
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/fixproof",
@@ -1042,85 +1042,85 @@
           "src": "assets/img/logcanary/loss_by_condition.png",
           "label": "Loss by condition",
           "alt": "Mean percentage of canaries lost per condition, shipper and log path, with 95% confidence intervals",
-          "w": 2977,
-          "h": 2829
+          "w": 1600,
+          "h": 1520
         },
         {
           "src": "assets/img/logcanary/timelines.png",
           "label": "Fault timelines",
           "alt": "Cumulative share of canaries indexed over time for nine conditions, with fault windows shaded",
-          "w": 3373,
-          "h": 2717
+          "w": 1600,
+          "h": 1289
         },
         {
           "src": "assets/img/logcanary/alerts.png",
           "label": "Who reported loss",
           "alt": "For each lossy condition, shipper and path, the share of runs where the shipper log, host daemon log or shipper counters reported lost events",
-          "w": 2376,
-          "h": 3185
+          "w": 1600,
+          "h": 2145
         },
         {
           "src": "assets/img/logcanary/bursts.png",
           "label": "Burst loss",
           "alt": "Loss under bursts split into canaries the host never wrote to disk and canaries missing in Elasticsearch",
-          "w": 2977,
-          "h": 1104
+          "w": 1600,
+          "h": 593
         },
         {
           "src": "assets/img/logcanary/latency_baseline_ecdf.png",
           "label": "Delay at steady load",
           "alt": "Cumulative distribution of ingest latency at 20 events per second for each shipper and path",
-          "w": 2010,
-          "h": 1141
+          "w": 1600,
+          "h": 908
         },
         {
           "src": "assets/img/logcanary/latency_p95_heatmap.png",
           "label": "Delay under faults",
           "alt": "95th percentile ingest latency per condition, shipper and path",
-          "w": 3433,
-          "h": 1140
+          "w": 1600,
+          "h": 531
         },
         {
           "src": "assets/img/logcanary/fidelity.png",
           "label": "Field fidelity",
           "alt": "Share of canaries arriving with every field intact by message size and by content type",
-          "w": 3373,
-          "h": 1183
+          "w": 1600,
+          "h": 561
         },
         {
           "src": "assets/img/logcanary/clock_skew.png",
           "label": "Clock jumps",
           "alt": "Difference between the SIEM event time and the true write time during host clock jumps of +2 hours and -10 minutes",
-          "w": 3373,
-          "h": 1183
+          "w": 1600,
+          "h": 561
         },
         {
           "src": "assets/img/logcanary/rule_blind_spots.png",
           "label": "Rule blind spots",
           "alt": "Share of sent canaries a 5 minute scheduled rule never sees, split into lost and arrived too late",
-          "w": 2785,
-          "h": 1263
+          "w": 1600,
+          "h": 726
         },
         {
           "src": "assets/img/logcanary/duplicates.png",
           "label": "Duplicates",
           "alt": "Duplicate documents as a share of sent canaries per condition",
-          "w": 2149,
-          "h": 1127
+          "w": 1600,
+          "h": 839
         },
         {
           "src": "assets/img/logcanary/default_vs_tuned.png",
           "label": "Default against tuned",
           "alt": "Loss with default and tuned shipper settings for five fault conditions",
-          "w": 3573,
-          "h": 1182
+          "w": 1600,
+          "h": 529
         },
         {
           "src": "assets/img/logcanary/pipeline.png",
           "label": "Lab pipeline",
           "alt": "Architecture: canary writer and ledger on the host, rsyslog and journald, three shippers, Elasticsearch and the reconciler",
-          "w": 1882,
-          "h": 857
+          "w": 1600,
+          "h": 729
         }
       ],
       "repo": "https://github.com/itsashutoshpsingh/logcanary",

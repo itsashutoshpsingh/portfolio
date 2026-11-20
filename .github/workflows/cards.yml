@@ -35,6 +35,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Install Pillow (charts are scaled down for the page)
+        run: pip install pillow==12.3.0
       - name: Sync research data from the project repositories
         run: python scripts/sync_research.py projects
       - name: Render cards

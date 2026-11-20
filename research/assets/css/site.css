@@ -344,3 +344,4 @@ footer .social svg, footer .social a:hover svg { fill: currentColor; }
 .hero__head .eyebrow { max-width: 100%; white-space: normal; flex-wrap: wrap; row-gap: 2px; }
 
 .js .rise:focus-within { opacity: 1; transform: none; }  /* a keyboard user never lands on hidden content */
+html { scrollbar-gutter: stable; }  /* opening the menu must not re-wrap the page under the anchor jump */
