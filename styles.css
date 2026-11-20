@@ -705,13 +705,25 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 .gate.is-leaving .gate__inner { opacity: 1; transform: none; transition: none; }
 .gate.is-leaving .gate__k, .gate.is-leaving .gate__h, .gate.is-leaving .gate__skip, .gate.is-leaving .door:not(.is-open) { opacity: 0; transition: opacity 320ms var(--ease-out-strong); }
 .gate.is-leaving .door.is-open .door__label, .gate.is-leaving .door.is-open .door__sub { opacity: 0; transition: opacity 260ms var(--ease-out-strong) 260ms; }
-.gate.is-walking .gate__inner { transform-origin: var(--ox, 50%) var(--oy, 50%); animation: walk-in 1150ms var(--ease-io) both; will-change: transform, opacity; }
-@keyframes walk-in {
-  0% { transform: scale(1); opacity: 1; }
-  60% { opacity: 1; }
-  100% { transform: scale(11); opacity: 0; }
+/* Walking through: the doorway comes towards us in real perspective, with a light step in the stride.
+   The words are gone before we move, so nothing is ever scaled up into a blur. */
+.door.is-open .door__enter { opacity: 0; transition: opacity 150ms var(--ease-out-strong); }
+/* the room's light stays while the door opens; as we walk in it turns into the page itself */
+.door__light::before { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; background: radial-gradient(closest-side, #FFFFFF, var(--c-bg)); opacity: 0; transition: opacity 450ms var(--ease-out-strong); }
+.gate.is-walking .door.is-open .door__light::before { opacity: 1; }
+.gate.is-walking { perspective: 900px; perspective-origin: var(--px, 50%) var(--py, 50%); overflow: hidden; }  /* no scrollbars while the doorway passes the screen edges */
+.gate.is-walking .gate__inner { animation: walk-z 1100ms cubic-bezier(.45, .05, .55, .95) both, walk-step 1100ms linear both; will-change: transform, translate, opacity; }
+@keyframes walk-z {
+  0% { transform: translateZ(0); opacity: 1; }
+  78% { opacity: 1; }
+  100% { transform: translateZ(860px); opacity: 0; }
 }
-.gate.is-walking { background-color: transparent; transition: background-color 700ms var(--ease-out-strong) 300ms; }
+/* the stride: the view dips and rises with each step, settling as we pass the frame */
+@keyframes walk-step {
+  0% { translate: 0 0; } 12% { translate: 0 -5px; } 26% { translate: 0 2px; } 40% { translate: 0 -4px; }
+  54% { translate: 0 1px; } 68% { translate: 0 -2px; } 82%, 100% { translate: 0 0; }
+}
+.gate.is-walking { background-color: transparent; transition: background-color 600ms var(--ease-out-strong) 200ms; }
 /* arrival: the page settles towards you as the doorway clears */
 body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience .wrap { animation: arrive 900ms var(--ease-out-strong) both; }
 @keyframes arrive { from { opacity: 0; transform: scale(.94) translateY(16px); } }
@@ -722,3 +734,53 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 
 /* The hero copy sits on a darker wash so the journey behind it never crosses the words */
 @media (min-width: 901px) { .hero__scrim { background: linear-gradient(90deg, rgba(var(--c-scrim), .92) 0%, rgba(var(--c-scrim), .82) 42%, rgba(var(--c-scrim), 0) 66%), linear-gradient(to top, var(--c-bg) 0%, rgba(var(--c-scrim), 0) 30%); } }
+
+/* ===== Behind the doors: the leaf rests a little ajar, and something drifts out of the gap =====
+   Portfolio: plain soft smoke. Projects: a lab behind the door, a green and blue glow that brews,
+   coloured vapour and a few rising bubbles. Transform and opacity only; nothing moves under reduced motion. */
+.door__leaf { transform: rotateY(-16deg); }
+.door__smoke { position: absolute; left: calc(100% - 18px); top: 14%; width: 60%; height: 72%; pointer-events: none; z-index: 2; transition: opacity 300ms var(--ease-out-strong); }
+.door__smoke i, .door__smoke b { position: absolute; left: 0; bottom: 0; display: block; border-radius: 50%; opacity: 0; }
+.door__smoke i { width: 64px; height: 64px; margin: -32px 0 0 -32px; top: calc(20% + var(--i) * 9%);
+  background: radial-gradient(closest-side, rgba(var(--puff), .7), rgba(var(--puff), .22) 55%, rgba(var(--puff), 0));
+  animation: puff 5.2s cubic-bezier(.33, 0, .2, 1) infinite; animation-delay: calc(var(--i) * -0.74s); }
+.door--me { --puff: 132, 140, 168; }
+/* Portfolio: a warm, lit room */
+.door--me .door__light { background: radial-gradient(90% 70% at 50% 60%, #FFFBF0 0%, #F6E7C4 45%, #D9B46C 100%); }
+.door__light::after { content: ""; position: absolute; inset: 0; border-radius: inherit; opacity: 0; }
+@keyframes puff {
+  0% { opacity: 0; transform: translate(0, 0) scale(.35); }
+  18% { opacity: .9; }
+  100% { opacity: 0; transform: translate(80px, -150px) scale(1.9); }
+}
+/* the lab */
+.door--work .door__light { background: radial-gradient(90% 70% at 50% 65%, #9BF0C8 0%, #2BB37A 38%, #1E56D6 78%, #142A7A 100%); }
+.door--work .door__light::after { background: radial-gradient(60% 45% at 50% 70%, rgba(214, 255, 236, .9), rgba(214, 255, 236, 0)); animation: brew 2.6s ease-in-out infinite alternate; }
+@keyframes brew { from { opacity: .15; } to { opacity: .75; } }
+.door__smoke--magic i:nth-child(3n + 1) { --puff: 11, 160, 100; }
+.door__smoke--magic i:nth-child(3n + 2) { --puff: 30, 86, 214; }
+.door__smoke--magic i:nth-child(3n) { --puff: 142, 43, 87; }
+.door__smoke--magic i { animation-name: vapour; animation-duration: 4.4s; animation-delay: calc(var(--i) * -0.55s); }
+@keyframes vapour {
+  0% { opacity: 0; transform: translate(0, 0) scale(.3) rotate(0deg); }
+  20% { opacity: .95; }
+  60% { transform: translate(46px, -90px) scale(1.2) rotate(40deg); }
+  100% { opacity: 0; transform: translate(30px, -170px) scale(1.7) rotate(80deg); }
+}
+.door__smoke b { width: 7px; height: 7px; border: 1.5px solid rgba(11, 160, 100, .8); background: rgba(214, 255, 236, .5); top: calc(70% - var(--i) * 8%); left: 4px;
+  animation: bubble 3.1s cubic-bezier(.4, 0, .6, 1) infinite; animation-delay: calc(var(--i) * -0.62s); }
+.door__smoke b:nth-of-type(even) { width: 5px; height: 5px; border-color: rgba(30, 86, 214, .8); }
+@keyframes bubble {
+  0% { opacity: 0; transform: translate(0, 0); }
+  15% { opacity: 1; }
+  50% { transform: translate(14px, -70px); }
+  100% { opacity: 0; transform: translate(4px, -140px); }
+}
+/* more of it on hover and as the door opens; none once we start walking */
+@media (hover: hover) and (pointer: fine) { .door:hover .door__smoke { opacity: 1; } }
+.door__smoke { opacity: .75; }
+.door.is-open .door__smoke { opacity: 1; }
+.gate.is-walking .door__smoke { opacity: 0; transition-duration: 200ms; }
+.gate.is-leaving .door:not(.is-open) .door__smoke { animation-play-state: paused; }
+@media (max-width: 720px) { .door__smoke i { width: 44px; height: 44px; margin: -22px 0 0 -22px; } }
+@media (prefers-reduced-motion: reduce) { .door__smoke, .door--work .door__light::after { display: none; } }

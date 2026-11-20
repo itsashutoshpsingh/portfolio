@@ -117,6 +117,28 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     var head = el.querySelector('h1, h2'); if (head) { head.setAttribute('tabindex', '-1'); head.focus({ preventScroll: true }); }
     return !!head;
   };
+  // A heavy door, made in Web Audio rather than shipped as a file: the latch, the weight of the leaf
+  // as it gives, and a breath of air as we walk through. Quiet, and only ever on a click.
+  var audio = null;
+  var doorSound = function (short, lab) {
+    try {
+      var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+      audio = audio || new AC(); if (audio.state === 'suspended') audio.resume();
+      var A = audio, t = A.currentTime + 0.01, out = A.createGain(); out.gain.value = 0.5; out.connect(A.destination);
+      var noise = function (dur) { var n = Math.floor(A.sampleRate * dur), buf = A.createBuffer(1, n, A.sampleRate), ch = buf.getChannelData(0); for (var i = 0; i < n; i++) ch[i] = Math.random() * 2 - 1; var src = A.createBufferSource(); src.buffer = buf; return src; };
+      var env = function (node, at, peak, attack, decay) { var g = A.createGain(); g.gain.setValueAtTime(0.0001, at); g.gain.exponentialRampToValueAtTime(peak, at + attack); g.gain.exponentialRampToValueAtTime(0.0001, at + attack + decay); node.connect(g); g.connect(out); return g; };
+      // the latch: a short bright click
+      var click = noise(0.05), hp = A.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 3200; hp.Q.value = 2.5; click.connect(hp); env(hp, t, 0.35, 0.002, 0.04); click.start(t); click.stop(t + 0.06);
+      // the leaf giving: a low, soft wooden knock that drops in pitch
+      var body = A.createOscillator(); body.type = 'sine'; body.frequency.setValueAtTime(96, t + 0.04); body.frequency.exponentialRampToValueAtTime(52, t + 0.4); env(body, t + 0.04, 0.32, 0.008, 0.38); body.start(t + 0.04); body.stop(t + 0.5);
+      var wood = noise(0.3), lp = A.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 520; wood.connect(lp); env(lp, t + 0.04, 0.22, 0.004, 0.22); wood.start(t + 0.04); wood.stop(t + 0.34);
+      if (short) return;
+      // the lab behind the Projects door: a soft glassy shimmer as it opens
+      if (lab) [523.25, 783.99, 1046.5].forEach(function (f, k) { var o = A.createOscillator(), v = A.createOscillator(), vg = A.createGain(); o.type = 'sine'; o.frequency.value = f; v.frequency.value = 5 + k; vg.gain.value = f * 0.004; v.connect(vg); vg.connect(o.frequency); env(o, t + 0.12 + k * 0.07, 0.035, 0.25, 0.9); o.start(t + 0.12); v.start(t + 0.12); o.stop(t + 1.5); v.stop(t + 1.5); });
+      // the walk through: air rising and passing
+      var air = noise(1.4), bp = A.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 0.9; bp.frequency.setValueAtTime(380, t + 0.7); bp.frequency.exponentialRampToValueAtTime(1400, t + 1.7); air.connect(bp); env(bp, t + 0.7, 0.07, 0.7, 0.45); air.start(t + 0.7); air.stop(t + 2.0);
+    } catch (e) {}
+  };
   var revealed = false;
   // the site comes back behind the doorway: unlock it, jump to the chosen place, play the arrival
   var reveal = function (target) {
@@ -132,7 +154,7 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var close = function (target) {
     clearTimeout(timer); clearTimeout(reveal.t); timer = 0; pending = null;
     var landed = reveal(target);
-    gate.hidden = true; gate.classList.remove('is-leaving', 'is-walking');
+    gate.hidden = true; gate.classList.remove('is-leaving', 'is-walking'); gate.style.removeProperty('--px'); gate.style.removeProperty('--py');
     if (!landed) { var back = opener && opener.offsetParent ? opener : document.querySelector('.brand'); if (back) back.focus({ preventScroll: true }); }
     opener = null;
   };
@@ -148,14 +170,15 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
     d.addEventListener('click', function () {
       if (pending) { close(pending); return; }  // a second click skips the rest of the animation
       pending = d.getAttribute('data-go');
-      // walk towards the doorway: the scene grows around the centre of the chosen door
-      var inner = gate.querySelector('.gate__inner'), a = inner.getBoundingClientRect(), b = d.querySelector('.door__frame').getBoundingClientRect();
-      inner.style.setProperty('--ox', (b.left + b.width / 2 - a.left) + 'px'); inner.style.setProperty('--oy', (b.top + b.height / 2 - a.top) + 'px');
+      // we walk towards the centre of the chosen doorway: it is the vanishing point
+      var b = d.querySelector('.door__frame').getBoundingClientRect();
+      gate.style.setProperty('--px', (b.left + b.width / 2) + 'px'); gate.style.setProperty('--py', (b.top + b.height / 2) + 'px');
       d.classList.add('is-open'); gate.classList.add('is-leaving');
+      doorSound(still, d.classList.contains('door--work'));
       if (still) { close(pending); return; }
-      timer = setTimeout(function () { gate.classList.add('is-walking'); }, 520);    // once the leaf is mostly open
-      reveal.t = setTimeout(function () { reveal(pending); }, 1050);                  // the site appears through the doorway
-      timer = setTimeout(function () { close(pending); }, 1700);
+      timer = setTimeout(function () { gate.classList.add('is-walking'); }, 700);     // the leaf is open and we have looked through
+      reveal.t = setTimeout(function () { reveal(pending); }, 1500);                  // the doorway fills the view: the site is there
+      timer = setTimeout(function () { close(pending); }, 1820);
     });
   });
   gate.querySelector('.gate__skip').addEventListener('click', function () { close(null); });
