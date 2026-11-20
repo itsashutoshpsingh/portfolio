@@ -7,8 +7,8 @@ canvas.journey.is-ready { opacity: 1; }
 
 /* The meter: how far down the page, and where in the journey the reader is */
 .meter { position: fixed; right: 12px; bottom: 24px; z-index: 44; width: 100px; display: none; justify-items: center; gap: 2px; padding: 12px 6px 14px; text-align: center;
-  border-radius: 16px; border: 1px solid var(--c-line); background: rgba(var(--c-scrim), .86); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-  opacity: 0; transform: perspective(600px) rotateY(-18deg) translateX(12px); transform-origin: right center; transition: opacity 300ms cubic-bezier(.22,1,.36,1), transform 600ms cubic-bezier(.22,1,.36,1); pointer-events: none; }
+  border-radius: 16px; border: 1px solid var(--c-line); background: rgba(var(--c-scrim), .94);
+  opacity: 0; transform: translateX(8px); transition: opacity 200ms cubic-bezier(.23,1,.32,1), transform 200ms cubic-bezier(.23,1,.32,1); pointer-events: none; }
 .meter svg { grid-area: 1 / 1; width: 60px; height: 60px; transform: rotate(-90deg); }
 .meter__track { fill: none; stroke: var(--c-surface-3); stroke-width: 5; }
 .meter__fill { fill: none; stroke: var(--c-accent); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 100; stroke-dashoffset: 100; transition: stroke-dashoffset 160ms linear; }
@@ -16,10 +16,8 @@ canvas.journey.is-ready { opacity: 1; }
 .meter__year { margin-top: 6px; font: 700 18px/22px var(--font-ui); color: var(--c-ink); letter-spacing: -.01em; }
 .meter__place { font: 600 12px/16px var(--font-ui); color: var(--c-green); }
 .meter__what { font: 400 11px/14px var(--font-ui); color: var(--c-ink-3); text-wrap: balance; }
-.meter.is-new .meter__year, .meter.is-new .meter__place, .meter.is-new .meter__what { animation: meter-in 500ms cubic-bezier(.22,1,.36,1) both; }
-@keyframes meter-in { from { opacity: 0; transform: translateY(6px); } }
-@media (min-width: 1400px) { .meter { display: grid; } body.past-hero .meter { opacity: 1; transform: perspective(600px) rotateY(-10deg); } }
-@media (prefers-reduced-motion: reduce) { .meter, .meter__fill { transition: none; } .meter.is-new * { animation: none; } }
+@media (min-width: 1400px) { .meter { display: grid; } body.past-hero .meter { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .meter, .meter__fill { transition: none; } }
 
 /* Headings: words rise and settle from ice blue to the text colour */
 .fx .fx-split .fx-w { display: inline-block; opacity: 0; transform: translateY(40%); color: var(--c-cyan);

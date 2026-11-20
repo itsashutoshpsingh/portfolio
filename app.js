@@ -112,8 +112,8 @@ fetch('research/data/projects.json').then(function (r) { if (!r.ok) throw new Er
   var go = function (target) {
     var el = target && document.querySelector(target);
     if (!el) return false;
-    if (target === '#top') scrollTo({ top: 0, behavior: 'auto' });
-    else el.scrollIntoView({ behavior: 'auto' });
+    if (target === '#top') scrollTo({ top: 0, behavior: 'instant' });
+    else el.scrollIntoView({ behavior: 'instant' });  // a jump: a smooth scroll here would be a second motion after the doorway
     var head = el.querySelector('h1, h2'); if (head) { head.setAttribute('tabindex', '-1'); head.focus({ preventScroll: true }); }
     return !!head;
   };

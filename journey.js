@@ -5,7 +5,6 @@
    the current stop pulses, and a small meter in the corner shows the year, the place and how far down
    the page you are. Under reduced motion the camera jumps instead of flying and nothing pulses.
    Without WebGL the page keeps its plain background. */
-import * as THREE from './vendor/three.module.min.js';
 
 const STOPS = [
   { year: '2020', place: 'Pune', what: 'BTech, Symbiosis' },
@@ -21,7 +20,8 @@ const STOPS = [
 const OVERVIEW = { year: '2020 to 2026', place: 'Pune to Coventry', what: 'Nine stops so far' };
 
 const canvas = document.querySelector('canvas.journey');
-const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const calm = matchMedia('(prefers-reduced-motion: reduce)');
+let still = calm.matches;
 const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 const css = getComputedStyle(document.documentElement);
 const tok = (name, fallback) => (css.getPropertyValue(name) || '').trim() || fallback;
@@ -30,8 +30,14 @@ const C = {
   accent: tok('--c-accent', '#5AA2FF'), green: tok('--c-green', '#4ADE9A'), royal: tok('--c-royal', '#3355E6'),
 };
 
-let renderer = null;
-try { renderer = canvas && new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'low-power' }); } catch (e) { renderer = null; }
+// three.js is only fetched where it can run: it needs WebGL 2
+let THREE = null, renderer = null;
+if (canvas && document.createElement('canvas').getContext('webgl2')) {
+  try {
+    THREE = await import('./vendor/three.module.min.js');
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: (window.devicePixelRatio || 1) < 1.5, alpha: false, powerPreference: 'low-power' });
+  } catch (e) { renderer = null; }
+}
 if (!renderer) { if (canvas) canvas.remove(); } else start();
 
 function start() {
@@ -96,7 +102,7 @@ function start() {
   const mFill = meter.querySelector('.meter__fill'), mPct = meter.querySelector('.meter__pct'), mYear = meter.querySelector('.meter__year'), mPlace = meter.querySelector('.meter__place'), mWhat = meter.querySelector('.meter__what');
   const setMeter = (k, pct) => {
     const s = typeof k === 'number' ? STOPS[k] : OVERVIEW;
-    if (mYear.textContent !== s.year) { mYear.textContent = s.year; mPlace.textContent = s.place; mWhat.textContent = s.what; meter.classList.remove('is-new'); void meter.offsetWidth; meter.classList.add('is-new'); }
+    if (mWhat.textContent !== s.what) { mYear.textContent = s.year; mPlace.textContent = s.place; mWhat.textContent = s.what; }
     mFill.style.strokeDashoffset = String(100 - pct); mPct.textContent = Math.round(pct) + '%';
   };
 
@@ -107,6 +113,7 @@ function start() {
   const read = () => {
     const max = document.documentElement.scrollHeight - innerHeight;
     progress = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+    document.body.classList.toggle('past-hero', scrollY > innerHeight * 0.8);
     if (document.body.classList.contains('gated')) { chapter = 'door'; return; }
     if (travel) { chapter = Math.round(progress * (points.length - 1)); return; }
     const mid = innerHeight * 0.5;
@@ -114,7 +121,6 @@ function start() {
     let best = null, bestTop = -Infinity;
     for (const el of marks) { const r = el.getBoundingClientRect(); if (r.top <= mid && r.bottom >= mid && r.top > bestTop + 0.5) { best = el; bestTop = r.top; } }
     if (best) chapter = best.dataset.chapter === 'all' ? 'all' : +best.dataset.chapter;
-    document.body.classList.toggle('past-hero', scrollY > innerHeight * 0.8);
   };
 
   // motion state, eased towards the target every frame
@@ -122,7 +128,7 @@ function start() {
   camera.position.copy(cur.pos);
   let px = 0, py = 0, tpx = 0, tpy = 0, pulseUntil = 0, last = performance.now(), running = false, shown = -2;
   const frame = (now) => {
-    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const dt = Math.min(0.25, (now - last) / 1000); last = now;  // a slow frame still moves the camera its share of the way
     const target = aim(chapter);
     if (travel && !still) { const t = progress; target.pos = curve.getPoint(Math.max(0, t - 0.06)).add(new THREE.Vector3(-1.2, 1.6, 3.6)); target.look = curve.getPoint(Math.min(1, t + 0.05)); target.u = t; }
     const k = still ? 1 : 1 - Math.exp(-dt * (chapter === 'all' && cur.pos.z > 16 ? 1.7 : 2.6));  // the fly-in from the doors is a touch slower
@@ -137,7 +143,7 @@ function start() {
     if (active !== shown) {
       dots.forEach((d, i) => { d.material.color.set(i === active ? C.green : along[i] <= target.u + 1e-6 ? C.accent : C.line); d.scale.setScalar(i === active ? 1.6 : 1); });
       years.forEach((y) => { y.material.opacity = active < 0 ? 0.4 : 0; });  // years show on the overview only; the meter carries the current one
-      shown = active; pulseUntil = now + 2800;
+      shown = active; pulseUntil = still ? now : now + 2800;
     }
     ring.visible = active >= 0;
     if (active >= 0) {
@@ -156,15 +162,19 @@ function start() {
   const wake = () => { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
 
   const size = () => {
-    const w = innerWidth, h = innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+    const w = innerWidth, h = innerHeight, dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    lastW = w; lastH = h;
     renderer.setPixelRatio(dpr); renderer.setSize(w, h, false);
     camera.aspect = w / h;
     // on wide screens the path sits to the right of the text column
     if (w >= 900) camera.setViewOffset(w, h, -w * 0.14, 0, w, h); else camera.clearViewOffset();
     camera.updateProjectionMatrix();
   };
+  let lastW = 0, lastH = 0;
   size(); read(); wake();
-  addEventListener('resize', () => { size(); read(); wake(); }, { passive: true });
+  // a phone's address bar showing and hiding changes only the height a little: keep the canvas as it is
+  addEventListener('resize', () => { if (innerWidth !== lastW || Math.abs(innerHeight - lastH) > 160) size(); read(); wake(); }, { passive: true });
+  calm.addEventListener('change', (e) => { still = e.matches; shown = -2; wake(); });
   let queued = false;
   addEventListener('scroll', () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; read(); wake(); }); } }, { passive: true });
   if (fine && !still) addEventListener('pointermove', (e) => { tpx = e.clientX / innerWidth - 0.5; tpy = 0.5 - e.clientY / innerHeight; wake(); }, { passive: true });

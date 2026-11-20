@@ -388,7 +388,8 @@ body.gated > :not(.gate):not(.journey) { visibility: hidden; }
 .door--me { --door: var(--c-ink); }
 .door--work { --door: var(--c-accent); }
 .door:hover .door__frame, .door:focus-visible .door__frame { border-color: var(--door); }
-.door:hover .door__leaf, .door:focus-visible .door__leaf { transform: rotateY(-28deg); }
+.door:focus-visible .door__leaf { transform: rotateY(-28deg); }
+@media (hover: hover) and (pointer: fine) { .door:hover .door__leaf { transform: rotateY(-28deg); } }
 .door:hover .door__enter, .door:focus-visible .door__enter { opacity: 1; transform: none; }
 .door:active .door__frame { transform: scale(.98); }
 .door:focus-visible { outline: none; }
@@ -468,8 +469,6 @@ h1, h2, .heading-1, .heading-2, .heading-3, .gate__h, .door__label { font-family
 .scrolly[data-step="1"] .scrolly__bar::before { transform: translateX(100%); }
 .scrolly[data-step="2"] .scrolly__bar::before { transform: translateX(200%); }
 .scrolly[data-step="0"] .scrolly__bar span:nth-child(1), .scrolly[data-step="1"] .scrolly__bar span:nth-child(2), .scrolly[data-step="2"] .scrolly__bar span:nth-child(3) { color: var(--c-ink); }
-.scrolly__marks { position: absolute; left: 0; right: 0; top: 50vh; pointer-events: none; }
-.scrolly__marks i { display: block; height: 30vh; }
 
 /* 3D view: the CV page lies back in space and stands up as it scrolls into view */
 @media (prefers-reduced-motion: no-preference) {
@@ -491,7 +490,8 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 
 /* Header: brand left, sections centre, actions right at every width */
 .top__end { grid-column: 3; align-items: center; }
-.pill.glass, .burger.glass, .brand { background: rgba(var(--c-scrim), .94); }
+.pill.glass, .burger.glass, .brand, .top .btn--line { background: rgba(var(--c-scrim), .94); }
+.top .btn--line:hover { background: var(--c-ink); }
 .pill a:hover, .pill__doors:hover { background: rgba(var(--c-tint), .1); }
 .pill__doors { min-height: 36px; padding: var(--s-75) var(--s-200); border: 0; border-radius: 999px; background: none; color: var(--c-accent); cursor: pointer; }
 .pill__doors:focus-visible { outline: 2px solid var(--c-glacier); outline-offset: 2px; }
@@ -628,8 +628,9 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 
 /* ===== Scroll story: longer, with one line that fills across the three steps ===== */
 .scrolly.is-scrolly { height: 340vh; }
-.scrolly.is-scrolly .step { transition: opacity 600ms var(--ease), transform 800ms var(--ease), filter 600ms var(--ease); filter: blur(6px); transform: translateY(40px) scale(.98); }
-.scrolly[data-step="0"] .step:nth-child(1), .scrolly[data-step="1"] .step:nth-child(2), .scrolly[data-step="2"] .step:nth-child(3) { filter: none; }
+.scrolly.is-scrolly .step { transition: opacity 260ms var(--ease-out-strong), transform 320ms var(--ease-out-strong), filter 260ms var(--ease-out-strong); filter: blur(2px); transform: translateY(16px); }
+/* the outgoing step leaves first, then the next one comes in */
+.scrolly[data-step="0"] .step:nth-child(1), .scrolly[data-step="1"] .step:nth-child(2), .scrolly[data-step="2"] .step:nth-child(3) { filter: none; transition-delay: 140ms; }
 .scrolly.is-scrolly .step__n { color: var(--c-accent); }
 .scrolly.is-scrolly .scrolly__bar::before { width: 100%; transform: scaleX(var(--p, 0)) !important; transform-origin: left; background: linear-gradient(90deg, var(--c-royal), var(--c-accent), var(--c-green)); transition: none; }
 @media (prefers-reduced-motion: reduce) { .scrolly .step { filter: none; } }
@@ -679,16 +680,20 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
   .xpv { padding: var(--s-200); }
   .xpv--split { grid-template-columns: 1fr; }
   .xpv__checks, .xpv__grid { grid-template-columns: 1fr 1fr; }
-  .xpv__dots--field { grid-template-columns: repeat(20, minmax(0, 1fr)); }
+  .xpv__dots--field { grid-template-columns: repeat(25, minmax(0, 1fr)); }
   .xpv__bar { grid-template-columns: 90px minmax(0, 1fr) 44px; gap: var(--s-100); }
 }
 /* the visuals build once, when their card comes into view */
 @media (prefers-reduced-motion: no-preference) {
   .js .xp__item:not(.is-in) .xpv__fill { transform: scaleX(0); }
-  .xpv__fill { transition: transform 1100ms var(--ease) 300ms; }
+  .xpv__fill { transition: transform 500ms var(--ease-out-strong); }
   .js .xp__item:not(.is-in) .xpv__checks li, .js .xp__item:not(.is-in) .xpv__grid li, .js .xp__item:not(.is-in) .xpv__dots i { opacity: 0; transform: translateY(6px); }
   .xpv__checks li, .xpv__grid li, .xpv__dots i { transition: opacity 400ms var(--ease), transform 500ms var(--ease); transition-delay: calc(200ms + var(--i, 0) * 40ms); }
-  .xpv__dots--field i { transition-delay: calc(200ms + var(--i, 0) * 3ms); }
+  /* the 250 dots fade in as one field, not one by one */
+  .js .xp__item:not(.is-in) .xpv__dots--field i { opacity: 1; transform: none; }
+  .xpv__dots--field i { transition: none; }
+  .js .xp__item:not(.is-in) .xpv__dots--field { opacity: 0; }
+  .xpv__dots--field { transition: opacity 400ms var(--ease-out-strong) 200ms; }
   .js .xp__item:not(.is-in) .xpv__nd { opacity: 0; }
   .xpv__nd { transition: opacity 400ms var(--ease); transition-delay: calc(200ms + var(--i, 0) * 15ms); }
 }
@@ -702,9 +707,9 @@ a, button, summary { touch-action: manipulation; -webkit-tap-highlight-color: tr
 .gate.is-leaving .door.is-open .door__label, .gate.is-leaving .door.is-open .door__sub { opacity: 0; transition: opacity 260ms var(--ease-out-strong) 260ms; }
 .gate.is-walking .gate__inner { transform-origin: var(--ox, 50%) var(--oy, 50%); animation: walk-in 1150ms var(--ease-io) both; will-change: transform, opacity; }
 @keyframes walk-in {
-  0% { transform: scale(1); opacity: 1; filter: blur(0); }
-  60% { opacity: 1; filter: blur(0); }
-  100% { transform: scale(11); opacity: 0; filter: blur(6px); }
+  0% { transform: scale(1); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: scale(11); opacity: 0; }
 }
 .gate.is-walking { background-color: transparent; transition: background-color 700ms var(--ease-out-strong) 300ms; }
 /* arrival: the page settles towards you as the doorway clears */
