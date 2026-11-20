@@ -784,3 +784,59 @@ body.arrived .hero__grid, body.arrived #research .wrap, body.arrived #experience
 .gate.is-leaving .door:not(.is-open) .door__smoke { animation-play-state: paused; }
 @media (max-width: 720px) { .door__smoke i { width: 44px; height: 44px; margin: -22px 0 0 -22px; } }
 @media (prefers-reduced-motion: reduce) { .door__smoke, .door--work .door__light::after { display: none; } }
+
+/* ===== The door scene, stronger: a lit wall, solid door casings, thicker smoke, clearer words ===== */
+.gate { background: none; }
+.gate::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none; transition: opacity 600ms var(--ease-out-strong) 200ms;
+  background:
+    linear-gradient(180deg, rgba(15, 27, 77, 0) 72%, rgba(15, 27, 77, .1) 72.2%, rgba(15, 27, 77, .04) 100%),   /* the floor */
+    radial-gradient(60% 55% at 50% 42%, #FFFFFF 0%, #EEF2FB 45%, #CBD5EE 100%); }
+.gate.is-walking::before { opacity: 0; }
+.gate__k { color: var(--c-accent); font-size: 15px; letter-spacing: .14em; }
+.gate__h { font-size: clamp(36px, 4.6vw, 60px); line-height: 1.05; font-weight: 500; color: var(--c-ink); letter-spacing: -.035em; }
+.door__label { font-size: 32px; line-height: 38px; font-weight: 600; color: var(--c-ink); }
+.door__sub { font-size: 18px; line-height: 26px; color: var(--c-ink-2); }
+.gate__skip { margin-top: var(--s-300); padding: 0 var(--s-300); border: 1px solid rgba(var(--c-tint), .3); border-radius: 999px; background: rgba(255, 255, 255, .7); text-decoration: none; font-weight: 600; }
+.gate__skip:hover { border-color: var(--c-ink); background: #FFFFFF; }
+/* the casing: a solid frame that stands off the wall, with a shadow on the floor */
+.door__frame { background: linear-gradient(180deg, #FFFFFF, #E9EEF8); border: 1px solid rgba(var(--c-tint), .32);
+  box-shadow: 0 1px 0 #FFFFFF inset, 0 34px 50px -28px rgba(15, 27, 77, .5), 0 8px 18px -10px rgba(15, 27, 77, .25); }
+.door__frame::after { content: ""; position: absolute; left: -12%; right: -12%; bottom: -22px; height: 30px; border-radius: 50%; pointer-events: none; z-index: -1;
+  background: radial-gradient(closest-side, rgba(15, 27, 77, .28), rgba(15, 27, 77, 0)); }
+.door--work .door__frame::after { background: radial-gradient(closest-side, rgba(11, 160, 100, .35), rgba(30, 86, 214, .12) 60%, rgba(30, 86, 214, 0)); }  /* the lab's light on the floor */
+/* thicker smoke */
+.door__smoke { opacity: 1; }
+.door__smoke i { width: 92px; height: 92px; margin: -46px 0 0 -46px;
+  background: radial-gradient(closest-side, rgba(var(--puff), .95), rgba(var(--puff), .45) 50%, rgba(var(--puff), 0)); }
+.door--me { --puff: 98, 108, 142; }
+.door__smoke--magic i { width: 100px; height: 100px; margin: -50px 0 0 -50px; }
+.door__smoke b { width: 10px; height: 10px; border-width: 2px; }
+.door__smoke b:nth-of-type(even) { width: 7px; height: 7px; }
+@media (max-width: 720px) { .door__smoke i, .door__smoke--magic i { width: 60px; height: 60px; margin: -30px 0 0 -30px; } .door__label { font-size: 26px; line-height: 32px; } .door__sub { font-size: 16px; line-height: 23px; } }
+
+/* The NASSCOM visual: a face half captured, half synthetic, and the three provenance schemes tested */
+.xpv__fake { width: 100%; height: auto; max-width: 620px; }
+.xpv__pane { fill: #FFFFFF; stroke: var(--c-line); }
+.xpv__eye { fill: var(--c-ink); opacity: .55; }
+.xpv__lip { fill: none; stroke: var(--c-ink); stroke-width: 2; stroke-linecap: round; opacity: .45; }
+.xpv__ghost { fill: rgba(30, 86, 214, .06); stroke: rgba(30, 86, 214, .35); stroke-dasharray: 3 3; }
+.xpv__mesh { stroke: var(--c-accent); stroke-width: 1; opacity: .55; }
+.xpv__lm { fill: var(--c-accent); }
+.xpv__split { stroke: var(--c-burgundy); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.xpv__scan { fill: var(--c-green); opacity: .7; }
+.xpv__t { font: 700 13px var(--font-ui); fill: var(--c-ink-2); }
+.xpv__ok { fill: var(--c-green); }
+.xpv__tick { fill: none; stroke: #FFFFFF; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.xpv__h { font: 700 19px var(--font-ui); fill: var(--c-ink); }
+.xpv__s { font: 400 15px var(--font-ui); fill: var(--c-ink-2); }
+@media (prefers-reduced-motion: no-preference) {
+  .xpv__scan { animation: fake-scan 3.2s cubic-bezier(.45, 0, .55, 1) infinite alternate; }
+  @keyframes fake-scan { from { transform: translateY(6px); } to { transform: translateY(168px); } }
+  .js .xp__item:not(.is-in) .xpv__lm, .js .xp__item:not(.is-in) .xpv__mesh { opacity: 0; }
+  .xpv__lm, .xpv__mesh { transition: opacity 500ms var(--ease-out-strong) 200ms; }
+}
+
+/* Behind the doors: the wall lets the moving network show through, softly */
+.gate::before { background:
+    linear-gradient(180deg, rgba(15, 27, 77, 0) 72%, rgba(15, 27, 77, .1) 72.2%, rgba(15, 27, 77, .04) 100%),
+    radial-gradient(60% 55% at 50% 42%, rgba(255, 255, 255, .8) 0%, rgba(238, 242, 251, .5) 45%, rgba(203, 213, 238, .62) 100%); }

@@ -36,14 +36,40 @@ function start() {
   // ---- the meter in the corner: progress ring, year, place ----
   const meter = document.createElement('div');
   meter.className = 'meter'; meter.setAttribute('aria-hidden', 'true');
-  meter.innerHTML = '<svg viewBox="0 0 64 64"><circle class="meter__track" cx="32" cy="32" r="27"/><circle class="meter__fill" cx="32" cy="32" r="27" pathLength="100"/></svg>' +
-    '<b class="meter__pct">0%</b><span class="meter__year"></span><span class="meter__place"></span><span class="meter__what"></span>';
+  meter.innerHTML = '<span class="meter__year"></span><span class="meter__place"></span><span class="meter__what"></span>';
   document.body.appendChild(meter);
-  const mFill = meter.querySelector('.meter__fill'), mPct = meter.querySelector('.meter__pct'), mYear = meter.querySelector('.meter__year'), mPlace = meter.querySelector('.meter__place'), mWhat = meter.querySelector('.meter__what');
+  const mYear = meter.querySelector('.meter__year'), mPlace = meter.querySelector('.meter__place'), mWhat = meter.querySelector('.meter__what');
+
+  // ---- the scroll cube: a small glass cube that turns as you scroll and fills from the bottom with how
+  // far down the page you are; it is also the way back to the top ----
+  const top = document.createElement('button');
+  top.type = 'button'; top.className = 'cube'; top.setAttribute('aria-label', 'Back to top');
+  top.innerHTML = '<span class="cube__stage" aria-hidden="true"><span class="cube__box">' +
+    ['front', 'back', 'right', 'left', 'top', 'bottom'].map((f) => `<i class="cube__f cube__f--${f}"><b></b></i>`).join('') +
+    '</span></span><span class="cube__pct" aria-hidden="true">0%</span><span class="cube__up" aria-hidden="true">Top</span>';
+  document.body.appendChild(top);
+  const box = top.querySelector('.cube__box'), pctEl = top.querySelector('.cube__pct');
+  top.addEventListener('click', () => {
+    if (window.lenis && !still) window.lenis.scrollTo(0, { duration: 1.2 }); else scrollTo({ top: 0, behavior: still ? 'instant' : 'smooth' });
+    const h = document.querySelector('h1'); if (h) { h.setAttribute('tabindex', '-1'); h.focus({ preventScroll: true }); }
+  });
+  // where native scroll timelines are missing (Safari, Firefox), the top bar is driven from here
+  const bar = CSS.supports && CSS.supports('animation-timeline: scroll()') ? null : document.querySelector('.progress');
+  let shownPct = -1;
   const setMeter = (k, pct) => {
     const s = typeof k === 'number' ? STOPS[k] : OVERVIEW;
     if (mWhat.textContent !== s.what) { mYear.textContent = s.year; mPlace.textContent = s.place; mWhat.textContent = s.what; }
-    mFill.style.strokeDashoffset = String(100 - pct); mPct.textContent = Math.round(pct) + '%';
+    const r = Math.round(pct);
+    if (r !== shownPct) { shownPct = r; pctEl.textContent = r + '%'; }
+    top.style.setProperty('--p', (pct / 100).toFixed(4));
+    top.classList.toggle('is-shown', scrollY > 160 && !document.body.classList.contains('gated'));
+    if (bar) bar.style.transform = `scaleX(${(pct / 100).toFixed(4)})`;
+  };
+  // the cube's turn follows the page exactly, and leans into fast scrolling
+  let lean = 0;
+  const turn = (dt) => {
+    lean += (Math.max(-1, Math.min(1, vel / 2500)) - lean) * Math.min(1, dt * 6);
+    box.style.transform = still ? 'rotateX(-24deg) rotateY(38deg)' : `rotateX(${-24 - lean * 26}deg) rotateY(${38 + progress * 720}deg)`;
   };
 
   // ---- which chapter the reader is on ----
@@ -110,7 +136,7 @@ function start() {
     const scan = scanY(), pos = nodes.map((nd) => [nd.x, sy(nd)]);
 
     // links: one path, faint
-    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${TINT}, .1)`; ctx.beginPath();
+    ctx.lineWidth = 1; ctx.strokeStyle = `rgba(${TINT}, .16)`; ctx.beginPath();
     for (const [i, j] of edges) {
       const [ax, ay] = pos[i], [bx, by] = pos[j];
       if (Math.abs(ay - by) > H * 0.5) continue;  // the two ends wrapped to opposite edges
@@ -130,7 +156,7 @@ function start() {
       if (Math.abs(y - scan) < 6) nd.hot = 1;
       nd.hot = Math.max(0, nd.hot - dt * 0.8);
       const s = 2 + nd.d * 2.5;
-      ctx.fillStyle = nd.hot > 0.02 ? C.accent : `rgba(${TINT}, ${0.18 + nd.d * 0.22})`;
+      ctx.fillStyle = nd.hot > 0.02 ? C.accent : `rgba(${TINT}, ${0.26 + nd.d * 0.3})`;
       ctx.globalAlpha = nd.hot > 0.02 ? 0.35 + nd.hot * 0.65 : 1;
       ctx.fillRect(x - s / 2, y - s / 2, s, s);
       if (nd.hot > 0.02) { ctx.strokeStyle = C.accent; ctx.globalAlpha = nd.hot * 0.5; ctx.strokeRect(x - s - 3, y - s - 3, s * 2 + 6, s * 2 + 6); }
@@ -154,7 +180,7 @@ function start() {
       const [a, b] = edges[p.e], [ax, ay] = pos[p.fwd ? a : b], [bx, by] = pos[p.fwd ? b : a];
       if (Math.abs(ay - by) > H * 0.5) continue;
       const t0 = Math.max(0, p.t - 0.12), x0 = ax + (bx - ax) * t0, y0 = ay + (by - ay) * t0, x1 = ax + (bx - ax) * p.t, y1 = ay + (by - ay) * p.t;
-      ctx.strokeStyle = p.c; ctx.globalAlpha = p.life !== undefined ? Math.min(1, p.life * 2) : 0.85; ctx.lineWidth = 2; ctx.lineCap = 'round';
+      ctx.strokeStyle = p.c; ctx.globalAlpha = p.life !== undefined ? Math.min(1, p.life * 2) : 0.85; ctx.lineWidth = 2.5; ctx.lineCap = 'round';
       ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke();
     }
     ctx.globalAlpha = 1; ctx.lineWidth = 1;
@@ -168,7 +194,7 @@ function start() {
     // a device that cannot keep up gets fewer pixels, once
     slow = dt > 0.028 ? slow + 1 : Math.max(0, slow - 1);
     if (slow > 40 && dpr > 1) { dpr = 1; size(false); slow = 0; }
-    draw(dt);
+    draw(dt); turn(dt);
     if (still || document.hidden) { running = false; return; }
     requestAnimationFrame(frame);
   };

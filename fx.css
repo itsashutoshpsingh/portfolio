@@ -6,7 +6,7 @@ canvas.journey { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 
 canvas.journey.is-ready { opacity: 1; }
 
 /* The meter: how far down the page, and where in the journey the reader is */
-.meter { position: fixed; right: 12px; bottom: 24px; z-index: 44; width: 100px; display: none; justify-items: center; gap: 2px; padding: 12px 6px 14px; text-align: center;
+.meter { position: fixed; right: 16px; bottom: 136px; z-index: 44; width: 100px; display: none; justify-items: center; gap: 2px; padding: 12px 6px 14px; text-align: center;
   border-radius: 16px; border: 1px solid var(--c-line); background: rgba(var(--c-scrim), .94);
   opacity: 0; transform: translateX(8px); transition: opacity 200ms cubic-bezier(.23,1,.32,1), transform 200ms cubic-bezier(.23,1,.32,1); pointer-events: none; }
 .meter svg { grid-area: 1 / 1; width: 60px; height: 60px; transform: rotate(-90deg); }
@@ -39,7 +39,7 @@ canvas.journey.is-ready { opacity: 1; }
   transform-origin: left; transform: scaleX(0); }
 @supports (animation-timeline: scroll()) { .progress { animation: fx-grow linear both; animation-timeline: scroll(root); } }
 @keyframes fx-grow { to { transform: scaleX(1); } }
-@supports not (animation-timeline: scroll()) { .progress { display: none; } }
+/* without scroll timelines, journey.js sets the transform each frame */
 
 /* Section eyebrow: a small label with a dot that pings three times, then rests */
 .eyebrow { position: relative; display: inline-flex; align-items: center; gap: 8px; color: var(--c-glacier); font-family: var(--font-ui); }
@@ -99,3 +99,31 @@ html.lenis { scroll-behavior: auto; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 /* On phones the text runs over the whole width, so the network sits further back */
 @media (max-width: 899px) { canvas.journey.is-ready { opacity: .7; } }
+
+/* ===== The scroll cube: how far down the page, in 3D, and the way back to the top =====
+   Six glass faces; each fills from the bottom with the page's progress. The turn is set from journey.js. */
+.cube { position: fixed; right: 20px; bottom: 20px; z-index: 45; display: grid; justify-items: center; gap: 14px; width: 92px; padding: 18px 0 10px; border: 1px solid rgba(var(--c-tint), .18);
+  border-radius: 20px; background: rgba(255, 255, 255, .9); box-shadow: 0 18px 36px -18px rgba(15, 27, 77, .45); color: var(--c-ink); cursor: pointer; font: inherit;
+  opacity: 0; transform: translateY(12px) scale(.96); pointer-events: none; transition: opacity 220ms cubic-bezier(.23,1,.32,1), transform 220ms cubic-bezier(.23,1,.32,1), border-color 200ms ease; }
+.cube.is-shown { opacity: 1; transform: none; pointer-events: auto; }
+.cube:active { transform: scale(.97); }
+.cube:focus-visible { outline: 2px solid var(--c-glacier); outline-offset: 3px; }
+.cube__stage { width: 44px; height: 44px; perspective: 260px; }
+.cube__box { position: relative; display: block; width: 44px; height: 44px; transform-style: preserve-3d; transform: rotateX(-24deg) rotateY(38deg); will-change: transform; }
+.cube__f { position: absolute; inset: 0; overflow: hidden; border: 1.5px solid var(--c-accent); background: rgba(30, 86, 214, .08); backface-visibility: visible; }
+.cube__f b { position: absolute; inset: 0; background: linear-gradient(0deg, var(--c-green), var(--c-accent)); opacity: .85; transform-origin: bottom; transform: scaleY(var(--p, 0)); }
+.cube__f--front { transform: translateZ(22px); } .cube__f--back { transform: rotateY(180deg) translateZ(22px); }
+.cube__f--right { transform: rotateY(90deg) translateZ(22px); } .cube__f--left { transform: rotateY(-90deg) translateZ(22px); }
+.cube__f--top { transform: rotateX(90deg) translateZ(22px); } .cube__f--bottom { transform: rotateX(-90deg) translateZ(22px); }
+.cube__f--top b { transform: none; opacity: calc(var(--p, 0) * var(--p, 0) * .85); }   /* the lid lights up as the cube nears full */
+.cube__f--bottom b { transform: none; opacity: calc(.15 + var(--p, 0) * .7); }
+.cube__pct { font: 700 15px/18px var(--font-ui); font-variant-numeric: tabular-nums; }
+.cube__up { position: absolute; bottom: 10px; font: 700 15px/18px var(--font-ui); color: var(--c-accent); opacity: 0; transform: translateY(4px); transition: opacity 160ms ease, transform 160ms ease; }
+@media (hover: hover) and (pointer: fine) {
+  .cube:hover { border-color: var(--c-accent); }
+  .cube:hover .cube__pct { opacity: 0; } .cube:hover .cube__up { opacity: 1; transform: none; }
+}
+@media (max-width: 720px) { .cube { right: 12px; bottom: 12px; width: 76px; padding: 10px 0 8px; border-radius: 16px; } .cube__stage, .cube__box { width: 36px; height: 36px; }
+  .cube__f--front { transform: translateZ(18px); } .cube__f--back { transform: rotateY(180deg) translateZ(18px); } .cube__f--right { transform: rotateY(90deg) translateZ(18px); }
+  .cube__f--left { transform: rotateY(-90deg) translateZ(18px); } .cube__f--top { transform: rotateX(90deg) translateZ(18px); } .cube__f--bottom { transform: rotateX(-90deg) translateZ(18px); } }
+@media print { .cube { display: none; } }
